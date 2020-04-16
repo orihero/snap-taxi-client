@@ -1,25 +1,40 @@
-import React from 'react'
-import {View, Text, TextInput, StyleSheet, Dimensions} from "react-native"
+import React, {useState} from 'react'
+import {View, Text, TextInput, StyleSheet, Dimensions, ScrollView} from "react-native"
 import SearchIcon from "../assets/images/SearchIcon";
-import ResultIcon from "../assets/images/ResultIcon";
+import SearchResult from "./SearchResult";
+import LocationIcon from "../assets/images/LocationIcon";
 
 const Search = () => {
+    const [value, setValue] = useState();
     return (
         <View>
             <View style={styles.container}>
-                <TextInput style={{width: '90%', color: '#454F63', fontSize: 16}} placeholder={'Куда едем?'}/>
-                <SearchIcon style={{marginLeft: 'auto'}}/>
+                <TextInput
+                    onChangeText={text => setValue(text)}
+                    style={styles.input}
+                    placeholder={'Куда едем?'}
+                />
+                {
+                    value
+                        ? <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
+                            <Text>Карта</Text>
+                            <LocationIcon style={{marginLeft: 10.46}}/>
+                        </View>
+                        : <SearchIcon style={{marginLeft: 'auto'}}/>
+                }
                 <View style={styles.searchBottomFragment}/>
             </View>
-            <View style={styles.searchResult}>
-                <View style={styles.searchResultItem}>
-                    <ResultIcon style={{marginRight: 10}}/>
-                    <View>
-                        <Text style={{color: '#1A1C20', fontSize: 15, fontFamily: 'bold'}}>Mega Planet</Text>
-                        <Text>массив Юнусабад, Юнусабадский район, Ташкент, Узбекистан</Text>
-                    </View>
-                </View>
-            </View>
+            {
+                value ?
+                    <View style={styles.searchResult}>
+                        <ScrollView style={{maxHeight: 500}}>
+                            <SearchResult border={true}/>
+                            <SearchResult border={true}/>
+                            <SearchResult border={true}/>
+                            <SearchResult/>
+                        </ScrollView>
+                    </View> : <></>
+            }
         </View>
     );
 };
@@ -37,6 +52,12 @@ const styles = StyleSheet.create({
         borderRadius: 250,
         justifyContent: 'center'
     },
+    input: {
+        width: '79%',
+        color: '#454F63',
+        fontSize: 16,
+        height: '100%'
+    },
     searchBottomFragment: {
         width: Dimensions.get('window').width - 48,
         backgroundColor: '#fff',
@@ -46,15 +67,14 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     searchResult: {
-        paddingHorizontal: 15,
         alignSelf: 'center',
-    },
-    searchResultItem: {
         width: Dimensions.get('window').width - 64,
         backgroundColor: '#fff',
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
+        paddingBottom: 10,
+        paddingTop: 23,
+        borderBottomEndRadius: 20,
+        borderBottomStartRadius: 20,
+    },
 });
 
 

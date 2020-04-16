@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 function MenuIcon() {
     const navigation = useNavigation();
     return (
-        <TouchableWithoutFeedback onPress={navigation.openDrawer}>
+        <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
             <View style={styles.menu}><Image source={require('./MenuIcon.png')}/></View>
         </TouchableWithoutFeedback>
     )

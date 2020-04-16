@@ -4,6 +4,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import RegistrationScreen from "../screens/RegistrationScreen";
 import MainScreen from "../screens/MainScreen";
+import MapScreen from "../screens/MapScreen";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();

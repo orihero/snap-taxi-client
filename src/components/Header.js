@@ -23,11 +23,12 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        paddingTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginHorizontal: 16
+        paddingHorizontal: 16,
+        backgroundColor: 'rgba(255,255,255, .6)',
     },
     greeting: {
         flexDirection: 'row',
