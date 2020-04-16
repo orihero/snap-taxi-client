@@ -11,25 +11,6 @@ import MapScreen from "./MapScreen";
 
 
 const MainScreen = () => {
-    const [style, setStyles] = useState({});
-    useEffect(() => {
-        Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-        Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-
-        // cleanup function
-        return () => {
-            Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
-            Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
-        };
-    }, []);
-
-    const _keyboardDidShow = () => {
-        setStyles({display: 'none'})
-    };
-
-    const _keyboardDidHide = () => {
-        setStyles({display: 'none'})
-    };
     return (
         <View style={{flex: 1}}>
             <Header/>
@@ -51,18 +32,6 @@ const MainScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    block: {
-        width: 100,
-        height: 100,
-        backgroundColor: '#000'
-    },
-    bottomMenu: {
-        alignContent: 'flex-end'
-    },
-    bottomMenuContent: {
-        height: 125,
-        backgroundColor: '#fff',
-    },
     directions: {
         position: 'absolute',
         top: -52.7,
