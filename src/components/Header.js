@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native'
 import MenuIcon from "../assets/images/MenuIcon";
 import WatcherIcon from "../assets/images/WatcherIcon";
-import Colors from "../assets/styles/Color";
+import Colors from "../assets/styles/Colors";
 import BackButtonIcon from "../assets/images/BackButtonIcon";
 
 const Header = () => {

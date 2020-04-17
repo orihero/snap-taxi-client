@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableNativeFeedback, TouchableHighlight, Platform} from "react-native";
-import Colors from "../assets/styles/Color";
+import Colors from "../assets/styles/Colors";
 
-const Button = ({title, style}) => {
+const Button = ({title, style, onPress}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
     return (
-        <TouchableComponent>
+        <TouchableComponent onPress={onPress}>
             <View style={{...styles.button, ...style}}>
                 <Text style={{color: '#2A1E06', fontWeight: 'bold'}}>{title}</Text>
             </View>

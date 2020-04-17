@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native'
+import {View, StyleSheet, Modal} from 'react-native'
 import Header from "../components/Header";
 import MapScreen from "./MapScreen";
 import SelectedDestination from "../components/SelectedDestination";

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Dimensions, StatusBar, Platform} from "react-native"
-import Colors from "../assets/styles/Color";
+import Colors from "../assets/styles/Colors";
 import Logo from "../assets/images/Logo";
 import PhoneIcon from "../assets/images/PhoneIcon";
 import CloudIcon from "../assets/images/CloudIcon";

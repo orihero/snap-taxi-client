@@ -44,7 +44,7 @@ const Search = () => {
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width - 30,
-    alignSelf: 'center',
+        alignSelf: 'center',
         backgroundColor: '#fff',
         marginTop: 32,
         flexDirection: 'row',

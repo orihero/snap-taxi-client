@@ -1,31 +1,40 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {View, Text, StyleSheet, Dimensions} from "react-native"
 import AddIcon from "./AddIcon";
 import LocationIcon from "../assets/images/LocationIcon";
+import Colors from "../assets/styles/Colors";
+
+export const DestContent = ({containerStyle, style}) => (
+    <View style={[styles.container, containerStyle, style]}>
+        <View style={[styles.icons,  containerStyle && {marginBottom: 30}]}>
+            <LocationIcon/>
+            <View style={styles.smallCircle}/>
+            <View style={styles.smallCircle}/>
+            <View style={styles.smallCircle}/>
+            <View style={styles.smallCircle}/>
+            <View style={styles.circle}/>
+        </View>
+        <View style={{marginLeft: 13, flex: 1}}>
+            <View style={styles.textWrapper}>
+                <Text style={styles.textColor}>Едем из</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={[styles.directionText, containerStyle && {fontSize: 15}]}>Саларская набережаная 35</Text>
+                    <AddIcon style={{marginLeft: 'auto'}}/>
+                </View>
+            </View>
+            <View>
+                <Text style={styles.textColor}>Едем в</Text>
+                <Text style={[styles.directionText,  containerStyle && {fontSize: 15}]}>Дом</Text>
+            </View>
+        </View>
+    </View>
+);
 
 const SelectedDestination = () => {
-    const [value, setValue] = useState();
     return (
         <View>
             <View style={{alignItems: 'center'}}>
-                <View style={styles.container}>
-                    <View>
-                        <LocationIcon/>
-                    </View>
-                    <View style={{marginLeft: 13, flex: 1}}>
-                        <View style={styles.textWrapper}>
-                            <Text style={styles.textColor}>Едем из</Text>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Text style={styles.directionText}>Саларская набережаная 35</Text>
-                                <AddIcon style={{marginLeft: 'auto'}}/>
-                            </View>
-                        </View>
-                        <View>
-                            <Text style={styles.textColor}>Едем в</Text>
-                            <Text style={styles.directionText}>Дом</Text>
-                        </View>
-                    </View>
-                </View>
+                <DestContent style={styles.additionalContainerStyles}/>
                 <View style={styles.searchBottomFragment}/>
             </View>
         </View>
@@ -34,18 +43,19 @@ const SelectedDestination = () => {
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width - 30,
+        borderRadius: 15,
         alignSelf: 'center',
-        backgroundColor: '#fff',
-        marginTop: 22,
         flexDirection: 'row',
-        paddingHorizontal: 17,
         minHeight: 107,
         paddingVertical: 12,
-        borderRadius: 15,
+    },
+    additionalContainerStyles: {
+        width: Dimensions.get('window').width - 30,
+        marginTop: 22,
+        backgroundColor: '#fff',
+        paddingHorizontal: 17,
         elevation: 20,
         zIndex: 2
-
     },
     searchBottomFragment: {
         width: Dimensions.get('window').width - 48,
@@ -70,6 +80,23 @@ const styles = StyleSheet.create({
         borderBottomColor: '#eaecf1',
         paddingBottom: 8,
         marginBottom: 6
+    },
+    circle: {
+        width: 8,
+        height: 8,
+        backgroundColor: Colors.blue,
+        borderRadius: 100
+    },
+    icons: {
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 37
+    },
+    smallCircle: {
+        width: 3,
+        height: 3,
+        backgroundColor: '#B6C5EE',
+        borderRadius: 100
     }
 });
 
