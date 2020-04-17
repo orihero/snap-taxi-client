@@ -8,20 +8,22 @@ const Search = () => {
     const [value, setValue] = useState();
     return (
         <View>
-            <View style={styles.container}>
-                <TextInput
-                    onChangeText={text => setValue(text)}
-                    style={styles.input}
-                    placeholder={'Куда едем?'}
-                />
-                {
-                    value
-                        ? <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
-                            <Text>Карта</Text>
-                            <LocationIcon style={{marginLeft: 10.46}}/>
-                        </View>
-                        : <SearchIcon style={{marginLeft: 'auto'}}/>
-                }
+            <View style={{alignItems: 'center'}}>
+                <View style={styles.container}>
+                    <TextInput
+                        onChangeText={text => setValue(text)}
+                        style={styles.input}
+                        placeholder={'Куда едем?'}
+                    />
+                    {
+                        value
+                            ? <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
+                                <Text>Карта</Text>
+                                <LocationIcon style={{marginLeft: 10.46}}/>
+                            </View>
+                            : <SearchIcon style={{marginLeft: 'auto'}}/>
+                    }
+                </View>
                 <View style={styles.searchBottomFragment}/>
             </View>
             {
@@ -42,7 +44,7 @@ const Search = () => {
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width - 30,
-        marginHorizontal: 15,
+    alignSelf: 'center',
         backgroundColor: '#fff',
         marginTop: 32,
         flexDirection: 'row',
@@ -50,13 +52,16 @@ const styles = StyleSheet.create({
         height: 59,
         paddingHorizontal: 18,
         borderRadius: 250,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        elevation: 20,
+        zIndex: 2
     },
     input: {
         width: '79%',
         color: '#454F63',
         fontSize: 16,
-        height: '100%'
+        height: '100%',
+        zIndex: 1
     },
     searchBottomFragment: {
         width: Dimensions.get('window').width - 48,
@@ -65,6 +70,7 @@ const styles = StyleSheet.create({
         height: 20,
         position: 'absolute',
         bottom: 0,
+        elevation: 20,
     },
     searchResult: {
         alignSelf: 'center',

@@ -11,7 +11,7 @@ const BottomDrawer = ({containerStyle, children}) => {
                 Animated.event([null, {dy: 0}])(evt, gestureState);
             },
             onPanResponderMove: (e, gestureState) => {
-                console.log({moveY: gestureState.moveY, y0: gestureState.y0, dy: gestureState.dy})
+                // console.log({moveY: gestureState.moveY, y0: gestureState.y0, dy: gestureState.dy});
                 if (gestureState.dy < 0) {
                     Animated.event([null, {dy: pan.y}])(e, gestureState);
                 }
@@ -22,7 +22,7 @@ const BottomDrawer = ({containerStyle, children}) => {
                         toValue: {
                             x: 0,
                             y: 0
-                        }
+                        },
                     }).start();
             }
         })
@@ -30,10 +30,10 @@ const BottomDrawer = ({containerStyle, children}) => {
     const panStyle = {transform: pan.getTranslateTransform()};
     return (
         <Animated.View
-            onLayout={(event) => {
-                const {y, height} = event.nativeEvent.layout;
-                setInitialCoordinates(height)
-            }}
+            // onLayout={(event) => {
+            //     const {y, height} = event.nativeEvent.layout;
+            //     setInitialCoordinates(height)
+            // }}
             style={{
                 ...styles.animationContainerContainer,
                 ...containerStyle,

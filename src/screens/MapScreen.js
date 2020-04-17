@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Text, StyleSheet} from "react-native"
-import MapView from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, {Marker} from 'react-native-maps';
 
 const MapScreen = () => {
     const mapStyle = [
@@ -162,7 +162,17 @@ const MapScreen = () => {
                 }
             ]
         }
-    ]
+    ];
+    const [coordinates, setCoordinates] = useState({
+        x: {
+            latitude: 37.78825,
+            longitude: -122.4324,
+        },
+        y: {
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+        }
+    });
     return (
         <View style={styles.container}>
             <MapView
@@ -175,6 +185,14 @@ const MapScreen = () => {
                 }}
                 customMapStyle={mapStyle}
             >
+                {/*<Marker*/}
+                {/*    draggable*/}
+                {/*    coordinate={coordinates.x}*/}
+                {/*    onDragEnd={(e) => {*/}
+                {/*        setCoordinates({x: e.nativeEvent.coordinate})*/}
+                {/*        console.warn(e.nativeEvent.coordinate)*/}
+                {/*    }}*/}
+                {/*/>*/}
             </MapView>
         </View>
     )
@@ -183,8 +201,10 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
     container: {
         ...StyleSheet.absoluteFillObject,
-        width: '100%',
-        height: '100%',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
         position: 'absolute',
         zIndex: -1
     },

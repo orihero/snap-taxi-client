@@ -3,12 +3,14 @@ import {View, Text, StyleSheet, StatusBar} from 'react-native'
 import MenuIcon from "../assets/images/MenuIcon";
 import WatcherIcon from "../assets/images/WatcherIcon";
 import Colors from "../assets/styles/Color";
+import BackButtonIcon from "../assets/images/BackButtonIcon";
 
 const Header = () => {
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'}/>
+            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
             <MenuIcon/>
+            {/*<BackButtonIcon/>*/}
             <View>
                 <View style={styles.greeting}>
                     <Text style={{color: '#232323', marginRight: 6}}>Доброе утро</Text>
