@@ -4,7 +4,7 @@ import Svg, {Defs, ClipPath, Path, G} from "react-native-svg"
 
 function BottomMenuCurve(props) {
     return (
-        <View style={{ width: props.width, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginTop: 1}}>
+        <View style={{ width: props.width, flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginBottom: -1}}>
             <View style={{backgroundColor: '#fff', height: 15.224, flex: 1, borderTopLeftRadius: 15}}/>
             <Svg width={70.508} height={15.224} viewBox="0 0 70.508 15.224">
                 <View style={{position: 'absolute', backgroundColor: '#fff', height: 15.224, left: 0, width: 1}}/>

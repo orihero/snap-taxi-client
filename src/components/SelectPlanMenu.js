@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         borderBottomStartRadius: 15,
         paddingBottom: 23,
         paddingHorizontal: 13,
-        paddingTop: 28
+        paddingTop: 13
     },
     column: {
         width: '48.5%'

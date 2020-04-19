@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableWithoutFeedback} from "react-native"
 import Colors from "../assets/styles/Colors";
-import InfoIcon from "./InfoIcon";
+import InfoIcon from "../assets/images/InfoIcon";
 
 const CarItem = ({active, onInfoPress, onPress}) => {
     return (

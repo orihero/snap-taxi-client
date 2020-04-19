@@ -6,7 +6,7 @@ import Colors from "../assets/styles/Colors";
 
 export const DestContent = ({containerStyle, style}) => (
     <View style={[styles.container, containerStyle, style]}>
-        <View style={[styles.icons,  containerStyle && {marginBottom: 30}]}>
+        <View style={styles.icons}>
             <LocationIcon/>
             <View style={styles.smallCircle}/>
             <View style={styles.smallCircle}/>
@@ -18,13 +18,13 @@ export const DestContent = ({containerStyle, style}) => (
             <View style={styles.textWrapper}>
                 <Text style={styles.textColor}>Едем из</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={[styles.directionText, containerStyle && {fontSize: 15}]}>Саларская набережаная 35</Text>
+                    <Text style={styles.directionText}>Саларская набережаная 35</Text>
                     <AddIcon style={{marginLeft: 'auto'}}/>
                 </View>
             </View>
             <View>
                 <Text style={styles.textColor}>Едем в</Text>
-                <Text style={[styles.directionText,  containerStyle && {fontSize: 15}]}>Дом</Text>
+                <Text style={styles.directionText}>Дом</Text>
             </View>
         </View>
     </View>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         color: '#aaaeb7',
     },
     directionText: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#232323',
         fontWeight: 'bold',
     },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     icons: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 37
+        marginBottom: 30
     },
     smallCircle: {
         width: 3,

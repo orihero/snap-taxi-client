@@ -6,6 +6,7 @@ import SelectedDestination from "../components/SelectedDestination";
 import BottomDrawerMenu from "../components/BottomDrawerMenu";
 import SelectPlanMenu from "../components/SelectPlanMenu";
 import Search from "../components/Search";
+import CarOrder from "../components/CarOrder";
 
 
 const MainScreen = () => {
@@ -18,7 +19,8 @@ const MainScreen = () => {
                 {/*<Search/>*/}
                 {/*<BottomDrawerMenu/>*/}
                 <SelectedDestination/>
-                <SelectPlanMenu/>
+                {/*<SelectPlanMenu/>*/}
+                <CarOrder/>
             </View>
         </>
     );
