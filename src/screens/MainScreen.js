@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Modal} from 'react-native'
+import {View, StatusBar} from 'react-native'
 import Header from "../components/Header";
 import MapScreen from "./MapScreen";
 import SelectedDestination from "../components/SelectedDestination";
@@ -10,18 +10,19 @@ import Search from "../components/Search";
 
 const MainScreen = () => {
     return (
-        <View style={{flex: 1}}>
-            <MapScreen/>
-            <Header/>
-            {/*<Search/>*/}
-            {/*<BottomDrawerMenu/>*/}
-            <SelectedDestination/>
-            <SelectPlanMenu/>
-        </View>
+        <>
+            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
+            <View style={{flex: 1}}>
+                <MapScreen/>
+                <Header/>
+                {/*<Search/>*/}
+                {/*<BottomDrawerMenu/>*/}
+                <SelectedDestination/>
+                <SelectPlanMenu/>
+            </View>
+        </>
     );
 };
 
-const styles = StyleSheet.create({
-});
 
 export default MainScreen;

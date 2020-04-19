@@ -8,7 +8,6 @@ import BackButtonIcon from "../assets/images/BackButtonIcon";
 const Header = () => {
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
             <MenuIcon/>
             {/*<BackButtonIcon/>*/}
             <View>

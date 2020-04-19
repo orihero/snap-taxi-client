@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Dimensions, StatusBar, Platform} from "react-native"
-import Colors from "../assets/styles/Colors";
-import Logo from "../assets/images/Logo";
-import PhoneIcon from "../assets/images/PhoneIcon";
-import CloudIcon from "../assets/images/CloudIcon";
-import Button from "../components/Button";
+import Colors from "../../assets/styles/Colors";
+import Logo from "../../assets/images/Logo";
+import PhoneIcon from "../../assets/images/PhoneIcon";
+import CloudIcon from "../../assets/images/CloudIcon";
+import Button from "../../components/Button";
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({navigation}) => {
     const [selectedValue, setSelectedValue] = useState();
     return (
         <KeyboardAvoidingView style={{flex: 1}} behavior={'position'}>
@@ -21,9 +21,9 @@ const RegistrationScreen = () => {
             <View style={styles.registrationContainer}>
                 <View style={{alignItems: 'center'}}>
                     <Text style={{color: '#232323'}}>Здраствуйте, мы рады что Вы выбрали нас</Text>
-                    <Text style={{color: '#232323', fontSize: 24, marginBottom: 46, fontWeight: 'bold'}}>Давайте
-                        зарегистрируем
-                        Вас</Text>
+                    <Text style={{color: '#232323', fontSize: 20, marginBottom: 46, fontWeight: 'bold'}}>
+                        Давайте зарегистрируем Вас
+                    </Text>
                 </View>
                 <View style={styles.registrationForm}>
                     <PhoneIcon style={{marginLeft: 18, marginRight: 15.73}}/>
@@ -41,6 +41,7 @@ const RegistrationScreen = () => {
                 <Button
                     title={'Отправить'}
                     style={{marginBottom: 20}}
+                    onPress={() => navigation.navigate('RegistrationConfirmation')}
                 />
             </View>
         </KeyboardAvoidingView>
@@ -68,12 +69,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 84,
-        ...Platform.select({
-            android: {
-                borderBottomColor: '#232323',
-                borderBottomWidth: 1,
-            }
-        })
+        backgroundColor: '#fff',
+        elevation: 10,
     },
 });
 

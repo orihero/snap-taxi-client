@@ -13,12 +13,12 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
     const [smoke, setSmoke] = useState(false);
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
-            <AdditionalOptionsModalIcon style={{marginTop: 25.7, alignSelf: 'center', marginBottom: 21.7}}/>
+            <AdditionalOptionsModalIcon style={styles.icon}/>
             <Text style={styles.heading}>Информация о тарифе</Text>
             <DestContent containerStyle={{marginHorizontal: 10}} textStyle={{fontSize: 15}}/>
             <View style={[styles.option, {borderTopWidth: 1}]}>
                 <AirConditionIcon style={{marginRight: 11.4}} color={airCondition ? Colors.blue : '#000'}/>
-                <Text>Кондиционер</Text>
+                <Text style={{color: smoke ? Colors.blue : '#000'}}>Кондиционер</Text>
                 <Switch
                     trackColor={{false: '#ECECEC', true: '#ECECEC'}}
                     thumbColor={airCondition ? Colors.blue : "#ECECEC"}
@@ -29,7 +29,7 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
             </View>
             <View style={styles.option}>
                 <SmokeIcon style={{marginRight: 20}} color={smoke ? Colors.blue : '#000'}/>
-                <Text>Авто для курящих</Text>
+                <Text style={{color: smoke ? Colors.blue : '#000'}}>Авто для курящих</Text>
                 <Switch
                     trackColor={{false: '#ECECEC', true: '#ECECEC'}}
                     thumbColor={smoke ? Colors.blue : "#ECECEC"}
@@ -48,6 +48,11 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
 };
 
 const styles = StyleSheet.create({
+    icon: {
+        marginTop: 25.7,
+        alignSelf: 'center',
+        marginBottom: 21.7
+    },
     heading: {
         fontSize: 22,
         fontWeight: 'bold',
