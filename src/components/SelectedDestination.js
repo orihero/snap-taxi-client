@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     icons: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 30
+        marginBottom: 30,
+        marginTop: 3
     },
     smallCircle: {
         width: 3,

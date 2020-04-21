@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Switch} from "react-native"
-import ProfileSettingsIcon from "../components/ProfileSettingsIcon";
+import ProfileSettingsIcon from "../assets/images/ProfileSettingsIcon";
 import Colors from "../assets/styles/Colors";
 import TrafficJamsIcon from "../assets/images/TrafficJamsIcon";
 import AcceptCallIcon from "../assets/images/AcceptCallIcon";
@@ -80,9 +80,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 10,
-        backgroundColor: '#fff',
         elevation: 2,
-        marginBottom: 19
+        marginBottom: 19,
+        backgroundColor: Colors.background,
+        borderWidth: 2,
+        borderColor: '#fff'
     },
     text: {
         fontSize: 16,

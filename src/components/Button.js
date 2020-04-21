@@ -5,13 +5,15 @@ import Colors from "../assets/styles/Colors";
 const Button = ({title, style, onPress, texStyle, shadow}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
     return (
-        <TouchableComponent
-            onPress={onPress}
-        >
-            <View style={{...styles.button, ...style, elevation: shadow && 4}}>
-                <Text style={[{color: '#2A1E06', fontWeight: 'bold'}, texStyle]}>{title}</Text>
-            </View>
-        </TouchableComponent>
+        <View style={{borderRadius: 10, overflow: 'hidden', width: '100%', elevation: shadow && 4}}>
+            <TouchableComponent
+                onPress={onPress}
+            >
+                <View style={{...styles.button, ...style}}>
+                    <Text style={[{color: '#2A1E06', fontWeight: 'bold'}, texStyle]}>{title}</Text>
+                </View>
+            </TouchableComponent>
+        </View>
     );
 };
 

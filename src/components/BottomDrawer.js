@@ -11,7 +11,6 @@ const BottomDrawer = ({containerStyle, children}) => {
                 Animated.event([null, {dy: 0}])(evt, gestureState);
             },
             onPanResponderMove: (e, gestureState) => {
-                // console.log({moveY: gestureState.moveY, y0: gestureState.y0, dy: gestureState.dy});
                 if (gestureState.dy < 0) {
                     Animated.event([null, {dy: pan.y}])(e, gestureState);
                 }

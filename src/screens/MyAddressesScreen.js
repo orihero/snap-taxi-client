@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from "react-native"
-import MyAddressesIcon from "../components/MyAddressesIcon";
+import MyAddressesIcon from "../assets/images/MyAddressesIcon";
 import HomeIcon from "../assets/images/HomeIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
 import BagIcon from "../assets/images/BagIcon";

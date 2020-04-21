@@ -2,6 +2,7 @@ import React from 'react';
 import MyAddressesScreen from "../../screens/MyAddressesScreen";
 import PageHeader from "../../components/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
+import Colors from "../../assets/styles/Colors";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -12,7 +13,7 @@ const MyAddressesStack = () => (
             component={MyAddressesScreen}
             options={{
                 header: (props) => <PageHeader title={'Мои адреса'} {...props}/>,
-                cardStyle: {backgroundColor: '#fff'}
+                cardStyle: {backgroundColor: Colors.background}
             }}
         />
     </Navigator>

@@ -1,6 +1,7 @@
 import * as React from "react"
 import Svg, {Path} from "react-native-svg"
 import {View, StyleSheet} from "react-native"
+import Colors from "../styles/Colors";
 
 function BackButtonIcon({style, ...restProps}) {
     return (
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 42,
         height: 42,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.background,
         borderRadius: 250,
         justifyContent: 'center',
         alignItems: 'center'

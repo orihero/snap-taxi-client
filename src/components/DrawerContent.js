@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableWithoutFeedback} from "react-native"
 import React from "react";
 import routes from "../navigation/DrawerNavigation/routes";
 import UserInfo from "./UserInfo";
+import Colors from "../assets/styles/Colors";
 
 
 const DrawerContent = (props) => {
@@ -12,7 +13,7 @@ const DrawerContent = (props) => {
                 {
                     routes.map((route, item) => {
                         return (
-                            route.label &&
+                            route.label && !route.link &&
                             <DrawerItem
                                 key={route.label}
                                 label={route.label}
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
         paddingLeft: 14,
         paddingRight: 41,
         flex: 1,
-        paddingBottom: 35
+        paddingBottom: 35,
+        backgroundColor: Colors.background,
     },
     itemStyle: {
         paddingBottom: 14,

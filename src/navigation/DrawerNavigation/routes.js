@@ -4,6 +4,9 @@ import MyAddressesStack from "../StackNavigators/MyAddressesStack";
 import SettingsStack from "../StackNavigators/SettingsStack";
 import RegistrationStack from "../StackNavigators/RegistrationStack";
 import MainStack from "../StackNavigators/MainStack";
+import MyTripsStack from "../StackNavigators/MyTripsStack";
+import RateTripScreen from "../../screens/RateTripScreen";
+import Container from "../../components/Container";
 
 const routes = [
     {
@@ -28,8 +31,8 @@ const routes = [
     },
     {
         label: "Мои поездки",
-        name: 'MyTrip',
-        component: RegistrationStack
+        name: 'MyTrips',
+        component: MyTripsStack
     },
     {
         label: "Настройки",
@@ -39,7 +42,7 @@ const routes = [
     {
         label: "Стать водителем",
         name: 'BeDriverStack',
-        component: RegistrationStack
+        component: RateTripScreen
     },
     {
         label: "Служба поддержки",

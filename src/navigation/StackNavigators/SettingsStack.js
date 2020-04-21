@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from "@react-navigation/stack";
 import SettingsScreen from "../../screens/SettingsScreen";
 import PageHeader from "../../components/PageHeader";
+import Colors from "../../assets/styles/Colors";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -12,7 +13,7 @@ const SettingsStack = () => (
             component={SettingsScreen}
             options={{
                 header: (props) => <PageHeader title={'Настройки'} {...props}/>,
-                cardStyle: {backgroundColor: '#fff'}
+                cardStyle: {backgroundColor: Colors.background}
             }}
         />
     </Navigator>

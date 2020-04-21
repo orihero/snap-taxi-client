@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from "react-native"
 import DiscountIcon from "../assets/images/DiscountIcon";
 import Button from "../components/Button";
+import Colors from "../assets/styles/Colors";
 
 const DiscountsScreen = () => {
     return (
@@ -30,8 +31,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 10,
-        backgroundColor: '#fff',
-        elevation: 2
+        backgroundColor: Colors.background,
+        elevation: 2,
+        borderWidth: 2,
+        borderColor: '#fff'
     },
     text: {
         fontSize: 16,

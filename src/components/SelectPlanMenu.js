@@ -8,6 +8,7 @@ import CarItem from "./CarItem";
 import PlanItemInfoModal from "./PlanItemInfoModal";
 import AdditionalOptionsModal from "./AdditionalOptionsModal";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
+import Colors from "../assets/styles/Colors";
 
 const Dots = () => {
     return (
@@ -78,11 +79,8 @@ const SelectPlanMenu = () => {
                         <View style={styles.column}>
                             <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>
                                 <View style={styles.additional}>
-
-                                    <>
-                                        <Text style={styles.text}>Дополнительно</Text>
-                                        <AddIcon color={'#575f6b'}/>
-                                    </>
+                                    <Text style={styles.text}>Дополнительно</Text>
+                                    <AddIcon color={'#575f6b'}/>
                                 </View>
                             </TouchableWithoutFeedback>
                             <Button title={'Для друга'} style={{backgroundColor: '#f2f2f2'}}/>
@@ -95,57 +93,60 @@ const SelectPlanMenu = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        width: Dimensions.get('window').width - 32,
-        alignSelf: 'center',
-        backgroundColor: '#fff',
-        marginTop: 'auto',
-        marginBottom: 12,
-        borderBottomEndRadius: 15,
-        borderBottomStartRadius: 15,
-        paddingBottom: 23,
-        paddingHorizontal: 13,
-        paddingTop: 13
-    },
-    column: {
-        width: '48.5%'
-    },
-    findCar: {
-        flexDirection: 'row',
-        marginBottom: 24,
-        alignItems: 'center'
-    },
-    text: {
-        fontWeight: 'bold',
-        fontSize: 13
-    },
-    additional: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 24,
-        alignItems: 'center'
-    },
-    dot: {
-        width: 2,
-        height: 2,
-        marginLeft: 2,
-        backgroundColor: '#000',
-        borderRadius: 100
-    },
-    cardNumber: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        flex: 1,
-        marginRight: 20
-    },
-    dots: {
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    plan: {
-        marginBottom: 24
-    },
-
-});
+        container: {
+            width: Dimensions.get('window').width - 32,
+            alignSelf: 'center',
+            backgroundColor: Colors.background,
+            marginTop: 'auto',
+            marginBottom: 12,
+            borderBottomEndRadius: 15,
+            borderBottomStartRadius: 15,
+            paddingBottom: 23,
+            paddingHorizontal: 13,
+            paddingTop: 13,
+            borderWidth: 2,
+            borderColor: '#fff',
+            borderTopWidth: 0
+        },
+        column: {
+            width: '48.5%'
+        },
+        findCar: {
+            flexDirection: 'row',
+            marginBottom: 24,
+            alignItems: 'center'
+        },
+        text: {
+            fontWeight: 'bold',
+            fontSize: 13
+        },
+        additional: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: 24,
+            alignItems: 'center'
+        },
+        dot: {
+            width: 2,
+            height: 2,
+            marginLeft: 2,
+            backgroundColor: '#000',
+            borderRadius: 100
+        },
+        cardNumber: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            flex: 1,
+            marginRight: 20
+        },
+        dots: {
+            alignItems: 'center',
+            flexDirection: 'row'
+        },
+        plan: {
+            marginBottom: 24
+        }
+    })
+;
 
 export default SelectPlanMenu;

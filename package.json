@@ -30,6 +30,7 @@
     "react-native-screens": "2.4.0",
     "react-native-shadow": "1.2.2",
     "react-native-svg": "12.1.0",
+    "react-native-swipeable": "0.6.0",
     "react-navigation-transitions": "1.0.12",
     "react-redux": "7.2.0",
     "redux": "4.0.5",
