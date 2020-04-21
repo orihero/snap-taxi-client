@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableNativeFeedback, TouchableHighlight, Platform} from "react-native";
 import Colors from "../assets/styles/Colors";
 
-const Button = ({title, style, onPress, texStyle, shadow}) => {
+const Button = ({title, style, containerStyle, onPress, texStyle, shadow}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
     return (
-        <View style={{borderRadius: 10, overflow: 'hidden', width: '100%', elevation: shadow && 4}}>
+        <View style={{borderRadius: 10, overflow: 'hidden', width: '100%', elevation: shadow && 4, ...containerStyle}}>
             <TouchableComponent
                 onPress={onPress}
             >

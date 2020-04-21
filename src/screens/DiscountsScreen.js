@@ -13,7 +13,7 @@ const DiscountsScreen = () => {
             </View>
             <Button
                 title={'Применить'}
-                style={{marginTop: 'auto', marginBottom: 50}}
+                containerStyle={{marginTop: 'auto', marginBottom: 50}}
                 texStyle={{fontWeight: '600'}}
             />
         </View>

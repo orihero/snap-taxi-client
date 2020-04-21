@@ -63,7 +63,7 @@ const SettingsScreen = () => {
             </View>
             <Button
                 title={'Очистить  кэш карт'}
-                style={{marginTop: 'auto', marginBottom: 50}}
+                containerStyle={{marginTop: 'auto', marginBottom: 50}}
                 texStyle={{fontWeight: '600'}}
             />
         </View>

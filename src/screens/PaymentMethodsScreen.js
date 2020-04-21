@@ -51,7 +51,7 @@ const PaymentMethodsScreen = ({navigation}) => {
             }
             <Button
                 title={'Добавить карту'}
-                style={{marginTop: 'auto', marginBottom: 50}}
+                containerStyle={{marginTop: 'auto', marginBottom: 50}}
                 texStyle={{fontWeight: '600'}}
                 onPress={() => navigation.navigate('AddCard')}
             />
