@@ -1,16 +1,17 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableWithoutFeedback} from "react-native"
+import {View, Image, StyleSheet, TouchableWithoutFeedback} from "react-native"
 import Colors from "../assets/styles/Colors";
 import InfoIcon from "../assets/images/InfoIcon";
+import {Bold, Light} from "./Layout/AppText";
 
 const CarItem = ({active, onInfoPress, onPress}) => {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
-                    <Text style={[styles.text, active && styles.activeText]}>Эконом</Text>
-                    <Text style={[styles.text, active && styles.activeText]}>от 5 000</Text>
-                    <Text style={[{fontSize: 12}, active && {color: '#fff'}]}>5 мин</Text>
+                    <Bold style={[styles.text, active && styles.activeText]}>Эконом</Bold>
+                    <Bold style={[styles.text, active && styles.activeText]}>от 5 000</Bold>
+                    <Light style={[{fontSize: 12}, active && {color: '#fff'}]}>5 мин</Light>
                 </View>
                 <TouchableWithoutFeedback onPress={onInfoPress}>
                     <InfoIcon style={{position: 'absolute', right: 4.4, top: 3.4}}/>
@@ -34,12 +35,12 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 12,
-        fontWeight: 'bold'
+        lineHeight: 15
     },
     img: {
         position: 'absolute',
         right: -27,
-        bottom: 5.2
+        bottom: 4
     },
     activeContainerStyle: {
         backgroundColor: Colors.blue

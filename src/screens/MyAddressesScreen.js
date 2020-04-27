@@ -5,6 +5,7 @@ import HomeIcon from "../assets/images/HomeIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
 import BagIcon from "../assets/images/BagIcon";
 import CartIcon from "../assets/images/CartIcon";
+import {Bold, Light} from "../components/Layout/AppText";
 
 const MyAddressesScreen = () => {
     return (
@@ -14,24 +15,24 @@ const MyAddressesScreen = () => {
                 <View style={styles.addressItem}>
                     <HomeIcon style={styles.icon}/>
                     <View>
-                        <Text style={{color: '#AAAEB7'}}>Дом</Text>
-                        <Text style={{fontWeight: 'bold'}}>Саид барака 6</Text>
+                        <Light style={{color: '#AAAEB7'}}>Дом</Light>
+                        <Bold style={{fontWeight: 'bold'}}>Саид барака 6</Bold>
                     </View>
                     <ArrowIcon style={{marginLeft: 'auto'}}/>
                 </View>
                 <View style={styles.addressItem}>
                     <BagIcon style={styles.icon}/>
                     <View>
-                        <Text style={{color: '#AAAEB7'}}>Работа</Text>
-                        <Text style={{fontWeight: 'bold'}}>Саларская набережаная 35</Text>
+                        <Light style={{color: '#AAAEB7'}}>Работа</Light>
+                        <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
                     </View>
                     <ArrowIcon style={{marginLeft: 'auto'}}/>
                 </View>
                 <View style={styles.addressItem}>
                     <CartIcon style={styles.icon}/>
                     <View>
-                        <Text style={{color: '#AAAEB7'}}>Дом</Text>
-                        <Text style={{fontWeight: 'bold'}}>Саларская набережаная 35</Text>
+                        <Light style={{color: '#AAAEB7'}}>Дом</Light>
+                        <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
                     </View>
                     <ArrowIcon style={{marginLeft: 'auto'}}/>
                 </View>

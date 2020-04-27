@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, Dimensions, StyleSheet, ScrollView, TouchableWithoutFeedback} from "react-native"
+import {View, Dimensions, StyleSheet, ScrollView, TouchableWithoutFeedback} from "react-native"
+import {useNavigation} from "@react-navigation/native"
 import Button from "./Button";
 import AddIcon from "./AddIcon";
 import UzcardIcon from "../assets/images/UzcardIcon";
@@ -9,6 +10,9 @@ import PlanItemInfoModal from "./PlanItemInfoModal";
 import AdditionalOptionsModal from "./AdditionalOptionsModal";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
+import {Bold, Regular} from "./Layout/AppText";
+import {ORDER} from "../store/constants/Taxi";
+import {connect} from "react-redux";
 
 const Dots = () => {
     return (
@@ -20,7 +24,8 @@ const Dots = () => {
     )
 };
 
-const SelectPlanMenu = () => {
+const SelectPlanMenu = ({dispatch}) => {
+    const navigation = useNavigation();
     const [visiblePlanModal, setVisiblePlanModal] = useState(false);
     const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
     const [active, setActive] = useState({0: true});
@@ -44,46 +49,48 @@ const SelectPlanMenu = () => {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
                         >
-                            <CarItem
-                                onPress={() => setActive({0: true})}
-                                active={active[0]}
-                                onInfoPress={() => setVisiblePlanModal(true)}
-                            />
-                            <CarItem
-                                onPress={() => setActive({1: true})}
-                                active={active[1]}
-                                onInfoPress={() => setVisiblePlanModal(true)}
-                            />
-                            <CarItem
-                                onPress={() => setActive({2: true})}
-                                active={active[2]}
-                                onInfoPress={() => setVisiblePlanModal(true)}
-                            />
-
+                            {
+                                [...new Array(3)].map((item, index) => (
+                                    <CarItem
+                                        key={index}
+                                        onPress={() => setActive({[index]: true})}
+                                        active={active[index]}
+                                        onInfoPress={() => setVisiblePlanModal(true)}
+                                    />
+                                ))
+                            }
                         </ScrollView>
                     </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 13,}}>
                         <View style={styles.column}>
-                            <View style={styles.findCar}>
-                                <UzcardIcon style={{marginRight: 16.6}}/>
-                                <View style={styles.cardNumber}>
-                                    <Dots/>
-                                    <Dots/>
-                                    <Dots/>
-                                    <Text style={styles.text}>8797</Text>
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('PaymentMethodsStack')}>
+                                <View style={styles.findCar}>
+                                    <UzcardIcon style={{marginRight: 16.6}}/>
+                                    <View style={styles.cardNumber}>
+                                        <Dots/>
+                                        <Dots/>
+                                        <Dots/>
+                                        <Regular style={styles.text}>8797</Regular>
+                                    </View>
+                                    <ArrowIcon style={{marginLeft: 'auto'}}/>
                                 </View>
-                                <ArrowIcon style={{marginLeft: 'auto'}}/>
-                            </View>
-                            <Button title={'Найти такси'} shadow/>
+                            </TouchableWithoutFeedback>
+                            <Button
+                                title={'Найти такси'}
+                                onPress={() => dispatch({type: ORDER.SUCCESS})}
+                            />
                         </View>
                         <View style={styles.column}>
                             <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>
                                 <View style={styles.additional}>
-                                    <Text style={styles.text}>Дополнительно</Text>
+                                    <Bold style={styles.text}>Дополнительно</Bold>
                                     <AddIcon color={'#575f6b'}/>
                                 </View>
                             </TouchableWithoutFeedback>
-                            <Button title={'Для друга'} style={{backgroundColor: '#f2f2f2'}}/>
+                            <Button
+                                title={'Для друга'}
+                                containerStyle={{backgroundColor: '#f2f2f2',}}
+                            />
                         </View>
                     </View>
                 </View>
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
             borderBottomEndRadius: 15,
             borderBottomStartRadius: 15,
             paddingBottom: 23,
-            paddingHorizontal: 13,
             paddingTop: 13,
             borderWidth: 2,
             borderColor: '#fff',
@@ -117,7 +123,6 @@ const styles = StyleSheet.create({
             alignItems: 'center'
         },
         text: {
-            fontWeight: 'bold',
             fontSize: 13
         },
         additional: {
@@ -144,9 +149,10 @@ const styles = StyleSheet.create({
             flexDirection: 'row'
         },
         plan: {
-            marginBottom: 24
+            marginBottom: 24,
+            paddingLeft: 13
         }
     })
 ;
 
-export default SelectPlanMenu;
+export default connect()(SelectPlanMenu);

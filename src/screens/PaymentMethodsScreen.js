@@ -1,42 +1,41 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from "react-native"
+import {View, StyleSheet, TouchableWithoutFeedback} from "react-native"
 import WalletIcon from "../assets/images/WalletIcon";
 import Colors from "../assets/styles/Colors";
-import CardIcon from "../assets/images/CardIcon";
 import Button from "../components/Button";
-import UzcardIcon from "../assets/images/UzcardIcon";
 import CardItem from "../components/CardItem";
+import {Bold} from "../components/Layout/AppText";
 
-const RadioButton = ({selected, onPress}) => {
+const RadioButton = ({selected}) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
-            <View style={[styles.radioButton, selected && {borderColor: Colors.blue}]}>
-                {selected && <View style={{width: 13, height: 13, borderRadius: 100, backgroundColor: '#3AB7E7'}}/>}
-            </View>
-        </TouchableWithoutFeedback>
+        <View style={[styles.radioButton, selected && {borderColor: Colors.blue}]}>
+            {selected && <View style={{width: 13, height: 13, borderRadius: 100, backgroundColor: '#3AB7E7'}}/>}
+        </View>
     )
 };
+
+
+const PaymentType = ({selected, label, onPress}) => (
+    <TouchableWithoutFeedback onPress={onPress}>
+        <View style={styles.option}>
+            <WalletIcon style={{marginRight: 20}} color={selected ? Colors.blue : '#000'}/>
+            <Bold style={{color: selected ? Colors.blue : Colors.text, fontSize: 15}}>
+                {label}
+            </Bold>
+            <RadioButton selected={selected} onPress={onPress}/>
+        </View>
+    </TouchableWithoutFeedback>
+);
 
 const PaymentMethodsScreen = ({navigation}) => {
     const [payment, setPayment] = useState({0: true});
     const [card, setCard] = useState({0: true});
 
+
     return (
         <View style={styles.container}>
-            <View style={styles.option}>
-                <WalletIcon style={{marginRight: 20}} color={payment[0] ? Colors.blue : '#000'}/>
-                <Text style={{color: payment[0] ? Colors.blue : '#000', fontWeight: 'bold', fontSize: 15}}>
-                    Наличность
-                </Text>
-                <RadioButton selected={payment[0]} onPress={() => setPayment({0: true})}/>
-            </View>
-            <View style={styles.option}>
-                <CardIcon style={{marginRight: 20}} color={payment[1] ? Colors.blue : '#000'}/>
-                <Text style={{color: payment[1] ? Colors.blue : '#000', fontWeight: 'bold', fontSize: 15}}>
-                    Картой
-                </Text>
-                <RadioButton selected={payment[1]} onPress={() => setPayment({1: true})}/>
-            </View>
+            <PaymentType onPress={() => setPayment({0: true})} selected={payment[0]} label={'Наличность'}/>
+            <PaymentType onPress={() => setPayment({1: true})} selected={payment[1]} label={'Картой'}/>
             {
                 payment[1] && <View style={styles.cards}>
                     <CardItem

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, StyleSheet, TextInput} from "react-native"
 import DiscountIcon from "../assets/images/DiscountIcon";
 import Button from "../components/Button";
 import Colors from "../assets/styles/Colors";
@@ -9,7 +9,7 @@ const DiscountsScreen = () => {
         <View style={styles.container}>
             <View style={styles.row}>
                 <DiscountIcon style={{marginRight: 18}}/>
-                <Text style={styles.text}>Ввести промокод</Text>
+                <TextInput style={styles.text} placeholder={'Ввести промокод'}/>
             </View>
             <Button
                 title={'Применить'}

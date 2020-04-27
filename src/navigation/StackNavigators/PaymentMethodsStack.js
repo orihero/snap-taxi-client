@@ -13,7 +13,7 @@ const PaymentMethodsStack = () => (
             name="PaymentMethods"
             component={PaymentMethodsScreen}
             options={{
-                header: (props) => <PageHeader title={'Настройки'} {...props}/>,
+                header: (props) => <PageHeader title={'Способ оплаты'} {...props}/>,
                 cardStyle: {backgroundColor: Colors.background}
             }}
         />

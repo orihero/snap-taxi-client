@@ -15,9 +15,7 @@ const MainStack = () => (
             name="Home"
             component={MainScreen}
             options={{
-                header: (props) => <Header {...props}/>,
-                headerTransparent: true,
-                cardStyle: {backgroundColor: '#fff'},
+                headerShown: false
             }}
         />
 

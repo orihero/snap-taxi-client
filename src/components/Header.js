@@ -1,25 +1,32 @@
-import React from 'react';
-import {View, Text, StyleSheet, StatusBar} from 'react-native'
+import React, {useEffect} from 'react';
+import {View, StyleSheet, StatusBar} from 'react-native'
 import MenuIcon from "../assets/images/MenuIcon";
 import WatcherIcon from "../assets/images/WatcherIcon";
 import Colors from "../assets/styles/Colors";
-import BackButtonIcon from "../assets/images/BackButtonIcon";
 import GradientBackground from "../assets/images/GradientBackground";
+import {Bold, SemiBold} from "./Layout/AppText";
+import BackButtonIcon from "../assets/images/BackButtonIcon";
 
-const Header = ({navigation}) => {
+const Header = ({navigation, ...rest}) => {
+    useEffect(() => {
+        const navListener = navigation.addListener('focus', () => {
+            StatusBar.setBarStyle('dark-content');
+            StatusBar.setBackgroundColor('#fff');
+        });
+        return navListener
+    }, [navigation]);
     return (
         <>
-            <GradientBackground style={{position: 'absolute', alignSelf: 'center'}}/>
-            <View style={styles.container}>
+            <GradientBackground style={styles.gradient}/>
+            <View style={styles.container} {...rest}>
                 <MenuIcon onPress={() => navigation.openDrawer()}/>
                 {/*<BackButtonIcon/>*/}
                 <View>
                     <View style={styles.greeting}>
-                        <Text style={{color: '#232323', marginRight: 6}}>Доброе утро</Text>
-                        <Text style={{color: Colors.blue}}>Александр</Text>
+                        <SemiBold style={styles.goodMorning}>Доброе утро</SemiBold>
+                        <SemiBold style={{color: Colors.blue}}>Александр</SemiBold>
                     </View>
-                    <Text style={{color: '#232323', fontSize: 17, fontWeight: 'bold', lineHeight: 20}}>Куда мы
-                        едем?</Text>
+                    <Bold style={styles.where}>Куда мы едем?</Bold>
                 </View>
                 <View style={styles.watcher}><WatcherIcon/></View>
             </View>
@@ -44,7 +51,23 @@ const styles = StyleSheet.create({
         width: 42,
         height: 42,
         borderRadius: 100,
-        backgroundColor: '#fff'
+        backgroundColor: Colors.background,
+        borderWidth: 2,
+        elevation: 10,
+        borderColor: '#fff'
+    },
+    where: {
+        color: '#232323',
+        fontSize: 17,
+        lineHeight: 22
+    },
+    gradient: {
+        position: 'absolute',
+        alignSelf: 'center'
+    },
+    goodMorning: {
+        color: '#232323',
+        marginRight: 6
     }
 });
 

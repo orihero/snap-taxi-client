@@ -1,8 +1,10 @@
 import {combineReducers} from "redux";
-import Snap from "./Snap";
+import address from "./address";
+import taxi from "./taxi";
 
 const rootReducer = combineReducers({
-    Snap
+    address,
+    taxi
 });
 
 export default rootReducer

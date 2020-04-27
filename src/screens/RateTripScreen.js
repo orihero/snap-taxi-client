@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     Text,
@@ -32,88 +32,97 @@ const Rate = () => (
 );
 
 const RateTripScreen = ({navigation}) => {
+    useEffect(() => {
+        const navListener = navigation.addListener('focus', () => {
+            StatusBar.setBarStyle('dark-content');
+            StatusBar.setBackgroundColor('rgba(0,0,0,.2)');
+        });
+        return navListener
+    }, [navigation]);
     return (
         <>
-            <StatusBar backgroundColor={'rgba(0,0,0,.2)'}/>
             <MapScreen/>
-            <ScrollView style={styles.container}>
-                <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20, justifyContent: 'center'}}>
+            <View style={styles.container}>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 20}}>
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
                         <BackButtonIcon style={{position: 'absolute', left: 0}}/>
                     </TouchableWithoutFeedback>
                     <Text style={{fontSize: 17, fontWeight: 'bold'}}>Поездка завершена</Text>
                 </View>
-                <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
-                    <View style={styles.wrapper}>
-                        <DriverInfo noIcons/>
-                        <View style={styles.shadow}>
-                            <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                            <View style={styles.content}>
-                                <View style={{alignItems: 'center', textAlign: 'center'}}>
-                                    <Text style={styles.heading}>Как вам поездка?</Text>
-                                    <Text style={styles.subHeading}>Помогите нам улучшить наш сервис и ваши
-                                        ощущения во время поездки</Text>
-                                </View>
-                                <Rate/>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    marginBottom: 25
-                                }}>
-                                    <Text style={{fontSize: 16, fontWeight: 'bold'}}>Ваша оценка</Text>
-                                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                        <Text style={{fontSize: 16, fontWeight: 'bold', marginRight: 4}}>4</Text>
-                                        <StarIcon active width={17.19} height={16.48}/>
+                <ScrollView>
+                    <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
+                        <View style={styles.wrapper}>
+                            <DriverInfo noIcons/>
+                            <View style={styles.shadow}>
+                                <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
+                                <View style={styles.content}>
+                                    <View style={{alignItems: 'center', textAlign: 'center'}}>
+                                        <Text style={styles.heading}>Как вам поездка?</Text>
+                                        <Text style={styles.subHeading}>Помогите нам улучшить наш сервис и ваши
+                                            ощущения во время поездки</Text>
                                     </View>
-                                </View>
-                                <View style={styles.textarea}>
-                                    <TextInput
-                                        multiline={true}
-                                        placeholder={'Напишите ваш отзыв'}
-                                    />
-                                </View>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    marginBottom: 46
-                                }}>
-                                    <View style={{alignItems: 'center'}}>
-                                        <TimeIcon/>
-                                        <Text style={{color: '#646974'}}>Время</Text>
-                                        <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13 мин</Text>
+                                    <Rate/>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        marginBottom: 25
+                                    }}>
+                                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>Ваша оценка</Text>
+                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                            <Text style={{fontSize: 16, fontWeight: 'bold', marginRight: 4}}>4</Text>
+                                            <StarIcon active width={17.19} height={16.48}/>
+                                        </View>
                                     </View>
-                                    <View style={{alignItems: 'center'}}>
-                                        <EmptyWalletIcon/>
-                                        <Text style={{color: '#646974'}}>Сумма</Text>
-                                        <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>35 500</Text>
+                                    <View style={styles.textarea}>
+                                        <TextInput
+                                            multiline={true}
+                                            placeholder={'Напишите ваш отзыв'}
+                                        />
                                     </View>
-                                    <View style={{alignItems: 'center'}}>
-                                        <DistanceIcon/>
-                                        <Text style={{color: '#646974'}}>Расстояние</Text>
-                                        <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13 км</Text>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        marginBottom: 46
+                                    }}>
+                                        <View style={{alignItems: 'center'}}>
+                                            <TimeIcon/>
+                                            <Text style={{color: '#646974'}}>Время</Text>
+                                            <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13
+                                                мин</Text>
+                                        </View>
+                                        <View style={{alignItems: 'center'}}>
+                                            <EmptyWalletIcon/>
+                                            <Text style={{color: '#646974'}}>Сумма</Text>
+                                            <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>35
+                                                500</Text>
+                                        </View>
+                                        <View style={{alignItems: 'center'}}>
+                                            <DistanceIcon/>
+                                            <Text style={{color: '#646974'}}>Расстояние</Text>
+                                            <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13
+                                                км</Text>
+                                        </View>
                                     </View>
+                                    <Button title={'Готово'} style={{marginTop: 'auto'}}
+                                            onPress={() => navigation.navigate('Home')}/>
                                 </View>
-                                <Button title={'Готово'} style={{marginTop: 'auto'}}
-                                        onPress={() => navigation.navigate('Home')}/>
                             </View>
                         </View>
-                    </View>
-                </KeyboardAvoidingView>
-            </ScrollView>
+                    </KeyboardAvoidingView>
+                </ScrollView>
+            </View>
         </>
     );
 };
 
 const styles = StyleSheet.create({
-        wrapper: {
-            marginTop: 20
-        },
         container: {
             flex: 1,
             backgroundColor: 'rgba(0,0,0,.2)',
             paddingHorizontal: 16,
+            paddingTop: 20
         },
         shadow: {
             alignSelf: 'center',

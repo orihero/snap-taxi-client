@@ -5,9 +5,26 @@ import Colors from "../assets/styles/Colors";
 import TrafficJamsIcon from "../assets/images/TrafficJamsIcon";
 import AcceptCallIcon from "../assets/images/AcceptCallIcon";
 import SaleIcon from "../assets/images/SaleIcon";
-import ArrowIcon from "../assets/images/ArrowIcon";
 import Button from "../components/Button";
 import SettingsArrowIcon from "../assets/images/SettingsArrowIcon";
+import {Bold} from "../components/Layout/AppText";
+
+const TextWithIcon = ({active, Icon, children}) => (
+    <>
+        <Icon style={{marginRight: 20}} color={active ? Colors.blue : '#000'}/>
+        <Bold style={{color: active ? Colors.blue : '#000', fontSize: 15, width: '80%'}}>{children}</Bold>
+    </>
+);
+
+const CustomSwitch = ({value, onValueChange}) => (
+    <Switch
+        trackColor={{false: '#ECECEC', true: '#ECECEC'}}
+        thumbColor={value ? Colors.blue : "#ECECEC"}
+        style={{marginLeft: 'auto'}}
+        value={value}
+        onValueChange={onValueChange}
+    />
+);
 
 const SettingsScreen = () => {
     const [showTrafficJams, setShowTrafficJams] = useState(false);
@@ -21,45 +38,20 @@ const SettingsScreen = () => {
                 <Text style={styles.text}>Алексей</Text>
             </View>
             <View style={styles.option}>
-                <TrafficJamsIcon style={{marginRight: 20}} color={showTrafficJams ? Colors.blue : '#000'}/>
-                <Text style={{color: showTrafficJams ? Colors.blue : '#000', fontWeight: 'bold', fontSize: 15}}>Пробки на карте</Text>
-                <Switch
-                    trackColor={{false: '#ECECEC', true: '#ECECEC'}}
-                    thumbColor={showTrafficJams ? Colors.blue : "#ECECEC"}
-                    style={{marginLeft: 'auto'}}
-                    value={showTrafficJams}
-                    onValueChange={() => setShowTrafficJams(!showTrafficJams)}
-                />
+                <TextWithIcon Icon={TrafficJamsIcon} active={showTrafficJams}>Пробки на карте</TextWithIcon>
+                <CustomSwitch value={showTrafficJams} onValueChange={() => setShowTrafficJams(!showTrafficJams)}/>
             </View>
             <View style={[styles.option, {justifyContent: 'space-between'}]}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Язык приложения</Text>
+                <Bold style={{fontSize: 15}}>Язык приложения</Bold>
                 <SettingsArrowIcon/>
             </View>
             <View style={styles.option}>
-                <AcceptCallIcon style={{marginRight: 20}} color={acceptCall ? Colors.blue : '#000'}/>
-                <Text style={{color: acceptCall ? Colors.blue : '#000', fontWeight: 'bold', fontSize: 15}}>Не звонить</Text>
-                <Switch
-                    trackColor={{false: '#ECECEC', true: '#ECECEC'}}
-                    thumbColor={acceptCall ? Colors.blue : "#ECECEC"}
-                    style={{marginLeft: 'auto'}}
-                    value={acceptCall}
-                    onValueChange={() => setAcceptCall(!acceptCall)}
-                />
+                <TextWithIcon Icon={AcceptCallIcon} active={acceptCall}>Не звонить</TextWithIcon>
+                <CustomSwitch value={acceptCall} onValueChange={() => setAcceptCall(!acceptCall)}/>
             </View>
             <View style={styles.option}>
-                <SaleIcon style={{marginRight: 20}} color={sale ? Colors.blue : '#000'}/>
-                <Text
-                    style={{color: sale ? Colors.blue : '#000', fontWeight: 'bold', width: '58%', fontSize: 15}}
-                >
-                    Не предлагать сообщения
-                    о снижении цен</Text>
-                <Switch
-                    trackColor={{false: '#ECECEC', true: '#ECECEC'}}
-                    thumbColor={sale ? Colors.blue : "#ECECEC"}
-                    style={{marginLeft: 'auto'}}
-                    value={sale}
-                    onValueChange={() => setSale(!sale)}
-                />
+                <TextWithIcon Icon={SaleIcon} active={sale}> Не предлагать сообщения о снижении цен</TextWithIcon>
+                <CustomSwitch value={sale} onValueChange={() => setSale(!sale)}/>
             </View>
             <Button
                 title={'Очистить  кэш карт'}
@@ -73,7 +65,7 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 15,
-        flex: 1
+        flex: 1,
     },
     row: {
         padding: 12.5,
@@ -96,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 14,
         borderColor: '#EAECF1',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     }
 });
 

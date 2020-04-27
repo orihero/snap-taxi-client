@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, Text, StyleSheet, Dimensions} from "react-native"
+import {View, StyleSheet, Dimensions} from "react-native"
 import AddIcon from "./AddIcon";
 import LocationIcon from "../assets/images/LocationIcon";
 import Colors from "../assets/styles/Colors";
+import {Bold, Light} from "./Layout/AppText";
 
 export const DestContent = ({containerStyle, style}) => (
     <View style={[styles.container, containerStyle, style]}>
@@ -16,15 +17,15 @@ export const DestContent = ({containerStyle, style}) => (
         </View>
         <View style={{marginLeft: 13, flex: 1}}>
             <View style={styles.textWrapper}>
-                <Text style={styles.textColor}>Едем из</Text>
+                <Light style={styles.textColor}>Едем из</Light>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={styles.directionText}>Саларская набережаная 35</Text>
+                    <Bold style={styles.directionText}>Саларская набережаная 35</Bold>
                     <AddIcon style={{marginLeft: 'auto'}}/>
                 </View>
             </View>
             <View>
-                <Text style={styles.textColor}>Едем в</Text>
-                <Text style={styles.directionText}>Дом</Text>
+                <Light style={styles.textColor}>Едем в</Light>
+                <Bold style={styles.directionText}>Дом</Bold>
             </View>
         </View>
     </View>
@@ -35,7 +36,9 @@ const SelectedDestination = () => {
         <View>
             <View style={{alignItems: 'center'}}>
                 <DestContent style={styles.additionalContainerStyles}/>
-                <View style={styles.searchBottomFragment}/>
+                <View>
+                    <View style={styles.searchBottomFragment}/>
+                </View>
             </View>
         </View>
     );
@@ -52,28 +55,29 @@ const styles = StyleSheet.create({
     additionalContainerStyles: {
         width: Dimensions.get('window').width - 30,
         marginTop: 22,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.background,
+        borderWidth: 2,
+        borderColor: '#fff',
         paddingHorizontal: 17,
         elevation: 20,
         zIndex: 2
     },
     searchBottomFragment: {
-        width: Dimensions.get('window').width - 48,
-        backgroundColor: '#fff',
+        width: Dimensions.get('window').width - 32,
+        backgroundColor: Colors.background,
         borderRadius: 250,
-        height: 20,
+        height: 52,
+        alignSelf: 'center',
         position: 'absolute',
-        bottom: -3,
-        elevation: 20,
-        zIndex: 1
+        top: -45,
+        elevation: 8,
+        zIndex: -1
     },
     textColor: {
         color: '#aaaeb7',
     },
     directionText: {
         fontSize: 15,
-        color: '#232323',
-        fontWeight: 'bold',
     },
     textWrapper: {
         borderBottomWidth: 1,

@@ -5,9 +5,12 @@ import {DestContent} from "./SelectedDestination";
 import DriverInfo from "./DriverInfo";
 import Colors from "../assets/styles/Colors";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
+import {connect} from "react-redux";
+import {ORDER} from "../store/constants/Taxi";
 
 
-const CarOrder = () => {
+const CarOrder = ({dispatch}) => {
+    setTimeout(() => dispatch({type: ORDER.FULFILL}), 7000);
     return (
         <>
             <View style={{marginTop: 'auto'}}>
@@ -17,7 +20,7 @@ const CarOrder = () => {
                     <View style={styles.container}>
                         <View style={styles.fee}>
                             <Text style={{fontWeight: 'bold', fontSize: 17}}>Цена за поездку</Text>
-                            <Text style={{fontWeight: 'bold', fontSize: 17, marginLeft: 'auto'}}>35 500 </Text>
+                            <Text style={{fontWeight: 'bold', fontSize: 17, marginLeft: 'auto'}}>35 500</Text>
                             <Text>сум</Text>
                         </View>
                         <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
@@ -56,4 +59,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CarOrder;
+export default connect()(CarOrder);

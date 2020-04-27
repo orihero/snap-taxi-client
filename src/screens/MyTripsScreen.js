@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Dimensions, Text} from "react-native"
+import {View, ScrollView, StyleSheet, Dimensions} from "react-native"
 import DriverInfo from "../components/DriverInfo";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import {DestContent} from "../components/SelectedDestination";
 import Colors from "../assets/styles/Colors";
+import {Light} from "../components/Layout/AppText";
 
 const MyTripsScreen = () => {
     return (
@@ -16,21 +17,8 @@ const MyTripsScreen = () => {
                         <View style={styles.content}>
                             <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
                             <View style={styles.textWrapper}>
-                                <Text style={styles.text}>Id 4562455865</Text>
-                                <Text style={styles.text}>12.03.2020</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.tripItem}>
-                    <DriverInfo finished/>
-                    <View style={styles.shadow}>
-                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                        <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
-                            <View style={styles.textWrapper}>
-                                <Text style={styles.text}>Id 4562455865</Text>
-                                <Text style={styles.text}>12.03.2020</Text>
+                                <Light style={styles.text}>Id 4562455865</Light>
+                                <Light style={styles.text}>12.03.2020</Light>
                             </View>
                         </View>
                     </View>
@@ -42,8 +30,8 @@ const MyTripsScreen = () => {
                         <View style={styles.content}>
                             <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
                             <View style={styles.textWrapper}>
-                                <Text style={styles.text}>Id 4562455865</Text>
-                                <Text style={styles.text}>12.03.2020</Text>
+                                <Light style={styles.text}>Id 4562455865</Light>
+                                <Light style={styles.text}>12.03.2020</Light>
                             </View>
                         </View>
                     </View>
@@ -55,8 +43,21 @@ const MyTripsScreen = () => {
                         <View style={styles.content}>
                             <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
                             <View style={styles.textWrapper}>
-                                <Text style={styles.text}>Id 4562455865</Text>
-                                <Text style={styles.text}>12.03.2020</Text>
+                                <Light style={styles.text}>Id 4562455865</Light>
+                                <Light style={styles.text}>12.03.2020</Light>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.tripItem}>
+                    <DriverInfo finished/>
+                    <View style={styles.shadow}>
+                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
+                        <View style={styles.content}>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <View style={styles.textWrapper}>
+                                <Light style={styles.text}>Id 4562455865</Light>
+                                <Light style={styles.text}>12.03.2020</Light>
                             </View>
                         </View>
                     </View>

@@ -9,9 +9,9 @@ import AppNavigator from "./src/navigation/AppNavigator";
 
 const App = () => (
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        {/*<PersistGate loading={null} persistor={persistor}>*/}
             <AppNavigator/>
-        </PersistGate>
+        {/*</PersistGate>*/}
     </Provider>
 );
 

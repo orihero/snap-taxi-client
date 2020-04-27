@@ -3,16 +3,17 @@ import {View, Text, StyleSheet} from "react-native"
 import UzcardIcon from "../assets/images/UzcardIcon";
 import ChipIcon from "../assets/images/ChipIcon";
 import Colors from "../assets/styles/Colors";
+import {Bold} from "./Layout/AppText";
 
 const CardBigItem = () => {
     return (
         <View style={styles.container}>
             <UzcardIcon width={19.62} height={26} style={{marginBottom: 15}}/>
-            <View style={{flexDirection: 'row', marginBottom: 13}}>
-                <Text style={{fontSize: 18, color: '#232323', fontWeight: 'bold', marginRight: 30}}>5575</Text>
-                <Text style={{fontSize: 18, color: '#232323', fontWeight: 'bold', marginRight: 30}}>7577</Text>
-                <Text style={{fontSize: 18, color: '#232323', fontWeight: 'bold', marginRight: 30}}>6512</Text>
-                <Text style={{fontSize: 18, color: '#232323', fontWeight: 'bold'}}>6578</Text>
+            <View style={{flexDirection: 'row', marginBottom: 13, justifyContent: 'space-between', marginRight: 30}}>
+                <Bold style={{fontSize: 18}}>5575</Bold>
+                <Bold style={{fontSize: 18}}>7577</Bold>
+                <Bold style={{fontSize: 18}}>6512</Bold>
+                <Bold style={{fontSize: 18}}>6578</Bold>
             </View>
             <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between', marginRight: 45}}>
                 <View>

@@ -1,9 +1,17 @@
-import React from 'react';
-import {View, Text, TouchableNativeFeedback, StatusBar, StyleSheet} from "react-native"
+import React, {useEffect} from 'react';
+import {View, TouchableNativeFeedback, StatusBar, StyleSheet} from "react-native"
 import BackButtonIcon from "../assets/images/BackButtonIcon";
 import Colors from "../assets/styles/Colors";
+import {Bold} from "./Layout/AppText";
 
 const PageHeader = ({title, navigation, style}) => {
+    useEffect(() => {
+        const navListener = navigation.addListener('focus', () => {
+            StatusBar.setBarStyle('light-content');
+            StatusBar.setBackgroundColor(Colors.blue);
+        });
+        return navListener
+    }, [navigation]);
     return (
         <View style={[styles.container, style]}>
             <StatusBar barStyle={'light-content'} backgroundColor={Colors.blue} animated={true}/>
@@ -17,7 +25,7 @@ const PageHeader = ({title, navigation, style}) => {
                     </View>
                 </TouchableNativeFeedback>
 
-                <Text style={styles.title}>{title}</Text>
+                <Bold style={styles.title}>{title}</Bold>
             </View>
         </View>
     );
@@ -41,8 +49,6 @@ const styles = StyleSheet.create({
     title: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold',
-
     }
 });
 

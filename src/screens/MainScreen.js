@@ -1,34 +1,38 @@
-import React from 'react';
-import {View, StatusBar} from 'react-native'
+import React, {useEffect} from 'react';
+import {View} from 'react-native'
 import MapScreen from "./MapScreen";
-import {useIsDrawerOpen} from '@react-navigation/drawer';
 import SelectedDestination from "../components/SelectedDestination";
-import BottomDrawerMenu from "../components/BottomDrawerMenu";
+import Directions from "../components/Directions";
 import SelectPlanMenu from "../components/SelectPlanMenu";
 import Search from "../components/Search";
 import CarOrder from "../components/CarOrder";
 import CarWaiting from "../components/CarWaiting";
+import Header from "../components/Header";
+import {connect} from "react-redux";
 
 
+const MainScreen = ({navigation, isAddressSelected, isTaxiOrdered, isTaxiWaiting}) => {
 
-const MainScreen = () => {
-    const isDrawerOpen = useIsDrawerOpen();
     return (
         <>
-            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
             <View style={{flex: 1}}>
+                <Header navigation={navigation}/>
                 <MapScreen/>
-                {/*<Header/>*/}
-                {/*<Search/>*/}
-                {/*<BottomDrawerMenu/>*/}
-                {/*<SelectedDestination/>*/}
-                {/*<SelectPlanMenu/>*/}
-                {/*<CarOrder/>*/}
-                <CarWaiting/>
+                {!isAddressSelected && <Search/>}
+                {!isAddressSelected && <Directions/>}
+                {isAddressSelected && !isTaxiOrdered && <SelectedDestination/>}
+                {isAddressSelected && !isTaxiOrdered && <SelectPlanMenu/>}
+                {isTaxiOrdered && !isTaxiWaiting && <CarOrder/>}
+                {isTaxiWaiting && <CarWaiting/>}
             </View>
         </>
     );
 };
 
+const mapStateToProps = state => ({
+    isAddressSelected: state.address.isFetched,
+    isTaxiOrdered: state.taxi.isFetched,
+    isTaxiWaiting: state.taxi.waiting,
+});
 
-export default MainScreen;
+export default connect(mapStateToProps)(MainScreen);

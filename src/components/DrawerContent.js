@@ -1,13 +1,14 @@
-import {View, Text, StyleSheet, TouchableWithoutFeedback} from "react-native"
+import {View, StyleSheet, TouchableWithoutFeedback, ScrollView} from "react-native"
 import React from "react";
 import routes from "../navigation/DrawerNavigation/routes";
 import UserInfo from "./UserInfo";
 import Colors from "../assets/styles/Colors";
+import {Regular} from "./Layout/AppText";
 
 
 const DrawerContent = (props) => {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <UserInfo/>
             <View>
                 {
@@ -24,8 +25,8 @@ const DrawerContent = (props) => {
                     })
                 }
             </View>
-            <Text style={{marginTop: 'auto', fontSize: 15, marginLeft: 20}}>Версия 2.0</Text>
-        </View>
+            <Regular style={{marginTop: 'auto', fontSize: 15, marginLeft: 20}}>Версия 2.0</Regular>
+        </ScrollView>
     );
 };
 
@@ -33,7 +34,7 @@ const DrawerItem = ({label, name, navigation}) => {
     return (
         <TouchableWithoutFeedback onPress={() => navigation.navigate(name)}>
             <View style={styles.itemStyle}>
-                <Text style={styles.text}>{label}</Text>
+                <Regular style={styles.text}>{label}</Regular>
             </View>
         </TouchableWithoutFeedback>
     )
