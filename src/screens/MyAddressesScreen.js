@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, StyleSheet, Dimensions} from "react-native"
 import MyAddressesIcon from "../assets/images/MyAddressesIcon";
 import HomeIcon from "../assets/images/HomeIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
@@ -44,7 +44,8 @@ const MyAddressesScreen = () => {
 const styles = StyleSheet.create({
     topIcon: {
         alignSelf: 'center',
-        marginBottom: 35
+        marginBottom: 35,
+        display: Dimensions.get('window').height > 700 ? 'flex' : 'none'
     },
     container: {
         marginHorizontal: 30
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     icon: {
-        marginRight: 15.3
+        marginRight: 15.3,
+
     }
 });
 

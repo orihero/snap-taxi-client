@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {View} from 'react-native'
+import React, {useState} from 'react';
+import {View, Dimensions} from 'react-native'
 import MapScreen from "./MapScreen";
 import SelectedDestination from "../components/SelectedDestination";
 import Directions from "../components/Directions";
@@ -12,18 +12,19 @@ import {connect} from "react-redux";
 
 
 const MainScreen = ({navigation, isAddressSelected, isTaxiOrdered, isTaxiWaiting}) => {
-
+    const [value, setValue] = useState();
     return (
         <>
             <View style={{flex: 1}}>
                 <Header navigation={navigation}/>
                 <MapScreen/>
-                {!isAddressSelected && <Search/>}
-                {!isAddressSelected && <Directions/>}
-                {isAddressSelected && !isTaxiOrdered && <SelectedDestination/>}
-                {isAddressSelected && !isTaxiOrdered && <SelectPlanMenu/>}
-                {isTaxiOrdered && !isTaxiWaiting && <CarOrder/>}
-                {isTaxiWaiting && <CarWaiting/>}
+                {/*{!isAddressSelected && <Search value={value} setValue={setValue}/>}*/}
+                {/*{!isAddressSelected && !value && <Directions/>}*/}
+                {/*{isAddressSelected && !isTaxiOrdered && <SelectedDestination/>}*/}
+                {/*{isAddressSelected && !isTaxiOrdered && <SelectPlanMenu/>}*/}
+                {/*{isTaxiOrdered && !isTaxiWaiting && <CarOrder/>}*/}
+                {/*{isTaxiWaiting && <CarWaiting/>}*/}
+                <CarWaiting/>
             </View>
         </>
     );

@@ -16,7 +16,7 @@ const CloudIcons = () => (
 const RegistrationTop = () => {
     return (
         <View style={styles.top}>
-            <CloudIcons/>
+            { Dimensions.get('window').height > 700 && <CloudIcons/>}
             <Logo style={styles.logo}/>
         </View>
     );
@@ -25,13 +25,16 @@ const RegistrationTop = () => {
 const styles = StyleSheet.create({
     top: {
         backgroundColor: Colors.blue,
-        height: Dimensions.get('window').height * 0.4,
+        height: Dimensions.get('window').height > 700 ? Dimensions.get('window').height * 0.4 : 120,
         borderBottomEndRadius: 20,
         borderBottomStartRadius: 20,
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    logo: {alignSelf: 'flex-end', marginBottom: 109.18},
+    logo: {
+        alignSelf: 'flex-end',
+        marginBottom: Dimensions.get('window').height > 700 ? 109.18 : 20
+    },
 });
 
 

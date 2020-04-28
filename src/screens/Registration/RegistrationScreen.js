@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 84,
+        marginBottom: Dimensions.get('window').height > 700 ? 84 : 30,
         backgroundColor: '#fff',
         elevation: 10,
     },

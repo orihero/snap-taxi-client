@@ -14,32 +14,27 @@ import {Bold, Regular} from "./Layout/AppText";
 const CarWaiting = () => {
     const navigation = useNavigation();
     // setTimeout(() => navigation.navigate('BeDriverStack'), 7000);
-    const height = useRef(new Animated.Value(0)).current;
+    const pan = useRef(new Animated.ValueXY({x: 0, y: 0})).current;
     const panResPonder = useRef(PanResponder.create({
         onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: (evt, gestureState) => {
-            height.setOffset(height._value)
-        },
         onPanResponderMove: (evt, gestureState) => {
-            if (height._value <= -220) {
-                console.log('not setting')
-            } else {
-                height.setValue(gestureState.dy * -1);
-            }
+            Animated.event([
+                null,
+                {dx: pan.x, dy: pan.y},
+            ], {useNativeDriver: false})
         },
         onPanResponderRelease: (evt, gestureState) => {
-            height.flattenOffset();
-            if (height._value < 220) {
-                Animated.spring(height, {
-                    toValue: 0,
-                    useNativeDriver: false
-                }).start()
-            } else if (height._value > 250) {
-                Animated.spring(height, {
-                    toValue: 230,
-                    useNativeDriver: false
-                }).start()
-            }
+            // if (pan._value < 220) {
+            //     Animated.spring(pan, {
+            //         toValue: 0,
+            //         useNativeDriver: false
+            //     }).start()
+            // } else if (height._value > 250) {
+            //     Animated.spring(pan, {
+            //         toValue: 230,
+            //         useNativeDriver: false
+            //     }).start()
+            // }
         }
     })).current;
     return (
@@ -61,7 +56,7 @@ const CarWaiting = () => {
                                 <WaitIcon/>
                             </View>
                         </View>
-                        <Animated.View style={[{height}]}>
+                        <Animated.View style={[{transform: [{translateY: pan.y}]}]}>
                             <View>
                                 <View style={styles.fee}>
                                     <Bold style={{fontSize: 17}}>Цена за поездку</Bold>

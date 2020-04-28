@@ -46,11 +46,14 @@ const SelectPlanMenu = ({dispatch}) => {
                     <View style={styles.plan}>
                         <ScrollView
                             style={{width: '100%'}}
-                            horizontal={true}
+                            horizontal
+                            decelerationRate={10}
+                            snapToInterval={186}
+                            snapToAlignment={"start"}
                             showsHorizontalScrollIndicator={false}
                         >
                             {
-                                [...new Array(3)].map((item, index) => (
+                                [...new Array(5)].map((item, index) => (
                                     <CarItem
                                         key={index}
                                         onPress={() => setActive({[index]: true})}

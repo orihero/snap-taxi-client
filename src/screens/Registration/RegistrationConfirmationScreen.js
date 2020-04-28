@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, KeyboardAvoidingView, StatusBar,} from "react-native"
+import {View, StyleSheet, TextInput, KeyboardAvoidingView, StatusBar, Dimensions,} from "react-native"
 import Colors from "../../assets/styles/Colors";
 import Button from "../../components/Button";
 import ConfirmationIcon from "../../assets/images/ConfirmationIcon";
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 100,
+        marginBottom: Dimensions.get('window').height > 700 ? 100 : 30,
         backgroundColor: Colors.background,
         elevation: 10,
     },

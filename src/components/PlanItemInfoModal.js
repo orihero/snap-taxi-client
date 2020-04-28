@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, Dimensions} from "react-native"
 import CustomModal from "./CustomModal";
 import CarModalIcon from "../assets/images/CarModalIcon";
 import Button from "./Button";
@@ -15,7 +15,7 @@ const Description = ({leftText, rightText}) => (
 const PlanItemInfoModal = ({visible, closeModal}) => {
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
-            <CarModalIcon style={{marginTop: 25.7, alignSelf: 'center', marginBottom: 21.7}}/>
+            <CarModalIcon style={styles.icon}/>
             <Bold style={styles.heading}>Информация о тарифе</Bold>
             <Description leftText={'Автомобиль'} rightText={'Белая Лассети'}/>
             <Description leftText={'Тариф'} rightText={'Комфорт'}/>
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 22,
         alignSelf: 'center',
-        marginBottom: 48
+        marginBottom: 48,
+        marginTop:  Dimensions.get('window').height > 700 ? 0 : 40
     },
     textContainer: {
         flexDirection: 'row',
@@ -44,6 +45,11 @@ const styles = StyleSheet.create({
         borderBottomColor: '#EAECF1',
         borderBottomWidth: 1,
         marginBottom: 10
+    },
+    icon: {
+        alignSelf: 'center',
+        marginBottom: 21.7,
+        display: Dimensions.get('window').height > 700 ? 'flex' : 'none'
     }
 });
 

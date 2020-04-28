@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
             backgroundColor: Colors.background,
             borderWidth: 2,
             borderColor: '#fff',
-            marginVertical: 80,
+            marginVertical:  Dimensions.get('window').height > 700 ? 80 : 40,
             borderRadius: 15
         },
         icon: {

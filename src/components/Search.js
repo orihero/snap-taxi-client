@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {View, TextInput, StyleSheet, Dimensions, ScrollView} from "react-native"
 import SearchIcon from "../assets/images/SearchIcon";
 import SearchResult from "./SearchResult";
@@ -8,8 +8,7 @@ import {connect} from "react-redux";
 import {ADDRESS} from "../store/constants/Address";
 import Colors from "../assets/styles/Colors";
 
-const Search = ({dispatch}) => {
-    const [value, setValue] = useState();
+const Search = ({dispatch, value, setValue}) => {
     return (
         <View>
             <View style={{alignItems: 'center'}}>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet, Switch, TextInput, KeyboardAvoidingView} from "react-native"
+import {View, ScrollView, StyleSheet, Switch, TextInput, KeyboardAvoidingView, Dimensions} from "react-native"
 import CustomModal from "./CustomModal";
 import Button from "./Button";
 import AdditionalOptionsModalIcon from "../assets/images/AdditionalOptionsModalIcon";
@@ -14,7 +14,7 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
     const [smoke, setSmoke] = useState(false);
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
-            <ScrollView>
+            <View>
                 <AdditionalOptionsModalIcon style={styles.icon}/>
                 <Bold style={styles.heading}>Ваши пожелания</Bold>
                 <DestContent containerStyle={{marginHorizontal: 10}} textStyle={{fontSize: 15}}/>
@@ -48,7 +48,7 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
                         />
                     </View>
                 </KeyboardAvoidingView>
-            </ScrollView>
+            </View>
             <Button
                 onPress={closeModal}
                 title={'Понятно'}
@@ -61,7 +61,8 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
 const styles = StyleSheet.create({
     icon: {
         alignSelf: 'center',
-        marginBottom: 21.7
+        marginBottom: 21.7,
+        display: Dimensions.get('window').height > 700 ? 'flex' : 'none'
     },
     heading: {
         fontSize: 22,
