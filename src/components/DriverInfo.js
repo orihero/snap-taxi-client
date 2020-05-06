@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet, Text, View, Linking, TouchableNativeFeedback} from "react-native";
+import {Dimensions, Image, StyleSheet, View, Linking, TouchableNativeFeedback} from "react-native";
 import StarIcon from "../assets/images/StarIcon";
 import Colors from "../assets/styles/Colors";
 import ChatIcon from "../assets/images/ChatIcon";
@@ -7,13 +7,14 @@ import DriverPhoneIcon from "../assets/images/DriverPhoneIcon";
 import DriverInfoBlockBottomFragment from "../assets/images/DriverInfoBlockBottomFragment";
 import ExclamationMarkIcon from "../assets/images/ ExclamationMarkIcon";
 import {Bold, Regular, SemiBold} from "./Layout/AppText";
+import Screen from "../helpers/Dimensions";
 
 const DriverInfo = ({finished, activeExclaim, noIcons}) => {
     return (
         <>
             <View style={styles.topBlock}>
                 <View style={styles.topBlockContent}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={styles.wrapper}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <View style={styles.img}>
                                 <Image source={require('../assets/images/me.png')}/>
@@ -57,15 +58,17 @@ const DriverInfo = ({finished, activeExclaim, noIcons}) => {
                                         </TouchableNativeFeedback>
                                     </View>
                                 </View>
-                                : !noIcons && <View style={{flexDirection: 'row', marginLeft: 'auto'}}>
-                                <View style={styles.icon}>
-                                    <TouchableNativeFeedback onPress={() => Linking.openURL('tel:+998998845881')}>
-                                        <View style={styles.icon}>
-                                            <ExclamationMarkIcon active={activeExclaim}/>
-                                        </View>
-                                    </TouchableNativeFeedback>
+                                : !noIcons &&
+                                <View
+                                    style={{flexDirection: 'row', marginLeft: Screen.width > 400 ? 'auto' : undefined}}>
+                                    <View style={styles.icon}>
+                                        <TouchableNativeFeedback onPress={() => Linking.openURL('tel:+998998845881')}>
+                                            <View style={styles.icon}>
+                                                <ExclamationMarkIcon active={activeExclaim}/>
+                                            </View>
+                                        </TouchableNativeFeedback>
+                                    </View>
                                 </View>
-                            </View>
                         }
                     </View>
                     <View>
@@ -119,7 +122,12 @@ const styles = StyleSheet.create({
     },
     func: {
         flexDirection: 'row',
-        marginLeft: 'auto'
+        marginTop: Screen.width > 400 ? 0 : 10,
+        marginLeft: Screen.width > 400 ? 'auto' : 0
+    },
+    wrapper: {
+        flexDirection: Screen.width > 400 ? 'row' : 'column',
+        alignItems: 'center',
     }
 });
 

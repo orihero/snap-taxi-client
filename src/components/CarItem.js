@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingLeft: 13,
         flexDirection: 'row',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     text: {
         fontSize: 12,

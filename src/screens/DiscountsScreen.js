@@ -3,18 +3,18 @@ import {View, Text, StyleSheet, TextInput} from "react-native"
 import DiscountIcon from "../assets/images/DiscountIcon";
 import Button from "../components/Button";
 import Colors from "../assets/styles/Colors";
+import {localization} from "../services/Localization";
 
 const DiscountsScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
                 <DiscountIcon style={{marginRight: 18}}/>
-                <TextInput style={styles.text} placeholder={'Ввести промокод'}/>
+                <TextInput style={styles.text} placeholder={localization.enterPromoCode}/>
             </View>
             <Button
-                title={'Применить'}
-                containerStyle={{marginTop: 'auto', marginBottom: 50}}
-                texStyle={{fontWeight: '600'}}
+                title={localization.apply}
+                containerStyle={{marginBottom: 50}}
             />
         </View>
     );
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        color: '#858585'
+        color: '#858585',
+        flex: 1
     }
 });
 

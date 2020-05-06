@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Switch} from "react-native"
+import {View, Text, StyleSheet, Switch, TouchableWithoutFeedback} from "react-native"
 import ProfileSettingsIcon from "../assets/images/ProfileSettingsIcon";
 import Colors from "../assets/styles/Colors";
 import TrafficJamsIcon from "../assets/images/TrafficJamsIcon";
@@ -8,11 +8,18 @@ import SaleIcon from "../assets/images/SaleIcon";
 import Button from "../components/Button";
 import SettingsArrowIcon from "../assets/images/SettingsArrowIcon";
 import {Bold} from "../components/Layout/AppText";
+import Screen from "../helpers/Dimensions";
+import {localization} from "../services/Localization";
+import {useNavigation} from "@react-navigation/native"
 
 const TextWithIcon = ({active, Icon, children}) => (
     <>
         <Icon style={{marginRight: 20}} color={active ? Colors.blue : '#000'}/>
-        <Bold style={{color: active ? Colors.blue : '#000', fontSize: 15, width: '80%'}}>{children}</Bold>
+        <Bold style={{
+            color: active ? Colors.blue : '#000',
+            fontSize: Screen.width > 400 ? 15 : 13,
+            width: '70%'
+        }}>{children}</Bold>
     </>
 );
 
@@ -27,6 +34,7 @@ const CustomSwitch = ({value, onValueChange}) => (
 );
 
 const SettingsScreen = () => {
+    const navigation = useNavigation()
     const [showTrafficJams, setShowTrafficJams] = useState(false);
     const [acceptCall, setAcceptCall] = useState(false);
     const [sale, setSale] = useState(false);
@@ -38,25 +46,27 @@ const SettingsScreen = () => {
                 <Text style={styles.text}>Алексей</Text>
             </View>
             <View style={styles.option}>
-                <TextWithIcon Icon={TrafficJamsIcon} active={showTrafficJams}>Пробки на карте</TextWithIcon>
+                <TextWithIcon Icon={TrafficJamsIcon}
+                              active={showTrafficJams}>{localization.showTrafficJams}</TextWithIcon>
                 <CustomSwitch value={showTrafficJams} onValueChange={() => setShowTrafficJams(!showTrafficJams)}/>
             </View>
-            <View style={[styles.option, {justifyContent: 'space-between'}]}>
-                <Bold style={{fontSize: 15}}>Язык приложения</Bold>
-                <SettingsArrowIcon/>
-            </View>
+            <TouchableWithoutFeedback onPress={()=> navigation.navigate('SelectLanguage')} >
+                <View style={[styles.option, {justifyContent: 'space-between'}]}>
+                    <Bold style={{fontSize: 15}}>{localization.appLanguage}</Bold>
+                    <SettingsArrowIcon/>
+                </View>
+            </TouchableWithoutFeedback>
             <View style={styles.option}>
-                <TextWithIcon Icon={AcceptCallIcon} active={acceptCall}>Не звонить</TextWithIcon>
+                <TextWithIcon Icon={AcceptCallIcon} active={acceptCall}>{localization.dontCall}</TextWithIcon>
                 <CustomSwitch value={acceptCall} onValueChange={() => setAcceptCall(!acceptCall)}/>
             </View>
             <View style={styles.option}>
-                <TextWithIcon Icon={SaleIcon} active={sale}> Не предлагать сообщения о снижении цен</TextWithIcon>
+                <TextWithIcon Icon={SaleIcon} active={sale}>{localization.dontNotifySale}</TextWithIcon>
                 <CustomSwitch value={sale} onValueChange={() => setSale(!sale)}/>
             </View>
             <Button
-                title={'Очистить  кэш карт'}
-                containerStyle={{marginTop: 'auto', marginBottom: 50}}
-                texStyle={{fontWeight: '600'}}
+                title={localization.clearCashCard}
+                containerStyle={{marginBottom: 50}}
             />
         </View>
     );

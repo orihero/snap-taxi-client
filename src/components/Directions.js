@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {View, StyleSheet, Dimensions, PanResponder, Animated} from "react-native"
 import HomeIcon from "../assets/images/HomeIcon";
 import CursorIcon from "../assets/images/CursorIcon";
@@ -8,46 +8,57 @@ import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
 
 
-const Directions = () => {
-    const height = useRef(new Animated.Value(80)).current;
+const Directions = ({navigation}) => {
+    const translateY = useRef(new Animated.Value(0)).current;
     const panResPonder = useRef(PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+            return !(gestureState.dy === 0 || (gestureState.dy < 1 && gestureState.dy > -2))
+        },
         onPanResponderGrant: (evt, gestureState) => {
-            height.setOffset(height._value)
+            translateY.extractOffset()
         },
         onPanResponderMove: (evt, gestureState) => {
-            height.setValue(gestureState.dy * -1);
+            translateY.setValue(-gestureState.dy);
         },
         onPanResponderRelease: (evt, gestureState) => {
-            height.flattenOffset();
-            if (height._value < 240) {
-                Animated.spring(height, {
-                    toValue: 80,
+            if (gestureState.dy < 0) {
+                Animated.spring(translateY, {
+                    toValue: 150,
                     useNativeDriver: false
                 }).start()
-            } else if (height._value > 250) {
-                Animated.spring(height, {
-                    toValue: 250,
+            } else if (gestureState.dy > 0) {
+                Animated.spring(translateY, {
+                    toValue: -150,
                     useNativeDriver: false
                 }).start()
             }
         }
     })).current;
+    const height = translateY.interpolate({
+        inputRange: [-1, 0, 150],
+        outputRange: [0, 0, 150],
+        extrapolate: 'clamp'
+    });
     return (
-        <View style={styles.container}>
+        <Animated.View style={[styles.container]}>
             <View style={styles.directions}>
                 <View style={styles.icon}><HomeIcon/></View>
                 <View style={styles.circleIcon}><CursorIcon/></View>
                 <View style={styles.icon}><BagIcon/></View>
             </View>
             <BottomMenuCurve width={Dimensions.get('window').width}/>
-            <Animated.View style={[styles.content, {height}]} {...panResPonder.panHandlers}>
+            <View
+                style={[styles.content]}
+                {...panResPonder.panHandlers}
+            >
                 <View style={styles.draggable}/>
-                <SearchResult/>
-                <SearchResult/>
-                <SearchResult/>
-            </Animated.View>
-        </View>
+                <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
+                <Animated.View style={{height, overflow: 'hidden'}}>
+                    <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
+                    <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
+                </Animated.View>
+            </View>
+        </Animated.View>
 
     );
 };

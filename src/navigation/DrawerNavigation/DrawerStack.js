@@ -18,7 +18,7 @@ const DrawerStack = () => (
     >
         {
             routes.map((route, index) => (
-                    <Screen key={index} name={route.name} component={route.component}/>
+                  route.component &&  <Screen key={index} name={route.name} component={route.component}/>
                 )
             )
         }

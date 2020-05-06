@@ -1,15 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from "react-native"
+import {View, Text, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native"
 import MyAddressesIcon from "../assets/images/MyAddressesIcon";
 import HomeIcon from "../assets/images/HomeIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
 import BagIcon from "../assets/images/BagIcon";
 import CartIcon from "../assets/images/CartIcon";
 import {Bold, Light} from "../components/Layout/AppText";
+import Screen from "../helpers/Dimensions";
+import Button from "../components/Button";
+import {localization} from "../services/Localization";
 
 const MyAddressesScreen = () => {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <MyAddressesIcon style={styles.topIcon}/>
             <View style={styles.container}>
                 <View style={styles.addressItem}>
@@ -37,6 +40,13 @@ const MyAddressesScreen = () => {
                     <ArrowIcon style={{marginLeft: 'auto'}}/>
                 </View>
             </View>
+            <View style={{marginTop: 'auto', marginBottom: 50, marginHorizontal:  15}}>
+                <Button
+                    onPress={() => {
+                    }}
+                    title={localization.addAddress}
+                />
+            </View>
         </View>
     );
 };
@@ -45,7 +55,7 @@ const styles = StyleSheet.create({
     topIcon: {
         alignSelf: 'center',
         marginBottom: 35,
-        display: Dimensions.get('window').height > 700 ? 'flex' : 'none'
+        display: Screen.height > 700 ? 'flex' : 'none'
     },
     container: {
         marginHorizontal: 30

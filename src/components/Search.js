@@ -1,27 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, TextInput, StyleSheet, Dimensions, ScrollView} from "react-native"
+import {localization} from "../services/Localization"
 import SearchIcon from "../assets/images/SearchIcon";
 import SearchResult from "./SearchResult";
 import LocationIcon from "../assets/images/LocationIcon";
 import {Regular} from "./Layout/AppText";
-import {connect} from "react-redux";
-import {ADDRESS} from "../store/constants/Address";
 import Colors from "../assets/styles/Colors";
 
-const Search = ({dispatch, value, setValue}) => {
+const Search = ({navigation, setSearchActive}) => {
+    const [value, setValue] = useState('');
     return (
         <View>
             <View style={{alignItems: 'center'}}>
                 <View style={styles.container}>
                     <TextInput
-                        onChangeText={text => setValue(text)}
+                        onChangeText={text => {
+                            setValue(text.trim());
+                            setSearchActive(text.trim().length > 0)
+                        }}
                         style={styles.input}
-                        placeholder={'Куда едем?'}
+                        placeholder={localization.where}
                     />
                     {
                         value ?
                             <View style={{flexDirection: 'row', marginLeft: 'auto', alignItems: 'center'}}>
-                                <Regular>Карта</Regular>
+                                <Regular>{localization.map}</Regular>
                                 <LocationIcon style={{marginLeft: 10.46}}/>
                             </View>
                             : <SearchIcon style={{marginLeft: 'auto'}}/>
@@ -29,15 +32,14 @@ const Search = ({dispatch, value, setValue}) => {
                 </View>
             </View>
             <View>
-                <View style={styles.searchBottomFragment}/>
                 {
                     value ?
                         <View style={styles.searchResult}>
                             <ScrollView style={{maxHeight: 250}}>
-                                <SearchResult onPress={() => dispatch({type: ADDRESS.SUCCESS})}/>
-                                <SearchResult onPress={() => dispatch({type: ADDRESS.SUCCESS})}/>
-                                <SearchResult onPress={() => dispatch({type: ADDRESS.SUCCESS})}/>
-                                <SearchResult border={false}/>
+                                <SearchResult onPress={() => navigation.navigate('SelectCar')}/>
+                                <SearchResult onPress={() => navigation.navigate('SelectCar')}/>
+                                <SearchResult onPress={() => navigation.navigate('SelectCar')}/>
+                                <SearchResult onPress={() => navigation.navigate('SelectCar')} border={false}/>
                             </ScrollView>
                         </View> : <></>
                 }
@@ -70,17 +72,6 @@ const styles = StyleSheet.create({
         height: '100%',
         fontFamily: 'SFUIDisplay-Light',
     },
-    searchBottomFragment: {
-        width: Dimensions.get('window').width - 55,
-        backgroundColor: Colors.background,
-        borderRadius: 250,
-        height: 52,
-        alignSelf: 'center',
-        position: 'absolute',
-        top: -45,
-        elevation: 8,
-        zIndex: -1
-    },
     searchResult: {
         alignSelf: 'center',
         width: Dimensions.get('window').width - 64,
@@ -96,4 +87,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect()(Search);
+export default Search;

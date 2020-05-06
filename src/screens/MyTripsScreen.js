@@ -15,7 +15,7 @@ const MyTripsScreen = () => {
                     <View style={styles.shadow}>
                         <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                         <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
                             <View style={styles.textWrapper}>
                                 <Light style={styles.text}>Id 4562455865</Light>
                                 <Light style={styles.text}>12.03.2020</Light>
@@ -28,7 +28,7 @@ const MyTripsScreen = () => {
                     <View style={styles.shadow}>
                         <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                         <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
                             <View style={styles.textWrapper}>
                                 <Light style={styles.text}>Id 4562455865</Light>
                                 <Light style={styles.text}>12.03.2020</Light>
@@ -41,7 +41,7 @@ const MyTripsScreen = () => {
                     <View style={styles.shadow}>
                         <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                         <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
                             <View style={styles.textWrapper}>
                                 <Light style={styles.text}>Id 4562455865</Light>
                                 <Light style={styles.text}>12.03.2020</Light>
@@ -54,7 +54,7 @@ const MyTripsScreen = () => {
                     <View style={styles.shadow}>
                         <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                         <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
                             <View style={styles.textWrapper}>
                                 <Light style={styles.text}>Id 4562455865</Light>
                                 <Light style={styles.text}>12.03.2020</Light>

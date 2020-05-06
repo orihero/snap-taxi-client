@@ -1,22 +1,22 @@
 import React from 'react';
-import DiscountsScreen from "../../screens/DiscountsScreen";
 import PageHeader from "../../components/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
 import {localization} from "../../services/Localization";
+import SupportScreen from "../../screens/SupportScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 
-const DiscountsStack = () => (
+const SupportStack = () => (
     <Navigator>
         <Screen
-            name="Discounts"
-            component={DiscountsScreen}
+            name="SupportStack"
+            component={SupportScreen}
             options={{
-                header: (props) => <PageHeader title={localization.sale} {...props}/>,
+                header: (props) => <PageHeader title={"Служба поддержки"} {...props}/>,
                 cardStyle: {backgroundColor: Colors.background}
             }}
         />
     </Navigator>
 );
-export default DiscountsStack;
+export default SupportStack;

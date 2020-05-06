@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, StatusBar} from 'react-native'
+import {View, StyleSheet, StatusBar, TouchableNativeFeedback} from 'react-native'
+import {localization} from "../services/Localization";
 import MenuIcon from "../assets/images/MenuIcon";
 import WatcherIcon from "../assets/images/WatcherIcon";
 import Colors from "../assets/styles/Colors";
@@ -7,7 +8,7 @@ import GradientBackground from "../assets/images/GradientBackground";
 import {Bold, SemiBold} from "./Layout/AppText";
 import BackButtonIcon from "../assets/images/BackButtonIcon";
 
-const Header = ({navigation, ...rest}) => {
+const Header = ({navigation, goBack, ...rest}) => {
     useEffect(() => {
         const navListener = navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
@@ -19,14 +20,22 @@ const Header = ({navigation, ...rest}) => {
         <>
             <GradientBackground style={styles.gradient}/>
             <View style={styles.container} {...rest}>
-                <MenuIcon onPress={() => navigation.openDrawer()}/>
-                {/*<BackButtonIcon/>*/}
+                {
+                    !goBack
+                        ? <MenuIcon onPress={() => navigation.openDrawer()}/>
+                        : <TouchableNativeFeedback
+                            onPress={() => navigation.goBack()}
+                            background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.1)', true)}
+                        >
+                            <BackButtonIcon style={{elevation: 10}}/>
+                        </TouchableNativeFeedback>
+                }
                 <View>
                     <View style={styles.greeting}>
-                        <SemiBold style={styles.goodMorning}>Доброе утро</SemiBold>
+                        <SemiBold style={styles.goodMorning}>{localization.goodMorning}</SemiBold>
                         <SemiBold style={{color: Colors.blue}}>Александр</SemiBold>
                     </View>
-                    <Bold style={styles.where}>Куда мы едем?</Bold>
+                    <Bold style={styles.where}>{localization.whereAreWeGoing}</Bold>
                 </View>
                 <View style={styles.watcher}><WatcherIcon/></View>
             </View>

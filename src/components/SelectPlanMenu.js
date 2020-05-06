@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Dimensions, StyleSheet, ScrollView, TouchableWithoutFeedback} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import Button from "./Button";
-import AddIcon from "./AddIcon";
+import AddIcon from "../assets/images/AddIcon";
 import UzcardIcon from "../assets/images/UzcardIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
 import CarItem from "./CarItem";
@@ -13,6 +13,7 @@ import Colors from "../assets/styles/Colors";
 import {Bold, Regular} from "./Layout/AppText";
 import {ORDER} from "../store/constants/Taxi";
 import {connect} from "react-redux";
+import {localization} from "../services/Localization";
 
 const Dots = () => {
     return (
@@ -79,19 +80,19 @@ const SelectPlanMenu = ({dispatch}) => {
                                 </View>
                             </TouchableWithoutFeedback>
                             <Button
-                                title={'Найти такси'}
-                                onPress={() => dispatch({type: ORDER.SUCCESS})}
+                                title={localization.findTaxi}
+                                onPress={() => navigation.navigate('TaxiComing')}
                             />
                         </View>
                         <View style={styles.column}>
                             <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>
                                 <View style={styles.additional}>
-                                    <Bold style={styles.text}>Дополнительно</Bold>
+                                    <Bold style={styles.text}>{localization.additional}</Bold>
                                     <AddIcon color={'#575f6b'}/>
                                 </View>
                             </TouchableWithoutFeedback>
                             <Button
-                                title={'Для друга'}
+                                title={localization.forFriend}
                                 containerStyle={{backgroundColor: '#f2f2f2',}}
                             />
                         </View>
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
             paddingTop: 13,
             borderWidth: 2,
             borderColor: '#fff',
-            borderTopWidth: 0
+            borderTopWidth: 0,
         },
         column: {
             width: '48.5%'

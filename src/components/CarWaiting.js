@@ -10,42 +10,55 @@ import CancelTripIcon from "../assets/images/CancelTripIcon";
 import WaitIcon from "../assets/images/WaitIcon";
 import {useNavigation} from "@react-navigation/native"
 import {Bold, Regular} from "./Layout/AppText";
+import {localization} from "../services/Localization";
 
 const CarWaiting = () => {
     const navigation = useNavigation();
-    // setTimeout(() => navigation.navigate('BeDriverStack'), 7000);
-    const pan = useRef(new Animated.ValueXY({x: 0, y: 0})).current;
+    const height = useRef(new Animated.Value(0)).current;
     const panResPonder = useRef(PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+            return !(gestureState.dx === 0 && gestureState.dy === 0)
+        },
+        onPanResponderGrant: (evt, gestureState) => {
+            height.setOffset(height._value)
+        },
         onPanResponderMove: (evt, gestureState) => {
-            Animated.event([
-                null,
-                {dx: pan.x, dy: pan.y},
-            ], {useNativeDriver: false})
+            height.setValue(gestureState.dy * -1);
         },
         onPanResponderRelease: (evt, gestureState) => {
-            // if (pan._value < 220) {
-            //     Animated.spring(pan, {
-            //         toValue: 0,
-            //         useNativeDriver: false
-            //     }).start()
-            // } else if (height._value > 250) {
-            //     Animated.spring(pan, {
-            //         toValue: 230,
-            //         useNativeDriver: false
-            //     }).start()
-            // }
+            height.flattenOffset();
+            if (height._value < 240) {
+                Animated.spring(height, {
+                    toValue: 0,
+                    useNativeDriver: false
+                }).start()
+            } else if (height._value > 250) {
+                Animated.spring(height, {
+                    toValue: 250,
+                    useNativeDriver: false
+                }).start()
+            }
         }
     })).current;
+    const collapse = height.interpolate({
+        inputRange: [-10, -1, 0, 1, 10, 250, 251],
+        outputRange: [0, 0, 0, 0, 10, 240, 240]
+    });
+
     return (
         <>
             <View style={{marginTop: 'auto'}}>
                 <DriverInfo/>
-                <View style={styles.shadow}>
+                <View style={[styles.shadow]}  {...panResPonder.panHandlers}>
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                    <View style={styles.container} {...panResPonder.panHandlers}>
+                    <View style={styles.container}>
                         <View style={styles.draggable}/>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 10, marginBottom: 8}}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            marginTop: 10,
+                            marginBottom: 8
+                        }}>
                             <View style={styles.icon}>
                                 <ComingIcon/>
                             </View>
@@ -56,21 +69,23 @@ const CarWaiting = () => {
                                 <WaitIcon/>
                             </View>
                         </View>
-                        <Animated.View style={[{transform: [{translateY: pan.y}]}]}>
-                            <View>
-                                <View style={styles.fee}>
-                                    <Bold style={{fontSize: 17}}>Цена за поездку</Bold>
-                                    <Bold style={{fontSize: 17, marginLeft: 'auto'}}>35 500 </Bold>
-                                    <Regular style={{lineHeight: 25}}>сум</Regular>
+                        <Animated.View style={{height: collapse, overflow: 'hidden'}}>
+                            <View style={styles.fee}>
+                                <Bold style={{fontSize: 17}}>{localization.fee}</Bold>
+                                <Bold style={{fontSize: 17, marginLeft: 'auto'}}>35 500 </Bold>
+                                <Regular style={{lineHeight: 25}}>сум</Regular>
+                            </View>
+                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <View style={styles.column}>
+                                    <Button title={localization.moreTaxi} shadow/>
                                 </View>
-                                <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
-                                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                    <View style={styles.column}>
-                                        <Button title={'Еще такси'} shadow/>
-                                    </View>
-                                    <View style={styles.column}>
-                                        <Button title={'Отменить'} containerStyle={{backgroundColor: '#f2f2f2'}}/>
-                                    </View>
+                                <View style={styles.column}>
+                                    <Button
+                                        title={localization.cancel}
+                                        containerStyle={{backgroundColor: '#f2f2f2'}}
+
+                                    />
                                 </View>
                             </View>
                         </Animated.View>
@@ -105,7 +120,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#EAECF1',
         paddingTop: 5,
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        overflow: 'hidden'
     },
     icon: {
         width: 56,

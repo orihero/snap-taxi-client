@@ -7,10 +7,14 @@ import Colors from "../assets/styles/Colors";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import {connect} from "react-redux";
 import {ORDER} from "../store/constants/Taxi";
+import {localization} from "../services/Localization";
+import {useNavigation} from "@react-navigation/native";
+import {Bold, Regular} from "./Layout/AppText";
 
 
 const CarOrder = ({dispatch}) => {
-    setTimeout(() => dispatch({type: ORDER.FULFILL}), 7000);
+    setTimeout(() => navigation.navigate('CarWaiting'), 7000);
+    const navigation = useNavigation();
     return (
         <>
             <View style={{marginTop: 'auto'}}>
@@ -19,12 +23,12 @@ const CarOrder = ({dispatch}) => {
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                     <View style={styles.container}>
                         <View style={styles.fee}>
-                            <Text style={{fontWeight: 'bold', fontSize: 17}}>Цена за поездку</Text>
-                            <Text style={{fontWeight: 'bold', fontSize: 17, marginLeft: 'auto'}}>35 500</Text>
-                            <Text>сум</Text>
+                            <Bold style={{fontSize: 17}}>{localization.fee}</Bold>
+                            <Bold style={{fontSize: 17, marginLeft: 'auto'}}>35 500 </Bold>
+                            <Regular style={{lineHeight: 25}}>сум</Regular>
                         </View>
                         <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}}/>
-                        <Button title={'Отменить поездку'}/>
+                        <Button title={localization.cancelTrip} onPress={() => navigation.navigate("Home")}/>
                     </View>
                 </View>
             </View>

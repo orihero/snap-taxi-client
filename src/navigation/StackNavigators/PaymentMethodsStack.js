@@ -4,6 +4,7 @@ import PageHeader from "../../components/PageHeader";
 import AddCardScreen from "../../screens/AddCardScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
+import {localization} from "../../services/Localization";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -13,7 +14,7 @@ const PaymentMethodsStack = () => (
             name="PaymentMethods"
             component={PaymentMethodsScreen}
             options={{
-                header: (props) => <PageHeader title={'Способ оплаты'} {...props}/>,
+                header: (props) => <PageHeader title={localization.paymentMethods} {...props}/>,
                 cardStyle: {backgroundColor: Colors.background}
             }}
         />
@@ -22,7 +23,7 @@ const PaymentMethodsStack = () => (
             component={AddCardScreen}
             options={{
                 header: (props) => <PageHeader
-                    title={'Добавить карту'}
+                    title={localization.addCard}
                     style={{paddingBottom: 74, marginBottom: 0}}
                     {...props}
                 />,

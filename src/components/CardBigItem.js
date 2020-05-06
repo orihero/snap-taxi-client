@@ -4,6 +4,7 @@ import UzcardIcon from "../assets/images/UzcardIcon";
 import ChipIcon from "../assets/images/ChipIcon";
 import Colors from "../assets/styles/Colors";
 import {Bold} from "./Layout/AppText";
+import {localization} from "../services/Localization";
 
 const CardBigItem = () => {
     return (
@@ -17,11 +18,11 @@ const CardBigItem = () => {
             </View>
             <View style={{flexDirection: 'row', marginBottom: 15, justifyContent: 'space-between', marginRight: 45}}>
                 <View>
-                    <Text style={{fontSize: 13, color: '#646974'}}>год/месяц</Text>
+                    <Text style={{fontSize: 13, color: '#646974'}}>{localization.cardDate}</Text>
                     <Text style={{fontSize: 15, color: '#646974', fontWeight: 'bold'}}>08/24</Text>
                 </View>
                 <View>
-                    <Text style={{fontSize: 13, color: '#646974'}}>номер телефона</Text>
+                    <Text style={{fontSize: 13, color: '#646974'}}>{localization.phone}</Text>
                     <Text style={{fontSize: 15, color: '#646974', fontWeight: 'bold'}}>+998 90 755 4554</Text>
                 </View>
             </View>

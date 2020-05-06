@@ -5,6 +5,7 @@ import Colors from "../assets/styles/Colors";
 import Button from "../components/Button";
 import CardItem from "../components/CardItem";
 import {Bold} from "../components/Layout/AppText";
+import {localization} from "../services/Localization";
 
 const RadioButton = ({selected}) => {
     return (
@@ -34,8 +35,8 @@ const PaymentMethodsScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <PaymentType onPress={() => setPayment({0: true})} selected={payment[0]} label={'Наличность'}/>
-            <PaymentType onPress={() => setPayment({1: true})} selected={payment[1]} label={'Картой'}/>
+            <PaymentType onPress={() => setPayment({0: true})} selected={payment[0]} label={localization.byCash}/>
+            <PaymentType onPress={() => setPayment({1: true})} selected={payment[1]} label={localization.byCard}/>
             {
                 payment[1] && <View style={styles.cards}>
                     <CardItem
@@ -49,7 +50,7 @@ const PaymentMethodsScreen = ({navigation}) => {
                 </View>
             }
             <Button
-                title={'Добавить карту'}
+                title={localization.addCard}
                 containerStyle={{marginTop: 'auto', marginBottom: 50}}
                 texStyle={{fontWeight: '600'}}
                 onPress={() => navigation.navigate('AddCard')}

@@ -20,6 +20,7 @@ import DistanceIcon from "../assets/images/DistanceIcon";
 import Button from "../components/Button";
 import BackButtonIcon from "../assets/images/BackButtonIcon";
 import MapScreen from "./MapScreen";
+import {localization} from "../services/Localization";
 
 const Rate = () => (
     <View style={styles.startContainer}>
@@ -47,7 +48,7 @@ const RateTripScreen = ({navigation}) => {
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('Home')}>
                         <BackButtonIcon style={{position: 'absolute', left: 0}}/>
                     </TouchableWithoutFeedback>
-                    <Text style={{fontSize: 17, fontWeight: 'bold'}}>Поездка завершена</Text>
+                    <Text style={{fontSize: 17, fontWeight: 'bold'}}>{localization.tripFinished}</Text>
                 </View>
                 <ScrollView>
                     <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
@@ -57,9 +58,8 @@ const RateTripScreen = ({navigation}) => {
                                 <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                                 <View style={styles.content}>
                                     <View style={{alignItems: 'center', textAlign: 'center'}}>
-                                        <Text style={styles.heading}>Как вам поездка?</Text>
-                                        <Text style={styles.subHeading}>Помогите нам улучшить наш сервис и ваши
-                                            ощущения во время поездки</Text>
+                                        <Text style={styles.heading}>{localization.howWasTrip}</Text>
+                                        <Text style={styles.subHeading}>{localization.helpUsToBeBetter}</Text>
                                     </View>
                                     <Rate/>
                                     <View style={{
@@ -68,7 +68,7 @@ const RateTripScreen = ({navigation}) => {
                                         justifyContent: 'space-between',
                                         marginBottom: 25
                                     }}>
-                                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>Ваша оценка</Text>
+                                        <Text style={{fontSize: 16, fontWeight: 'bold'}}>{localization.yourMark}</Text>
                                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                             <Text style={{fontSize: 16, fontWeight: 'bold', marginRight: 4}}>4</Text>
                                             <StarIcon active width={17.19} height={16.48}/>
@@ -77,7 +77,7 @@ const RateTripScreen = ({navigation}) => {
                                     <View style={styles.textarea}>
                                         <TextInput
                                             multiline={true}
-                                            placeholder={'Напишите ваш отзыв'}
+                                            placeholder={localization.leaveFeedBack}
                                         />
                                     </View>
                                     <View style={{
@@ -88,25 +88,27 @@ const RateTripScreen = ({navigation}) => {
                                     }}>
                                         <View style={{alignItems: 'center'}}>
                                             <TimeIcon/>
-                                            <Text style={{color: '#646974'}}>Время</Text>
+                                            <Text style={{color: '#646974'}}>{localization.tripTime}</Text>
                                             <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13
                                                 мин</Text>
                                         </View>
                                         <View style={{alignItems: 'center'}}>
                                             <EmptyWalletIcon/>
-                                            <Text style={{color: '#646974'}}>Сумма</Text>
+                                            <Text style={{color: '#646974'}}>{localization.tripCost}</Text>
                                             <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>35
                                                 500</Text>
                                         </View>
                                         <View style={{alignItems: 'center'}}>
                                             <DistanceIcon/>
-                                            <Text style={{color: '#646974'}}>Расстояние</Text>
+                                            <Text style={{color: '#646974'}}>{localization.tripDistance}</Text>
                                             <Text style={{color: '#232323', fontWeight: 'bold', fontSize: 17}}>13
                                                 км</Text>
                                         </View>
                                     </View>
-                                    <Button title={'Готово'} style={{marginTop: 'auto'}}
-                                            onPress={() => navigation.navigate('Home')}/>
+                                    <Button
+                                        title={localization.done}
+                                        onPress={() => navigation.navigate('Home')}
+                                    />
                                 </View>
                             </View>
                         </View>

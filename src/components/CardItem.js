@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, Animated} from "react-native";
+import {View, StyleSheet, Animated, TouchableWithoutFeedback} from "react-native";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import {} from 'react-native-gesture-handler'
 import UzcardIcon from "../assets/images/UzcardIcon";
 import RadioButton from "./RadioButton";
 import Colors from "../assets/styles/Colors";
@@ -16,28 +16,22 @@ const CardItem = ({onPress, selected}) => {
         });
         return (
             <Animated.View style={[styles.icon, {transform: [{scale: Scale}]}]}>
-                {console.log(Scale)}
                 <TrashIcon/>
             </Animated.View>
         );
     };
 
     return (
-        <
-            Swipeable
+        <Swipeable
             renderRightActions={renderLeftActions}
-            containerStyle={
-                {
-                    overflow: 'visible'
-                }
-            }
+            containerStyle={{overflow: 'visible'}}
         >
-            <
-                TouchableWithoutFeedback
-                onPress={onPress}>
-                < View
+            <TouchableWithoutFeedback
+                onPress={onPress}
+            >
+                <View
                     style={styles.card}>
-                    < UzcardIcon
+                    <UzcardIcon
                         style={
                             {
                                 marginRight: 14
@@ -57,7 +51,7 @@ const CardItem = ({onPress, selected}) => {
                             </View>
                         </View>
                     </View>
-                    < RadioButton
+                    <RadioButton
                         selected={selected}
                         containerStyle={{width: 17, height: 17}}
                         innerStyle={{width: 9, height: 9}}
@@ -80,7 +74,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 12,
         borderWidth: 2,
-        borderColor: '#fff'
+        borderColor: '#fff',
+        elevation: 4
     },
     icon: {
         alignSelf: 'center',

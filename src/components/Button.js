@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableNativeFeedback, TouchableHighlight, Platform} from "react-native";
+import {View, StyleSheet, TouchableNativeFeedback, TouchableHighlight, Platform} from "react-native";
 import Colors from "../assets/styles/Colors";
 import {SemiBold} from "./Layout/AppText";
 

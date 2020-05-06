@@ -1,7 +1,8 @@
 import React from 'react';
 import {Modal, View, StyleSheet, Platform, TouchableHighlight, TouchableNativeFeedback,Dimensions} from "react-native";
-import AddIcon from "./AddIcon";
+import AddIcon from "../assets/images/AddIcon";
 import Colors from "../assets/styles/Colors";
+import Screen from "../helpers/Dimensions";
 
 const CustomModal = ({visible = false, closeModal, children, contentStyle}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
             backgroundColor: 'rgba(0,0,0,.2)'
         },
         content: {
+            overflow: 'hidden',
             paddingTop: 25.7,
             paddingBottom: 26,
             flex: 1,
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
             backgroundColor: Colors.background,
             borderWidth: 2,
             borderColor: '#fff',
-            marginVertical:  Dimensions.get('window').height > 700 ? 80 : 40,
+            marginVertical:  Screen.height > 700 ? 80 : 40,
             borderRadius: 15
         },
         icon: {

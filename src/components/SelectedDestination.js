@@ -1,11 +1,13 @@
 import React from 'react'
 import {View, StyleSheet, Dimensions} from "react-native"
-import AddIcon from "./AddIcon";
+import AddIcon from "../assets/images/AddIcon";
 import LocationIcon from "../assets/images/LocationIcon";
 import Colors from "../assets/styles/Colors";
 import {Bold, Light} from "./Layout/AppText";
+import Screen from "../helpers/Dimensions";
+import {localization} from "../services/Localization";
 
-export const DestContent = ({containerStyle, style}) => (
+export const DestContent = ({containerStyle, style, noIcon}) => (
     <View style={[styles.container, containerStyle, style]}>
         <View style={styles.icons}>
             <LocationIcon/>
@@ -17,14 +19,14 @@ export const DestContent = ({containerStyle, style}) => (
         </View>
         <View style={{marginLeft: 13, flex: 1}}>
             <View style={styles.textWrapper}>
-                <Light style={styles.textColor}>Едем из</Light>
+                <Light style={styles.textColor}>{localization.from}</Light>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <Bold style={styles.directionText}>Саларская набережаная 35</Bold>
-                    <AddIcon style={{marginLeft: 'auto'}}/>
+                    {!noIcon && <AddIcon style={{marginLeft: 'auto'}}/>}
                 </View>
             </View>
             <View>
-                <Light style={styles.textColor}>Едем в</Light>
+                <Light style={styles.textColor}>{localization.to}</Light>
                 <Bold style={styles.directionText}>Дом</Bold>
             </View>
         </View>
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
         color: '#aaaeb7',
     },
     directionText: {
-        fontSize: 15,
+        fontSize: Screen.width > 400 ? 15 : 13,
     },
     textWrapper: {
         borderBottomWidth: 1,

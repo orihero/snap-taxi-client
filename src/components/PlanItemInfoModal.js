@@ -4,6 +4,8 @@ import CustomModal from "./CustomModal";
 import CarModalIcon from "../assets/images/CarModalIcon";
 import Button from "./Button";
 import {Bold, Regular} from "./Layout/AppText";
+import Screen from "../helpers/Dimensions";
+import {localization} from "../services/Localization";
 
 const Description = ({leftText, rightText}) => (
     <View style={styles.textContainer}>
@@ -16,14 +18,14 @@ const PlanItemInfoModal = ({visible, closeModal}) => {
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
             <CarModalIcon style={styles.icon}/>
-            <Bold style={styles.heading}>Информация о тарифе</Bold>
-            <Description leftText={'Автомобиль'} rightText={'Белая Лассети'}/>
-            <Description leftText={'Тариф'} rightText={'Комфорт'}/>
-            <Description leftText={'Стоимость 1 км'} rightText={'5000 сум'}/>
-            <Description leftText={'Ожидание 1 мин'} rightText={'500 сум'}/>
+            <Bold style={styles.heading}>{localization.planInfo}</Bold>
+            <Description leftText={localization.car} rightText={'Белая Лассети'}/>
+            <Description leftText={localization.plan} rightText={'Комфорт'}/>
+            <Description leftText={localization.costPerKm} rightText={'5000 сум'}/>
+            <Description leftText={localization.costForWait} rightText={'500 сум'}/>
             <Button
                 onPress={closeModal}
-                title={'Понятно'}
+                title={localization.understandable}
                 style={{marginBottom: 26,}}
             />
         </CustomModal>
@@ -32,10 +34,10 @@ const PlanItemInfoModal = ({visible, closeModal}) => {
 
 const styles = StyleSheet.create({
     heading: {
-        fontSize: 22,
+        fontSize: Screen.width > 400 ? 22 : 18,
         alignSelf: 'center',
         marginBottom: 48,
-        marginTop:  Dimensions.get('window').height > 700 ? 0 : 40
+        marginTop:  Screen.height > 700 ? 0 : 40
     },
     textContainer: {
         flexDirection: 'row',
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
     icon: {
         alignSelf: 'center',
         marginBottom: 21.7,
-        display: Dimensions.get('window').height > 700 ? 'flex' : 'none'
+        display: Screen.height > 700 ? 'flex' : 'none'
     }
 });
 

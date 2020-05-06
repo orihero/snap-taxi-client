@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from "react-native"
 import Colors from "../assets/styles/Colors";
+import {localization} from "../services/Localization";
 
 const AddCard = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Новая карта</Text>
+            <Text style={styles.text}>{localization.newCard}</Text>
         </View>
     );
 };

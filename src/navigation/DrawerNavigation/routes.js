@@ -1,3 +1,4 @@
+import {Linking} from "react-native"
 import PaymentMethodsStack from "../StackNavigators/PaymentMethodsStack";
 import DiscountsStack from "../StackNavigators/DiscountsStack";
 import MyAddressesStack from "../StackNavigators/MyAddressesStack";
@@ -6,7 +7,7 @@ import RegistrationStack from "../StackNavigators/RegistrationStack";
 import MainStack from "../StackNavigators/MainStack";
 import MyTripsStack from "../StackNavigators/MyTripsStack";
 import RateTripScreen from "../../screens/RateTripScreen";
-import Container from "../../components/Container";
+import SupportStack from "../StackNavigators/SupportStack";
 
 const routes = [
     {
@@ -42,12 +43,13 @@ const routes = [
     {
         label: "Стать водителем",
         name: 'BeDriverStack',
-        component: RateTripScreen
+        url: 'https://taxi.yandex.ru/rabota/',
+        component: null
     },
     {
         label: "Служба поддержки",
         name: 'SupportStack',
-        component: RegistrationStack
+        component: SupportStack
 
     }
 ];

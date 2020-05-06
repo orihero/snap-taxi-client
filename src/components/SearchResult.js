@@ -3,7 +3,7 @@ import {TouchableWithoutFeedback, StyleSheet, View} from "react-native";
 import ResultIcon from "../assets/images/ResultIcon";
 import {Bold, Light} from "./Layout/AppText";
 
-const SearchResult = ({border=true, onPress}) => {
+const SearchResult = ({border = true, onPress}) => {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={{...styles.searchResultItem, ...(!border && styles.noBorder)}}>
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         marginBottom: 11.5,
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(170,174,183, 0.37)',
+        zIndex: 9999,
     },
     noBorder: {
         borderBottomWidth: 0,
