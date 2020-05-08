@@ -7,19 +7,7 @@ import Colors from "../assets/styles/Colors";
 
 const SelectLanguageScreen = () => {
     const changeAppLanguage = (language) => {
-        Alert.alert(
-            "Изменить язык",
-            "Вы уверены что хотите изменить язык?",
-            [
-                {
-                    text: localization.cancel,
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                {text: localization.apply, onPress: () =>localization.setLanguage(language)}
-            ],
-            {cancelable: false}
-        );
+        localization.setLanguage(language)
     };
     return (
         <View style={styles.container}>

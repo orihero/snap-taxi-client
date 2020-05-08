@@ -11,9 +11,9 @@ import AdditionalOptionsModal from "./AdditionalOptionsModal";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
 import {Bold, Regular} from "./Layout/AppText";
-import {ORDER} from "../store/constants/Taxi";
 import {connect} from "react-redux";
 import {localization} from "../services/Localization";
+import DeliveryInfoModal from "./DeliveryInfoModal";
 
 const Dots = () => {
     return (
@@ -29,6 +29,7 @@ const SelectPlanMenu = ({dispatch}) => {
     const navigation = useNavigation();
     const [visiblePlanModal, setVisiblePlanModal] = useState(false);
     const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
+    const [visibleDeliveryModal, setVisibleDeliveryModal] = useState(false);
     const [active, setActive] = useState({0: true});
     return (
         <>
@@ -40,7 +41,10 @@ const SelectPlanMenu = ({dispatch}) => {
                 visible={visibleAdditionalModal}
                 closeModal={() => setVisibleAdditionalModal(false)}
             />
-
+            <DeliveryInfoModal
+                visible={visibleDeliveryModal}
+                closeModal={() => setVisibleDeliveryModal(false)}
+            />
             <View style={{marginTop: 'auto'}}>
                 <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                 <View style={styles.container}>
@@ -54,14 +58,28 @@ const SelectPlanMenu = ({dispatch}) => {
                             showsHorizontalScrollIndicator={false}
                         >
                             {
-                                [...new Array(5)].map((item, index) => (
-                                    <CarItem
-                                        key={index}
-                                        onPress={() => setActive({[index]: true})}
-                                        active={active[index]}
-                                        onInfoPress={() => setVisiblePlanModal(true)}
-                                    />
-                                ))
+                                [...new Array(6)].map((item, index) => {
+                                    if (index === 4) {
+                                        return <CarItem
+                                            index={index}
+                                            key={index}
+                                            onPress={() => {
+                                                setVisibleDeliveryModal(true);
+                                                setActive({[index]: true})
+                                            }}
+                                            active={active[index]}
+                                            onInfoPress={() => setVisiblePlanModal(true)}
+                                        />
+                                    } else {
+                                        return <CarItem
+                                            index={index}
+                                            key={index}
+                                            onPress={() => setActive({[index]: true})}
+                                            active={active[index]}
+                                            onInfoPress={() => setVisiblePlanModal(true)}
+                                        />
+                                    }
+                                })
                             }
                         </ScrollView>
                     </View>

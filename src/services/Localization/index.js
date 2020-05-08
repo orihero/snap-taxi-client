@@ -56,7 +56,10 @@ let strings = new LocalizedStrings({
         newCard: 'Новая карта',
         enterPromoCode: 'Ввести промокод',
         addAddress: 'Добавить Адрес',
-        done: 'Готово'
+        done: 'Готово',
+        chat: "Чат с водителем",
+        writeSMS: 'Напишите сообщение...',
+        changeAddress: 'Изменить адрес',
     },
     uz: {
         where: "Куда едем?"

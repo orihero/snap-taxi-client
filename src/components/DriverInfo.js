@@ -7,9 +7,11 @@ import DriverPhoneIcon from "../assets/images/DriverPhoneIcon";
 import DriverInfoBlockBottomFragment from "../assets/images/DriverInfoBlockBottomFragment";
 import ExclamationMarkIcon from "../assets/images/ ExclamationMarkIcon";
 import {Bold, Regular, SemiBold} from "./Layout/AppText";
+import {useNavigation} from "@react-navigation/native"
 import Screen from "../helpers/Dimensions";
 
 const DriverInfo = ({finished, activeExclaim, noIcons}) => {
+    const navigation = useNavigation();
     return (
         <>
             <View style={styles.topBlock}>
@@ -32,10 +34,10 @@ const DriverInfo = ({finished, activeExclaim, noIcons}) => {
                                     </View>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                                    <Regular style={{marginRight: 4, fontSize: 12, color: Colors.text}}>01</Regular>
-                                    <Regular style={{marginRight: 4, fontSize: 12, color: Colors.text}}>A</Regular>
+                                    <Regular style={{marginRight: 4, fontSize: 12,}}>01</Regular>
+                                    <Regular style={{marginRight: 4, fontSize: 12}}>A</Regular>
                                     <Bold style={{fontSize: 15, marginRight: 4, lineHeight: 20}}>596</Bold>
-                                    <Regular style={{marginRight: 4, fontSize: 12, color: Colors.text}}>BC</Regular>
+                                    <Regular style={{marginRight: 4, fontSize: 12,}}>BC</Regular>
                                     <SemiBold style={{fontSize: 12}}>Белая Лассети</SemiBold>
                                 </View>
                             </View>
@@ -44,7 +46,7 @@ const DriverInfo = ({finished, activeExclaim, noIcons}) => {
                             !finished && !noIcons
                                 ? <View style={styles.func}>
                                     <View style={[styles.icon, {marginRight: 10}]}>
-                                        <TouchableNativeFeedback onPress={() => Linking.openURL('sms:+998998845881')}>
+                                        <TouchableNativeFeedback onPress={() => navigation.navigate('Chat')}>
                                             <View style={styles.icon}>
                                                 <ChatIcon/>
                                             </View>

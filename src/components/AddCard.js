@@ -1,13 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native"
+import {View, Text, TouchableWithoutFeedback, StyleSheet} from "react-native"
 import Colors from "../assets/styles/Colors";
 import {localization} from "../services/Localization";
 
-const AddCard = () => {
+const AddCard = ({onPress}) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>{localization.newCard}</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={styles.container}>
+                <Text style={styles.text}>{localization.newCard}</Text>
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 

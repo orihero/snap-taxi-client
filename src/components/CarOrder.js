@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet} from "react-native"
+import {View, Dimensions, StyleSheet} from "react-native"
 import Button from "./Button";
 import {DestContent} from "./SelectedDestination";
 import DriverInfo from "./DriverInfo";
 import Colors from "../assets/styles/Colors";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
-import {connect} from "react-redux";
-import {ORDER} from "../store/constants/Taxi";
 import {localization} from "../services/Localization";
 import {useNavigation} from "@react-navigation/native";
 import {Bold, Regular} from "./Layout/AppText";
+import Screen from "../helpers/Dimensions";
 
 
 const CarOrder = ({dispatch}) => {
@@ -20,7 +19,7 @@ const CarOrder = ({dispatch}) => {
             <View style={{marginTop: 'auto'}}>
                 <DriverInfo/>
                 <View style={styles.shadow}>
-                    <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
+                    <BottomMenuCurve width={Screen.width - 32}/>
                     <View style={styles.container}>
                         <View style={styles.fee}>
                             <Bold style={{fontSize: 17}}>{localization.fee}</Bold>
@@ -63,4 +62,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect()(CarOrder);
+export default CarOrder;

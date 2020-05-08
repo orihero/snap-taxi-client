@@ -1,5 +1,12 @@
 import React from 'react';
-import {Modal, View, StyleSheet, Platform, TouchableHighlight, TouchableNativeFeedback,Dimensions} from "react-native";
+import {
+    Modal,
+    View,
+    StyleSheet,
+    Platform,
+    TouchableHighlight,
+    TouchableNativeFeedback,
+} from "react-native";
 import AddIcon from "../assets/images/AddIcon";
 import Colors from "../assets/styles/Colors";
 import Screen from "../helpers/Dimensions";
@@ -8,21 +15,21 @@ const CustomModal = ({visible = false, closeModal, children, contentStyle}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
     return (
         <Modal visible={visible} transparent={true} statusBarTranslucent={true} animationType={'fade'}>
-            <View style={styles.container}>
-                <View style={styles.content}>
-                    <View style={styles.icon}>
-                        <TouchableComponent
-                            onPress={closeModal}
-                            background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.2)', true)}
-                        >
-                            <AddIcon/>
-                        </TouchableComponent>
-                    </View>
-                    <View style={{flex: 1, marginHorizontal: 14, ...contentStyle}}>
-                        {children}
+                <View style={styles.container}>
+                    <View style={styles.content}>
+                        <View style={styles.icon}>
+                            <TouchableComponent
+                                onPress={closeModal}
+                                background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.2)', true)}
+                            >
+                                <AddIcon/>
+                            </TouchableComponent>
+                        </View>
+                        <View style={{flex: 1, marginHorizontal: 14, ...contentStyle}}>
+                            {children}
+                        </View>
                     </View>
                 </View>
-            </View>
         </Modal>
     );
 };
@@ -41,7 +48,7 @@ const styles = StyleSheet.create({
             backgroundColor: Colors.background,
             borderWidth: 2,
             borderColor: '#fff',
-            marginVertical:  Screen.height > 700 ? 80 : 40,
+            marginVertical: Screen.height > 700 ? 80 : 40,
             borderRadius: 15
         },
         icon: {

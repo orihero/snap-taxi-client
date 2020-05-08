@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, KeyboardAvoidingView} from "react-native"
+import {View, TouchableWithoutFeedback, StyleSheet,} from "react-native"
 import MyAddressesIcon from "../assets/images/MyAddressesIcon";
 import HomeIcon from "../assets/images/HomeIcon";
 import ArrowIcon from "../assets/images/ArrowIcon";
@@ -10,40 +10,45 @@ import Screen from "../helpers/Dimensions";
 import Button from "../components/Button";
 import {localization} from "../services/Localization";
 
-const MyAddressesScreen = () => {
+const MyAddressesScreen = ({navigation}) => {
     return (
         <View style={{flex: 1}}>
             <MyAddressesIcon style={styles.topIcon}/>
             <View style={styles.container}>
-                <View style={styles.addressItem}>
-                    <HomeIcon style={styles.icon}/>
-                    <View>
-                        <Light style={{color: '#AAAEB7'}}>Дом</Light>
-                        <Bold style={{fontWeight: 'bold'}}>Саид барака 6</Bold>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('ChangeAddress')}>
+                    <View style={styles.addressItem}>
+                        <HomeIcon style={styles.icon}/>
+                        <View>
+                            <Light style={{color: '#AAAEB7'}}>Дом</Light>
+                            <Bold style={{fontWeight: 'bold'}}>Саид барака 6</Bold>
+                        </View>
+                        <ArrowIcon style={{marginLeft: 'auto'}}/>
                     </View>
-                    <ArrowIcon style={{marginLeft: 'auto'}}/>
-                </View>
-                <View style={styles.addressItem}>
-                    <BagIcon style={styles.icon}/>
-                    <View>
-                        <Light style={{color: '#AAAEB7'}}>Работа</Light>
-                        <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('ChangeAddress')}>
+                    <View style={styles.addressItem}>
+                        <BagIcon style={styles.icon}/>
+                        <View>
+                            <Light style={{color: '#AAAEB7'}}>Работа</Light>
+                            <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                        </View>
+                        <ArrowIcon style={{marginLeft: 'auto'}}/>
                     </View>
-                    <ArrowIcon style={{marginLeft: 'auto'}}/>
-                </View>
-                <View style={styles.addressItem}>
-                    <CartIcon style={styles.icon}/>
-                    <View>
-                        <Light style={{color: '#AAAEB7'}}>Дом</Light>
-                        <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('ChangeAddress')}>
+                    <View style={styles.addressItem}>
+                        <CartIcon style={styles.icon}/>
+                        <View>
+                            <Light style={{color: '#AAAEB7'}}>Дом</Light>
+                            <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                        </View>
+                        <ArrowIcon style={{marginLeft: 'auto'}}/>
                     </View>
-                    <ArrowIcon style={{marginLeft: 'auto'}}/>
-                </View>
+                </TouchableWithoutFeedback>
             </View>
-            <View style={{marginTop: 'auto', marginBottom: 50, marginHorizontal:  15}}>
+            <View style={{marginTop: 'auto', marginBottom: 50, marginHorizontal: 15}}>
                 <Button
-                    onPress={() => {
-                    }}
+                    onPress={() => navigation.navigate('AddAddress')}
                     title={localization.addAddress}
                 />
             </View>

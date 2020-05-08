@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Switch, TextInput, KeyboardAvoidingView, Dimensions} from "react-native"
+import {View, StyleSheet, Switch, TextInput, ScrollView, KeyboardAvoidingView} from "react-native"
 import CustomModal from "./CustomModal";
 import Button from "./Button";
 import AdditionalOptionsModalIcon from "../assets/images/AdditionalOptionsModalIcon";
