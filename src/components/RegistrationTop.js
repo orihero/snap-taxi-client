@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CloudIcon from "../assets/images/CloudIcon";
-import {Dimensions, KeyboardAvoidingView, StyleSheet, View} from "react-native";
+import {Dimensions, StatusBar, StyleSheet, View} from "react-native";
 import Logo from "../assets/images/Logo";
 import Colors from "../assets/styles/Colors";
+import {useNavigation} from "@react-navigation/native"
 
 const CloudIcons = () => (
     <>
@@ -14,6 +15,14 @@ const CloudIcons = () => (
 );
 
 const RegistrationTop = () => {
+    const navigation = useNavigation();
+    useEffect(() => {
+        const navListener = navigation.addListener('focus', () => {
+            StatusBar.setBarStyle('light-content');
+            StatusBar.setBackgroundColor(Colors.blue);
+        });
+        return navListener
+    }, [navigation]);
     return (
         <View style={styles.top}>
             { Dimensions.get('window').height > 700 && <CloudIcons/>}
@@ -25,7 +34,7 @@ const RegistrationTop = () => {
 const styles = StyleSheet.create({
     top: {
         backgroundColor: Colors.blue,
-        height: Dimensions.get('window').height > 700 ? Dimensions.get('window').height * 0.4 : 120,
+        height: Dimensions.get('window').height > 700 ? Dimensions.get('window').height * 0.4 : 150,
         borderBottomEndRadius: 20,
         borderBottomStartRadius: 20,
         flexDirection: 'row',
@@ -33,7 +42,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         alignSelf: 'flex-end',
-        marginBottom: Dimensions.get('window').height > 700 ? 109.18 : 20
+        marginBottom: Dimensions.get('window').height > 700 ? 109.18 : 50
     },
 });
 

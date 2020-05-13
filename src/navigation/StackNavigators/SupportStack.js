@@ -2,8 +2,8 @@ import React from 'react';
 import PageHeader from "../../components/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
-import {localization} from "../../services/Localization";
 import SupportScreen from "../../screens/SupportScreen";
+import SupportCategoryScreen from "../../screens/SupportCategoryScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -13,7 +13,22 @@ const SupportStack = () => (
             name="SupportStack"
             component={SupportScreen}
             options={{
-                header: (props) => <PageHeader title={"Служба поддержки"} {...props}/>,
+                header: (props) => <PageHeader
+                    title={"Поддержка"}
+                    {...props}
+                    style={{paddingBottom: 74, marginBottom: 0}}
+                />,
+                cardStyle: {backgroundColor: Colors.background}
+            }}
+        />
+        <Screen
+            name="SupportCategory"
+            component={SupportCategoryScreen}
+            options={{
+                header: (props) => <PageHeader
+                    title={"Остались вещи"}
+                    {...props}
+                />,
                 cardStyle: {backgroundColor: Colors.background}
             }}
         />

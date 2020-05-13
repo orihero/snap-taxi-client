@@ -2,11 +2,11 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, StatusBar, TouchableNativeFeedback} from 'react-native'
 import {localization} from "../services/Localization";
 import MenuIcon from "../assets/images/MenuIcon";
-import WatcherIcon from "../assets/images/WatcherIcon";
 import Colors from "../assets/styles/Colors";
 import GradientBackground from "../assets/images/GradientBackground";
 import {Bold, SemiBold} from "./Layout/AppText";
 import BackButtonIcon from "../assets/images/BackButtonIcon";
+import NotificationsIcon from "../assets/images/NotificationsIcon";
 
 const Header = ({navigation, goBack, ...rest}) => {
     useEffect(() => {
@@ -37,7 +37,13 @@ const Header = ({navigation, goBack, ...rest}) => {
                     </View>
                     <Bold style={styles.where}>{localization.whereAreWeGoing}</Bold>
                 </View>
-                <View style={styles.watcher}><WatcherIcon/></View>
+                <View style={{borderRadius: 100, overflow: 'hidden', elevation: 5}}>
+                    <TouchableNativeFeedback
+                        onPress={() => navigation.navigate('Notifications')}
+                    >
+                        <View style={styles.watcher}><NotificationsIcon style={{left: 14}}/></View>
+                    </TouchableNativeFeedback>
+                </View>
             </View>
         </>
     );
@@ -45,6 +51,7 @@ const Header = ({navigation, goBack, ...rest}) => {
 
 const styles = StyleSheet.create({
     container: {
+        zIndex: 0,
         paddingTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -55,14 +62,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     watcher: {
-        alignItems: 'center',
         justifyContent: 'center',
         width: 42,
         height: 42,
         borderRadius: 100,
-        backgroundColor: Colors.background,
-        borderWidth: 2,
-        elevation: 10,
+        backgroundColor: '#fff',
         borderColor: '#fff'
     },
     where: {

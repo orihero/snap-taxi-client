@@ -19,7 +19,7 @@ export default (initialState = {}) => {
     let store;
 
     store = createStore(
-        rootReducer,
+        persistedReducer,
         compose(applyMiddleware(sagaMiddleware))
     );
 

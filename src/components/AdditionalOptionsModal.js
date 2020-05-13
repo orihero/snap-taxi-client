@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Switch, TextInput, ScrollView, KeyboardAvoidingView} from "react-native"
+import {View, StyleSheet, TextInput, KeyboardAvoidingView} from "react-native"
+
 import CustomModal from "./CustomModal";
 import Button from "./Button";
 import AdditionalOptionsModalIcon from "../assets/images/AdditionalOptionsModalIcon";
@@ -10,6 +11,7 @@ import Colors from "../assets/styles/Colors";
 import {Bold} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";
 import {localization} from "../services/Localization";
+import SwitchWithText from "./SwitchWithText";
 
 const AdditionalOptionsModal = ({visible, closeModal}) => {
     const [airCondition, setAirCondition] = useState(false);
@@ -21,28 +23,19 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
                     <AdditionalOptionsModalIcon style={styles.icon}/>
                     <Bold style={styles.heading}>{localization.yourDesire}</Bold>
                     <DestContent containerStyle={{marginHorizontal: 10}} textStyle={{fontSize: 15}}/>
-                    <View style={[styles.option, {borderTopWidth: 1}]}>
-                        <AirConditionIcon style={{marginRight: 11.4}} color={airCondition ? Colors.blue : '#000'}/>
-                        <Bold
-                            style={[{color: airCondition ? Colors.blue : '#000'}, styles.fz]}>{localization.airCondition}</Bold>
-                        <Switch
-                            trackColor={{false: '#ECECEC', true: '#ECECEC'}}
-                            thumbColor={airCondition ? Colors.blue : "#ECECEC"}
-                            style={{marginLeft: 'auto'}}
+                    <View style={{marginHorizontal: 10}}>
+                        <SwitchWithText
+                            style={{borderTopWidth: 1}}
+                            Icon={AirConditionIcon}
+                            text={localization.airCondition}
+                            setValue={setAirCondition}
                             value={airCondition}
-                            onValueChange={() => setAirCondition(!airCondition)}
                         />
-                    </View>
-                    <View style={styles.option}>
-                        <SmokeIcon style={{marginRight: 20}} color={smoke ? Colors.blue : '#000'}/>
-                        <Bold
-                            style={[{color: smoke ? Colors.blue : '#000'}, styles.fz]}>{localization.forSmokers}</Bold>
-                        <Switch
-                            trackColor={{false: '#ECECEC', true: '#ECECEC'}}
-                            thumbColor={smoke ? Colors.blue : "#ECECEC"}
-                            style={{marginLeft: 'auto'}}
+                        <SwitchWithText
+                            Icon={SmokeIcon}
+                            text={localization.forSmokers}
+                            setValue={setSmoke}
                             value={smoke}
-                            onValueChange={() => setSmoke(!smoke)}
                         />
                     </View>
                     <View style={styles.textarea}>
@@ -75,14 +68,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 11
     },
-    option: {
-        flexDirection: 'row',
-        marginHorizontal: 6,
-        alignItems: 'center',
-        paddingVertical: 13,
-        borderColor: '#EAECF1',
-        borderBottomWidth: 1
-    },
     textarea: {
         paddingHorizontal: 16,
         paddingVertical: 12,
@@ -90,6 +75,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         backgroundColor: Colors.background,
         height: 80,
+        marginHorizontal: 10,
         marginTop: 13,
         marginBottom: 40
     }

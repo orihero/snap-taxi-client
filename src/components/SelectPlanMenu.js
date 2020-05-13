@@ -44,6 +44,7 @@ const SelectPlanMenu = ({dispatch}) => {
             <DeliveryInfoModal
                 visible={visibleDeliveryModal}
                 closeModal={() => setVisibleDeliveryModal(false)}
+                openModal={() => setVisibleDeliveryModal(true)}
             />
             <View style={{marginTop: 'auto'}}>
                 <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
@@ -111,7 +112,8 @@ const SelectPlanMenu = ({dispatch}) => {
                             </TouchableWithoutFeedback>
                             <Button
                                 title={localization.forFriend}
-                                containerStyle={{backgroundColor: '#f2f2f2',}}
+                                containerStyle={{backgroundColor: '#f2f2f2'}}
+                                onPress={() => navigation.navigate('EnterPhoneNumber')}
                             />
                         </View>
                     </View>

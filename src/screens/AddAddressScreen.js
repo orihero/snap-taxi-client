@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native'
+import {View, TextInput, KeyboardAvoidingView, StyleSheet} from 'react-native'
 import {Light, Regular} from "../components/Layout/AppText";
 import Colors from "../assets/styles/Colors";
 import Button from "../components/Button";
@@ -8,7 +8,7 @@ import LocationIcon from "../assets/images/LocationIcon";
 
 const AddAddressScreen = () => {
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior={'height'} style={styles.container}>
             <View style={styles.inputWrapper}>
                 <Light>Название</Light>
                 <TextInput
@@ -32,7 +32,7 @@ const AddAddressScreen = () => {
                 </View>
             </View>
             <Button title={'Добавить'} containerStyle={{marginBottom: 33}}/>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 

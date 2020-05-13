@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, StyleSheet} from "react-native"
+import {View, StyleSheet} from "react-native"
 import MapView, {Marker} from 'react-native-maps';
 
 const MapScreen = () => {
@@ -163,16 +163,16 @@ const MapScreen = () => {
             ]
         }
     ];
-    const [coordinates, setCoordinates] = useState({
-        x: {
+    const [coordinates, setCoordinates] = useState();
+    const onRegionChange = (region) => {
+        setCoordinates(region)
+    };
+    const markers = [
+        {
             latitude: 37.78825,
             longitude: -122.4324,
-        },
-        y: {
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
         }
-    });
+    ];
     return (
         <View style={styles.container}>
             <MapView
@@ -183,11 +183,12 @@ const MapScreen = () => {
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.0121,
                 }}
+                // onRegionChange={onRegionChange}
                 customMapStyle={mapStyle}
             >
                 {/*<Marker*/}
                 {/*    draggable*/}
-                {/*    coordinate={coordinates.x}*/}
+                {/*    coordinate={markers[0]}*/}
                 {/*    onDragEnd={(e) => {*/}
                 {/*        setCoordinates({x: e.nativeEvent.coordinate})*/}
                 {/*        console.warn(e.nativeEvent.coordinate)*/}

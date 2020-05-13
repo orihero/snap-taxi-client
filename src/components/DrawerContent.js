@@ -1,26 +1,27 @@
-import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Animated, Linking} from "react-native"
+import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking, Alert} from "react-native"
 import React from "react";
 import routes from "../navigation/DrawerNavigation/routes";
 import UserInfo from "./UserInfo";
 import Colors from "../assets/styles/Colors";
 import {Regular} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";
+import LogoutIcon from "../assets/images/LogoutIcon";
 
 
 const DrawerContent = (props) => {
-    const scrollY = new Animated.Value(0);
+    const logout = () => {
+        Alert.alert('Выйти из аккаунта', 'Вы уверены что хотите выйти из аакунта?', [
+            {text: 'Отмена' },
+            {text: 'Выйти', onPress: () => props.navigation.navigate('RegistrationStack')}
+        ])
+    }
     return (
         <View style={styles.container}>
-            <UserInfo scrollY={scrollY}/>
-            <Animated.ScrollView
+            <UserInfo/>
+            <ScrollView
                 style={{marginBottom: 20}}
-                scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
-                onScroll={Animated.event([{
-                    nativeEvent: {
-                        contentOffset: {y: scrollY}
-                    }
-                }], {useNativeDriver: false})}>
+            >
                 <View>
                     {
                         routes.map((route, item) => {
@@ -37,7 +38,14 @@ const DrawerContent = (props) => {
                         })
                     }
                 </View>
-            </Animated.ScrollView>
+                <TouchableWithoutFeedback onPress={logout}>
+                    <View style={{alignItems: 'center', marginVertical: 20}}>
+                        <View style={styles.icon}>
+                            <LogoutIcon/>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </ScrollView>
             <Regular style={{position: 'absolute', fontSize: 15, bottom: 10, left: 35}}>Версия 2.0</Regular>
         </View>
     );
@@ -72,6 +80,15 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
+    },
+    icon: {
+        borderRadius: 100,
+        backgroundColor: Colors.background,
+        elevation: 7,
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 

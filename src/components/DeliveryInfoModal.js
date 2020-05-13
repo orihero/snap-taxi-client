@@ -7,7 +7,8 @@ import {
     TouchableWithoutFeedback,
     ScrollView,
     TextInput,
-    Switch
+    Switch,
+    KeyboardAvoidingView
 } from 'react-native'
 import BackButtonIcon from "../assets/images/BackButtonIcon";
 import DriverInfoBlockBottomFragment from "../assets/images/DriverInfoBlockBottomFragment";
@@ -20,7 +21,7 @@ import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Button from "./Button";
 import {useNavigation} from '@react-navigation/native'
 
-const DeliveryInfoModal = ({visible, closeModal}) => {
+const DeliveryInfoModal = ({visible, closeModal, openModal}) => {
     const navigation = useNavigation();
     const [from, setFrom] = useState(false);
     return (
@@ -31,30 +32,44 @@ const DeliveryInfoModal = ({visible, closeModal}) => {
             onRequestClose={closeModal}
             animationType={'slide'}
         >
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
                 <TouchableWithoutFeedback onPress={closeModal}>
-                    <BackButtonIcon style={{marginTop: 55, marginBottom: 21}}/>
+                    <BackButtonIcon/>
                 </TouchableWithoutFeedback>
-                <ScrollView>
+                <ScrollView style={{marginTop: 21}}>
                     <View style={styles.topBlock}>
                         <View style={styles.topBlockContent}>
-                            <Bold style={{fontSize: 17}}>Откуда</Bold>
-                            <View style={[styles.addressItem, {paddingLeft: 10}]}>
-                                <View>
-                                    <Light style={{color: '#AAAEB7', lineHeight: 19}}>Кто отправляет</Light>
-                                    <Bold style={{fontWeight: 'bold'}}>+99890 653 58 98</Bold>
+                            <Bold style={{fontSize: 17, marginBottom: 10}}>Откуда</Bold>
+                            <TouchableWithoutFeedback onPress={() => {
+                                closeModal()
+                                navigation.navigate('EnterPhoneNumber', {openModal})
+                            }}>
+                                <View style={[styles.addressItem, {paddingLeft: 10}]}>
+                                    <View>
+                                        <Light style={{color: '#AAAEB7', lineHeight: 19}}>Кто отправляет</Light>
+                                        <Bold style={{fontWeight: 'bold'}}>+99890 653 58 98</Bold>
+                                    </View>
+                                    <ArrowIcon style={{marginLeft: 'auto'}}/>
                                 </View>
-                                <ArrowIcon style={{marginLeft: 'auto'}}/>
-                            </View>
-                            <View style={styles.addressItem}>
-                                <LocationIcon style={{marginRight: 13.3}}/>
-                                <View>
-                                    <Light style={{color: '#AAAEB7', lineHeight: 19}}>Едем из</Light>
-                                    <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                            </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={() => {
+                                closeModal()
+                                navigation.navigate('EnterPhoneNumber', {openModal})
+                            }}>
+                                <View style={styles.addressItem}>
+                                    <LocationIcon style={{marginRight: 13.3}}/>
+                                    <View>
+                                        <Light style={{color: '#AAAEB7', lineHeight: 19}}>Едем из</Light>
+                                        <Bold style={{fontWeight: 'bold'}}>Саларская набережаная 35</Bold>
+                                    </View>
+                                    <ArrowIcon style={{marginLeft: 'auto'}}/>
                                 </View>
-                                <ArrowIcon style={{marginLeft: 'auto'}}/>
-                            </View>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                            </TouchableWithoutFeedback>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
                                 <Bold style={{paddingLeft: 10}}>До двери (этаж)</Bold>
                                 <AddIcon/>
                             </View>
@@ -74,7 +89,7 @@ const DeliveryInfoModal = ({visible, closeModal}) => {
                     <View>
                         <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                         <View style={styles.bottomBlock}>
-                            <Bold style={{fontSize: 17}}>Куда</Bold>
+                            <Bold style={{fontSize: 17, marginBottom: 10}}>Куда</Bold>
                             <View style={[styles.addressItem, {paddingLeft: 10}]}>
                                 <View>
                                     <Light style={{color: '#AAAEB7', lineHeight: 19}}>Кто заберёт</Light>
@@ -90,7 +105,11 @@ const DeliveryInfoModal = ({visible, closeModal}) => {
                                 </View>
                                 <ArrowIcon style={{marginLeft: 'auto'}}/>
                             </View>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center'
+                            }}>
                                 <Bold style={{paddingLeft: 10}}>До двери (этаж)</Bold>
                                 <AddIcon/>
                             </View>
@@ -100,7 +119,7 @@ const DeliveryInfoModal = ({visible, closeModal}) => {
                                     placeholder={'Добавить коментарий '}
                                 />
                             </View>
-                            <View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 23}}>
                                 <Bold>От двери до двери</Bold>
                                 <Switch
                                     trackColor={{false: '#ECECEC', true: '#ECECEC'}}
@@ -110,17 +129,21 @@ const DeliveryInfoModal = ({visible, closeModal}) => {
                                     onValueChange={() => setFrom(!from)}
                                 />
                             </View>
-                            <Button title={'Далее'} onPress={() => navigation.navigate('TaxiComing')}/>
+                            <Button title={'Далее'} onPress={() => {
+                                closeModal();
+                                navigation.navigate('TaxiComing')
+                            }}/>
                         </View>
                     </View>
                 </ScrollView>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 50,
         paddingHorizontal: 16,
         backgroundColor: 'rgba(0,0,0,.2)',
         flex: 1,

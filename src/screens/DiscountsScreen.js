@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput} from "react-native"
+import {View, StyleSheet, TextInput} from "react-native"
 import DiscountIcon from "../assets/images/DiscountIcon";
 import Button from "../components/Button";
 import Colors from "../assets/styles/Colors";
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     row: {
-        paddingVertical: 10,
+        height: 52,
         paddingHorizontal: 14.2,
         flexDirection: 'row',
         alignItems: 'center',

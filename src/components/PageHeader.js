@@ -4,6 +4,7 @@ import BackButtonIcon from "../assets/images/BackButtonIcon";
 import Colors from "../assets/styles/Colors";
 import {Bold} from "./Layout/AppText";
 
+
 const PageHeader = ({title, navigation, style}) => {
     useEffect(() => {
         const navListener = navigation.addListener('focus', () => {

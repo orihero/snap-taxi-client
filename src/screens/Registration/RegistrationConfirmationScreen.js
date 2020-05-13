@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderWidth: 2,
         borderColor: '#fff',
-        paddingVertical: 12,
+        height: 52,
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: Dimensions.get('window').height > 700 ? 100 : 30,

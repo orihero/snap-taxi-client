@@ -9,7 +9,7 @@ const {Navigator, Screen} = createDrawerNavigator();
 
 const DrawerStack = () => (
     <Navigator
-        drawerPosition={'right'}
+        drawerPosition={'left'}
         drawerType={'slide'}
         overlayColor={0}
         drawerContent={(props) => <DrawerContent {...props}/>}

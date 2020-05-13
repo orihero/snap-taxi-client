@@ -1,5 +1,15 @@
 import React, {useRef, useState} from 'react';
-import {View, StyleSheet, Dimensions, PanResponder, Animated} from "react-native"
+import {
+    View,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    Dimensions,
+    PanResponder,
+    Animated,
+    Platform,
+    PermissionsAndroid
+} from "react-native"
+import Geolocation from '@react-native-community/geolocation';
 import HomeIcon from "../assets/images/HomeIcon";
 import CursorIcon from "../assets/images/CursorIcon";
 import BagIcon from "../assets/images/BagIcon";
@@ -7,8 +17,20 @@ import SearchResult from "./SearchResult";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
 
-
 const Directions = ({navigation}) => {
+    const fuck = async () => {
+        let hasPermission;
+        if (Platform.OS === 'android') {
+            hasPermission = await PermissionsAndroid.check("android.permission.ACCESS_FINE_LOCATION");
+            if (!hasPermission) {
+                const status = PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+                hasPermission = status === PermissionsAndroid.RESULTS.GRANTED;
+                if (hasPermission) {
+                    Geolocation.getCurrentPosition(info => console.log(info));
+                }
+            }
+        }
+    };
     const translateY = useRef(new Animated.Value(0)).current;
     const panResPonder = useRef(PanResponder.create({
         onMoveShouldSetPanResponder: (evt, gestureState) => {
@@ -43,7 +65,9 @@ const Directions = ({navigation}) => {
         <Animated.View style={[styles.container]}>
             <View style={styles.directions}>
                 <View style={styles.icon}><HomeIcon/></View>
-                <View style={styles.circleIcon}><CursorIcon/></View>
+                <TouchableWithoutFeedback onPress={fuck}>
+                    <View style={styles.circleIcon}><CursorIcon/></View>
+                </TouchableWithoutFeedback>
                 <View style={styles.icon}><BagIcon/></View>
             </View>
             <BottomMenuCurve width={Dimensions.get('window').width}/>
@@ -53,7 +77,7 @@ const Directions = ({navigation}) => {
             >
                 <View style={styles.draggable}/>
                 <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
-                <Animated.View style={{height, overflow: 'hidden'}}>
+                <Animated.View style={{height: height > 150 ? 'auto' : height, overflow: 'hidden'}}>
                     <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
                     <SearchResult border={false} onPress={() => navigation.navigate('SelectCar')}/>
                 </Animated.View>

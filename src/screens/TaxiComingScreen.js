@@ -11,7 +11,6 @@ const TaxiComingScreen = ({navigation}) => {
             <Header navigation={navigation} goBack={true}/>
             <MapScreen/>
             <CarOrder/>
-            {/*{isTaxiWaiting && <CarWaiting/>}*/}
         </View>
     );
 };

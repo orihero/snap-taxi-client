@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Dimensions, StatusBar} from "react-native"
+import {View, StyleSheet, TextInput, KeyboardAvoidingView, StatusBar} from "react-native"
 import Colors from "../../assets/styles/Colors";
-import Logo from "../../assets/images/Logo";
 import PhoneIcon from "../../assets/images/PhoneIcon";
 import Button from "../../components/Button";
 import {Bold, Regular, SemiBold} from "../../components/Layout/AppText";
 import RegistrationTop from "../../components/RegistrationTop";
+import Screen from "../../helpers/Dimensions";
+import {TextInputMask} from "react-native-masked-text";
 
 
 const RegistrationScreen = ({navigation}) => {
     const [selectedValue, setSelectedValue] = useState();
+    const [phoneNumber, setPhoneNumber] = useState('');
+
     return (
         <KeyboardAvoidingView style={{flex: 1}} behavior={'position'}>
-            <StatusBar backgroundColor={Colors.blue}/>
             <RegistrationTop/>
             <View style={styles.registrationContainer}>
                 <View style={{alignItems: 'center'}}>
@@ -21,8 +23,18 @@ const RegistrationScreen = ({navigation}) => {
                 </View>
                 <View style={styles.registrationForm}>
                     <PhoneIcon style={styles.phoneIcon}/>
-                    <Text style={{color: '#232323', fontSize: 16}}>+998</Text>
-                    <TextInput style={{color: '#232323', fontSize: 16}} placeholder={'Введите Ваш номер'}/>
+                    <Regular style={{color: '#232323', fontSize: 16}}>+998</Regular>
+                    <TextInputMask
+                        keyboardType={'number-pad'}
+                        placeholder={'Введите Ваш номер'}
+                        style={{color: '#232323', fontSize: 16}}
+                        type={'custom'}
+                        options={{
+                            mask: '99 999 99 99'
+                        }}
+                        value={phoneNumber}
+                        onChangeText={text => setPhoneNumber(text)}
+                    />
                 </View>
                 <View style={{alignItems: 'center'}}>
                     <Regular style={styles.auth}>Авторизуйтесь, вы полностью соглашаетесь с нашими</Regular>
@@ -47,11 +59,13 @@ const styles = StyleSheet.create({
     registrationForm: {
         borderRadius: 10,
         width: '100%',
-        paddingVertical: 12,
+        height: 52,
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: Dimensions.get('window').height > 700 ? 84 : 30,
-        backgroundColor: '#fff',
+        marginBottom: Screen.height > 700 ? 84 : 30,
+        backgroundColor: Colors.background,
+        borderWidth: 2,
+        borderColor: '#fff',
         elevation: 10,
     },
     heading: {fontSize: 20, marginBottom: 46},

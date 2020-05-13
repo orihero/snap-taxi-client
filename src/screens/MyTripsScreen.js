@@ -1,68 +1,15 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, Dimensions} from "react-native"
-import DriverInfo from "../components/DriverInfo";
-import BottomMenuCurve from "../assets/images/BottomMenuCurve";
-import {DestContent} from "../components/SelectedDestination";
-import Colors from "../assets/styles/Colors";
-import {Light} from "../components/Layout/AppText";
+import {ScrollView, StyleSheet} from "react-native"
+import TripItem from "../components/TripItem";
+
 
 const MyTripsScreen = () => {
     return (
         <ScrollView style={styles.container}>
-            <View style={{paddingHorizontal: 16}}>
-                <View style={styles.tripItem}>
-                    <DriverInfo finished activeExclaim/>
-                    <View style={styles.shadow}>
-                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                        <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
-                            <View style={styles.textWrapper}>
-                                <Light style={styles.text}>Id 4562455865</Light>
-                                <Light style={styles.text}>12.03.2020</Light>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.tripItem}>
-                    <DriverInfo finished activeExclaim/>
-                    <View style={styles.shadow}>
-                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                        <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
-                            <View style={styles.textWrapper}>
-                                <Light style={styles.text}>Id 4562455865</Light>
-                                <Light style={styles.text}>12.03.2020</Light>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.tripItem}>
-                    <DriverInfo finished/>
-                    <View style={styles.shadow}>
-                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                        <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
-                            <View style={styles.textWrapper}>
-                                <Light style={styles.text}>Id 4562455865</Light>
-                                <Light style={styles.text}>12.03.2020</Light>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.tripItem}>
-                    <DriverInfo finished/>
-                    <View style={styles.shadow}>
-                        <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
-                        <View style={styles.content}>
-                            <DestContent containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
-                            <View style={styles.textWrapper}>
-                                <Light style={styles.text}>Id 4562455865</Light>
-                                <Light style={styles.text}>12.03.2020</Light>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </View>
+            <TripItem/>
+            <TripItem/>
+            <TripItem/>
+            <TripItem/>
         </ScrollView>
     );
 };
@@ -73,34 +20,6 @@ const styles = StyleSheet.create({
         zIndex: 2,
         marginTop: -44
     },
-    shadow: {
-        elevation: 10,
-        alignSelf: 'center',
-        borderRadius: 15,
-        overflow: 'hidden'
-    },
-    content: {
-        backgroundColor: Colors.background,
-        paddingHorizontal: 15,
-        borderWidth: 2,
-        borderColor: '#fff',
-        borderTopWidth: 0
-    },
-    tripItem: {
-        marginBottom: 20
-    },
-    textWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingTop: 8,
-        paddingBottom: 12,
-        paddingHorizontal: 6,
-        borderTopWidth: 1,
-        borderTopColor: '#EAECF1'
-    },
-    text: {
-        color: '#646974'
-    }
 });
 
 export default MyTripsScreen;

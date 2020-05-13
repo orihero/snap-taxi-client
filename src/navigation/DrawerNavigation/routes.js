@@ -16,6 +16,11 @@ const routes = [
         component: MainStack
     },
     {
+        label: null,
+        name: 'RegistrationStack',
+        component: RegistrationStack
+    },
+    {
         label: "Способ оплаты",
         name: 'PaymentMethodsStack',
         component: PaymentMethodsStack
@@ -50,7 +55,6 @@ const routes = [
         label: "Служба поддержки",
         name: 'SupportStack',
         component: SupportStack
-
     }
 ];
 
