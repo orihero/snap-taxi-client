@@ -4,7 +4,7 @@ import {PersistGate} from 'redux-persist/lib/integration/react';
 
 import AppNavigator from "./src/navigation/AppNavigator";
 import createStore from "./src/store/createStore";
-import SplashScreen from "./src/screens/SplashScreen";
+import SplashScreen from "./src/screens/SplashScreen/SplashScreen";
 
 const {store, persistor} = createStore();
 

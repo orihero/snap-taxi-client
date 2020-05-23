@@ -4,12 +4,12 @@ import MainScreen from "../../screens/MainScreen";
 import SelectCarScreen from "../../screens/SelectCarScreen";
 import TaxiComingScreen from "../../screens/TaxiComingScreen";
 import CarWaitingScreen from "../../screens/CarWaitingScreen";
-import ChatScreen from "../../screens/ChatScreen";
-import PageHeader from "../../components/PageHeader";
+import ChatScreen from "../../screens/ChatScreen/ChatScreen";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import {localization} from "../../services/Localization";
 import Colors from "../../assets/styles/Colors";
-import EnterPhoneNumberScreen from "../../screens/EnterPhoneNumberScreen";
-import NotificationsScreen from "../../screens/NotificationsScreen";
+import EnterPhoneNumberScreen from "../../screens/EnterPhoneNumberScreen/EnterPhoneNumberScreen";
+import NotificationsScreen from "../../screens/NotificationsScreen/NotificationsScreen";
 import RateTripScreen from "../../screens/RateTripScreen";
 
 const {Navigator, Screen} = createStackNavigator();

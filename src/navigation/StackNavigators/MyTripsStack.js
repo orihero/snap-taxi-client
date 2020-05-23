@@ -1,8 +1,8 @@
 import React from 'react';
-import PageHeader from "../../components/PageHeader";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
-import MyTripsScreen from "../../screens/MyTripsScreen";
+import MyTripsScreen from "../../screens/MyTripsScreen/MyTripsScreen";
 import {localization} from "../../services/Localization";
 
 const {Navigator, Screen} = createStackNavigator();

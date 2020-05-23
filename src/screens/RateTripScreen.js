@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback,
     ScrollView
 } from "react-native"
-import DriverInfo from "../components/DriverInfo";
+import DriverInfo from "../components/DriverInfo/DriverInfo";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
 import StarIcon from "../assets/images/StarIcon";

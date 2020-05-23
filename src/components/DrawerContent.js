@@ -1,7 +1,7 @@
 import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking, Alert} from "react-native"
 import React from "react";
 import routes from "../navigation/DrawerNavigation/routes";
-import UserInfo from "./UserInfo";
+import UserInfo from "./UserInfo/UserInfo";
 import Colors from "../assets/styles/Colors";
 import {Regular} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";

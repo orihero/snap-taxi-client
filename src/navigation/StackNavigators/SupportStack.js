@@ -1,8 +1,8 @@
 import React from 'react';
-import PageHeader from "../../components/PageHeader";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
-import SupportScreen from "../../screens/SupportScreen";
+import SupportScreen from "../../screens/SupportScreen/SupportScreen";
 import SupportCategoryScreen from "../../screens/SupportCategoryScreen";
 
 const {Navigator, Screen} = createStackNavigator();

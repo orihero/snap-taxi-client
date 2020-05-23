@@ -1,5 +1,3 @@
-import {ORDER} from "../constants/Taxi";
-
 const initialState = {
     isFetched: false,
     waiting: false,
@@ -8,19 +6,11 @@ const initialState = {
 
 const taxi = (state = initialState, action) => {
     switch (action.type) {
-        case ORDER.SUCCESS: {
+        case "s": {
             return {
                 ...state,
                 data: [],
                 isFetched: true,
-            }
-        }
-        case ORDER.FULFILL: {
-            return {
-                ...state,
-                data: [],
-                isFetched: true,
-                waiting: true
             }
         }
         default:

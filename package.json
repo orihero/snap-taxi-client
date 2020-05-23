@@ -18,13 +18,11 @@
     "@react-navigation/native": "5.1.5",
     "@react-navigation/stack": "5.2.10",
     "axios": "0.19.2",
-    "formik": "2.1.4",
     "lodash": "4.17.15",
-    "prop-types": "15.7.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-contacts-picker": "https://github.com/Frank220599/react-native-contacts-picker.git",
     "react-native-gesture-handler": "1.6.1",
-    "react-native-google-places-autocomplete": "1.4.2",
     "react-native-localization": "2.1.6",
     "react-native-maps": "0.27.1",
     "react-native-masked-text": "1.13.0",
@@ -36,10 +34,8 @@
     "react-navigation-transitions": "1.0.12",
     "react-redux": "7.2.0",
     "redux": "4.0.5",
-    "redux-logger": "3.0.6",
     "redux-persist": "6.0.0",
-    "redux-saga": "1.1.3",
-    "redux-saga-routines": "3.2.2"
+    "redux-saga": "1.1.3"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -49,7 +45,9 @@
     "eslint": "6.8.0",
     "jest": "25.3.0",
     "metro-react-native-babel-preset": "0.59.0",
-    "react-test-renderer": "16.11.0"
+    "prop-types": "15.7.2",
+    "react-test-renderer": "16.11.0",
+    "redux-logger": "3.0.6"
   },
   "jest": {
     "preset": "react-native"

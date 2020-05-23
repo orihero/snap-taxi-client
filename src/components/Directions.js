@@ -3,6 +3,7 @@ import {
     View,
     StyleSheet,
     TouchableWithoutFeedback,
+    TouchableNativeFeedback,
     Dimensions,
     PanResponder,
     Animated,
@@ -10,12 +11,11 @@ import {
     PermissionsAndroid
 } from "react-native"
 import Geolocation from '@react-native-community/geolocation';
-import HomeIcon from "../assets/images/HomeIcon";
 import CursorIcon from "../assets/images/CursorIcon";
-import BagIcon from "../assets/images/BagIcon";
-import SearchResult from "./SearchResult";
+import SearchResult from "./SearchResult/SearchResult";
 import BottomMenuCurve from "../assets/images/BottomMenuCurve";
 import Colors from "../assets/styles/Colors";
+import {SemiBold} from "./Layout/AppText";
 
 const Directions = ({navigation}) => {
     const fuck = async () => {
@@ -64,11 +64,16 @@ const Directions = ({navigation}) => {
     return (
         <Animated.View style={[styles.container]}>
             <View style={styles.directions}>
-                <View style={styles.icon}><HomeIcon/></View>
                 <TouchableWithoutFeedback onPress={fuck}>
                     <View style={styles.circleIcon}><CursorIcon/></View>
                 </TouchableWithoutFeedback>
-                <View style={styles.icon}><BagIcon/></View>
+                <View style={styles.borderless}>
+                    <TouchableNativeFeedback onPress={() => navigation.navigate('SelectCar')}>
+                        <View style={styles.next}>
+                            <SemiBold>Далее</SemiBold>
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
             </View>
             <BottomMenuCurve width={Dimensions.get('window').width}/>
             <View
@@ -88,6 +93,21 @@ const Directions = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+    borderless: {
+        overflow: 'hidden',
+        borderRadius: 15,
+        position: "absolute",
+        right: 0,
+        bottom: 10,
+    },
+    next: {
+        backgroundColor: Colors.yellow,
+        height: 40,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 15
+    },
     container: {
         marginTop: 'auto',
         width: Dimensions.get('window').width,
@@ -101,7 +121,7 @@ const styles = StyleSheet.create({
     directions: {
         alignSelf: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         width: Dimensions.get('window').width - 32,
     },
     icon: {

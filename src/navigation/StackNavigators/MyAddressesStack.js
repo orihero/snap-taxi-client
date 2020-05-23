@@ -1,11 +1,11 @@
 import React from 'react';
-import MyAddressesScreen from "../../screens/MyAddressesScreen";
-import PageHeader from "../../components/PageHeader";
+import MyAddressesScreen from "../../screens/MyAddressesScreen/MyAddressesScreen";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import {createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
 import {localization} from "../../services/Localization";
-import ChangeAddressScreen from "../../screens/ChangeAddressScreen";
-import AddAddressScreen from "../../screens/AddAddressScreen";
+import ChangeAddressScreen from "../../screens/ChangeAddressScreen/ChangeAddressScreen";
+import AddAddressScreen from "../../screens/AddAddressScreen/AddAddressScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 

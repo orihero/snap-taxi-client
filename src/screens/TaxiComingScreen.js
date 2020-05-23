@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native'
 import MapScreen from "./MapScreen";
-import Header from "../components/Header";
-import CarOrder from "../components/CarOrder";
+import Header from "../components/Header/Header";
+import CarOrder from "../components/CarOrder/CarOrder";
 
 
 const TaxiComingScreen = ({navigation}) => {
