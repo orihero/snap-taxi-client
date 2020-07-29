@@ -1,9 +1,18 @@
 import {combineReducers} from "redux";
-import taxi from "./taxi";
+import user from "./user";
 
-const rootReducer = combineReducers({
-    taxi
+
+const appReducer = combineReducers({
+    user
 });
 
-export default rootReducer
+const rootReducer = (state, action) => {
+    if (action.type === 'LOGOUT') {
+        state = {}
+    }
 
+    return appReducer(state, action)
+};
+
+
+export default rootReducer;

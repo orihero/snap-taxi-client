@@ -1,18 +1,22 @@
 import React from 'react';
-import {View, TouchableNativeFeedback, TouchableHighlight, Platform} from "react-native";
+import {View, ActivityIndicator} from "react-native";
 
 import styles from "./styles";
 import {SemiBold} from "../Layout/AppText";
+import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
-const Button = ({title, containerStyle, onPress, texStyle}) => {
-    const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
+const Button = ({title, containerStyle, onPress, texStyle, isLoading}) => {
     return (
         <View style={[styles.button, containerStyle]}>
-            <TouchableComponent onPress={onPress}>
+            <TouchablePlatformSpecific onPress={onPress} disabled={isLoading}>
                 <View style={styles.wrapper}>
-                    <SemiBold style={[{color: '#2A1E06'}, texStyle]}>{title}</SemiBold>
+                    {
+                        !isLoading
+                            ? <SemiBold style={[{color: '#2A1E06'}, texStyle]}>{title}</SemiBold>
+                            : <ActivityIndicator color={'#fff'} size={"large"}/>
+                    }
                 </View>
-            </TouchableComponent>
+            </TouchablePlatformSpecific>
         </View>
     );
 };

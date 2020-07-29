@@ -9,6 +9,7 @@ import GradientBackground from "../../assets/images/GradientBackground";
 import {Bold, SemiBold} from "../Layout/AppText";
 import BackButtonIcon from "../../assets/images/BackButtonIcon";
 import NotificationsIcon from "../../assets/images/NotificationsIcon";
+import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
 const Header = ({navigation, goBack, ...rest}) => {
     useEffect(() => {
@@ -25,24 +26,28 @@ const Header = ({navigation, goBack, ...rest}) => {
                 {
                     !goBack
                         ? <MenuIcon onPress={() => navigation.openDrawer()}/>
-                        : <TouchableNativeFeedback
+                        : <TouchablePlatformSpecific
                             onPress={() => navigation.goBack()}
                             background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.1)', true)}
                         >
                             <BackButtonIcon style={{elevation: 10}}/>
-                        </TouchableNativeFeedback>
+                        </TouchablePlatformSpecific>
                 }
                 <View>
                     <View style={styles.greeting}>
-                        <SemiBold style={styles.goodMorning}>{localization.goodMorning}</SemiBold>
+                        <SemiBold style={styles.goodMorning}>
+                            {localization.goodMorning}
+                        </SemiBold>
                         <Bold style={{color: Colors.blue, fontSize: 16}}>Александр</Bold>
                     </View>
                     <Bold style={styles.where}>{localization.whereAreWeGoing}</Bold>
                 </View>
                 <View style={{borderRadius: 100, overflow: 'hidden', elevation: 5}}>
-                    <TouchableNativeFeedback onPress={() => navigation.navigate('Notifications')}>
-                        <View style={styles.watcher}><NotificationsIcon style={{left: 14}}/></View>
-                    </TouchableNativeFeedback>
+                    <TouchablePlatformSpecific onPress={() => navigation.navigate('Notifications')}>
+                        <View style={styles.watcher}>
+                            <NotificationsIcon style={{left: 14}}/>
+                        </View>
+                    </TouchablePlatformSpecific>
                 </View>
             </View>
         </>

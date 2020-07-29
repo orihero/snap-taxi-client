@@ -6,18 +6,21 @@ import Colors from "../assets/styles/Colors";
 import {Regular} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";
 import LogoutIcon from "../assets/images/LogoutIcon";
-
+import {connect} from "react-redux";
 
 const DrawerContent = (props) => {
     const logout = () => {
         Alert.alert('Выйти из аккаунта', 'Вы уверены что хотите выйти из аакунта?', [
-            {text: 'Отмена' },
-            {text: 'Выйти', onPress: () => props.navigation.navigate('RegistrationStack')}
+            {text: 'Отмена'},
+            {text: 'Выйти', onPress: () => props.dispatch({type: 'LOGOUT'})}
         ])
-    }
+    };
     return (
         <View style={styles.container}>
-            <UserInfo/>
+            <UserInfo
+                name={props.user.data.name}
+                phoneNumber={props.user.data.phone}
+            />
             <ScrollView
                 style={{marginBottom: 20}}
                 showsVerticalScrollIndicator={false}
@@ -92,4 +95,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default DrawerContent
+const mapStateToProps = ({user}) => ({
+    user
+});
+
+export default connect(mapStateToProps)(DrawerContent)

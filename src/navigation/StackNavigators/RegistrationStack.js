@@ -1,4 +1,5 @@
 import React from 'react';
+
 import RegistrationScreen from "../../screens/Registration/RegistrationScreen";
 import RegistrationConfirmationScreen from "../../screens/Registration/RegistrationConfirmationScreen";
 import {createStackNavigator} from "@react-navigation/stack";

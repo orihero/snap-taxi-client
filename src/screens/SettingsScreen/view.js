@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView} from "react-native"
+import React from 'react';
+import {View, TextInput, TouchableWithoutFeedback} from "react-native"
 
 import styles from "./styles";
 import ProfileSettingsIcon from "../../assets/images/ProfileSettingsIcon";
@@ -12,31 +12,26 @@ import {Bold} from "../../components/Layout/AppText";
 import {localization} from "../../services/Localization";
 import SwitchWithText from "../../components/SwitchWithText";
 
-const SettingsScreen = ({navigation}) => {
-
-    const [showTrafficJams, setShowTrafficJams] = useState(false);
-    const [acceptCall, setAcceptCall] = useState(false);
-    const [sale, setSale] = useState(false);
-    const [name, setName] = useState('Sylvester Stallone');
-
+const SettingsScreenView = ({setters, values, routeTo, save}) => {
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={'height'}>
+        <View style={styles.container}>
             <View style={styles.row}>
                 <ProfileSettingsIcon style={{marginRight: 23.5}}/>
                 <TextInput
                     style={[styles.text, {flex: 1}]}
-                    value={name}
-                    onChangeText={name => setName(name)}
+                    placeholder={'Ваше имя'}
+                    value={values.name}
+                    onChangeText={name => setters.setName(name)}
                 />
             </View>
             <View style={{paddingHorizontal: 21}}>
                 <SwitchWithText
                     Icon={TrafficJamsIcon}
-                    value={showTrafficJams}
-                    setValue={setShowTrafficJams}
+                    value={values.showTrafficJams}
+                    setValue={setters.setShowTrafficJams}
                     text={localization.showTrafficJams}
                 />
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('SelectLanguage')}>
+                <TouchableWithoutFeedback onPress={routeTo('SelectLanguage')}>
                     <View style={[styles.option, {justifyContent: 'space-between'}]}>
                         <Bold style={{fontSize: 15}}>{localization.appLanguage}</Bold>
                         <SettingsArrowIcon/>
@@ -44,26 +39,28 @@ const SettingsScreen = ({navigation}) => {
                 </TouchableWithoutFeedback>
                 <SwitchWithText
                     Icon={AcceptCallIcon}
-                    value={acceptCall}
-                    setValue={setAcceptCall}
+                    value={values.acceptCall}
+                    setValue={setters.setAcceptCall}
                     text={localization.dontCall}
                 />
                 <SwitchWithText
                     Icon={SaleIcon}
-                    value={sale}
-                    setValue={setSale}
+                    value={values.sale}
+                    setValue={setters.setSale}
                     text={localization.dontNotifySale}
                 />
             </View>
             <View style={{marginHorizontal: 15, marginTop: 'auto'}}>
                 <Button
+                    onPress={save}
+                    isLoading={values.isLoading}
                     title={localization.save}
                     containerStyle={{marginBottom: 33}}
                 />
             </View>
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 
 
-export default SettingsScreen;
+export default SettingsScreenView;

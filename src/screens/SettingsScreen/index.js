@@ -1,3 +1,3 @@
-import SettingsScreen from "./SettingsScreen";
+import SettingsScreen from "./connect";
 
 export default SettingsScreen;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from "@react-navigation/stack";
-import SettingsScreen from "../../screens/SettingsScreen/SettingsScreen";
+import SettingsScreen from "../../screens/SettingsScreen";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import Colors from "../../assets/styles/Colors";
 import {localization} from "../../services/Localization";

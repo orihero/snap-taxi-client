@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, Alert, PermissionsAndroid, Platform, TouchableWithoutFeedback, StyleSheet, Dimensions} from 'react-native'
+import {View, Alert, PermissionsAndroid, Platform, TouchableWithoutFeedback, StyleSheet} from 'react-native'
 import SystemSetting from 'react-native-system-setting'
+import {connect} from "react-redux";
 
 import MapScreen from "./MapScreen";
 import Search from "../components/Search/Search";
@@ -8,9 +9,11 @@ import Header from "../components/Header/Header";
 import Button from "../components/Button";
 import CursorIcon from "../assets/images/CursorIcon";
 import Colors from "../assets/styles/Colors";
+import {bindActionCreators} from "redux";
 
 const MainScreen = ({navigation}) => {
     const [isLocationEnabled, setIsLocationEnabled] = useState(true);
+
 
     const requestPermission = async () => {
         let hasPermission;
@@ -27,7 +30,8 @@ const MainScreen = ({navigation}) => {
             setIsLocationEnabled(enable)
         });
 
-        requestPermission().then(r => console.log('success')).catch(e => console.warn(e))
+        requestPermission().then(r => {
+        }).catch(e => console.warn(e))
     }, []);
 
     useEffect(() => {
@@ -77,5 +81,7 @@ const styles = StyleSheet.create({
     },
 });
 
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 
-export default MainScreen
+export default connect(null, mapDispatchToProps)(MainScreen);
+

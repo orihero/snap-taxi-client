@@ -1,4 +1,3 @@
-import {Linking} from "react-native"
 import PaymentMethodsStack from "../StackNavigators/PaymentMethodsStack";
 import DiscountsStack from "../StackNavigators/DiscountsStack";
 import MyAddressesStack from "../StackNavigators/MyAddressesStack";

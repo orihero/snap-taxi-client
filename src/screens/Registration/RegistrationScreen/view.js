@@ -1,18 +1,14 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, KeyboardAvoidingView, StatusBar} from "react-native"
-import Colors from "../../assets/styles/Colors";
-import PhoneIcon from "../../assets/images/PhoneIcon";
-import Button from "../../components/Button";
-import {Bold, Regular, SemiBold} from "../../components/Layout/AppText";
-import RegistrationTop from "../../components/RegistrationTop/RegistrationTop";
-import Screen from "../../helpers/Dimensions";
+import React from 'react';
+import {View, KeyboardAvoidingView} from "react-native"
+
+import styles from "./styles";
+import PhoneIcon from "../../../assets/images/PhoneIcon";
+import Button from "../../../components/Button";
+import {Bold, Regular, SemiBold} from "../../../components/Layout/AppText";
+import RegistrationTop from "../../../components/RegistrationTop/RegistrationTop";
 import {TextInputMask} from "react-native-masked-text";
 
-
-const RegistrationScreen = ({navigation}) => {
-    const [selectedValue, setSelectedValue] = useState();
-    const [phoneNumber, setPhoneNumber] = useState('');
-
+const RegistrationScreenView = ({handleSubmit, setPhoneNumber, isLoading, phoneNumber}) => {
     return (
         <View style={{flex: 1}}>
             <KeyboardAvoidingView style={{flex: 1}} behavior={'position'}>
@@ -24,11 +20,11 @@ const RegistrationScreen = ({navigation}) => {
                     </View>
                     <View style={styles.registrationForm}>
                         <PhoneIcon style={styles.phoneIcon}/>
-                        <Regular style={{color: '#232323', fontSize: 16}}>+998</Regular>
+                        <Regular style={styles.prefix}>+998</Regular>
                         <TextInputMask
                             keyboardType={'number-pad'}
                             placeholder={'Введите Ваш номер'}
-                            style={{color: '#232323', fontSize: 16, flex: 1}}
+                            style={styles.mask}
                             type={'custom'}
                             options={{
                                 mask: '99 999 99 99'
@@ -46,49 +42,14 @@ const RegistrationScreen = ({navigation}) => {
             </KeyboardAvoidingView>
             <View style={{marginHorizontal: 15}}>
                 <Button
+                    isLoading={isLoading}
                     title={'Отправить'}
                     containerStyle={{marginBottom: 20}}
-                    onPress={() => navigation.navigate('RegistrationConfirmation')}
+                    onPress={handleSubmit}
                 />
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    registrationContainer: {
-        alignItems: 'center',
-        marginHorizontal: 15,
-        paddingTop: 57,
-    },
-    registrationForm: {
-        marginBottom: Screen.height > 700 ? 84 : 42,
-        borderRadius: 10,
-        width: '100%',
-        height: 52,
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: Colors.background,
-        borderWidth: 2,
-        borderColor: '#fff',
-        elevation: 10,
-    },
-    heading: {
-        fontSize: Screen.width > 400 ? 20 : 15,
-        marginBottom: 46
-    },
-    phoneIcon: {
-        marginLeft: 18, marginRight: 15.73
-    },
-    auth: {
-        color: '#858585',
-        fontSize: 13,
-        textAlign: 'center'
-    },
-    privacy: {
-        color: '#858585',
-        marginBottom: 50
-    }
-});
-
-export default RegistrationScreen;
+export default RegistrationScreenView;

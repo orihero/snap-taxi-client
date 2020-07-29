@@ -4,7 +4,9 @@ import {View, Image, TouchableWithoutFeedback, StyleSheet} from "react-native"
 function MenuIcon({onPress}) {
     return (
         <TouchableWithoutFeedback onPress={onPress}>
-            <View style={styles.menu}><Image source={require('./MenuIcon.png')}/></View>
+            <View style={styles.menu}>
+                <Image source={require('./MenuIcon.png')}/>
+            </View>
         </TouchableWithoutFeedback>
     )
 }
