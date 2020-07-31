@@ -35,6 +35,27 @@ export default StyleSheet.create({
         paddingTop: 30,
         borderBottomEndRadius: 20,
         borderBottomStartRadius: 20,
-        zIndex: 2
+        zIndex: 2,
+        paddingHorizontal: 12.5
     },
+    main: {
+        color: '#1A1C20',
+        fontSize: 15
+    },
+    secondary: {
+        color: '#646974',
+        marginRight: 55,
+        width: '90%'
+    },
+    resultItem: {
+        backgroundColor: Colors.background,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingBottom: 6.5,
+        paddingTop: 11.5,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(170,174,183, 0.37)',
+        zIndex: 9999,
+    }
 });

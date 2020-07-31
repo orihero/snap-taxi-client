@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, StatusBar, TouchableNativeFeedback} from 'react-native'
 import styles from "./styles";
+import {connect} from "react-redux";
 
 import {localization} from "../../services/Localization";
 import MenuIcon from "../../assets/images/MenuIcon";
@@ -11,7 +12,7 @@ import BackButtonIcon from "../../assets/images/BackButtonIcon";
 import NotificationsIcon from "../../assets/images/NotificationsIcon";
 import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
-const Header = ({navigation, goBack, ...rest}) => {
+const Header = ({navigation, goBack, user, ...rest}) => {
     useEffect(() => {
         const navListener = navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
@@ -38,7 +39,7 @@ const Header = ({navigation, goBack, ...rest}) => {
                         <SemiBold style={styles.goodMorning}>
                             {localization.goodMorning}
                         </SemiBold>
-                        <Bold style={{color: Colors.blue, fontSize: 16}}>Александр</Bold>
+                        <Bold style={{color: Colors.blue, fontSize: 16}}>{user.name ? user.name : 'Пользователь'}</Bold>
                     </View>
                     <Bold style={styles.where}>{localization.whereAreWeGoing}</Bold>
                 </View>
@@ -54,4 +55,8 @@ const Header = ({navigation, goBack, ...rest}) => {
     );
 };
 
-export default Header;
+const mapStateToProps = ({user}) => ({
+    user: user.data
+})
+
+export default connect(mapStateToProps)(Header);
