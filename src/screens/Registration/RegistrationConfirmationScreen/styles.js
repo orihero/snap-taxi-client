@@ -38,7 +38,8 @@ export default StyleSheet.create({
     input: {
         color: '#858585',
         fontSize: 16,
-        fontFamily: 'SFUIDisplay-Regular'
+        fontFamily: 'SFUIDisplay-Regular',
+        flex: 1,
     },
     confirm: {
         color: '#858585',

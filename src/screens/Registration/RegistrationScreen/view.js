@@ -11,7 +11,7 @@ import {TextInputMask} from "react-native-masked-text";
 const RegistrationScreenView = ({handleSubmit, setPhoneNumber, isLoading, phoneNumber}) => {
     return (
         <View style={{flex: 1}}>
-            <KeyboardAvoidingView style={{flex: 1}} behavior={'position'}>
+            <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
                 <RegistrationTop/>
                 <View style={styles.registrationContainer}>
                     <View style={{alignItems: 'center'}}>

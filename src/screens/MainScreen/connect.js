@@ -1,8 +1,17 @@
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 import MainScreenController from "./controller";
+import {GetCurrentLocation, SetDestination} from "../../store/constants/map";
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) => ({
+    GetCurrentLocation: (payload) => dispatch({
+        type: GetCurrentLocation.SUCCESS,
+        payload,
+    }),
+    SetDestination: () => dispatch({
+        type: SetDestination.SUCCESS,
+        payload: null
+    })
+});
 
 export default connect(
     null,

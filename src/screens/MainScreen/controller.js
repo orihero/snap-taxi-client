@@ -3,9 +3,16 @@ import {Alert, PermissionsAndroid} from "react-native";
 
 import MainScreenView from "./view";
 import SystemSetting from "react-native-system-setting";
+import Geolocation from "@react-native-community/geolocation";
 
-const MainScreenController = ({navigation}) => {
+const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) => {
     const [isLocationEnabled, setIsLocationEnabled] = useState(true);
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            SetDestination();
+        })
+    }, []);
 
     const requestPermission = async () => {
         let hasPermission;
@@ -47,6 +54,17 @@ const MainScreenController = ({navigation}) => {
         }
     }, [isLocationEnabled]);
 
+
+    const getCurrentLocation = () => {
+        Geolocation.getCurrentPosition((data) => {
+            GetCurrentLocation(data.coords)
+        })
+    };
+
+    useEffect(() => {
+        getCurrentLocation();
+    });
+
     const [isSearchActive, setSearchActive] = useState(false);
 
     return (
@@ -54,6 +72,7 @@ const MainScreenController = ({navigation}) => {
             navigation={navigation}
             isSearchActive={isSearchActive}
             setSearchActive={setSearchActive}
+            getCurrentLocation={getCurrentLocation}
         />
     );
 };

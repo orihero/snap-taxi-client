@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {View, Keyboard} from "react-native"
+import {connect} from "react-redux";
 
 import styles from "./styles";
 import {localization} from "../../services/Localization"
@@ -8,8 +9,9 @@ import LocationIcon from "../../assets/images/LocationIcon";
 import {Bold, Light, Regular} from "../Layout/AppText";
 import GooglePlacesAutocomplete from "react-native-google-places-autocomplete";
 import ResultIcon from "../../assets/images/ResultIcon";
+import {SetDestination} from "../../store/constants/map";
 
-const Search = ({navigation, setSearchActive, isSearchActive}) => {
+const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) => {
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -28,12 +30,19 @@ const Search = ({navigation, setSearchActive, isSearchActive}) => {
         setSearchActive(false)
     };
 
-    const [value, setValue] = useState('');
     return (
         <GooglePlacesAutocomplete
             placeholder='Search'
             onPress={(data, details = null) => {
-                console.log(data, details)
+                SetDestination({
+                    data,
+                    details,
+                    coords: {
+                        latitude: details.geometry.location.lat,
+                        longitude: details.geometry.location.lng
+                    }
+                });
+                navigation.navigate('SelectCar')
             }}
             suppressDefaultStyles
             styles={{
@@ -42,10 +51,10 @@ const Search = ({navigation, setSearchActive, isSearchActive}) => {
                 listView: styles.searchResult,
                 row: styles.resultItem
             }}
-            debounce={10000}
             enableHighAccuracyLocation
             enablePoweredByContainer={false}
             isRowScrollable={false}
+            fetchDetails
             renderRightButton={() => {
                 return (
                     isSearchActive ?
@@ -70,9 +79,19 @@ const Search = ({navigation, setSearchActive, isSearchActive}) => {
             query={{
                 key: 'AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc',
                 language: 'ru',
+                components: "country:uzb"
             }}
         />
     );
 };
+const mapStateToProps = ({map}) => ({
+    map
+});
 
-export default Search;
+const mapDispatchToProps = dispatch => ({
+    SetDestination: (payload) => dispatch({
+        type: SetDestination.SUCCESS,
+        payload
+    })
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -1,199 +1,47 @@
 import React, {useState} from 'react'
 import {View, StyleSheet} from "react-native"
+import {connect} from "react-redux";
 import MapView, {Marker} from 'react-native-maps';
+import {GetCurrentLocation} from "../store/constants/map";
+import {bindActionCreators} from "redux";
 
-const MapScreen = () => {
-    const mapStyle = [
-        {
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f5f5f5"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#616161"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#f5f5f5"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.land_parcel",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#bdbdbd"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#eeeeee"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#757575"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#e5e5e5"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#9e9e9e"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#757575"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dadada"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#616161"
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#9e9e9e"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.line",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#e5e5e5"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#eeeeee"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#c9c9c9"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#9e9e9e"
-                }
-            ]
-        }
-    ];
+import MapViewDirections from "react-native-maps-directions";
+import Colors from "../assets/styles/Colors";
+
+const MapScreen = ({map}) => {
     const [coordinates, setCoordinates] = useState();
     const onRegionChange = (region) => {
         setCoordinates(region)
     };
-    const markers = [
-        {
-            latitude: 37.78825,
-            longitude: -122.4324,
-        }
-    ];
+
     return (
         <View style={styles.container}>
             <MapView
                 style={styles.map}
                 region={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.0121,
+                    ...map.currentLocation,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.01,
                 }}
                 // onRegionChange={onRegionChange}
-                customMapStyle={mapStyle}
+                // customMapStyle={MapStyle}
             >
-                {/*<Marker*/}
-                {/*    draggable*/}
-                {/*    coordinate={markers[0]}*/}
-                {/*    onDragEnd={(e) => {*/}
-                {/*        setCoordinates({x: e.nativeEvent.coordinate})*/}
-                {/*        console.warn(e.nativeEvent.coordinate)*/}
-                {/*    }}*/}
-                {/*/>*/}
+                <Marker
+                    coordinate={map.currentLocation}
+                    onDragEnd={(e) => {
+                        setCoordinates({x: e.nativeEvent.coordinate});
+                    }}
+                    image={require('../assets/images/CurrentLocationIcon.png')}
+                />
+                {
+                    map.destination && <MapViewDirections
+                        origin={map.currentLocation}
+                        destination={map.destination.coords}
+                        apikey={'AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc'}
+                        strokeWidth={6}
+                        strokeColor={Colors.blue}
+                    />
+                }
             </MapView>
         </View>
     )
@@ -214,4 +62,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MapScreen
+const mapStateToProps = ({map}) => ({
+    map
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    GetCurrentLocation
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapScreen)

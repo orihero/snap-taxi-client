@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableWithoutFeedback} from 'react-native'
+import {View} from 'react-native'
 
 import styles from "./styles";
 import MapScreen from "../MapScreen";
@@ -7,9 +7,10 @@ import Search from "../../components/Search/Search";
 import Header from "../../components/Header/Header";
 import Button from "../../components/Button";
 import CursorIcon from "../../assets/images/CursorIcon";
+import TouchablePlatformSpecific from "../../components/TouchablePlatformSpecific";
 
 
-const MainScreenView = ({navigation, isSearchActive, setSearchActive}) => {
+const MainScreenView = ({navigation, isSearchActive, setSearchActive, getCurrentLocation}) => {
     return (
         <View style={{flex: 1}}>
             <Header navigation={navigation}/>
@@ -19,21 +20,20 @@ const MainScreenView = ({navigation, isSearchActive, setSearchActive}) => {
                 setSearchActive={setSearchActive}
                 isSearchActive={isSearchActive}
             />
-            {
-                !isSearchActive &&
-                <View style={{marginTop: 'auto', marginHorizontal: 10}}>
-                    <TouchableWithoutFeedback>
+            <View style={{marginTop: 'auto', marginHorizontal: 10}}>
+                <View style={styles.buttonWrapper}>
+                    <TouchablePlatformSpecific onPress={getCurrentLocation}>
                         <View style={styles.circleIcon}>
                             <CursorIcon/>
                         </View>
-                    </TouchableWithoutFeedback>
-                    <Button
-                        title={'Далее'}
-                        onPress={() => navigation.navigate('SelectCar')}
-                        containerStyle={{marginBottom: 10}}
-                    />
+                    </TouchablePlatformSpecific>
                 </View>
-            }
+                <Button
+                    title={'Далее'}
+                    onPress={() => navigation.navigate('SelectCar')}
+                    containerStyle={{marginBottom: 10}}
+                />
+            </View>
         </View>
     );
 };

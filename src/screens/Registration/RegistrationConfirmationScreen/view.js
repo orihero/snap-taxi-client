@@ -14,13 +14,16 @@ import auth from "../../../store/actions/auth";
 const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setCode, isLoading}) => {
     return (
         <View style={{flex: 1}}>
-            <KeyboardAvoidingView style={{flex: 1}} behavior={'position'}>
+            <KeyboardAvoidingView
+                style={{flex: 1}}
+                behavior={'padding'}
+            >
                 <StatusBar backgroundColor={Colors.blue}/>
                 <RegistrationTop/>
                 <View style={styles.registrationContainer}>
                     <View>
                         <SemiBold>Пожалуйста, введите код, </SemiBold>
-                        <Bold style={styles.heading}>который мы прислали по SMS</Bold>
+                        <Bold style={styles.heading}>Который мы прислали по SMS</Bold>
                     </View>
                     <View style={styles.registrationForm}>
                         <ConfirmationIcon style={styles.icon}/>
