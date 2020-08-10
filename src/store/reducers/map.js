@@ -1,4 +1,4 @@
-import {GetCurrentLocation,SetDestination} from "../constants/map";
+import {GetCurrentLocation, SetDestination, SetDestinationDetails} from "../constants/map";
 
 const initialState = {
     currentLocation: {
@@ -19,7 +19,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 destination: action.payload
-            }
+            };
+        case SetDestinationDetails.SUCCESS:
+            return {
+                ...state,
+                destination: {
+                    ...state.destination,
+                    details: action.payload,
+                }
+            };
         default:
             return state
     }

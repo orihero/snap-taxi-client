@@ -1,11 +1,13 @@
 import {combineReducers} from "redux";
 import user from "./user";
 import map from "./map";
+import rates from "./rates";
 
 
 const appReducer = combineReducers({
     user,
     map,
+    rates
 });
 
 const rootReducer = (state, action) => {

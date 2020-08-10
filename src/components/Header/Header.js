@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import {View, StatusBar, TouchableNativeFeedback} from 'react-native'
+import {StatusBar, TouchableNativeFeedback, View} from 'react-native'
 import styles from "./styles";
 import {connect} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 
 import {localization} from "../../services/Localization";
 import MenuIcon from "../../assets/images/MenuIcon";
@@ -12,13 +13,15 @@ import BackButtonIcon from "../../assets/images/BackButtonIcon";
 import NotificationsIcon from "../../assets/images/NotificationsIcon";
 import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
-const Header = ({navigation, goBack, user, ...rest}) => {
+const Header = ({goBack, user, ...rest}) => {
+
+    const navigation = useNavigation();
+
     useEffect(() => {
-        const navListener = navigation.addListener('focus', () => {
+        return navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor('#fff');
-        });
-        return navListener
+        })
     }, [navigation]);
     return (
         <>
@@ -57,6 +60,6 @@ const Header = ({navigation, goBack, user, ...rest}) => {
 
 const mapStateToProps = ({user}) => ({
     user: user.data
-})
+});
 
 export default connect(mapStateToProps)(Header);

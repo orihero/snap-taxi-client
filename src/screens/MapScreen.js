@@ -2,13 +2,13 @@ import React, {useState} from 'react'
 import {View, StyleSheet} from "react-native"
 import {connect} from "react-redux";
 import MapView, {Marker} from 'react-native-maps';
-import {GetCurrentLocation} from "../store/constants/map";
+import {GetCurrentLocation, SetDestinationDetails} from "../store/constants/map";
 import {bindActionCreators} from "redux";
 
 import MapViewDirections from "react-native-maps-directions";
 import Colors from "../assets/styles/Colors";
 
-const MapScreen = ({map}) => {
+const MapScreen = ({map, SetDestinationDetails}) => {
     const [coordinates, setCoordinates] = useState();
     const onRegionChange = (region) => {
         setCoordinates(region)
@@ -40,6 +40,12 @@ const MapScreen = ({map}) => {
                         apikey={'AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc'}
                         strokeWidth={6}
                         strokeColor={Colors.blue}
+                        onReady={(direction) => {
+                            SetDestinationDetails({
+                                distance: direction.distance,
+                                duration: direction.duration
+                            })
+                        }}
                     />
                 }
             </MapView>
@@ -67,7 +73,11 @@ const mapStateToProps = ({map}) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    GetCurrentLocation
+    GetCurrentLocation,
+    SetDestinationDetails: (payload) => ({
+        type: SetDestinationDetails.SUCCESS,
+        payload
+    })
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapScreen)

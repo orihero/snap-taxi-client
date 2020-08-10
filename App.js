@@ -15,6 +15,7 @@ const App = () => {
         api.setToken(store);
     }, []);
 
+
     return (
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>

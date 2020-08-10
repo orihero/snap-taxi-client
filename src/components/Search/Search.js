@@ -36,7 +36,6 @@ const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) =
             onPress={(data, details = null) => {
                 SetDestination({
                     data,
-                    details,
                     coords: {
                         latitude: details.geometry.location.lat,
                         longitude: details.geometry.location.lng

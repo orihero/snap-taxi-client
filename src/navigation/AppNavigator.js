@@ -6,9 +6,10 @@ import RegistrationStack from "./StackNavigators/RegistrationStack";
 
 const AppNavigator = ({user}) => (
     <NavigationContainer>
-        {user.isAuthenticated
-            ? <DrawerStack/>
-            : <RegistrationStack/>
+        {
+            user.isAuthenticated
+                ? <DrawerStack/>
+                : <RegistrationStack/>
         }
     </NavigationContainer>
 );
