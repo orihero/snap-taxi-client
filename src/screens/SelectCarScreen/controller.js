@@ -18,7 +18,7 @@ const SelectCarScreenController = ({BookCar, GetRates, rates, destination}) => {
     return (
         <SelectCarScreenView
             rates={rates}
-            duration={destination.details ? Math.floor(destination.details.duration) : 0}
+            duration={destination && destination.details ? Math.floor(destination.details.duration) : 0}
             setters={{
                 setVisiblePlanModal,
                 setVisibleAdditionalModal,

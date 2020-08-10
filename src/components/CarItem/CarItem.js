@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, TouchableWithoutFeedback} from "react-native"
+import {View, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-native"
 
 import styles from "./styles";
 import InfoIcon from "../../assets/images/InfoIcon";
@@ -24,7 +24,7 @@ const CarItem = (
         {title: 'Перегон', img: require('../../assets/images/plan/help.png')},
     ];
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
                     <Bold style={[styles.text, active && styles.activeText]}>{title}</Bold>
@@ -36,7 +36,7 @@ const CarItem = (
                 </TouchableWithoutFeedback>
                 <Image style={styles.img} source={plan[index].img}/>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
     );
 };
 

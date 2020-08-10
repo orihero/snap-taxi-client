@@ -7,7 +7,7 @@ import LocationIcon from "../../assets/images/LocationIcon";
 import {Bold, Light} from "../Layout/AppText";
 import {localization} from "../../services/Localization";
 
-export const SelectedDestination = ({containerStyle, noIcon}) => (
+export const SelectedDestination = ({containerStyle}) => (
     <View style={[styles.container, containerStyle]}>
         <View style={styles.icons}>
             <LocationIcon/>
@@ -26,14 +26,11 @@ export const SelectedDestination = ({containerStyle, noIcon}) => (
                 <Light style={styles.textColor}>{localization.to}</Light>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <Bold style={styles.directionText}>Дом</Bold>
-                    {!noIcon && <AddIcon style={{marginLeft: 'auto'}}/>}
                 </View>
             </View>
         </View>
     </View>
 );
-
-
 
 
 export default SelectedDestination;
