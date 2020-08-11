@@ -1,9 +1,18 @@
-import {GetCurrentLocation, SetDestination, SetDestinationDetails, SetMarkerPosition} from "../constants/map";
+import {
+    GetCurrentLocation,
+    SetDestination,
+    SetDestinationDetails,
+    SetMarkerPosition,
+    SetCurrentLocationDetails
+} from "../constants/map";
 
 const initialState = {
     currentLocation: {
-        latitude: 31.776685,
-        longitude: 35.234491,
+        details: null,
+        coords: {
+            latitude: 31.776685,
+            longitude: 35.234491,
+        }
     },
     destination: null,
     marker: null
@@ -14,7 +23,10 @@ export default (state = initialState, action) => {
         case  GetCurrentLocation.SUCCESS:
             return {
                 ...state,
-                currentLocation: action.payload,
+                currentLocation: {
+                    ...state.currentLocation,
+                    coords: action.payload,
+                },
                 marker: action.payload
             };
         case SetDestination.SUCCESS:
@@ -29,6 +41,14 @@ export default (state = initialState, action) => {
                     ...state.destination,
                     details: action.payload,
                 }
+            };
+        case SetCurrentLocationDetails.SUCCESS:
+            return {
+                ...state,
+                currentLocation: {
+                    ...state.currentLocation,
+                    details: action.payload
+                },
             };
         case SetMarkerPosition.SUCCESS:
             return {

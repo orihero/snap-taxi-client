@@ -19,11 +19,11 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
     const [coupon, setCoupon] = useState(false);
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
-            <KeyboardAvoidingView behavior={'position'}>
-                <View>
+
+            <View>
+                <KeyboardAvoidingView behavior={'position'}>
                     <AdditionalOptionsModalIcon style={styles.icon}/>
                     <Bold style={styles.heading}>{localization.yourDesire}</Bold>
-                    <SelectedDestination containerStyle={{marginHorizontal: 10}} textStyle={{fontSize: 15}}/>
                     <View style={{marginHorizontal: 10}}>
                         <SwitchWithText
                             style={{borderTopWidth: 1}}
@@ -51,12 +51,12 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
                             placeholder={localization.comment}
                         />
                     </View>
-                </View>
-                <Button
-                    onPress={closeModal}
-                    title={localization.understandable}
-                />
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </View>
+            <Button
+                onPress={closeModal}
+                title={localization.understandable}
+            />
         </CustomModal>
     );
 };

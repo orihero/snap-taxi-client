@@ -6,7 +6,7 @@ export default StyleSheet.create({
     icon: {
         alignSelf: 'center',
         marginBottom: 21.7,
-        display: Screen.height > 700 ? 'flex' : 'none'
+        // display: Screen.height > 700 ? 'flex' : 'none'
     },
     fz: {
         fontSize: Screen.width > 400 ? 14 : 13
@@ -22,7 +22,7 @@ export default StyleSheet.create({
         borderRadius: 10,
         elevation: 10,
         backgroundColor: Colors.background,
-        height: 80,
+        minHeight: 80,
         marginHorizontal: 10,
         marginTop: 13,
         marginBottom: 40

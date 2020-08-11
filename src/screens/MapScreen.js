@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View, StyleSheet, TouchableOpacity, Text} from "react-native"
+import {View, StyleSheet, Image} from "react-native"
 import {connect} from "react-redux";
 import MapView, {Marker, Overlay} from 'react-native-maps';
 import {GetCurrentLocation, SetDestinationDetails, SetMarkerPosition} from "../store/constants/map";
@@ -8,6 +8,7 @@ import {bindActionCreators} from "redux";
 import MapViewDirections from "react-native-maps-directions";
 import Colors from "../assets/styles/Colors";
 import Screen from "../helpers/Dimensions";
+import API_KEY from "../const/apiKey";
 
 
 const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
@@ -16,7 +17,7 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
 
     useEffect(() => {
         SetMarkerPosition({
-            ...map.currentLocation,
+            ...map.currentLocation.coords,
             latitudeDelta: 0.02,
             longitudeDelta: 0.01,
         })
@@ -27,27 +28,27 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
         <View style={styles.container}>
             <MapView
                 ref={ref => setMapRef(ref)}
-                showsMyLocationButton
                 showsBuildings
                 showsIndoors
+                userLocationAnnotationTitle={'here'}
                 onRegionChangeComplete={(region) => SetMarkerPosition(region)}
                 style={styles.map}
                 initialRegion={{
-                    ...map.currentLocation,
+                    ...map.currentLocation.coords,
                     latitudeDelta: 0.02,
                     longitudeDelta: 0.01,
                 }}
             >
                 <Marker
-                    coordinate={map.currentLocation}
+                    coordinate={map.currentLocation.coords}
                     image={require('../assets/images/CurrentLocationIcon.png')}
                 />
                 {
                     map.destination && <MapViewDirections
-                        origin={map.currentLocation}
+                        origin={map.currentLocation.coords}
                         mode={"DRIVING"}
                         destination={map.destination.coords}
-                        apikey={'AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc'}
+                        apikey={API_KEY}
                         strokeWidth={6}
                         strokeColor={Colors.blue}
                         onReady={(direction) => {
@@ -55,7 +56,7 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                                 distance: direction.distance,
                                 duration: direction.duration
                             });
-                            mapRef.fitToCoordinates([map.currentLocation, map.destination.coords], {
+                            mapRef.fitToCoordinates([map.currentLocation.coords, map.destination.coords], {
                                 edgePadding: {
                                     top: 20,
                                     right: 20,
@@ -67,7 +68,7 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                     />
                 }
             </MapView>
-            <View style={styles.overlay}/>
+            {/*<View style={styles.overlay}/>*/}
         </View>
     )
 };

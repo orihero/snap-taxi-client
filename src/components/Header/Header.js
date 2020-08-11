@@ -13,7 +13,7 @@ import BackButtonIcon from "../../assets/images/BackButtonIcon";
 import NotificationsIcon from "../../assets/images/NotificationsIcon";
 import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
-const Header = ({goBack, user, ...rest}) => {
+const Header = ({goBack, user, subText, ...rest}) => {
 
     const navigation = useNavigation();
 
@@ -34,7 +34,9 @@ const Header = ({goBack, user, ...rest}) => {
                             onPress={() => navigation.goBack()}
                             background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.1)', true)}
                         >
-                            <BackButtonIcon style={{elevation: 10}}/>
+                            <View>
+                                <BackButtonIcon style={{elevation: 10}}/>
+                            </View>
                         </TouchablePlatformSpecific>
                 }
                 <View>
@@ -44,7 +46,7 @@ const Header = ({goBack, user, ...rest}) => {
                         </SemiBold>
                         <Bold style={{color: Colors.blue, fontSize: 16}}>{user.name ? user.name : 'Пользователь'}</Bold>
                     </View>
-                    <Bold style={styles.where}>{localization.whereAreWeGoing}</Bold>
+                    <Bold style={styles.where}>{subText}</Bold>
                 </View>
                 <View style={{borderRadius: 100, overflow: 'hidden', elevation: 5}}>
                     <TouchablePlatformSpecific onPress={() => navigation.navigate('Notifications')}>

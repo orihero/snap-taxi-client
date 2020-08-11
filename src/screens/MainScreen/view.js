@@ -8,13 +8,15 @@ import Header from "../../components/Header/Header";
 import Button from "../../components/Button";
 import CursorIcon from "../../assets/images/CursorIcon";
 import TouchablePlatformSpecific from "../../components/TouchablePlatformSpecific";
-
+import {localization} from "../../services/Localization";
 
 
 const MainScreenView = ({navigation, isSearchActive, setSearchActive, getCurrentLocation}) => {
     return (
         <View style={{flex: 1}}>
-            <Header navigation={navigation}/>
+            <Header
+                subText={localization.whereAreWeGoing}
+            />
             <MapScreen/>
             <Search
                 navigation={navigation}

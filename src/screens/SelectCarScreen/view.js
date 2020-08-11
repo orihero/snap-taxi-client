@@ -30,13 +30,15 @@ const Dots = () => {
 };
 
 
-const SelectCarScreenView = ({rates, setters, values, duration}) => {
+const SelectCarScreenView = ({rates, setters, values, duration, destination, currentLocation}) => {
     const navigation = useNavigation();
+
     const {
         setVisiblePlanModal,
         setVisibleAdditionalModal,
         setVisibleDeliveryModal,
         setRate,
+        setRateInfo,
     } = setters;
 
     const {
@@ -44,14 +46,19 @@ const SelectCarScreenView = ({rates, setters, values, duration}) => {
         visibleAdditionalModal,
         visibleDeliveryModal,
         rate,
+        rateInfo,
     } = values;
 
     return (
         <>
             <View style={{flex: 1}}>
-                <Header goBack={true}/>
+                <Header
+                    goBack={true}
+                    subText={'Детали заказа'}
+                />
                 <MapScreen/>
                 <PlanItemInfoModal
+                    rateInfo={rateInfo}
                     visible={visiblePlanModal}
                     closeModal={() => setVisiblePlanModal(false)}
                 />
@@ -83,10 +90,13 @@ const SelectCarScreenView = ({rates, setters, values, duration}) => {
                                     price={item.price}
                                     onPress={() => {
                                         index === 4 && setVisibleDeliveryModal(true);
-                                        setRate({[index]: true})
+                                        setRate(item)
                                     }}
-                                    active={rate[index]}
-                                    onInfoPress={() => setVisiblePlanModal(true)}
+                                    active={rate.id === item.id}
+                                    onInfoPress={() => {
+                                        setRateInfo(item);
+                                        setVisiblePlanModal(true)
+                                    }}
                                 />
                             }}
                             snapToAlignment={"start"}
@@ -123,7 +133,11 @@ const SelectCarScreenView = ({rates, setters, values, duration}) => {
                                 </TouchableWithoutFeedback>
                             </View>
                         </View>
-                        <SelectedDestination containerStyle={{paddingTop: 0, paddingHorizontal: 13, marginBottom: 10}}/>
+                        <SelectedDestination
+                            containerStyle={{paddingTop: 0, paddingHorizontal: 13, marginBottom: 10}}
+                            to={destination}
+                            from={currentLocation}
+                        />
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 13}}>
                             <View style={styles.column}>
                                 <Button
