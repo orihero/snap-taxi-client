@@ -30,7 +30,16 @@ const Dots = () => {
 };
 
 
-const SelectCarScreenView = ({rates, setters, values, duration, destination, currentLocation}) => {
+const SelectCarScreenView = (
+    {
+        rates,
+        setters,
+        values,
+        duration,
+        destination,
+        currentLocation,
+        findCar,
+    }) => {
     const navigation = useNavigation();
 
     const {
@@ -142,7 +151,7 @@ const SelectCarScreenView = ({rates, setters, values, duration, destination, cur
                             <View style={styles.column}>
                                 <Button
                                     title={localization.findTaxi}
-                                    onPress={() => console.log('pressed')}
+                                    onPress={findCar}
                                 />
                             </View>
                             <View style={styles.column}>

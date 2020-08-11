@@ -23,6 +23,16 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
         })
     }, []);
 
+    useEffect(() => {
+        if (mapRef) {
+            mapRef.animateToRegion({
+                ...map.currentLocation.coords,
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.01,
+            })
+        }
+    }, [map.currentLocation]);
+
 
     return (
         <View style={styles.container}>
@@ -30,9 +40,9 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                 ref={ref => setMapRef(ref)}
                 showsBuildings
                 showsIndoors
-                userLocationAnnotationTitle={'here'}
                 onRegionChangeComplete={(region) => SetMarkerPosition(region)}
                 style={styles.map}
+                provider={"google"}
                 initialRegion={{
                     ...map.currentLocation.coords,
                     latitudeDelta: 0.02,

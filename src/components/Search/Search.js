@@ -56,12 +56,12 @@ const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) =
             fetchDetails
             renderRightButton={() => {
                 return (
-                    isSearchActive ?
-                        <View style={{flexDirection: 'row', marginLeft: 'auto', alignItems: 'center'}}>
-                            <Regular>{localization.map}</Regular>
-                            <LocationIcon style={{marginLeft: 10.46}}/>
-                        </View>
-                        : <SearchIcon style={{marginLeft: 'auto'}}/>
+                    // isSearchActive ?
+                    //     <View style={{flexDirection: 'row', marginLeft: 'auto', alignItems: 'center'}}>
+                    //         <Regular>{localization.map}</Regular>
+                    //         <LocationIcon style={{marginLeft: 10.46}}/>
+                    //     </View>
+                    <SearchIcon style={{marginLeft: 'auto'}}/>
                 )
             }}
             renderRow={(data) => {

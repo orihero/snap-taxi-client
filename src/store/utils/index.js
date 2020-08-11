@@ -12,3 +12,11 @@ export const createAction = (actionType) => (
     }
 ) => ({type: actionType, payload: values, cb, errorCb});
 
+
+export const formData = (rawData: any) => {
+    let form = new FormData();
+    Object.keys(rawData).forEach(key => {
+        form.append(key, rawData[key]);
+    });
+    return form;
+};

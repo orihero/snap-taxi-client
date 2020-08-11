@@ -5,7 +5,8 @@ import {reactotronRedux} from 'reactotron-redux'
 
 export default Reactotron
     .setAsyncStorageHandler(AsyncStorage)
-    .configure({host: '192.168.1.106'})
+    // .configure({host: '192.168.1.106'})
+    .configure()
     .use(reactotronRedux())
     .use(sagaPlugin({}))
     .useReactNative()

@@ -6,13 +6,39 @@ import SystemSetting from "react-native-system-setting";
 import Geolocation from "@react-native-community/geolocation";
 
 const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) => {
-    const [isLocationEnabled, setIsLocationEnabled] = useState(true);
 
     useEffect(() => {
         navigation.addListener('focus', () => {
             SetDestination();
-        })
+        });
+
+        // noinspection JSIgnoredPromiseFromCall
+        requestPermission();
+
+        checkGPSStatus();
+
     }, []);
+
+    const checkGPSStatus = () => {
+        SystemSetting
+            .isLocationEnabled()
+            .then((enable) => {
+                if (!enable) {
+                    errorHandler()
+                } else {
+                    getCurrentLocation()
+                }
+            });
+    };
+
+    const getCurrentLocation = () => {
+        Geolocation.getCurrentPosition((data) => {
+            GetCurrentLocation(data.coords);
+            console.log('success')
+        }, error => {
+            getCurrentLocation()
+        })
+    };
 
     const requestPermission = async () => {
         let hasPermission;
@@ -28,42 +54,17 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
         }
     };
 
-    useEffect(() => {
-        SystemSetting
-            .isLocationEnabled()
-            .then((enable) => {
-                setIsLocationEnabled(enable)
-            });
-
-        requestPermission()
-            .then(r => {
-            })
-            .catch(e => console.warn(e))
-    }, []);
-
-    useEffect(() => {
-        if (!isLocationEnabled) {
-            Alert.alert('Ошибка', 'Чтобы продолжить, включите на устройстве геолокацию Google.', [
-                {
-                    text: 'OK', onPress: () => SystemSetting
-                        .switchLocation(() => {
-                            console.log('good job')
-                        })
-                }
-            ])
-        }
-    }, [isLocationEnabled]);
-
-
-    const getCurrentLocation = () => {
-        Geolocation.getCurrentPosition((data) => {
-            GetCurrentLocation(data.coords)
-        })
+    const errorHandler = () => {
+        Alert.alert('Ошибка', 'Чтобы продолжить, включите на устройстве геолокацию Google.', [
+            {
+                text: 'OK', onPress: () => SystemSetting
+                    .switchLocation(() => {
+                        console.log('good job')
+                    })
+            }
+        ])
     };
 
-    useEffect(() => {
-        getCurrentLocation();
-    });
 
     const [isSearchActive, setSearchActive] = useState(false);
 
