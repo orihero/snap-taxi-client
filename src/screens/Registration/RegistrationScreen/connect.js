@@ -8,4 +8,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     Login: auth.Login
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(RegistrationScreenController);
+export default connect(
+    null,
+    mapDispatchToProps
+)(RegistrationScreenController);

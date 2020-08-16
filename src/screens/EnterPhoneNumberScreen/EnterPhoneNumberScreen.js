@@ -21,7 +21,6 @@ const EnterPhoneNumberScreen = ({navigation}) => {
 
     const checkContactPermissions = async () => {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
-        console.log(granted)
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             openContactPicker()
         }

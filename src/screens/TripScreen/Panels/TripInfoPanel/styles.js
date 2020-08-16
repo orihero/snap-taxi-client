@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
-import Colors from "../../assets/styles/Colors";
-import Screen from "../../helpers/Dimensions";
+import Colors from "../../../../assets/styles/Colors";
+import Screen from "../../../../helpers/Dimensions";
 
 export default StyleSheet.create({
     shadow: {

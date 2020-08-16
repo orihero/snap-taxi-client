@@ -1,61 +1,20 @@
-import React, {useRef, useState} from 'react';
-import {View, Dimensions, Animated, PanResponder, StatusBar} from "react-native"
-import {useNavigation} from "@react-navigation/native"
+import React from 'react';
+import {View, Dimensions, Animated, StatusBar} from "react-native"
 
 import styles from "./styles";
-import Button from "../Button";
-import SelectedDestination from "../SelectedDestanation/SelectedDestination";
-import DriverInfo from "../DriverInfo/DriverInfo";
-import BottomMenuCurve from "../../assets/images/BottomMenuCurve";
-import ComingIcon from "../../assets/images/ComingIcon";
-import CancelTripIcon from "../../assets/images/CancelTripIcon";
-import WaitIcon from "../../assets/images/WaitIcon";
-import {Bold, Regular} from "../Layout/AppText";
-import {localization} from "../../services/Localization";
-import SwitchWithText from "../SwitchWithText";
-import AirConditionIcon from "../../assets/images/AirConditionIcon";
+import Button from "../../../../components/Button";
+import SelectedDestination from "../../../../components/SelectedDestanation/SelectedDestination";
+import DriverInfo from "../../../../components/DriverInfo/DriverInfo";
+import BottomMenuCurve from "../../../../assets/images/BottomMenuCurve";
+import ComingIcon from "../../../../assets/images/ComingIcon";
+import CancelTripIcon from "../../../../assets/images/CancelTripIcon";
+import WaitIcon from "../../../../assets/images/WaitIcon";
+import {Bold, Regular} from "../../../../components/Layout/AppText";
+import {localization} from "../../../../services/Localization";
+import SwitchWithText from "../../../../components/SwitchWithText";
+import AirConditionIcon from "../../../../assets/images/AirConditionIcon";
 
-const CarWaiting = () => {
-    const navigation = useNavigation();
-    setTimeout(() => navigation.navigate('RateTrip'), 10000);
-    const [airCondition, setAirCondition] = useState(true);
-    const height = useRef(new Animated.Value(0)).current;
-    const panResPonder = useRef(PanResponder.create({
-        onMoveShouldSetPanResponder: (evt, gestureState) => {
-            return !(gestureState.dy === 0 || (gestureState.dy < 1 && gestureState.dy > -2))
-        },
-        onPanResponderGrant: (evt, gestureState) => {
-            height.setOffset(height._value)
-        },
-        onPanResponderMove: (evt, gestureState) => {
-            height.setValue(gestureState.dy * -1);
-        },
-        onPanResponderRelease: (evt, gestureState) => {
-            height.flattenOffset();
-            if (gestureState.dy > 0) {
-                Animated.spring(height, {
-                    toValue: 0,
-                    useNativeDriver: false
-                }).start()
-            } else if (gestureState.dy < 0) {
-                Animated.spring(height, {
-                    toValue: 260,
-                    useNativeDriver: false
-                }).start()
-            }
-        }
-    })).current;
-    const collapse = height.interpolate({
-        inputRange: [-1, 260],
-        outputRange: [0, 260],
-        extrapolate: 'clamp'
-    });
-
-    const backgroundColor = collapse.interpolate({
-        inputRange: [0, 260],
-        outputRange: ['rgba(0,0,0,0)', 'rgba(0,0,0,0.2)']
-    });
-
+const DriverInfoPanelView = ({backgroundColor, panResPonder, airCondition, setAirCondition, collapse, routes, cancelOrder}) => {
     return (
         <>
             <Animated.View style={[{backgroundColor}, styles.overlay]} pointerEvents={'none'}/>
@@ -84,7 +43,11 @@ const CarWaiting = () => {
                                 <Regular style={{lineHeight: 25}}>сум</Regular>
                             </View>
                             <View style={styles.destinationWrapper}>
-                                <SelectedDestination containerStyle={{marginBottom: 10, paddingTop: 11}}/>
+                                <SelectedDestination
+                                    containerStyle={{marginBottom: 10, paddingTop: 11}}
+                                    from={routes[0].address}
+                                    to={routes[1].address}
+                                />
                             </View>
                             <SwitchWithText
                                 style={styles.switch}
@@ -101,7 +64,7 @@ const CarWaiting = () => {
                                     <Button
                                         title={localization.cancel}
                                         containerStyle={{backgroundColor: '#f2f2f2'}}
-                                        onPress={() => navigation.navigate('Home')}
+                                        onPress={cancelOrder}
                                     />
                                 </View>
                             </View>
@@ -114,4 +77,4 @@ const CarWaiting = () => {
 };
 
 
-export default CarWaiting;
+export default DriverInfoPanelView;

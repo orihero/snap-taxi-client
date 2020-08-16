@@ -8,14 +8,14 @@ import {
 
 const initialState = {
     currentLocation: {
-        details: null,
+        details: {},
         coords: {
             latitude: 31.776685,
             longitude: 35.234491,
         }
     },
-    destination: null,
-    marker: null
+    destination: {},
+    marker: {}
 };
 
 export default (state = initialState, action) => {

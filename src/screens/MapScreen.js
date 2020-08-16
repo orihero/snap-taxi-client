@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {View, StyleSheet, Image} from "react-native"
+import {View, StyleSheet} from "react-native"
 import {connect} from "react-redux";
-import MapView, {Marker, Overlay} from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {GetCurrentLocation, SetDestinationDetails, SetMarkerPosition} from "../store/constants/map";
 import {bindActionCreators} from "redux";
 

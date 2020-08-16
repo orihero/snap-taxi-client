@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import SelectCarScreenView from "./view";
 import Geocode from "react-geocode";
 import API_KEY from "../../const/apiKey";
-import {formData} from "../../store/utils";
 
 const SelectCarScreenController = (
     {
@@ -12,15 +11,18 @@ const SelectCarScreenController = (
         destination,
         currentLocation,
         SetCurrentLocationDetails,
+        ChangeOrderStatus,
+        navigation,
     }) => {
 
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
         const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
         const [visibleDeliveryModal, setVisibleDeliveryModal] = useState(false);
-        const [rate, setRate] = useState({0: true});
+        const [rate, setRate] = useState({});
         const [rateInfo, setRateInfo] = useState({0: true});
         const [destinationText, setDestinationText] = useState('');
         const [currentLocationText, setCurrentLocationText] = useState('');
+        const [comment, setComment] = useState(null);
 
         useEffect(() => {
             const {coords: {latitude, longitude}} = currentLocation;
@@ -38,7 +40,9 @@ const SelectCarScreenController = (
 
         useEffect(() => {
             if (destination) {
-                GetRates(destination.details);
+                GetRates(destination.details, (data) => {
+                    setRate(data.data[0])
+                });
                 setDestinationText(
                     destination.data.terms[0].value + ', ' +
                     destination.data.terms[1].value
@@ -63,10 +67,12 @@ const SelectCarScreenController = (
                     }
                 ],
                 option_ids: [],
-                distance: '12',
-                rate_id: 1
-            }, () => {
-                console.log('success')
+                distance: `${Math.ceil(destination.details.distance * 10) / 10}`,
+                rate_id: rate.id,
+                comment
+            }, {
+                socketCb: (data) => ChangeOrderStatus(data),
+                actionCb: () => navigation.navigate('Trip')
             })
         };
 
@@ -84,6 +90,7 @@ const SelectCarScreenController = (
                     setVisibleDeliveryModal,
                     setRate,
                     setRateInfo,
+                    setComment
                 }}
                 values={{
                     visiblePlanModal,
@@ -91,6 +98,7 @@ const SelectCarScreenController = (
                     visibleDeliveryModal,
                     rate,
                     rateInfo,
+                    comment
                 }}
             />
         );

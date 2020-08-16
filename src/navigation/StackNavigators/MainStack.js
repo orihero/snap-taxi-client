@@ -2,8 +2,6 @@ import React from 'react';
 import {createStackNavigator} from "@react-navigation/stack";
 import MainScreen from "../../screens/MainScreen";
 import SelectCarScreen from "../../screens/SelectCarScreen";
-import TaxiComingScreen from "../../screens/TaxiComingScreen";
-import CarWaitingScreen from "../../screens/CarWaitingScreen";
 import ChatScreen from "../../screens/ChatScreen/ChatScreen";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import {localization} from "../../services/Localization";
@@ -11,6 +9,7 @@ import Colors from "../../assets/styles/Colors";
 import EnterPhoneNumberScreen from "../../screens/EnterPhoneNumberScreen/EnterPhoneNumberScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen/NotificationsScreen";
 import RateTripScreen from "../../screens/RateTripScreen";
+import TripScreen from "../../screens/TripScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -34,15 +33,8 @@ const MainStack = () => (
             }}
         />
         <Screen
-            name="TaxiComing"
-            component={TaxiComingScreen}
-            options={{
-                headerShown: false
-            }}
-        />
-        <Screen
-            name="CarWaiting"
-            component={CarWaitingScreen}
+            name="Trip"
+            component={TripScreen}
             options={{
                 headerShown: false
             }}

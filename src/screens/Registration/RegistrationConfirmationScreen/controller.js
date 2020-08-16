@@ -38,7 +38,6 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
         ResendCode(id, ({data}) => {
             setIsLoading(false);
         }, (error) => {
-            console.log(error)
             setIsLoading(false);
         })
     };

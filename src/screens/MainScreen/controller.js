@@ -34,7 +34,6 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition((data) => {
             GetCurrentLocation(data.coords);
-            console.log('success')
         }, error => {
             getCurrentLocation()
         })
@@ -59,7 +58,6 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
             {
                 text: 'OK', onPress: () => SystemSetting
                     .switchLocation(() => {
-                        console.log('good job')
                     })
             }
         ])

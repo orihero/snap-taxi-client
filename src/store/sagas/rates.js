@@ -7,7 +7,7 @@ function* GetRates(action) {
     try {
         const {distance} = action.payload;
 
-        const {data} = yield call(api.request.get, `/handbook/rates?distance=${distance}&region_id=1`);
+        const {data} = yield call(api.request.get, `/handbook/rates?distance=${Math.ceil(distance * 10) / 10}&region_id=1`);
 
         yield put({
             type: Rates.GetRates.SUCCESS,

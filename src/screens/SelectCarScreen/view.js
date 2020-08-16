@@ -48,6 +48,7 @@ const SelectCarScreenView = (
         setVisibleDeliveryModal,
         setRate,
         setRateInfo,
+        setComment
     } = setters;
 
     const {
@@ -56,6 +57,7 @@ const SelectCarScreenView = (
         visibleDeliveryModal,
         rate,
         rateInfo,
+        comment
     } = values;
 
     return (
@@ -73,6 +75,8 @@ const SelectCarScreenView = (
                 />
                 <AdditionalOptionsModal
                     visible={visibleAdditionalModal}
+                    comment={comment}
+                    setComment={setComment}
                     closeModal={() => setVisibleAdditionalModal(false)}
                 />
                 <DeliveryInfoModal

@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch) => ({
     }),
     SetDestination: () => dispatch({
         type: SetDestination.SUCCESS,
-        payload: null
+        payload: {}
     })
 });
 

@@ -26,7 +26,8 @@ const Directions = ({navigation}) => {
                 const status = PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
                 hasPermission = status === PermissionsAndroid.RESULTS.GRANTED;
                 if (hasPermission) {
-                    Geolocation.getCurrentPosition(info => console.log(info));
+                    Geolocation.getCurrentPosition(() => {
+                    });
                 }
             }
         }

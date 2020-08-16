@@ -4,7 +4,6 @@ import androidx.multidex.MultiDexApplication;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import ru.vvdev.yamap.RNYamapPackage;
 import com.xb.contactpicker.ReactNativeContacts;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.ninty.system.setting.SystemSettingPackage;

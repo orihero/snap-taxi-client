@@ -13,7 +13,7 @@ import {localization} from "../../services/Localization";
 import SwitchWithText from "../SwitchWithText";
 import DiscountIcon from "../../assets/images/DiscountIcon";
 
-const AdditionalOptionsModal = ({visible, closeModal}) => {
+const AdditionalOptionsModal = ({visible, closeModal, comment, setComment}) => {
     const [airCondition, setAirCondition] = useState(false);
     const [smoke, setSmoke] = useState(false);
     const [coupon, setCoupon] = useState(false);
@@ -47,6 +47,8 @@ const AdditionalOptionsModal = ({visible, closeModal}) => {
                     </View>
                     <View style={styles.textarea}>
                         <TextInput
+                            value={comment}
+                            onChangeText={text => setComment(text)}
                             multiline={true}
                             placeholder={localization.comment}
                         />
