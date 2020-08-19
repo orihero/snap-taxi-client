@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigation} from "@react-navigation/native";
 
 import TripInfoPanelView from "./view";
+import DriverInfoPanelView from "../DriverInfoPanel/view";
 
 
 const TripInfoPanelController = ({order, CancelOrder}) => {
@@ -20,6 +21,8 @@ const TripInfoPanelController = ({order, CancelOrder}) => {
         <TripInfoPanelView
             routes={JSON.parse(order.routes)}
             cancelOrder={cancelOrder}
+            driver={order.driver}
+            price={order.price}
         />
     );
 };

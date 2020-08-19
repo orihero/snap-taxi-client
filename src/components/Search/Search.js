@@ -3,15 +3,14 @@ import {View, Keyboard} from "react-native"
 import {connect} from "react-redux";
 
 import styles from "./styles";
-import {localization} from "../../services/Localization"
 import SearchIcon from "../../assets/images/SearchIcon";
-import LocationIcon from "../../assets/images/LocationIcon";
-import {Bold, Light, Regular} from "../Layout/AppText";
+import {Bold, Light} from "../Layout/AppText";
 import GooglePlacesAutocomplete from "react-native-google-places-autocomplete";
 import ResultIcon from "../../assets/images/ResultIcon";
 import {SetDestination} from "../../store/constants/map";
+import API_KEY from "../../const/apiKey";
 
-const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) => {
+const Search = ({setSearchActive, SetDestination, navigation}) => {
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -32,7 +31,8 @@ const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) =
 
     return (
         <GooglePlacesAutocomplete
-            placeholder='Search'
+            placeholder='Поиск'
+            minLength={2}
             onPress={(data, details = null) => {
                 SetDestination({
                     data,
@@ -64,6 +64,7 @@ const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) =
                     <SearchIcon style={{marginLeft: 'auto'}}/>
                 )
             }}
+
             renderRow={(data) => {
                 return (
                     <>
@@ -76,7 +77,7 @@ const Search = ({setSearchActive, isSearchActive, SetDestination, navigation}) =
                 )
             }}
             query={{
-                key: 'AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc',
+                key: API_KEY,
                 language: 'ru',
                 components: "country:uzb"
             }}

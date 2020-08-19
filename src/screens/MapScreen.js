@@ -11,17 +11,20 @@ import Screen from "../helpers/Dimensions";
 import API_KEY from "../const/apiKey";
 
 
-const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
+const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition, order}) => {
 
     const [mapRef, setMapRef] = useState(null);
 
-    useEffect(() => {
-        SetMarkerPosition({
-            ...map.currentLocation.coords,
-            latitudeDelta: 0.02,
-            longitudeDelta: 0.01,
-        })
-    }, []);
+    // useEffect(() => {
+    //     if (Object.keys(map.marker) === 0) {
+    //         console.log('2');
+    //         SetMarkerPosition({
+    //             ...map.currentLocation.coords,
+    //             latitudeDelta: 0.02,
+    //             longitudeDelta: 0.01,
+    //         })
+    //     }
+    // }, []);
 
     useEffect(() => {
         if (mapRef) {
@@ -34,13 +37,19 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
     }, [map.currentLocation]);
 
 
+    const onRegionChange = region => {
+        if (Object.keys(map.destination).length === 0) {
+            SetMarkerPosition(region)
+        }
+    };
+
     return (
         <View style={styles.container}>
             <MapView
                 ref={ref => setMapRef(ref)}
                 showsBuildings
                 showsIndoors
-                onRegionChangeComplete={(region) => SetMarkerPosition(region)}
+                onRegionChangeComplete={onRegionChange}
                 style={styles.map}
                 provider={"google"}
                 initialRegion={{
@@ -49,13 +58,16 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                     longitudeDelta: 0.01,
                 }}
             >
-                <Marker
-                    coordinate={map.currentLocation.coords}
-                    image={require('../assets/images/CurrentLocationIcon.png')}
-                />
+                {
+                    !map.destination &&
+                    <Marker
+                        coordinate={map.currentLocation.coords}
+                        image={require('../assets/images/CurrentLocationIcon.png')}
+                    />
+                }
                 {
                     map.destination && <MapViewDirections
-                        origin={map.currentLocation.coords}
+                        origin={map.marker}
                         mode={"DRIVING"}
                         destination={map.destination.coords}
                         apikey={API_KEY}
@@ -66,7 +78,7 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                                 distance: direction.distance,
                                 duration: direction.duration
                             });
-                            mapRef.fitToCoordinates([map.currentLocation.coords, map.destination.coords], {
+                            mapRef.fitToCoordinates([map.marker, map.destination.coords], {
                                 edgePadding: {
                                     top: 20,
                                     right: 20,
@@ -78,7 +90,13 @@ const MapScreen = ({map, SetDestinationDetails, SetMarkerPosition}) => {
                     />
                 }
             </MapView>
-            {/*<View style={styles.overlay}/>*/}
+            {
+                Object.keys(map.destination).length === 0 &&
+                <View style={styles.overlay}>
+                    <View style={styles.circle}/>
+                    <View style={styles.stick}/>
+                </View>
+            }
         </View>
     )
 };
@@ -92,18 +110,30 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     overlay: {
-        width: 20,
-        height: 20,
         zIndex: 999,
-        backgroundColor: '#000',
         position: 'absolute',
         alignSelf: 'center',
-        top: Screen.height / 2 - 20
+        alignItems: 'center',
+        top: Screen.height / 2 - 58,
     },
+    circle: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#323637',
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: '#fff'
+    },
+    stick: {
+        width: 2,
+        backgroundColor: '#323637',
+        height: 18,
+    }
 });
 
-const mapStateToProps = ({map}) => ({
-    map
+const mapStateToProps = ({map, booking: {order}}) => ({
+    map,
+    order
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

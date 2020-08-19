@@ -8,10 +8,10 @@ import {SetCurrentLocationDetails} from "../../store/constants/map";
 import {ChangeOrderStatus} from "../../store/constants/booking";
 
 
-const mapStateToProps = ({rates, map: {destination, currentLocation}}) => ({
+const mapStateToProps = ({rates, map: {destination, marker}}) => ({
     rates,
     destination,
-    currentLocation
+    marker
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

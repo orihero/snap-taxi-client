@@ -5,7 +5,6 @@ import SettingsStack from "../StackNavigators/SettingsStack";
 import RegistrationStack from "../StackNavigators/RegistrationStack";
 import MainStack from "../StackNavigators/MainStack";
 import MyTripsStack from "../StackNavigators/MyTripsStack";
-import RateTripScreen from "../../screens/RateTripScreen";
 import SupportStack from "../StackNavigators/SupportStack";
 
 const routes = [

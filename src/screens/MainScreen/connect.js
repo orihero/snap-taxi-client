@@ -10,7 +10,8 @@ const mapDispatchToProps = (dispatch) => ({
     SetDestination: () => dispatch({
         type: SetDestination.SUCCESS,
         payload: {}
-    })
+    }),
+
 });
 
 export default connect(

@@ -14,13 +14,27 @@ import {localization} from "../../../../services/Localization";
 import SwitchWithText from "../../../../components/SwitchWithText";
 import AirConditionIcon from "../../../../assets/images/AirConditionIcon";
 
-const DriverInfoPanelView = ({backgroundColor, panResPonder, airCondition, setAirCondition, collapse, routes, cancelOrder}) => {
+const DriverInfoPanelView = (
+    {
+        backgroundColor,
+        panResPonder,
+        airCondition,
+        setAirCondition,
+        collapse,
+        routes,
+        cancelOrder,
+        driver,
+        price
+    }) => {
     return (
         <>
             <Animated.View style={[{backgroundColor}, styles.overlay]} pointerEvents={'none'}/>
             <View style={{marginTop: 'auto'}}>
                 <StatusBar setBarStyle={{backgroundColor}}/>
-                <DriverInfo/>
+                <DriverInfo
+                    name={driver && driver.name}
+                    phone={driver && driver.phone}
+                />
                 <View style={[styles.shadow]}  {...panResPonder.panHandlers}>
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                     <View style={styles.container}>
@@ -39,7 +53,7 @@ const DriverInfoPanelView = ({backgroundColor, panResPonder, airCondition, setAi
                         <Animated.View style={{height: collapse, overflow: 'hidden'}}>
                             <View style={styles.fee}>
                                 <Bold style={{fontSize: 17}}>{localization.fee}</Bold>
-                                <Bold style={{fontSize: 17, marginLeft: 'auto'}}>35 500 </Bold>
+                                <Bold style={{fontSize: 17, marginLeft: 'auto'}}>{price} </Bold>
                                 <Regular style={{lineHeight: 25}}>сум</Regular>
                             </View>
                             <View style={styles.destinationWrapper}>

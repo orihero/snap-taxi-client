@@ -1,4 +1,4 @@
-import {BookCar, ChangeOrderStatus, CancelOrder} from "../constants/booking";
+import {BookCar, ChangeOrderStatus, CancelOrder, RateOrder} from "../constants/booking";
 
 const initialState = {
     order: {
@@ -20,6 +20,13 @@ export default (state = initialState, action) => {
                 ...state,
                 order: {
                     data: action.payload
+                },
+            };
+        case  RateOrder.SUCCESS:
+            return {
+                ...state,
+                order: {
+                    data: {}
                 },
             };
         // case  CancelOrder.SUCCESS:

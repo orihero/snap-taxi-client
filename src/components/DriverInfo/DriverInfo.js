@@ -11,7 +11,7 @@ import DriverPhoneIcon from "../../assets/images/DriverPhoneIcon";
 import DriverInfoBlockBottomFragment from "../../assets/images/DriverInfoBlockBottomFragment";
 import ExclamationMarkIcon from "../../assets/images/ ExclamationMarkIcon";
 
-const DriverInfo = ({finished, activeExclaim, noIcons}) => {
+const DriverInfo = ({finished, activeExclaim, noIcons, name, phone}) => {
     const navigation = useNavigation();
     return (
         <>
@@ -23,7 +23,7 @@ const DriverInfo = ({finished, activeExclaim, noIcons}) => {
                                 <Image source={require('../../assets/images/me.png')}/>
                             </View>
                             <View style={{marginRight: 18}}>
-                                <Bold>Мирмахмудов Фарход</Bold>
+                                <Bold>{name}</Bold>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                     <Bold>4.5</Bold>
                                     <View style={{flexDirection: 'row', marginLeft: 5.2}}>
@@ -54,7 +54,7 @@ const DriverInfo = ({finished, activeExclaim, noIcons}) => {
                                         </TouchableNativeFeedback>
                                     </View>
                                     <View style={styles.icon}>
-                                        <TouchableNativeFeedback onPress={() => Linking.openURL('tel:+998998845881')}>
+                                        <TouchableNativeFeedback onPress={() => Linking.openURL(`tel:+${phone}`)}>
                                             <View style={styles.icon}>
                                                 <DriverPhoneIcon/>
                                             </View>

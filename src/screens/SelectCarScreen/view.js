@@ -39,6 +39,7 @@ const SelectCarScreenView = (
         destination,
         currentLocation,
         findCar,
+        isLoading
     }) => {
     const navigation = useNavigation();
 
@@ -154,6 +155,7 @@ const SelectCarScreenView = (
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 13}}>
                             <View style={styles.column}>
                                 <Button
+                                    isLoading={isLoading}
                                     title={localization.findTaxi}
                                     onPress={findCar}
                                 />

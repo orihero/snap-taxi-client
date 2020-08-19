@@ -11,17 +11,20 @@ import {Bold, Regular} from "../../../../components/Layout/AppText";
 import Screen from "../../../../helpers/Dimensions";
 
 
-const TripInfoPanelView = ({routes, cancelOrder}) => {
+const TripInfoPanelView = ({routes, cancelOrder, driver, price}) => {
     return (
         <>
             <View style={{marginTop: 'auto'}}>
-                <DriverInfo/>
+                <DriverInfo
+                    name={driver.name}
+                    phone={driver.phone}
+                />
                 <View style={styles.shadow}>
                     <BottomMenuCurve width={Screen.width - 32}/>
                     <View style={styles.container}>
                         <View style={styles.fee}>
                             <Bold style={{fontSize: 17}}>{localization.fee}</Bold>
-                            <Bold style={styles.tripFee}>35 500 </Bold>
+                            <Bold style={styles.tripFee}>{price} </Bold>
                             <Regular style={{lineHeight: 25}}>сум</Regular>
                         </View>
                         <SelectedDestination

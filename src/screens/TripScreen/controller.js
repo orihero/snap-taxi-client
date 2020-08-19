@@ -7,6 +7,7 @@ const TripScreenController = ({order}) => {
 
     return (
         <TripScreenView
+            order={order}
             orderStatus={order.status}
         />
     );

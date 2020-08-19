@@ -9,7 +9,6 @@ let echo: any;
 
 function* BookCar(action) {
     try {
-        const {data} = yield call(api.request.post, '/car-booking/book', action.payload);
 
         echo = new Echo({
             host: 'http://snap.vroom.uz:6060',
@@ -17,9 +16,11 @@ function* BookCar(action) {
             client: io,
         });
 
+        const {data} = yield call(api.request.post, '/car-booking/book', action.payload);
+
         echo
             .channel(`snaptaxi_database_car_order.${data.data.id}`)
-            .listen('.OrderStatusEvent', ({booking, channel}) => {
+            .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
                 action.cb.socketCb({...booking, channel});
                 if (booking.status === 'accepted') {
                     action.cb.actionCb();
@@ -38,6 +39,34 @@ function* BookCar(action) {
             type: Booking.BookCar.FAILURE,
             payload: error
         });
+        yield call(action.errorCb, error);
+    }
+}
+
+function* RateOrder(action: any) {
+    try {
+
+        const {orderId} = action.payload;
+
+        const {data} = yield call(api.request.put, `/car-booking/review/${orderId}`, action.payload);
+
+        echo.disconnect();
+
+        yield put({
+            type: Booking.RateOrder.SUCCESS,
+            payload: data.data
+        });
+
+        yield call(action.cb);
+
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.RateOrder.FAILURE,
+            payload: error,
+        });
+
         yield call(action.errorCb, error);
     }
 }
@@ -77,5 +106,6 @@ export default function* root() {
     yield all([
         takeLatest(Booking.BookCar.REQUEST, BookCar),
         takeLatest(Booking.CancelOrder.REQUEST, CancelOrder),
+        takeLatest(Booking.RateOrder.REQUEST, RateOrder),
     ]);
 }

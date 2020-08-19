@@ -9,12 +9,11 @@ const SelectCarScreenController = (
         GetRates,
         rates,
         destination,
-        currentLocation,
+        marker,
         SetCurrentLocationDetails,
         ChangeOrderStatus,
         navigation,
     }) => {
-
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
         const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
         const [visibleDeliveryModal, setVisibleDeliveryModal] = useState(false);
@@ -23,9 +22,11 @@ const SelectCarScreenController = (
         const [destinationText, setDestinationText] = useState('');
         const [currentLocationText, setCurrentLocationText] = useState('');
         const [comment, setComment] = useState(null);
+        const [isLoading, setIsLoading] = useState(false);
+
+        const {latitude, longitude} = marker;
 
         useEffect(() => {
-            const {coords: {latitude, longitude}} = currentLocation;
             Geocode.setApiKey(API_KEY);
             Geocode.setLanguage('uz');
             Geocode.fromLatLng(latitude, longitude)
@@ -39,7 +40,7 @@ const SelectCarScreenController = (
         }, []);
 
         useEffect(() => {
-            if (destination) {
+            if (destination.data) {
                 GetRates(destination.details, (data) => {
                     setRate(data.data[0])
                 });
@@ -51,12 +52,13 @@ const SelectCarScreenController = (
         }, [destination]);
 
         const findCar = () => {
+            setIsLoading(true);
             BookCar({
                 routes: [
                     {
                         address: currentLocationText,
-                        lat: `${currentLocation.coords.latitude}`,
-                        lng: `${currentLocation.coords.longitude}`,
+                        lat: `${latitude}`,
+                        lng: `${longitude}`,
                         order: 0,
                     },
                     {
@@ -71,7 +73,10 @@ const SelectCarScreenController = (
                 rate_id: rate.id,
                 comment
             }, {
-                socketCb: (data) => ChangeOrderStatus(data),
+                socketCb: (data) => {
+                    ChangeOrderStatus(data);
+                    setIsLoading(false)
+                },
                 actionCb: () => navigation.navigate('Trip')
             })
         };
@@ -79,6 +84,7 @@ const SelectCarScreenController = (
 
         return (
             <SelectCarScreenView
+                isLoading={isLoading}
                 rates={rates}
                 duration={destination && destination.details ? Math.floor(destination.details.duration) : 0}
                 findCar={findCar}

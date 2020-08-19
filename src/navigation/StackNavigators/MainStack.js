@@ -8,7 +8,6 @@ import {localization} from "../../services/Localization";
 import Colors from "../../assets/styles/Colors";
 import EnterPhoneNumberScreen from "../../screens/EnterPhoneNumberScreen/EnterPhoneNumberScreen";
 import NotificationsScreen from "../../screens/NotificationsScreen/NotificationsScreen";
-import RateTripScreen from "../../screens/RateTripScreen";
 import TripScreen from "../../screens/TripScreen";
 
 const {Navigator, Screen} = createStackNavigator();
@@ -61,13 +60,6 @@ const MainStack = () => (
             options={{
                 header: (props) => <PageHeader title={'Уведомление'} style={{marginBottom: 0}} {...props}/>,
                 cardStyle: {backgroundColor: Colors.background}
-            }}
-        />
-        <Screen
-            name="RateTrip"
-            component={RateTripScreen}
-            options={{
-                headerShown: false
             }}
         />
     </Navigator>
