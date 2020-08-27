@@ -27,7 +27,7 @@ const CarItem = (
         <TouchableOpacity onPress={onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
-                    <Bold style={[styles.text, active && styles.activeText]}>{title}</Bold>
+                    <Bold style={[styles.text, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
                     <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>
                     <Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>
                 </View>

@@ -21,7 +21,7 @@ function* BookCar(action) {
         echo
             .channel(`snaptaxi_database_car_order.${data.data.id}`)
             .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
-                action.cb.socketCb({...booking, channel});
+                action.cb.socketCb({...booking, ...rest, channel});
                 if (booking.status === 'accepted') {
                     action.cb.actionCb();
                 }
@@ -101,11 +101,33 @@ function* CancelOrder(action: any) {
     }
 }
 
+function* GetOrderList(action: any) {
+    try {
+        const {data} = yield call(api.request.get, '/car-booking', action.payload);
+
+        yield put({
+            type: Booking.GetOrderList.SUCCESS,
+            payload: data.data,
+        });
+
+        yield call(action.cb, data);
+
+    } catch (error) {
+        yield put({
+            type: Booking.GetOrderList.FAILURE,
+            payload: error
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 
 export default function* root() {
     yield all([
         takeLatest(Booking.BookCar.REQUEST, BookCar),
         takeLatest(Booking.CancelOrder.REQUEST, CancelOrder),
         takeLatest(Booking.RateOrder.REQUEST, RateOrder),
+        takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
     ]);
 }

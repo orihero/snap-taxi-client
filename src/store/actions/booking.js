@@ -6,11 +6,13 @@ const ChangeOrderStatus = createAction(Booking.ChangeOrderStatus.REQUEST);
 const CancelOrder = createAction(Booking.CancelOrder.REQUEST);
 const FinishOrder = createAction(Booking.FinishOrder.REQUEST);
 const RateOrder = createAction(Booking.RateOrder.REQUEST);
+const GetOrderList = createAction(Booking.GetOrderList.REQUEST);
 
 export default {
     BookCar,
     ChangeOrderStatus,
     CancelOrder,
     FinishOrder,
-    RateOrder
+    RateOrder,
+    GetOrderList,
 }

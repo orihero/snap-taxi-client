@@ -10,9 +10,9 @@ const initialState = {
     currentLocation: {
         details: {},
         coords: {
-            latitude: 31.776685,
-            longitude: 35.234491,
-        }
+            latitude: 41.3139328,
+            longitude: 69.2755859
+        },
     },
     destination: {},
     marker: {}

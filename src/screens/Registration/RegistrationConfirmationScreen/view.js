@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, TextInput, KeyboardAvoidingView, StatusBar, TouchableOpacity} from "react-native";
-import {connect} from "react-redux";
+import {View, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, TouchableOpacity} from "react-native";
 
 import Colors from "../../../assets/styles/Colors";
 import Button from "../../../components/Button";
@@ -8,8 +7,6 @@ import ConfirmationIcon from "../../../assets/images/ConfirmationIcon";
 import RegistrationTop from "../../../components/RegistrationTop/RegistrationTop";
 import {Bold, SemiBold} from "../../../components/Layout/AppText";
 import styles from "./styles";
-import {bindActionCreators} from "redux";
-import auth from "../../../store/actions/auth";
 
 const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setCode, isLoading}) => {
     return (

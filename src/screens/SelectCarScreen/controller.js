@@ -13,6 +13,9 @@ const SelectCarScreenController = (
         SetCurrentLocationDetails,
         ChangeOrderStatus,
         navigation,
+        paymentMethod,
+        CancelOrder,
+        order
     }) => {
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
         const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
@@ -23,6 +26,7 @@ const SelectCarScreenController = (
         const [currentLocationText, setCurrentLocationText] = useState('');
         const [comment, setComment] = useState(null);
         const [isLoading, setIsLoading] = useState(false);
+        const [airCondition, setAirCondition] = useState(false);
 
         const {latitude, longitude} = marker;
 
@@ -40,7 +44,7 @@ const SelectCarScreenController = (
         }, []);
 
         useEffect(() => {
-            if (destination.data) {
+            if (destination.data && destination.details) {
                 GetRates(destination.details, (data) => {
                     setRate(data.data[0])
                 });
@@ -48,14 +52,22 @@ const SelectCarScreenController = (
                     destination.data.terms[0].value + ', ' +
                     destination.data.terms[1].value
                 )
+            } else {
+                GetRates({distance: 1}, (data) => {
+                    setRate(data.data[0])
+                });
             }
         }, [destination]);
 
         const findCar = () => {
             setIsLoading(true);
-            BookCar({
-                routes: [
-                    {
+            const routes = [];
+            const option_ids = [];
+            if (airCondition) {
+                option_ids.push(1)
+            }
+            if (destination.data) {
+                routes.push({
                         address: currentLocationText,
                         lat: `${latitude}`,
                         lng: `${longitude}`,
@@ -66,10 +78,19 @@ const SelectCarScreenController = (
                         lat: `${destination.coords.latitude}`,
                         lng: `${destination.coords.longitude}`,
                         order: 1,
-                    }
-                ],
-                option_ids: [],
-                distance: `${Math.ceil(destination.details.distance * 10) / 10}`,
+                    })
+            } else {
+                routes.push({
+                    address: currentLocationText,
+                    lat: `${latitude}`,
+                    lng: `${longitude}`,
+                    order: 0,
+                })
+            }
+            BookCar({
+                routes,
+                option_ids,
+                distance: destination.details ? `${Math.ceil(destination.details.distance * 10) / 10}` : '1',
                 rate_id: rate.id,
                 comment
             }, {
@@ -81,22 +102,32 @@ const SelectCarScreenController = (
             })
         };
 
+        const cancelOrder = () => {
+            CancelOrder({
+                orderId: order.id
+            }, () => {
+                navigation.goBack();
+            })
+        };
 
         return (
             <SelectCarScreenView
                 isLoading={isLoading}
                 rates={rates}
-                duration={destination && destination.details ? Math.floor(destination.details.duration) : 0}
+                duration={destination.data && destination.details ? Math.floor(destination.details.duration) : 0}
                 findCar={findCar}
                 currentLocation={currentLocationText}
-                destination={destinationText}
+                destination={destinationText || 'Не указано'}
+                paymentMethod={paymentMethod}
+                cancelOrder={cancelOrder}
                 setters={{
                     setVisiblePlanModal,
                     setVisibleAdditionalModal,
                     setVisibleDeliveryModal,
                     setRate,
                     setRateInfo,
-                    setComment
+                    setComment,
+                    setAirCondition
                 }}
                 values={{
                     visiblePlanModal,
@@ -104,7 +135,8 @@ const SelectCarScreenController = (
                     visibleDeliveryModal,
                     rate,
                     rateInfo,
-                    comment
+                    comment,
+                    airCondition,
                 }}
             />
         );

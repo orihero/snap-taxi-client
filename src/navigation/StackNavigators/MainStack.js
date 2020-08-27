@@ -12,56 +12,59 @@ import TripScreen from "../../screens/TripScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 
-const MainStack = () => (
-    <Navigator
-        backgroundColor={'#fff'}
-        mode={'modal'}
-    >
-        <Screen
-            name="Home"
-            component={MainScreen}
-            options={{
-                headerShown: false
-            }}
-        />
-        <Screen
-            name="SelectCar"
-            component={SelectCarScreen}
-            options={{
-                headerShown: false
-            }}
-        />
-        <Screen
-            name="Trip"
-            component={TripScreen}
-            options={{
-                headerShown: false
-            }}
-        />
-        <Screen
-            name="Chat"
-            component={ChatScreen}
-            options={{
-                header: (props) => <PageHeader title={localization.chat} style={{marginBottom: 0}} {...props}/>,
-                cardStyle: {backgroundColor: Colors.background}
-            }}
-        />
-        <Screen
-            name="EnterPhoneNumber"
-            component={EnterPhoneNumberScreen}
-            options={{
-                header: (props) => <PageHeader title={'Кто поедет'} style={{marginBottom: 0}} {...props}/>,
-                cardStyle: {backgroundColor: Colors.background}
-            }}
-        />
-        <Screen
-            name="Notifications"
-            component={NotificationsScreen}
-            options={{
-                header: (props) => <PageHeader title={'Уведомление'} style={{marginBottom: 0}} {...props}/>,
-                cardStyle: {backgroundColor: Colors.background}
-            }}
-        />
-    </Navigator>
-);
+
+const MainStack = (props) => {
+    return (
+        <Navigator
+            backgroundColor={'#fff'}
+            mode={'modal'}
+        >
+            <Screen
+                name="Home"
+                component={MainScreen}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Screen
+                name="SelectCar"
+                component={SelectCarScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Screen
+                name="Trip"
+                component={TripScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Screen
+                name="Chat"
+                component={ChatScreen}
+                options={{
+                    header: (props) => <PageHeader title={localization.chat} style={{marginBottom: 0}} {...props}/>,
+                    cardStyle: {backgroundColor: Colors.background}
+                }}
+            />
+            <Screen
+                name="EnterPhoneNumber"
+                component={EnterPhoneNumberScreen}
+                options={{
+                    header: (props) => <PageHeader title={'Кто поедет'} style={{marginBottom: 0}} {...props}/>,
+                    cardStyle: {backgroundColor: Colors.background}
+                }}
+            />
+            <Screen
+                name="Notifications"
+                component={NotificationsScreen}
+                options={{
+                    header: (props) => <PageHeader title={'Уведомление'} style={{marginBottom: 0}} {...props}/>,
+                    cardStyle: {backgroundColor: Colors.background}
+                }}
+            />
+        </Navigator>
+    );
+}
 export default MainStack;

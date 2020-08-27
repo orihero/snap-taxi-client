@@ -18,6 +18,8 @@ import {localization} from "../../services/Localization";
 import AddIcon from "../../assets/images/AddIcon";
 import SelectedDestination from "../../components/SelectedDestanation";
 import Button from "../../components/Button";
+import WalletIcon from "../../assets/images/WalletIcon";
+import PulseAnimation from "../../components/PulseAnimation/view";
 
 const Dots = () => {
     return (
@@ -39,7 +41,9 @@ const SelectCarScreenView = (
         destination,
         currentLocation,
         findCar,
-        isLoading
+        isLoading,
+        paymentMethod,
+        cancelOrder
     }) => {
     const navigation = useNavigation();
 
@@ -49,7 +53,8 @@ const SelectCarScreenView = (
         setVisibleDeliveryModal,
         setRate,
         setRateInfo,
-        setComment
+        setComment,
+        setAirCondition,
     } = setters;
 
     const {
@@ -58,7 +63,8 @@ const SelectCarScreenView = (
         visibleDeliveryModal,
         rate,
         rateInfo,
-        comment
+        comment,
+        airCondition
     } = values;
 
     return (
@@ -68,13 +74,16 @@ const SelectCarScreenView = (
                     goBack={true}
                     subText={'Детали заказа'}
                 />
-                <MapScreen/>
+                <MapScreen showMarker={false}/>
+                {isLoading && <PulseAnimation/>}
                 <PlanItemInfoModal
                     rateInfo={rateInfo}
                     visible={visiblePlanModal}
                     closeModal={() => setVisiblePlanModal(false)}
                 />
                 <AdditionalOptionsModal
+                    airCondition={airCondition}
+                    setAirCondition={setAirCondition}
                     visible={visibleAdditionalModal}
                     comment={comment}
                     setComment={setComment}
@@ -89,6 +98,13 @@ const SelectCarScreenView = (
                     <BottomMenuCurve/>
                     <View style={styles.container}>
                         <FlatList
+                            ListEmptyComponent={() => {
+                                return [...new Array(6)].map((item, index) => (
+                                    <CarItem
+                                        index={index}
+                                    />
+                                ))
+                            }}
                             contentContainerStyle={styles.plan}
                             style={{width: '100%'}}
                             horizontal
@@ -126,16 +142,24 @@ const SelectCarScreenView = (
                         }}>
                             <View style={styles.column}>
                                 <TouchableWithoutFeedback onPress={() => navigation.navigate('PaymentMethodsStack')}>
-                                    <View style={styles.findCar}>
-                                        <UzcardIcon style={{marginRight: 16.6}}/>
-                                        <View style={styles.cardNumber}>
-                                            <Dots/>
-                                            <Dots/>
-                                            <Dots/>
-                                            <Regular style={styles.text}>8797</Regular>
-                                        </View>
-                                        <ArrowIcon style={{marginLeft: 'auto'}}/>
-                                    </View>
+                                    {
+                                        paymentMethod === 'card'
+                                            ? <View style={styles.findCar}>
+                                                <UzcardIcon style={{marginRight: 16.6}}/>
+                                                <View style={styles.cardNumber}>
+                                                    <Dots/>
+                                                    <Dots/>
+                                                    <Dots/>
+                                                    <Regular style={styles.text}>8797</Regular>
+                                                </View>
+                                                <ArrowIcon style={{marginLeft: 'auto'}}/>
+                                            </View>
+                                            : <View style={styles.findCar}>
+                                                <WalletIcon style={{marginRight: 16.6, top: -3}}/>
+                                                <Regular style={styles.text}>{localization.byCash}</Regular>
+                                                <ArrowIcon style={{marginLeft: 'auto'}}/>
+                                            </View>
+                                    }
                                 </TouchableWithoutFeedback>
                             </View>
                             <View style={styles.column}>
@@ -153,20 +177,18 @@ const SelectCarScreenView = (
                             from={currentLocation}
                         />
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 13}}>
-                            <View style={styles.column}>
-                                <Button
-                                    isLoading={isLoading}
-                                    title={localization.findTaxi}
-                                    onPress={findCar}
-                                />
-                            </View>
-                            <View style={styles.column}>
-                                <Button
-                                    title={localization.forFriend}
-                                    containerStyle={{backgroundColor: '#f2f2f2'}}
-                                    onPress={() => navigation.navigate('EnterPhoneNumber')}
-                                />
-                            </View>
+                            {
+                                !isLoading
+                                    ? <Button
+                                        isLoading={isLoading}
+                                        title={localization.findTaxi}
+                                        onPress={findCar}
+                                    />
+                                    : <Button
+                                        title={localization.cancel}
+                                        onPress={cancelOrder}
+                                    />
+                            }
                         </View>
                     </View>
                 </View>

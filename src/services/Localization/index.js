@@ -61,7 +61,6 @@ let strings = new LocalizedStrings({
         changeAddress: 'Изменить адрес',
     },
     uz: {
-        where: "Куда едем?"
     },
     eng: {}
 });

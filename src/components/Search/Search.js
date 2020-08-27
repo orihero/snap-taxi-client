@@ -31,7 +31,7 @@ const Search = ({setSearchActive, SetDestination, navigation}) => {
 
     return (
         <GooglePlacesAutocomplete
-            placeholder='Поиск'
+            placeholder='Куда едем?'
             minLength={2}
             onPress={(data, details = null) => {
                 SetDestination({

@@ -13,13 +13,10 @@ import {localization} from "../../services/Localization";
 import SwitchWithText from "../SwitchWithText";
 import DiscountIcon from "../../assets/images/DiscountIcon";
 
-const AdditionalOptionsModal = ({visible, closeModal, comment, setComment}) => {
-    const [airCondition, setAirCondition] = useState(false);
-    const [smoke, setSmoke] = useState(false);
+const AdditionalOptionsModal = ({visible, closeModal, comment, setComment, airCondition, setAirCondition}) => {
     const [coupon, setCoupon] = useState(false);
     return (
         <CustomModal visible={visible} closeModal={closeModal}>
-
             <View>
                 <KeyboardAvoidingView behavior={'position'}>
                     <AdditionalOptionsModalIcon style={styles.icon}/>
@@ -33,12 +30,7 @@ const AdditionalOptionsModal = ({visible, closeModal, comment, setComment}) => {
                             value={airCondition}
                         />
                         <SwitchWithText
-                            Icon={SmokeIcon}
-                            text={localization.forSmokers}
-                            setValue={setSmoke}
-                            value={smoke}
-                        />
-                        <SwitchWithText
+                            disabled
                             Icon={DiscountIcon}
                             text={'Использовать купон'}
                             setValue={setCoupon}

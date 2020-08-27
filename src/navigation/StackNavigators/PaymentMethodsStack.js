@@ -1,5 +1,5 @@
 import React from 'react';
-import PaymentMethodsScreen from "../../screens/PaymentMethodsScreen/PaymentMethodsScreen";
+import PaymentMethodsScreen from "../../screens/PaymentMethodScreen";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import AddCardScreen from "../../screens/AddCardScreen/AddCardScreen";
 import {createStackNavigator} from "@react-navigation/stack";

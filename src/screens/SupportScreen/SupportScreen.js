@@ -9,7 +9,14 @@ import ArrowIcon from "../../assets/images/ArrowIcon";
 const SupportScreen = ({navigation}) => {
     return (
         <ScrollView style={styles.container}>
-            <TripItem/>
+            <TripItem
+                from={''}
+                to={''}
+                date={''}
+                car={{number: '', model: ''}}
+                driverName={''}
+                id={''}
+            />
             <View style={{marginHorizontal: 20}}>
                 <Regular style={{color: '#AAAEB7'}}>Дополнительные вопросы</Regular>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('SupportCategory')}>

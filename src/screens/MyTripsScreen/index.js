@@ -1,3 +1,3 @@
-import MyTripsScreen from "./MyTripsScreen";
+import MyTripsScreen from "./connect";
 
 export default MyTripsScreen;

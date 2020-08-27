@@ -1,6 +1,6 @@
 import React from 'react'
 import DrawerContent from "../../components/DrawerContent";
-import {createDrawerNavigator} from "@react-navigation/drawer";
+import {createDrawerNavigator, useIsDrawerOpen} from "@react-navigation/drawer";
 import routes from "./routes";
 import Colors from "../../assets/styles/Colors";
 
@@ -18,7 +18,11 @@ const DrawerStack = () => (
     >
         {
             routes.map((route, index) => (
-                  route.component &&  <Screen key={index} name={route.name} component={route.component}/>
+                    route.component && <Screen
+                        key={index}
+                        name={route.name}
+                        component={route.component}
+                    />
                 )
             )
         }

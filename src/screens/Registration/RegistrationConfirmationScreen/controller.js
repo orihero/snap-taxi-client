@@ -4,7 +4,7 @@ import RegistrationConfirmationScreenView from "./view";
 const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile}) => {
 
     const [code, setCode] = useState();
-    const [counter, setCounter] = useState(30);
+    const [counter, setCounter] = useState(60);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {

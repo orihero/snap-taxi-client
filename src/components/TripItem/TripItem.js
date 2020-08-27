@@ -11,19 +11,29 @@ import StarIcon from "../../assets/images/StarIcon";
 import Button from "../Button";
 import Screen from "../../helpers/Dimensions";
 
-const TripItem = () => {
+const TripItem = ({from, to, id, date, driverName, car}) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     return (
         <TouchableWithoutFeedback onPress={() => setIsCollapsed(!isCollapsed)}>
             <View style={styles.tripItem}>
-                <DriverInfo finished activeExclaim/>
+                <DriverInfo
+                    car={car}
+                    finished
+                    activeExclaim
+                    name={driverName}
+                />
                 <View style={styles.shadow}>
                     <BottomMenuCurve width={Screen.width - 32}/>
                     <View style={styles.content}>
-                        <SelectedDestination containerStyle={{paddingBottom: 17, paddingTop: 11}} noIcon/>
+                        <SelectedDestination
+                            containerStyle={{paddingBottom: 17, paddingTop: 11}}
+                            noIcon
+                            from={from}
+                            to={to}
+                        />
                         <View style={styles.textWrapper}>
-                            <Light style={styles.text}>Id 4562455865</Light>
-                            <Light style={styles.text}>12.03.2020</Light>
+                            <Light style={styles.text}>Id {id}</Light>
+                            <Light style={styles.text}>{date}</Light>
                         </View>
                         <View style={{height: isCollapsed ? 'auto' : 0}}>
                             <View style={styles.textWrapper}>

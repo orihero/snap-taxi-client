@@ -30,17 +30,24 @@ const PaymentType = ({selected, label, onPress}) => (
     </TouchableWithoutFeedback>
 );
 
-const PaymentMethodsScreen = ({navigation}) => {
-    const [payment, setPayment] = useState({0: true});
+const PaymentMethodScreenView = ({routeTo, setPaymentMethod, paymentMethod}) => {
     const [card, setCard] = useState({0: true});
 
 
     return (
         <View style={styles.container}>
-            <PaymentType onPress={() => setPayment({0: true})} selected={payment[0]} label={localization.byCash}/>
-            <PaymentType onPress={() => setPayment({1: true})} selected={payment[1]} label={localization.byCard}/>
+            <PaymentType
+                onPress={setPaymentMethod('cash')}
+                selected={paymentMethod === 'cash'}
+                label={localization.byCash}
+            />
+            <PaymentType
+                onPress={setPaymentMethod('card')}
+                selected={paymentMethod === 'card'}
+                label={localization.byCard}
+            />
             {
-                payment[1] && <View style={styles.cards}>
+                paymentMethod === 'card' && <View style={styles.cards}>
                     <CardItem
                         onPress={() => setCard({0: true})}
                         selected={card[0]}
@@ -55,12 +62,11 @@ const PaymentMethodsScreen = ({navigation}) => {
                 title={localization.addCard}
                 containerStyle={{marginTop: 'auto', marginBottom: 50}}
                 texStyle={{fontWeight: '600'}}
-                onPress={() => navigation.navigate('AddCard')}
+                onPress={routeTo('AddCard')}
             />
         </View>
     );
 };
 
 
-
-export default PaymentMethodsScreen;
+export default PaymentMethodScreenView;

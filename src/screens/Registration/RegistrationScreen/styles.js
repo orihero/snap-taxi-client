@@ -40,7 +40,8 @@ export default StyleSheet.create({
     mask: {
         color: '#232323',
         fontSize: 16,
-        flex: 1
+        flex: 1,
+        top: -0.6
     },
     prefix: {
         color: '#232323',
