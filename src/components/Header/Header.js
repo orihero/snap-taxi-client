@@ -20,12 +20,12 @@ const Header = ({goBack, user, subText, ...rest}) => {
     useEffect(() => {
         return navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
-            StatusBar.setBackgroundColor('#fff');
+            StatusBar.setBackgroundColor(Colors.background);
         })
     }, [navigation]);
     return (
         <>
-            <GradientBackground style={styles.gradient}/>
+            {/*<GradientBackground style={styles.gradient}/>*/}
             <View style={styles.container} {...rest}>
                 {
                     !goBack

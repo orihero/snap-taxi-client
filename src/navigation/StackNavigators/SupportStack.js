@@ -1,6 +1,6 @@
 import React from 'react';
 import PageHeader from "../../components/PageHeader/PageHeader";
-import {createStackNavigator} from "@react-navigation/stack";
+import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
 import SupportScreen from "../../screens/SupportScreen/SupportScreen";
 import SupportCategoryScreen from "../../screens/SupportCategoryScreen";
@@ -8,7 +8,11 @@ import SupportCategoryScreen from "../../screens/SupportCategoryScreen";
 const {Navigator, Screen} = createStackNavigator();
 
 const SupportStack = () => (
-    <Navigator>
+    <Navigator
+        screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+        }}
+    >
         <Screen
             name="SupportStack"
             component={SupportScreen}
@@ -16,7 +20,6 @@ const SupportStack = () => (
                 header: (props) => <PageHeader
                     title={"Поддержка"}
                     {...props}
-                    style={{paddingBottom: 74, marginBottom: 0}}
                 />,
                 cardStyle: {backgroundColor: Colors.background}
             }}

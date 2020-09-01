@@ -3,12 +3,13 @@ import {View, StyleSheet} from 'react-native'
 import TextWithIcon from "./TextWithIcon";
 import CustomSwitch from "./CustomSwitch";
 
-const SwitchWithText = ({value, text, setValue, Icon, style, disabled}) => {
+const SwitchWithText = ({value, text, setValue, Icon, style, subText, disabled}) => {
     return (
         <View style={[styles.container, style]}>
             <TextWithIcon
                 Icon={Icon}
                 active={value}
+                subText={subText}
             >
                 {text}
             </TextWithIcon>

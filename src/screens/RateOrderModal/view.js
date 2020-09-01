@@ -54,6 +54,7 @@ const RateOrderModalView = ({visible, order, review, setReview, rateOrder, rate,
                             <DriverInfo
                                 noIcons
                                 name={order.driver && order.driver.name}
+                                car={order.car}
                             />
                             <View style={styles.shadow}>
                                 <BottomMenuCurve width={Dimensions.get('window').width - 32}/>

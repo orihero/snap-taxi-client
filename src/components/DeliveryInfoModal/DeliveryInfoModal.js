@@ -114,12 +114,6 @@ const DeliveryInfoModal = ({visible, closeModal, openModal}) => {
                                 <Bold style={{paddingLeft: 10}}>До двери (этаж)</Bold>
                                 <AddIcon/>
                             </View>
-                            <View style={[styles.textarea, {marginBottom: 20}]}>
-                                <TextInput
-                                    multiline={true}
-                                    placeholder={'Добавить коментарий '}
-                                />
-                            </View>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 23}}>
                                 <Bold>От двери до двери</Bold>
                                 <Switch

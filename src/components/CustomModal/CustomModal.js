@@ -12,7 +12,13 @@ import AddIcon from "../../assets/images/AddIcon";
 const CustomModal = ({visible = false, closeModal, children, contentStyle}) => {
     const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
     return (
-        <Modal visible={visible} transparent={true} statusBarTranslucent={true} animationType={"fade"}>
+        <Modal
+            visible={visible}
+            transparent={true}
+            statusBarTranslucent={true}
+            animationType={"fade"}
+            onRequestClose={closeModal}
+        >
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.icon}>

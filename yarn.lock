@@ -5833,14 +5833,15 @@ react-localization@^1.0.14:
   dependencies:
     localized-strings "^0.2.0"
 
+react-native-android-location-enabler@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-android-location-enabler/-/react-native-android-location-enabler-1.2.1.tgz#bdc15da4812641fe9bf0ca251e786dd7ad6dd65a"
+  integrity sha512-boEe+bhPC4dmLJPB2YlVONe0wpFqgJCUXEQQ4IKcuky64UUKthn5YGIElSyIMdNqyWxWLbSqDmySV7DVyNUlLA==
+
 react-native-confirmation-code-field@6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/react-native-confirmation-code-field/-/react-native-confirmation-code-field-6.5.0.tgz#f5579ee66b3f902724f5596a7ea3c87308c4d6d9"
   integrity sha512-thOctQtpkx5bcXIj6+S+gIKw7Z/jMBFf9FtqkiRQaZI1+IoMoA+n5CK4aYoosPQW4oAPTivL1mxOyA8T1kqmtA==
-
-"react-native-contacts-picker@https://github.com/Frank220599/react-native-contacts-picker.git":
-  version "0.0.7"
-  resolved "https://github.com/Frank220599/react-native-contacts-picker.git#19dda89b9ca45ee397faea9c694fb0efcbd55ff8"
 
 react-native-flipper@^0.34.0:
   version "0.34.0"
@@ -5899,6 +5900,11 @@ react-native-masked-text@1.13.0:
     date-and-time "0.9.0"
     tinymask "1.0.2"
 
+react-native-read-sms@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-read-sms/-/react-native-read-sms-1.0.6.tgz#e5ee7bf58c1a2c324b55181eb20888dbad0ce83a"
+  integrity sha512-gya1vc2KNOM9V8d2W8TD4oHXeSOdrWQpeQk+0nvJWwKEYnvQwxZArxKTDbrLA8n538DU3uoOo1nGy8SB93YWVw==
+
 react-native-reanimated@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.8.0.tgz#0b5719b20c1fed9aaf8afd9a12e21c9bd46ee428"
@@ -5917,6 +5923,11 @@ react-native-screens@2.4.0:
   integrity sha512-7GcXlaj7IIrM4l5Ub7BPTkNQJ2slHGt2bhmfWmW73NTXEv+7pjHlp+JpQO32Yn+O8UQGPFf0rsesfYUdER7ppQ==
   dependencies:
     debounce "^1.2.0"
+
+react-native-sms-retriever@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-sms-retriever/-/react-native-sms-retriever-1.1.1.tgz#e87225836b394560c63db4c106552a0b9247d9b3"
+  integrity sha512-WRwiITfssx59+TB1iEMmjB7w4OTkatR34js5+4a4pP2jMXJ4aLdXK0hOtHxl8ciS8aIejdd49Sz8AXonlvtdRw==
 
 react-native-svg@12.1.0:
   version "12.1.0"

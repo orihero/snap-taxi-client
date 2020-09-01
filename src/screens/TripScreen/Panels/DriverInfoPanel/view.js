@@ -24,7 +24,8 @@ const DriverInfoPanelView = (
         routes,
         cancelOrder,
         driver,
-        price
+        price,
+        car
     }) => {
     return (
         <>
@@ -34,6 +35,7 @@ const DriverInfoPanelView = (
                 <DriverInfo
                     name={driver && driver.name}
                     phone={driver && driver.phone}
+                    car={car}
                 />
                 <View style={[styles.shadow]}  {...panResPonder.panHandlers}>
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
@@ -60,7 +62,7 @@ const DriverInfoPanelView = (
                                 <SelectedDestination
                                     containerStyle={{marginBottom: 10, paddingTop: 11}}
                                     from={routes[0].address}
-                                    to={routes[1].address}
+                                    to={routes[1] ? routes[1].address : 'Не указано'}
                                 />
                             </View>
                             <SwitchWithText

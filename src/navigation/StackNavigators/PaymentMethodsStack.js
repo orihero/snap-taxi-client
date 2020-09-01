@@ -2,14 +2,18 @@ import React from 'react';
 import PaymentMethodsScreen from "../../screens/PaymentMethodScreen";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import AddCardScreen from "../../screens/AddCardScreen/AddCardScreen";
-import {createStackNavigator} from "@react-navigation/stack";
+import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import Colors from "../../assets/styles/Colors";
 import {localization} from "../../services/Localization";
 
 const {Navigator, Screen} = createStackNavigator();
 
 const PaymentMethodsStack = () => (
-    <Navigator>
+    <Navigator
+        screenOptions={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+        }}
+    >
         <Screen
             name="PaymentMethods"
             component={PaymentMethodsScreen}

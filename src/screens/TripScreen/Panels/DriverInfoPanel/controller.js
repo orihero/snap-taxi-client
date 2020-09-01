@@ -61,6 +61,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             panResPonder={panResPonder}
             airCondition={airCondition}
             setAirCondition={setAirCondition}
+            car={order.car}
             collapse={collapse}
             price={order.price}
             driver={order.driver}

@@ -5,7 +5,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         zIndex: 2,
-        marginTop: -44
     },
     item: {
         justifyContent: 'space-between',

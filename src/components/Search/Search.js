@@ -10,24 +10,7 @@ import ResultIcon from "../../assets/images/ResultIcon";
 import {SetDestination} from "../../store/constants/map";
 import API_KEY from "../../const/apiKey";
 
-const Search = ({setSearchActive, SetDestination, navigation}) => {
-
-    useEffect(() => {
-        Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-        Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-        return () => {
-            Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
-            Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
-        };
-    }, []);
-
-    const _keyboardDidShow = () => {
-        setSearchActive(true)
-    };
-
-    const _keyboardDidHide = () => {
-        setSearchActive(false)
-    };
+const Search = ({SetDestination, navigation}) => {
 
     return (
         <GooglePlacesAutocomplete
@@ -50,17 +33,12 @@ const Search = ({setSearchActive, SetDestination, navigation}) => {
                 listView: styles.searchResult,
                 row: styles.resultItem
             }}
-            enableHighAccuracyLocation
+            // enableHighAccuracyLocation
             enablePoweredByContainer={false}
             isRowScrollable={false}
             fetchDetails
             renderRightButton={() => {
                 return (
-                    // isSearchActive ?
-                    //     <View style={{flexDirection: 'row', marginLeft: 'auto', alignItems: 'center'}}>
-                    //         <Regular>{localization.map}</Regular>
-                    //         <LocationIcon style={{marginLeft: 10.46}}/>
-                    //     </View>
                     <SearchIcon style={{marginLeft: 'auto'}}/>
                 )
             }}

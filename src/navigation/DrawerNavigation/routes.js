@@ -28,11 +28,11 @@ const routes = [
         name: 'DiscountsStack',
         component: DiscountsStack
     },
-    {
-        label: "Мои адреса",
-        name: 'MyAddresses',
-        component: MyAddressesStack
-    },
+    // {
+    //     label: "Мои адреса",
+    //     name: 'MyAddresses',
+    //     component: MyAddressesStack
+    // },
     {
         label: "Мои поездки",
         name: 'MyTrips',

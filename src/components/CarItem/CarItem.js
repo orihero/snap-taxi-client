@@ -24,16 +24,14 @@ const CarItem = (
         {title: 'Перегон', img: require('../../assets/images/plan/help.png')},
     ];
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={active ? onInfoPress : onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
                     <Bold style={[styles.text, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
                     <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>
                     <Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>
                 </View>
-                <TouchableWithoutFeedback onPress={onInfoPress}>
-                    <InfoIcon style={styles.info}/>
-                </TouchableWithoutFeedback>
+                {active && <InfoIcon style={styles.info}/>}
                 <Image style={styles.img} source={plan[index].img}/>
             </View>
         </TouchableOpacity>

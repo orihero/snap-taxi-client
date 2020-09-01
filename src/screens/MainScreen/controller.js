@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, PermissionsAndroid} from "react-native";
 
 import MainScreenView from "./view";
 import SystemSetting from "react-native-system-setting";
-import Geolocation from "@react-native-community/geolocation";
 
-const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) => {
+const MainScreenController = ({navigation, SetDestination}) => {
+
+    const [mapRef, setMapRef] = useState();
 
     useEffect(() => {
         navigation.addListener('focus', () => {
@@ -15,7 +16,6 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
 
-        checkGPSStatus();
 
     }, []);
 
@@ -25,19 +25,10 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
             .then((enable) => {
                 if (!enable) {
                     errorHandler()
-                } else {
-                    getCurrentLocation()
                 }
             });
     };
 
-    const getCurrentLocation = () => {
-        Geolocation.getCurrentPosition((data) => {
-            GetCurrentLocation(data.coords);
-        }, error => {
-            getCurrentLocation()
-        })
-    };
 
     const requestPermission = async () => {
         let hasPermission;
@@ -64,14 +55,11 @@ const MainScreenController = ({navigation, GetCurrentLocation, SetDestination}) 
     };
 
 
-    const [isSearchActive, setSearchActive] = useState(false);
-
     return (
         <MainScreenView
             navigation={navigation}
-            isSearchActive={isSearchActive}
-            setSearchActive={setSearchActive}
-            getCurrentLocation={getCurrentLocation}
+            setMapRef={setMapRef}
+            mapRef={mapRef}
         />
     );
 };

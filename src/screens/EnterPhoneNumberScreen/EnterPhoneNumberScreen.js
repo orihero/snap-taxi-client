@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, TouchableWithoutFeedback, PermissionsAndroid} from 'react-native'
-import ContactPickerBridge from 'react-native-contacts-picker';
+// import ContactPickerBridge from 'react-native-contacts-picker';
 
 import styles from "./styles";
 import PhoneIcon from "../../assets/images/PhoneIcon";
@@ -13,18 +13,18 @@ const EnterPhoneNumberScreen = ({navigation}) => {
     const [contact, setContact] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const openContactPicker = () => {
-        ContactPickerBridge.openContactPicker((result) => {
-            setContact(result.data)
-        });
-    };
+    // const openContactPicker = () => {
+    //     ContactPickerBridge.openContactPicker((result) => {
+    //         setContact(result.data)
+    //     });
+    // };
 
-    const checkContactPermissions = async () => {
-        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            openContactPicker()
-        }
-    };
+    // const checkContactPermissions = async () => {
+    //     const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS);
+    //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //         openContactPicker()
+    //     }
+    // };
 
     return (
         <View style={styles.container}>
@@ -56,7 +56,7 @@ const EnterPhoneNumberScreen = ({navigation}) => {
                 <Button title={"Выбрать"} containerStyle={{marginTop: 20}} onPress={navigation.goBack}/>
             </>
             }
-            {phoneNumber.length === 0 && <TouchableWithoutFeedback onPress={checkContactPermissions}>
+            {phoneNumber.length === 0 && <TouchableWithoutFeedback onPress={()=>null}>
                 <View style={styles.contact}>
                     <SemiBold style={{fontSize: 16}}>Выбрать из контактов</SemiBold>
                     <ArrowIcon/>

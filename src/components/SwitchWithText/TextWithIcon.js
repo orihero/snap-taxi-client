@@ -1,16 +1,22 @@
 import React from 'react';
+import {View} from "react-native";
 import Colors from "../../assets/styles/Colors";
-import {Bold} from "../Layout/AppText";
+import {Bold, Regular} from "../Layout/AppText";
 import Screen from "../../helpers/Dimensions";
 
-const TextWithIcon = ({active, Icon, children}) => (
+const TextWithIcon = ({active, Icon, children, subText}) => (
     <>
         <Icon style={{marginRight: 20}} color={active ? Colors.blue : '#000'}/>
-        <Bold style={{
-            color: active ? Colors.blue : '#000',
-            fontSize: Screen.width > 400 ? 15 : 13,
-            width: '70%'
-        }}>{children}</Bold>
+        <View style={{width: '70%'}}>
+            <Bold style={{
+                color: active ? Colors.blue : '#000',
+                fontSize: Screen.width > 400 ? 15 : 13,
+            }}>{children}</Bold>
+            {subText && <Regular style={{
+                color: active ? Colors.blue : '#000',
+                fontSize: 12,
+            }}>{subText}</Regular>}
+        </View>
     </>
 );
 

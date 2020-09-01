@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {Alert} from 'react-native'
 import SelectCarScreenView from "./view";
 import Geocode from "react-geocode";
 import API_KEY from "../../const/apiKey";
+import Geolocation from "@react-native-community/geolocation";
 
 const SelectCarScreenController = (
     {
@@ -14,6 +16,7 @@ const SelectCarScreenController = (
         ChangeOrderStatus,
         navigation,
         paymentMethod,
+        GetCurrentLocation,
         CancelOrder,
         order
     }) => {
@@ -27,21 +30,14 @@ const SelectCarScreenController = (
         const [comment, setComment] = useState(null);
         const [isLoading, setIsLoading] = useState(false);
         const [airCondition, setAirCondition] = useState(false);
+        const [mapRef, setMapRef] = useState();
 
         const {latitude, longitude} = marker;
 
         useEffect(() => {
-            Geocode.setApiKey(API_KEY);
-            Geocode.setLanguage('uz');
-            Geocode.fromLatLng(latitude, longitude)
-                .then(response => {
-                    SetCurrentLocationDetails(response);
-                    setCurrentLocationText(
-                        response.results[0].address_components[1].long_name + ', ' +
-                        response.results[0].address_components[0].long_name
-                    )
-                });
-        }, []);
+            geocode()
+        }, [marker]);
+
 
         useEffect(() => {
             if (destination.data && destination.details) {
@@ -58,6 +54,19 @@ const SelectCarScreenController = (
                 });
             }
         }, [destination]);
+
+        const geocode = () => {
+            Geocode.setApiKey(API_KEY);
+            Geocode.setLanguage('uz');
+            Geocode.fromLatLng(latitude, longitude)
+                .then(response => {
+                    SetCurrentLocationDetails(response);
+                    setCurrentLocationText(
+                        response.results[0].address_components[1].long_name + ', ' +
+                        response.results[0].address_components[0].long_name
+                    )
+                });
+        };
 
         const findCar = () => {
             setIsLoading(true);
@@ -103,10 +112,27 @@ const SelectCarScreenController = (
         };
 
         const cancelOrder = () => {
-            CancelOrder({
-                orderId: order.id
-            }, () => {
-                navigation.goBack();
+            Alert.alert(
+                'Отмена заказа',
+                'Вы действительно хотите отменить заказ ?',
+                [{
+                    text: 'Да',
+                    onPress: () => CancelOrder({
+                        orderId: order.id
+                    }, () => {
+                        setIsLoading(false)
+                    })
+                }, {
+                    text: 'Нет',
+                }]
+            )
+        };
+
+        const getCurrentLocation = () => {
+            Geolocation.getCurrentPosition((data) => {
+                GetCurrentLocation(data.coords);
+            }, error => {
+                getCurrentLocation()
             })
         };
 
@@ -117,9 +143,10 @@ const SelectCarScreenController = (
                 duration={destination.data && destination.details ? Math.floor(destination.details.duration) : 0}
                 findCar={findCar}
                 currentLocation={currentLocationText}
-                destination={destinationText || 'Не указано'}
+                destination={destinationText || 'Куда едем ?'}
                 paymentMethod={paymentMethod}
                 cancelOrder={cancelOrder}
+                getCurrentLocation={getCurrentLocation}
                 setters={{
                     setVisiblePlanModal,
                     setVisibleAdditionalModal,
@@ -127,9 +154,11 @@ const SelectCarScreenController = (
                     setRate,
                     setRateInfo,
                     setComment,
-                    setAirCondition
+                    setAirCondition,
+                    setMapRef
                 }}
                 values={{
+                    mapRef,
                     visiblePlanModal,
                     visibleAdditionalModal,
                     visibleDeliveryModal,

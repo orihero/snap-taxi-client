@@ -3,15 +3,10 @@ import MainScreenController from "./controller";
 import {GetCurrentLocation, SetDestination} from "../../store/constants/map";
 
 const mapDispatchToProps = (dispatch) => ({
-    GetCurrentLocation: (payload) => dispatch({
-        type: GetCurrentLocation.SUCCESS,
-        payload,
-    }),
     SetDestination: () => dispatch({
         type: SetDestination.SUCCESS,
         payload: {}
     }),
-
 });
 
 export default connect(

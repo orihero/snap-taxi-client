@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from "@react-navigation/stack";
+import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import MainScreen from "../../screens/MainScreen";
 import SelectCarScreen from "../../screens/SelectCarScreen";
 import ChatScreen from "../../screens/ChatScreen/ChatScreen";
@@ -18,6 +18,9 @@ const MainStack = (props) => {
         <Navigator
             backgroundColor={'#fff'}
             mode={'modal'}
+            screenOptions={{
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            }}
         >
             <Screen
                 name="Home"

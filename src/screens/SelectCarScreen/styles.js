@@ -51,5 +51,23 @@ export default StyleSheet.create({
     plan: {
         marginBottom: 24,
         paddingLeft: 13
-    }
+    },
+    optionsWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 13,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.border,
+        marginBottom: 10
+    },
+    selectDest: {
+        paddingTop: 0,
+        paddingHorizontal: 13,
+        marginBottom: 10
+    },
+    buttonWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 13
+    },
 });

@@ -2,22 +2,20 @@ import React from 'react';
 import {View, ScrollView, TouchableWithoutFeedback} from 'react-native'
 
 import styles from "./styles";
-import TripItem from "../../components/TripItem/TripItem";
-import {Bold, Regular} from "../../components/Layout/AppText";
+import {Bold, Regular, SemiBold} from "../../components/Layout/AppText";
 import ArrowIcon from "../../assets/images/ArrowIcon";
 
 const SupportScreen = ({navigation}) => {
     return (
         <ScrollView style={styles.container}>
-            <TripItem
-                from={''}
-                to={''}
-                date={''}
-                car={{number: '', model: ''}}
-                driverName={''}
-                id={''}
-            />
             <View style={{marginHorizontal: 20}}>
+                <View>
+                    <Bold>Контакты</Bold>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30}}>
+                        <Regular>Служба поодержки:</Regular>
+                        <SemiBold>+998 99 889 89 75</SemiBold>
+                    </View>
+                </View>
                 <Regular style={{color: '#AAAEB7'}}>Дополнительные вопросы</Regular>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('SupportCategory')}>
                     <View style={styles.item}>

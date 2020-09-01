@@ -26,6 +26,7 @@ const AdditionalOptionsModal = ({visible, closeModal, comment, setComment, airCo
                             style={{borderTopWidth: 1}}
                             Icon={AirConditionIcon}
                             text={localization.airCondition}
+                            subText={'Цена 15% от общей суммы'}
                             setValue={setAirCondition}
                             value={airCondition}
                         />

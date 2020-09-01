@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+
 import RegistrationConfirmationScreenView from "./view";
 
 const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile}) => {
@@ -34,7 +35,7 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
 
     const resend = () => {
         const {id} = route.params;
-        setCounter(30);
+        setCounter(60);
         ResendCode(id, ({data}) => {
             setIsLoading(false);
         }, (error) => {
