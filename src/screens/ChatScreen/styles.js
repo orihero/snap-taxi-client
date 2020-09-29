@@ -14,6 +14,9 @@ export default StyleSheet.create({
         backgroundColor: Colors.background,
         borderRadius: 15
     },
+    chatArea: {
+        marginTop: 20
+    },
     driver: {
         width: '60%',
         borderRadius: 20,

@@ -9,7 +9,7 @@ const RateOrderModalController = ({order, RateOrder}) => {
     const navigation = useNavigation();
 
     const [review, setReview] = useState('');
-    const [rate, setRate] = useState(0);
+    const [rate, setRate] = useState(5);
 
     const rateOrder = () => {
         RateOrder({

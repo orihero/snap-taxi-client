@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native'
 
 import styles from "./styles";
@@ -10,6 +10,9 @@ import RateOrderModal from "../RateOrderModal";
 
 
 const TripScreenView = ({navigation, orderStatus, order}) => {
+
+    const [mapRef, setMapRef] = useState();
+
     const renderPanel = () => {
         if (orderStatus === 'accepted') {
             return <TripInfoPanel/>
@@ -29,7 +32,11 @@ const TripScreenView = ({navigation, orderStatus, order}) => {
                         {renderPanel(orderStatus)}
                     </>
                 }
-                <MapScreen/>
+                <MapScreen
+                    showMarker={false}
+                    mapRef={mapRef}
+                    setMapRef={setMapRef}
+                />
             </View>
         </>
     );

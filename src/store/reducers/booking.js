@@ -1,4 +1,13 @@
-import {BookCar, ChangeOrderStatus, CancelOrder, RateOrder, GetOrderList} from "../constants/booking";
+import {
+    BookCar,
+    ChangeOrderStatus,
+    CancelOrder,
+    RateOrder,
+    GetOrderList,
+    GetDriversAround,
+    SendPush
+} from "../constants/booking";
+import {uniqBy} from "lodash"
 
 const initialState = {
     order: {
@@ -6,6 +15,10 @@ const initialState = {
     },
     list: {
         data: []
+    },
+    drivers: [],
+    messages: {
+        data: [],
     }
 };
 
@@ -39,11 +52,23 @@ export default (state = initialState, action) => {
                     data: {}
                 },
             };
-        case GetOrderList.SUCCESS: {
+        case GetOrderList.SUCCESS:
             return {
                 ...state,
                 list: {
                     data: action.payload
+                },
+            };
+        case GetDriversAround.SUCCESS:
+            return {
+                ...state,
+                drivers: action.payload
+            };
+        case SendPush.SUCCESS: {
+            return {
+                ...state,
+                messages: {
+                    data: uniqBy([...state.messages.data, action.payload], 'id')
                 },
             }
         }

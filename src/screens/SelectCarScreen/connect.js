@@ -8,18 +8,20 @@ import {GetCurrentLocation, SetCurrentLocationDetails} from "../../store/constan
 import {ChangeOrderStatus} from "../../store/constants/booking";
 
 
-const mapStateToProps = ({rates, map: {destination, marker}, user: {paymentMethod}, booking: {order}}) => ({
+const mapStateToProps = ({rates, map: {destination, marker}, user: {paymentMethod}, booking: {order, drivers}}) => ({
     rates,
     destination,
     marker,
     paymentMethod,
-    order: order.data
+    order: order.data,
+    drivers
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     BookCar: booking.BookCar,
     GetRates: rates.GetRates,
     CancelOrder: booking.CancelOrder,
+    GetCarsAround: booking.GetDriversAround,
     GetCurrentLocation: (payload) => dispatch({
         type: GetCurrentLocation.SUCCESS,
         payload,

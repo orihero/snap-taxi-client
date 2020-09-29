@@ -17,6 +17,17 @@ const Header = ({goBack, user, subText, ...rest}) => {
 
     const navigation = useNavigation();
 
+    const renderTime = () => {
+        let time = new Date().getHours();
+        if (time > 0 && time <= 12) {
+            return localization.goodMorning
+        } else if (time > 12 && time <= 18) {
+            return localization.goodDay
+        } else {
+            return localization.goodEvening
+        }
+    };
+
     useEffect(() => {
         return navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
@@ -39,10 +50,10 @@ const Header = ({goBack, user, subText, ...rest}) => {
                             </View>
                         </TouchablePlatformSpecific>
                 }
-                <View>
+                <View style={{alignItems: 'center'}}>
                     <View style={styles.greeting}>
                         <SemiBold style={styles.goodMorning}>
-                            {localization.goodMorning}
+                            {renderTime()}
                         </SemiBold>
                         <Bold style={{color: Colors.blue, fontSize: 16}}>{user.name ? user.name : 'Пользователь'}</Bold>
                     </View>

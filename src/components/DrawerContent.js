@@ -57,7 +57,7 @@ const DrawerContent = (props) => {
 const DrawerItem = ({label, name, navigation, url}) => {
     return (
         <TouchableWithoutFeedback
-            onPress={() => !url ? navigation.navigate(name) : Linking.openURL(url)}>
+            onPress={() => !url ? navigation.navigate(name) : Linking.openURL(`tel:+998994722244`)}>
             <View style={styles.itemStyle}>
                 <Regular style={styles.text}>{label}</Regular>
             </View>

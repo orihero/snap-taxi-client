@@ -13,7 +13,6 @@ import ExclamationMarkIcon from "../../assets/images/ ExclamationMarkIcon";
 
 const DriverInfo = ({finished, activeExclaim, noIcons, name, phone, car}) => {
     const navigation = useNavigation();
-
     return (
         <>
             <View style={styles.topBlock}>
@@ -36,11 +35,8 @@ const DriverInfo = ({finished, activeExclaim, noIcons, name, phone, car}) => {
                                     </View>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                                    <Regular style={{marginRight: 4, fontSize: 12,}}>{car.number}</Regular>
-                                    {/*<Regular style={{marginRight: 4, fontSize: 12}}>{carNumber[1]}</Regular>*/}
-                                    {/*<Bold style={{fontSize: 15, marginRight: 4, lineHeight: 20}}>{carNumber[2]}</Bold>*/}
-                                    {/*<Regular style={{marginRight: 4, fontSize: 12,}}>{carNumber[3]}</Regular>*/}
-                                    <SemiBold style={{fontSize: 12}}>{car.model}</SemiBold>
+                                    <Regular style={{marginRight: 4, fontSize: 12,}}>{car && car.number}</Regular>
+                                    <SemiBold style={{fontSize: 12}}>{car && car.model}</SemiBold>
                                 </View>
                             </View>
                         </View>

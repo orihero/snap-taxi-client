@@ -6,6 +6,8 @@ const CancelOrder = createActionTypes('CANCEL_ORDER');
 const FinishOrder = createActionTypes('FINISH_ORDER');
 const RateOrder = createActionTypes('RATE_ORDER');
 const GetOrderList = createActionTypes('GET_ORDER_LIST');
+const GetDriversAround = createActionTypes('GET_DRIVERS_AROUND');
+const SendPush = createActionTypes('SEND_PUSH');
 
 export {
     BookCar,
@@ -13,5 +15,7 @@ export {
     CancelOrder,
     FinishOrder,
     RateOrder,
-    GetOrderList
+    GetOrderList,
+    GetDriversAround,
+    SendPush,
 }

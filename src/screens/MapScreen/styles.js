@@ -17,8 +17,8 @@ export default StyleSheet.create({
         top: Screen.height / 2 - 58,
     },
     circle: {
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         backgroundColor: '#323637',
         borderRadius: 100,
         borderWidth: 2,
@@ -29,6 +29,17 @@ export default StyleSheet.create({
     stick: {
         width: 2,
         backgroundColor: '#323637',
-        height: 18,
-    }
+        height: 30,
+    },
+    cc: {
+        width: 10,
+        height: 10,
+        borderRadius: 100,
+        backgroundColor: '#fff'
+    },
+    marker: {
+        resizeMode: 'contain',
+        width: 35,
+        height: 35,
+    },
 });

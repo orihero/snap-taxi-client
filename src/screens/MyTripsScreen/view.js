@@ -4,13 +4,13 @@ import styles from "./styles";
 import TripItem from "../../components/TripItem/TripItem";
 
 
-const MyTripsScreenView = ({orderList}) => {
+const MyTripsScreenView = ({orderList, isLoading}) => {
     return (
         <FlatList
             style={styles.container}
             data={orderList}
             ListEmptyComponent={() => (
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                isLoading && <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <View>
                         <ActivityIndicator
                             size={"large"}

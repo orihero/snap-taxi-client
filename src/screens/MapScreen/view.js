@@ -1,11 +1,12 @@
 import React from 'react'
-import {View} from "react-native"
-import MapView, {Circle} from 'react-native-maps';
+import {View, Image, Animated} from "react-native"
+import MapView, {Circle, Marker} from 'react-native-maps';
 import styles from "./styles";
 import MapViewDirections from "react-native-maps-directions";
 import Colors from "../../assets/styles/Colors";
 import API_KEY from "../../const/apiKey";
 import {Regular} from "../../components/Layout/AppText";
+import Screen from "../../helpers/Dimensions";
 
 
 const MapScreenView = (
@@ -18,7 +19,13 @@ const MapScreenView = (
         map,
         mapStyles,
         SetDestinationDetails,
-        setMapRef
+        setMapRef,
+        children,
+        drivers,
+        showMarker,
+        circle,
+        minutes,
+        opacity
     }) => {
     return (
         <View
@@ -39,6 +46,13 @@ const MapScreenView = (
                 provider={"google"}
                 initialRegion={initialRegion}
             >
+                {
+                    drivers.map(item => (
+                        <Marker coordinate={{longitude: Number(item.lng), latitude: Number(item.lat)}}>
+                            <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
+                        </Marker>
+                    ))
+                }
                 {
                     map.destination && <MapViewDirections
                         origin={map.marker}
@@ -65,16 +79,31 @@ const MapScreenView = (
                 }
             </MapView>
             {
-                Object.keys(map.destination).length === 0 &&
-                <View style={[styles.overlay, {top: mapHeight / 2 - 58}]}>
+                Object.keys(map.destination).length === 0 && showMarker &&
+                <View style={[styles.overlay, {top: mapHeight / 2 - 90}]}>
                     <View style={styles.circle}>
-                        <Regular style={{color: '#fff', marginBottom: -10}}>2</Regular>
-                        <Regular style={{color: '#fff', fontSize: 10}}>min</Regular>
+                        {
+                            circle
+                                ? <Animated.View style={[styles.cc, {opacity}]}/>
+                                : <>
+                                    <Regular style={{color: '#fff', fontSize: 20, marginBottom: -10}}>
+                                        {minutes}
+                                    </Regular>
+                                    <Regular style={{color: '#fff', fontSize: 15}}>min</Regular>
+                                </>
+                        }
                     </View>
                     <View style={styles.stick}/>
                 </View>
             }
-
+            {
+                children &&
+                <View style={{height: mapHeight, width: Screen.width, zIndex: 999}}>
+                    <View style={[{top: mapHeight / 2, left: Screen.width / 2}]}>
+                        {children}
+                    </View>
+                </View>
+            }
         </View>
     )
 };

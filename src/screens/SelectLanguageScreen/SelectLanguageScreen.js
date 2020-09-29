@@ -8,7 +8,7 @@ import {localization} from "../../services/Localization";
 
 const SelectLanguageScreen = () => {
     const changeAppLanguage = (language) => {
-        localization.setLanguage(language)
+        localization.setContent(language)
     };
     return (
         <View style={styles.container}>
@@ -22,12 +22,12 @@ const SelectLanguageScreen = () => {
                 </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
-                onPress={() => changeAppLanguage('uz')}
-                disabled={localization.getLanguage() === 'uz'}
+                onPress={() => changeAppLanguage('eng')}
+                disabled={localization.getLanguage() === 'eng'}
             >
                 <View style={styles.row}>
-                    <Bold style={styles.text}>Uzbek</Bold>
-                    <RadioButton selected={localization.getLanguage() === 'uz'}/>
+                    <Bold style={styles.text}>English</Bold>
+                    <RadioButton selected={localization.getLanguage() === 'eng'}/>
                 </View>
             </TouchableWithoutFeedback>
         </View>

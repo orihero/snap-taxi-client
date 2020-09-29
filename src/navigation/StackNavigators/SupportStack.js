@@ -18,6 +18,7 @@ const SupportStack = () => (
             component={SupportScreen}
             options={{
                 header: (props) => <PageHeader
+                    right
                     title={"Поддержка"}
                     {...props}
                 />,

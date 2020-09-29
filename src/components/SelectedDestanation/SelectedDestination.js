@@ -1,12 +1,12 @@
 import React from 'react'
-import {View} from "react-native"
+import {View, TouchableWithoutFeedback} from "react-native"
 
 import styles from "./styles";
 import LocationIcon from "../../assets/images/LocationIcon";
 import {Bold, Light} from "../Layout/AppText";
 import {localization} from "../../services/Localization";
 
-export const SelectedDestination = ({containerStyle, to, from}) => (
+export const SelectedDestination = ({containerStyle, to, from, selectDestination}) => (
     <View style={[styles.container, containerStyle]}>
         <View style={styles.icons}>
             <LocationIcon/>
@@ -21,12 +21,14 @@ export const SelectedDestination = ({containerStyle, to, from}) => (
                 <Light style={styles.textColor}>{localization.from}</Light>
                 <Bold style={styles.directionText}>{from}</Bold>
             </View>
-            <View>
-                <Light style={styles.textColor}>{localization.to}</Light>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Bold style={styles.directionText}>{to}</Bold>
+            <TouchableWithoutFeedback onPress={selectDestination}>
+                <View>
+                    <Light style={styles.textColor}>{localization.to}</Light>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Bold style={styles.directionText}>{to}</Bold>
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </View>
     </View>
 );

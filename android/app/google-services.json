@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "152578879162",
+    "firebase_url": "https://snap-714e7.firebaseio.com",
+    "project_id": "snap-714e7",
+    "storage_bucket": "snap-714e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152578879162:android:344ffa910bb8828947dc83",
+        "android_client_info": {
+          "package_name": "com.snaptaxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152578879162-ppabchnk74s1jurkcmm1jc5pqi6e9d45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdrapoOR_0HWogezWYeX62RdFdoHhgTTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152578879162-ppabchnk74s1jurkcmm1jc5pqi6e9d45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

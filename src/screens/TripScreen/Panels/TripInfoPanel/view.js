@@ -11,13 +11,14 @@ import {Bold, Regular} from "../../../../components/Layout/AppText";
 import Screen from "../../../../helpers/Dimensions";
 
 
-const TripInfoPanelView = ({routes, cancelOrder, driver, price}) => {
+const TripInfoPanelView = ({routes, cancelOrder, driver, price, car, phone}) => {
     return (
         <>
             <View style={{marginTop: 'auto'}}>
                 <DriverInfo
                     name={driver.name}
-                    phone={driver.phone}
+                    phone={phone}
+                    car={car}
                 />
                 <View style={styles.shadow}>
                     <BottomMenuCurve width={Screen.width - 32}/>

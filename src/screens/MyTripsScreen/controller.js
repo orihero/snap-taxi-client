@@ -12,7 +12,7 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}) => {
             StatusBar.setBarStyle('light-content');
             StatusBar.setBackgroundColor(Colors.blue);
             setIsLoading(true);
-            GetOrderList(null, () => setIsLoading(false))
+            GetOrderList({}, () => setIsLoading(false), () => setIsLoading(false))
         }, [navigation]);
 
         return (

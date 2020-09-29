@@ -25,7 +25,8 @@ const DriverInfoPanelView = (
         cancelOrder,
         driver,
         price,
-        car
+        car,
+        phone
     }) => {
     return (
         <>
@@ -34,7 +35,7 @@ const DriverInfoPanelView = (
                 <StatusBar setBarStyle={{backgroundColor}}/>
                 <DriverInfo
                     name={driver && driver.name}
-                    phone={driver && driver.phone}
+                    phone={phone}
                     car={car}
                 />
                 <View style={[styles.shadow]}  {...panResPonder.panHandlers}>
@@ -45,12 +46,12 @@ const DriverInfoPanelView = (
                             <View style={styles.icon}>
                                 <ComingIcon/>
                             </View>
-                            <View style={[styles.icon, {marginHorizontal: 38}]}>
-                                <CancelTripIcon/>
-                            </View>
-                            <View style={styles.icon}>
-                                <WaitIcon/>
-                            </View>
+                            {/*<View style={[styles.icon, {marginHorizontal: 38}]}>*/}
+                            {/*    <CancelTripIcon/>*/}
+                            {/*</View>*/}
+                            {/*<View style={styles.icon}>*/}
+                            {/*    <WaitIcon/>*/}
+                            {/*</View>*/}
                         </View>
                         <Animated.View style={{height: collapse, overflow: 'hidden'}}>
                             <View style={styles.fee}>
@@ -72,18 +73,18 @@ const DriverInfoPanelView = (
                                 setValue={setAirCondition}
                                 value={airCondition}
                             />
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <View style={styles.column}>
-                                    <Button title={localization.moreTaxi} shadow/>
-                                </View>
-                                <View style={styles.column}>
-                                    <Button
-                                        title={localization.cancel}
-                                        containerStyle={{backgroundColor: '#f2f2f2'}}
-                                        onPress={cancelOrder}
-                                    />
-                                </View>
-                            </View>
+                            {/*<View style={{flexDirection: 'row', justifyContent: 'space-between'}}>*/}
+                            {/*    <View style={styles.column}>*/}
+                            {/*        <Button title={localization.moreTaxi} shadow/>*/}
+                            {/*    </View>*/}
+                            {/*    <View style={styles.column}>*/}
+                            {/*        <Button*/}
+                            {/*            title={localization.cancel}*/}
+                            {/*            containerStyle={{backgroundColor: '#f2f2f2'}}*/}
+                            {/*            onPress={cancelOrder}*/}
+                            {/*        />*/}
+                            {/*    </View>*/}
+                            {/*</View>*/}
                         </Animated.View>
                     </View>
                 </View>

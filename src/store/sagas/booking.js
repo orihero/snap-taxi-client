@@ -11,7 +11,7 @@ function* BookCar(action) {
     try {
 
         echo = new Echo({
-            host: 'http://snap.vroom.uz:6060',
+            host: 'https://snaptaxi.uz:6060',
             broadcaster: 'socket.io',
             client: io,
         });
@@ -33,12 +33,14 @@ function* BookCar(action) {
             payload: data.data,
         });
 
+        yield call(action.cb.successCb, data)
 
     } catch (error) {
         yield put({
             type: Booking.BookCar.FAILURE,
             payload: error
         });
+
         yield call(action.errorCb, error);
     }
 }
@@ -122,6 +124,60 @@ function* GetOrderList(action: any) {
     }
 }
 
+function* GetDriversAround(action: any) {
+    try {
+
+        const {latitude, longitude} = action.payload;
+
+        const {data} = yield call(api.request.get, `/handbook/drivers-around?lat=${latitude}&lng=${longitude}`);
+
+        yield put({
+            type: Booking.GetDriversAround.SUCCESS,
+            payload: data,
+        });
+
+        yield call(action.cb, data);
+
+    } catch (error) {
+        yield put({
+            type: Booking.GetDriversAround.FAILURE,
+            payload: error
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
+function* SendPush(action: any) {
+    try {
+
+        if (action.payload.user_id) {
+            const {data} = yield call(api.request.post, '/car-booking/send-push', action.payload);
+        }
+
+        yield put({
+            type: Booking.SendPush.SUCCESS,
+            payload: {
+                ...action.payload,
+                id: Math.random(),
+                type: 'send'
+            }
+        });
+
+        yield call(action.cb);
+
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.SendPush.FAILURE,
+            payload: error,
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -129,5 +185,7 @@ export default function* root() {
         takeLatest(Booking.CancelOrder.REQUEST, CancelOrder),
         takeLatest(Booking.RateOrder.REQUEST, RateOrder),
         takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
+        takeLatest(Booking.GetDriversAround.REQUEST, GetDriversAround),
+        takeLatest(Booking.SendPush.REQUEST, SendPush),
     ]);
 }

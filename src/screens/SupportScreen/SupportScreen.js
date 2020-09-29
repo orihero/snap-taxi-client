@@ -13,7 +13,7 @@ const SupportScreen = ({navigation}) => {
                     <Bold>Контакты</Bold>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30}}>
                         <Regular>Служба поодержки:</Regular>
-                        <SemiBold>+998 99 889 89 75</SemiBold>
+                        <SemiBold>+998 855 502 25 25</SemiBold>
                     </View>
                 </View>
                 <Regular style={{color: '#AAAEB7'}}>Дополнительные вопросы</Regular>

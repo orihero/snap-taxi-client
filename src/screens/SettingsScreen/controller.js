@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Alert} from "react-native";
 import SettingsScreenView from "./view";
 
 const Controller = ({user, navigation, UpdateProfile}) => {
@@ -23,6 +24,7 @@ const Controller = ({user, navigation, UpdateProfile}) => {
             canCall: acceptCall
         }, () => {
             setIsLoading(false);
+            Alert.alert('Успешно', 'Изменение успешно сохранено.')
         }, () => {
             setIsLoading(false);
         })

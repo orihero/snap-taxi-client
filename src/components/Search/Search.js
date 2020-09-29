@@ -26,38 +26,18 @@ const Search = ({SetDestination, navigation}) => {
                 });
                 navigation.navigate('SelectCar')
             }}
-            suppressDefaultStyles
-            styles={{
-                textInputContainer: styles.container,
-                textInput: styles.input,
-                listView: styles.searchResult,
-                row: styles.resultItem
-            }}
-            // enableHighAccuracyLocation
-            enablePoweredByContainer={false}
-            isRowScrollable={false}
-            fetchDetails
-            renderRightButton={() => {
-                return (
-                    <SearchIcon style={{marginLeft: 'auto'}}/>
-                )
-            }}
-
-            renderRow={(data) => {
-                return (
-                    <>
-                        <ResultIcon style={{marginRight: 10}}/>
-                        <View>
-                            <Bold style={styles.main}>{data.structured_formatting.main_text}</Bold>
-                            <Light style={styles.secondary}>{data.structured_formatting.secondary_text}</Light>
-                        </View>
-                    </>
-                )
-            }}
+            // styles={{
+            //     textInputContainer: styles.container,
+            //     textInput: styles.input,
+            //     listView: styles.searchResult,
+            //     row: styles.resultItem
+            // }}
+            // fetchDetails
             query={{
                 key: API_KEY,
-                language: 'ru',
-                components: "country:uzb"
+                offset: 20,
+                // language: 'ru',
+                // components: "country:uzb"
             }}
         />
     );

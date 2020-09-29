@@ -29,7 +29,7 @@ const CarItem = (
                 <View style={{marginTop: 6}}>
                     <Bold style={[styles.text, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
                     <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>
-                    <Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>
+                    {/*<Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>*/}
                 </View>
                 {active && <InfoIcon style={styles.info}/>}
                 <Image style={styles.img} source={plan[index].img}/>

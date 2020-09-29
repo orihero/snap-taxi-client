@@ -8,7 +8,7 @@ export default StyleSheet.create({
         height: 45,
         position: 'absolute',
         right: 0,
-        top: -55,
+        top: -80,
         overflow: "hidden",
         elevation: 5,
     },

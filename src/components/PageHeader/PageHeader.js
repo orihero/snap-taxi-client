@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
-import {View, TouchableNativeFeedback, StatusBar} from "react-native"
+import {View, TouchableNativeFeedback, Linking, StatusBar} from "react-native"
 import styles from "./styles";
 
 import BackButtonIcon from "../../assets/images/BackButtonIcon";
 import Colors from "../../assets/styles/Colors";
 import {Bold} from "../Layout/AppText";
+import DriverPhoneIcon from "../../assets/images/DriverPhoneIcon";
 
 
-const PageHeader = ({title, navigation, style}) => {
+const PageHeader = ({title, navigation, right, style}) => {
     useEffect(() => {
         const navListener = navigation.addListener('focus', () => {
             StatusBar.setBarStyle('light-content');
@@ -29,6 +30,25 @@ const PageHeader = ({title, navigation, style}) => {
                 </TouchableNativeFeedback>
 
                 <Bold style={styles.title}>{title}</Bold>
+                {right && <TouchableNativeFeedback
+                    onPress={() => Linking.openURL(`tel:+998555022525`)}
+                    background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.1)', true)}
+                >
+                    <View style={{position: 'absolute', right: 16}}>
+                        <View style={{
+                            width: 42,
+                            height: 42,
+                            backgroundColor: Colors.background,
+                            borderRadius: 250,
+                            borderWidth: 2,
+                            borderColor: '#fff',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <DriverPhoneIcon/>
+                        </View>
+                    </View>
+                </TouchableNativeFeedback>}
             </View>
         </View>
     );

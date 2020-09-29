@@ -19,6 +19,7 @@ import Button from "../../components/Button";
 import WalletIcon from "../../assets/images/WalletIcon";
 import PulseAnimation from "../../components/PulseAnimation/view";
 import GetCurrentLocationButton from "../../components/GetCurrentLocationButton";
+import DestinationModal from "../DestinationModalScreen";
 
 const Dots = () => {
     return (
@@ -43,6 +44,7 @@ const SelectCarScreenView = (
         isLoading,
         paymentMethod,
         cancelOrder,
+        drivers
     }) => {
     const navigation = useNavigation();
 
@@ -54,7 +56,8 @@ const SelectCarScreenView = (
         setRateInfo,
         setComment,
         setAirCondition,
-        setMapRef
+        setMapRef,
+        setVisibleDestinationModal
     } = setters;
 
     const {
@@ -65,24 +68,38 @@ const SelectCarScreenView = (
         rateInfo,
         comment,
         airCondition,
-        mapRef
+        mapRef,
+        isOrderSuccess,
+        visibleDestinationModal
     } = values;
 
     return (
         <View style={{flex: 1}}>
             <View style={{flexGrow: 1}}>
                 <Header
-                    goBack={true}
+                    goBack={!isOrderSuccess}
                     subText={'Детали заказа'}
                 />
                 <MapScreen
+                    drivers={drivers}
                     mapRef={mapRef}
+                    showMarker={!isOrderSuccess}
                     setMapRef={setMapRef}
-                    showMarker={false}
-                />
-                {isLoading && <PulseAnimation/>}
+                    zoom={{
+                        latitudeDelta: 0.002,
+                        longitudeDelta: 0.001
+                    }}
+                >
+                    {isOrderSuccess && <PulseAnimation/>}
+                </MapScreen>
             </View>
             <View>
+                <DestinationModal
+                    to={destination}
+                    from={currentLocation}
+                    visible={visibleDestinationModal}
+                    closeModal={() => setVisibleDestinationModal(false)}
+                />
                 <PlanItemInfoModal
                     rateInfo={rateInfo}
                     visible={visiblePlanModal}
@@ -102,12 +119,20 @@ const SelectCarScreenView = (
                     openModal={() => setVisibleDeliveryModal(true)}
                 />
                 <View style={{marginTop: 'auto'}}>
-                    <View style={{marginRight: 10}}>
-                        <GetCurrentLocationButton mapRef={mapRef}/>
-                    </View>
+                    {
+                        !isOrderSuccess && <View style={{marginRight: 10, top: 10}}>
+                            <GetCurrentLocationButton
+                                mapRef={mapRef}
+                                zoom={{
+                                    latitudeDelta: 0.002,
+                                    longitudeDelta: 0.001
+                                }}
+                            />
+                        </View>
+                    }
                     <View style={styles.container}>
                         {
-                            !isLoading &&
+                            !isOrderSuccess &&
                             <>
                                 <FlatList
                                     ListEmptyComponent={() => {
@@ -125,7 +150,6 @@ const SelectCarScreenView = (
                                     data={rates.data}
                                     renderItem={({item, index}) => {
                                         return <CarItem
-                                            duration={duration}
                                             index={index}
                                             title={item.title}
                                             key={index}
@@ -190,10 +214,11 @@ const SelectCarScreenView = (
                             containerStyle={styles.selectDest}
                             to={destination}
                             from={currentLocation}
+                            selectDestination={() => setVisibleDestinationModal(true)}
                         />
                         <View style={styles.buttonWrapper}>
                             {
-                                !isLoading
+                                !isOrderSuccess
                                     ? <Button
                                         isLoading={isLoading}
                                         title={localization.findTaxi}

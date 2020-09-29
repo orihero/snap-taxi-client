@@ -30,20 +30,20 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
                 }).start()
             } else if (gestureState.dy < 0) {
                 Animated.spring(height, {
-                    toValue: 300,
+                    toValue: 250,
                     useNativeDriver: false
                 }).start()
             }
         }
     })).current;
     const collapse = height.interpolate({
-        inputRange: [-1, 300],
-        outputRange: [0, 300],
+        inputRange: [-1, 250],
+        outputRange: [0, 250],
         extrapolate: 'clamp'
     });
 
     const backgroundColor = collapse.interpolate({
-        inputRange: [0, 300],
+        inputRange: [0, 250],
         outputRange: ['rgba(0,0,0,0)', 'rgba(0,0,0,0.2)']
     });
 
@@ -52,9 +52,8 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
         CancelOrder({
             orderId: order.id,
             driver_id: 28
-        })
+        });
     };
-
     return (
         <DriverInfoPanelView
             backgroundColor={backgroundColor}
@@ -62,6 +61,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             airCondition={airCondition}
             setAirCondition={setAirCondition}
             car={order.car}
+            phone={order.phone}
             collapse={collapse}
             price={order.price}
             driver={order.driver}

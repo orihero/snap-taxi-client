@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const request = axios.create({
-    baseURL: 'http://api.snap.vroom.uz'
+    baseURL: 'https://api.snaptaxi.uz'
 });
 
 request.defaults.params = {};
