@@ -18,7 +18,7 @@ const TripInfoPanelController = ({order, CancelOrder}) => {
 
     return (
         <TripInfoPanelView
-            routes={JSON.parse(order.routes)}
+            routes={order.routes}
             cancelOrder={cancelOrder}
             car={order.car}
             driver={order.driver}

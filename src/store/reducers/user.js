@@ -1,10 +1,11 @@
 import {VerifyCode} from "../constants/auth";
-import {GetProfile, SetPaymentMethod, UpdateProfile} from "../constants/user";
+import {GetProfile, SetPaymentMethod, UpdateProfile, SetLanguage} from "../constants/user";
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     paymentMethod: 'cash',
+    language: 'ru',
     data: [],
 };
 
@@ -33,6 +34,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 paymentMethod: action.payload
+            };
+        case  SetLanguage.SUCCESS:
+            return {
+                ...state,
+                language: action.payload
             };
         default:
             return state

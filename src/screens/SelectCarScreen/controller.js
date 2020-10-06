@@ -20,7 +20,8 @@ const SelectCarScreenController = (
         CancelOrder,
         order,
         GetCarsAround,
-        drivers
+        drivers,
+        language
     }) => {
         const [timeoutId, setTimeoutId] = useState(null);
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
@@ -62,7 +63,7 @@ const SelectCarScreenController = (
 
         const geocode = () => {
             Geocode.setApiKey(API_KEY);
-            Geocode.setLanguage('uz');
+            Geocode.setLanguage(language);
             GetCarsAround({latitude, longitude});
             Geocode.fromLatLng(latitude, longitude)
                 .then(response => {
@@ -119,10 +120,10 @@ const SelectCarScreenController = (
                 actionCb: () => navigation.navigate('Trip'),
                 successCb: (data) => {
                     setIsOrderSuccess(true);
-                    setTimeoutId(setTimeout(() => {
-                            absoluteCancel(data.data.id);
-                        }, 120000)
-                    );
+                    // setTimeoutId(() => setTimeout(() => {
+                    //         absoluteCancel(data.data.id);
+                    //     }, 120000)
+                    // );
                 }
             })
         };

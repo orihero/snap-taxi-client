@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, PermissionsAndroid} from "react-native";
+import {Alert, PermissionsAndroid, AppState} from "react-native";
 import Geocode from "react-geocode";
 import SystemSetting from "react-native-system-setting";
 
@@ -8,17 +8,66 @@ const PushNotification = require("react-native-push-notification");
 import MainScreenView from "./view";
 import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
+import {localization} from "../../services/Localization";
 
-const MainScreenController = ({navigation, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
+const MainScreenController = ({navigation, order, language, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
 
     const [mapRef, setMapRef] = useState();
     const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
 
     const {latitude, longitude} = marker;
+    Geocode.setLanguage(language);
+
+
+    useEffect(() => {
+        if (order.id) {
+            GetOrderInfo(order.id, () => {
+                return {
+                    cb: (data) => {
+                        ChangeOrderStatus(data);
+                        navigation.navigate('Trip')
+                    },
+                    socketCb: (data) => {
+                        ChangeOrderStatus(data)
+                    }
+                }
+            })
+        }
+
+        localization.setLanguage(language);
+    }, []);
+
+    useEffect(() => {
+        AppState.addEventListener("change", state => {
+            if (state === 'active') {
+                if (order.id) {
+                    GetOrderInfo(order.id, () => {
+                        return {
+                            cb: (data) => {
+                                ChangeOrderStatus(data);
+                                navigation.navigate('Trip')
+                            },
+                            socketCb: (data) => {
+                                ChangeOrderStatus(data)
+                            }
+                        }
+                    })
+                }
+            } else if (state === 'background') {
+
+            }
+        })
+    }, []);
+
+    useEffect(() => {
+        GetDriversAround({latitude, longitude})
+    }, [marker]);
+
 
     useEffect(() => {
         navigation.addListener('focus', () => {
             SetDestination();
+            GetDriversAround({latitude, longitude});
         });
 
         // noinspection JSIgnoredPromiseFromCall
@@ -57,7 +106,6 @@ const MainScreenController = ({navigation, SetDestination, SetCurrentLocationDet
 
     const geocode = () => {
         Geocode.setApiKey(API_KEY);
-        Geocode.setLanguage('uz');
         Geocode.fromLatLng(latitude, longitude)
             .then(response => {
                 SetCurrentLocationDetails(response);

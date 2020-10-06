@@ -5,7 +5,8 @@ import {
     RateOrder,
     GetOrderList,
     GetDriversAround,
-    SendPush
+    SendPush,
+    GetOrderInfo
 } from "../constants/booking";
 import {uniqBy} from "lodash"
 
@@ -69,6 +70,14 @@ export default (state = initialState, action) => {
                 ...state,
                 messages: {
                     data: uniqBy([...state.messages.data, action.payload], 'id')
+                },
+            }
+        }
+        case GetOrderInfo.SUCCESS: {
+            return {
+                ...state,
+                order: {
+                    data: action.payload
                 },
             }
         }

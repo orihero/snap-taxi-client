@@ -13,20 +13,30 @@ const MapScreenController = (
         mapRef,
         children,
         drivers = [],
-        circle,
-        zoom
+        circle = true,
+        zoom,
+        markerPosition = false
     }) => {
-
+    const [isBlinking, setIsBlinking] = useState(true);
     const [mapHeight, setMapHeight] = useState(0);
     const [minutes, setMinutes] = useState(2);
+    const [timeoutId, setTimeoutId] = useState(null);
     const opacity = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        if (circle && showMarker) {
-            setMinutes([2, 3, 4][Math.floor(Math.random() * 3)]);
-            blink();
-        }
+        // if (circle && showMarker) {
+        setMinutes([2, 3, 4][Math.floor(Math.random() * 3)]);
+        blink();
+        // }
     }, []);
+
+    useEffect(() => {
+        if (!isBlinking) {
+            setIsBlinking(true);
+            setMinutes([2, 3, 4][Math.floor(Math.random() * 3)]);
+            blink()
+        }
+    }, [map.marker]);
 
     const onRegionChange = region => {
         if (!map.destination.details) {
@@ -41,11 +51,15 @@ const MapScreenController = (
 
     const blink = () => {
         opacity.setValue(1);
-        Animated.timing(opacity, {
-            toValue: 0,
-            duration: 1000,
-            useNativeDriver: false
-        }).start(() => blink());
+        clearTimeout(timeoutId);
+        setTimeoutId(() => setTimeout(() => setIsBlinking(false), 2000));
+        if (isBlinking) {
+            Animated.timing(opacity, {
+                toValue: 0,
+                duration: 1000,
+                useNativeDriver: false
+            }).start(() => blink());
+        }
     };
 
     return (
@@ -63,9 +77,9 @@ const MapScreenController = (
             showMarker={showMarker}
             mapStyles={mapStyles}
             SetDestinationDetails={SetDestinationDetails}
-            circle={circle}
+            circle={(circle && isBlinking)}
             initialRegion={{
-                ...(showMarker ? map.currentLocation.coords : map.marker),
+                ...(markerPosition ? map.marker : map.currentLocation.coords),
                 ...mapZoom,
             }}
         />

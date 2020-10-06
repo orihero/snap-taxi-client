@@ -84,6 +84,7 @@ const SelectCarScreenView = (
                     drivers={drivers}
                     mapRef={mapRef}
                     showMarker={!isOrderSuccess}
+                    markerPosition
                     setMapRef={setMapRef}
                     zoom={{
                         latitudeDelta: 0.002,
@@ -177,27 +178,23 @@ const SelectCarScreenView = (
                                 />
                                 <View style={styles.optionsWrapper}>
                                     <View style={styles.column}>
-                                        <TouchableWithoutFeedback
-                                            onPress={() => navigation.navigate('PaymentMethodsStack')}>
-                                            {
-                                                paymentMethod === 'card'
-                                                    ? <View style={styles.findCar}>
-                                                        <UzcardIcon style={{marginRight: 16.6}}/>
-                                                        <View style={styles.cardNumber}>
-                                                            <Dots/>
-                                                            <Dots/>
-                                                            <Dots/>
-                                                            <Regular style={styles.text}>8797</Regular>
-                                                        </View>
-                                                        <ArrowIcon style={{marginLeft: 'auto'}}/>
-                                                    </View>
-                                                    : <View style={styles.findCar}>
-                                                        <WalletIcon style={{marginRight: 16.6, top: -3}}/>
-                                                        <Regular style={styles.text}>{localization.byCash}</Regular>
-                                                        <ArrowIcon style={{marginLeft: 'auto'}}/>
-                                                    </View>
-                                            }
-                                        </TouchableWithoutFeedback>
+                                        {/*paymentMethod === 'card'*/}
+                                        {/*    ? <View style={styles.findCar}>*/}
+                                        {/*        <UzcardIcon style={{marginRight: 16.6}}/>*/}
+                                        {/*        <View style={styles.cardNumber}>*/}
+                                        {/*            <Dots/>*/}
+                                        {/*            <Dots/>*/}
+                                        {/*            <Dots/>*/}
+                                        {/*            <Regular style={styles.text}>8797</Regular>*/}
+                                        {/*        </View>*/}
+                                        {/*        <ArrowIcon style={{marginLeft: 'auto'}}/>*/}
+                                        {/*    </View>*/}
+                                        {/*    : */}
+                                        <View style={styles.findCar}>
+                                            <WalletIcon style={{marginRight: 16.6, top: -3}}/>
+                                            <Regular style={styles.text}>{localization.byCash}</Regular>
+                                            <ArrowIcon style={{marginLeft: 'auto'}}/>
+                                        </View>
                                     </View>
                                     <View style={styles.column}>
                                         <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>

@@ -1,37 +1,53 @@
 import React from 'react';
-import {View, TouchableWithoutFeedback} from 'react-native'
+import {View, TouchableOpacity} from 'react-native'
+import {connect} from "react-redux";
 
 import styles from "./styles";
 import RadioButton from "../../components/RadioButton/RadioButton";
 import {Bold} from "../../components/Layout/AppText";
 import {localization} from "../../services/Localization";
+import {bindActionCreators} from "redux";
+import User from "../../store/actions/user";
 
-const SelectLanguageScreen = () => {
+const SelectLanguageScreen = ({language, SetLanguage}) => {
+
     const changeAppLanguage = (language) => {
-        localization.setContent(language)
+        SetLanguage(language);
+        localization.setLanguage(language);
     };
+
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback
+            <TouchableOpacity
                 onPress={() => changeAppLanguage('ru')}
-                disabled={localization.getLanguage() === 'ru'}
             >
                 <View style={styles.row}>
                     <Bold style={styles.text}>Русский</Bold>
-                    <RadioButton selected={localization.getLanguage() === 'ru'}/>
+                    <RadioButton selected={language === 'ru'}/>
                 </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-                onPress={() => changeAppLanguage('eng')}
-                disabled={localization.getLanguage() === 'eng'}
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => changeAppLanguage('en')}
             >
                 <View style={styles.row}>
                     <Bold style={styles.text}>English</Bold>
-                    <RadioButton selected={localization.getLanguage() === 'eng'}/>
+                    <RadioButton selected={language === 'en'}/>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         </View>
     );
 };
 
-export default SelectLanguageScreen;
+const mapStateToProps = ({user: {language}}) => ({
+    language
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    SetLanguage: User.SetLanguage
+}, dispatch);
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SelectLanguageScreen);

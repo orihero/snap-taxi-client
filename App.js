@@ -6,6 +6,7 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import AppNavigator from "./src/navigation/AppNavigator";
 import createStore from "./src/store/createStore";
 import api from "./src/services/api";
+import {localization} from "./src/services/Localization";
 
 const {store, persistor} = createStore();
 

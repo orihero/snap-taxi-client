@@ -9,6 +9,7 @@ const RateOrder = createAction(Booking.RateOrder.REQUEST);
 const GetOrderList = createAction(Booking.GetOrderList.REQUEST);
 const GetDriversAround = createAction(Booking.GetDriversAround.REQUEST);
 const SendPush = createAction(Booking.SendPush.REQUEST);
+const GetOrderInfo = createAction(Booking.GetOrderInfo.REQUEST);
 
 export default {
     BookCar,
@@ -18,5 +19,6 @@ export default {
     RateOrder,
     GetOrderList,
     GetDriversAround,
-    SendPush
+    SendPush,
+    GetOrderInfo
 }

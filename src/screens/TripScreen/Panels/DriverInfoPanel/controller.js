@@ -36,6 +36,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             }
         }
     })).current;
+
     const collapse = height.interpolate({
         inputRange: [-1, 250],
         outputRange: [0, 250],
@@ -54,6 +55,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             driver_id: 28
         });
     };
+
     return (
         <DriverInfoPanelView
             backgroundColor={backgroundColor}
@@ -66,7 +68,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             price={order.price}
             driver={order.driver}
             cancelOrder={cancelOrder}
-            routes={order.routes && JSON.parse(order.routes)}
+            routes={order.routes}
         />
     );
 };

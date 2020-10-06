@@ -32,8 +32,8 @@ export default StyleSheet.create({
         height: 30,
     },
     cc: {
-        width: 10,
-        height: 10,
+        width: 15,
+        height: 15,
         borderRadius: 100,
         backgroundColor: '#fff'
     },

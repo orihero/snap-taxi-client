@@ -8,8 +8,8 @@ const AppNavigator = ({user}) => (
     <NavigationContainer>
         {
             user.isAuthenticated
-                ? <DrawerStack/>
-                : <RegistrationStack/>
+                ? <DrawerStack key={user.language}/>
+                : <RegistrationStack key={user.language}/>
         }
     </NavigationContainer>
 );

@@ -2,7 +2,7 @@ import LocalizedStrings from 'react-native-localization';
 import React from "react";
 
 let strings = new LocalizedStrings({
-    ru: {
+    'ru': {
         goodMorning: 'Доброе утро',
         goodDay: 'Добрый день',
         goodEvening: 'Добрый вечер',
@@ -63,7 +63,7 @@ let strings = new LocalizedStrings({
         changeAddress: 'Изменить адрес',
         next: 'Далее',
     },
-    eng: {
+    'en': {
         goodMorning: 'Good morning',
         goodDay: 'Good day',
         goodEvening: 'Good evening',

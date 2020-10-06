@@ -8,6 +8,7 @@ const RateOrder = createActionTypes('RATE_ORDER');
 const GetOrderList = createActionTypes('GET_ORDER_LIST');
 const GetDriversAround = createActionTypes('GET_DRIVERS_AROUND');
 const SendPush = createActionTypes('SEND_PUSH');
+const GetOrderInfo = createActionTypes('GET_ORDER_INFO');
 
 export {
     BookCar,
@@ -18,4 +19,5 @@ export {
     GetOrderList,
     GetDriversAround,
     SendPush,
+    GetOrderInfo,
 }

@@ -27,7 +27,6 @@ function* BookCar(action) {
                 }
             });
 
-
         yield put({
             type: Booking.BookCar.SUCCESS,
             payload: data.data,
@@ -124,6 +123,43 @@ function* GetOrderList(action: any) {
     }
 }
 
+function* GetOrderInfo(action: any) {
+    try {
+
+        echo = new Echo({
+            host: 'https://snaptaxi.uz:6060',
+            broadcaster: 'socket.io',
+            client: io,
+        });
+
+        const {data} = yield call(api.request.get, `/car-booking/details/${action.payload}`,);
+
+        echo
+            .channel(`snaptaxi_database_car_order.${data.data.id}`)
+            .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
+                action.cb().socketCb({...booking, ...rest, channel});
+                if (booking.status === 'accepted') {
+                    action.cb().actionCb();
+                }
+            });
+
+        yield put({
+            type: Booking.GetOrderInfo.SUCCESS,
+            payload: data.data,
+        });
+
+        yield call(action.cb().cb, data);
+
+    } catch (error) {
+        yield put({
+            type: Booking.GetOrderInfo.FAILURE,
+            payload: error
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 function* GetDriversAround(action: any) {
     try {
 
@@ -187,5 +223,6 @@ export default function* root() {
         takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
         takeLatest(Booking.GetDriversAround.REQUEST, GetDriversAround),
         takeLatest(Booking.SendPush.REQUEST, SendPush),
+        takeLatest(Booking.GetOrderInfo.REQUEST, GetOrderInfo),
     ]);
 }
