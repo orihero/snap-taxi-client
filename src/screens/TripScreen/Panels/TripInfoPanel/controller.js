@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigation} from "@react-navigation/native";
 
 import TripInfoPanelView from "./view";
+import DriverInfoPanelView from "../DriverInfoPanel/view";
 
 
 const TripInfoPanelController = ({order, CancelOrder}) => {
@@ -16,9 +17,13 @@ const TripInfoPanelController = ({order, CancelOrder}) => {
         })
     };
 
+    const coming = () => {
+
+    };
+
     return (
         <TripInfoPanelView
-            routes={order.routes}
+            routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes}
             cancelOrder={cancelOrder}
             car={order.car}
             driver={order.driver}

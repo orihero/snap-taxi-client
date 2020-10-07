@@ -152,6 +152,7 @@ const SelectCarScreenView = (
                                     renderItem={({item, index}) => {
                                         return <CarItem
                                             index={index}
+                                            inflated={item.inflated}
                                             title={item.title}
                                             key={index}
                                             price={item.price}

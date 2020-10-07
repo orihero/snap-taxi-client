@@ -25,7 +25,9 @@ const MapScreenView = (
         showMarker,
         circle,
         minutes,
-        opacity
+        opacity,
+        order,
+        routes
     }) => {
     return (
         <View
@@ -35,7 +37,7 @@ const MapScreenView = (
             <MapView
                 ref={ref => setMapRef(ref)}
                 showsUserLocation
-                followsUserLocation
+                // followsUserLocation
                 showsBuildings
                 rotateEnabled={false}
                 pitchEnabled={false}
@@ -67,6 +69,33 @@ const MapScreenView = (
                                 duration: direction.duration
                             });
                             mapRef.fitToCoordinates([map.marker, map.destination.coords], {
+                                edgePadding: {
+                                    top: 20,
+                                    right: 20,
+                                    bottom: 50,
+                                    left: 20,
+                                },
+                            });
+                        }}
+                    />
+                }
+                {
+                    order.driver && !showMarker && <MapViewDirections
+                        origin={{latitude: routes.lat, longitude: routes.lng}}
+                        mode={"DRIVING"}
+                        destination={{latitude: order.driver.lat, longitude: order.driver.lng}}
+                        apikey={API_KEY}
+                        strokeWidth={6}
+
+                        strokeColor={Colors.blue}
+                        onReady={(direction) => {
+                            mapRef.fitToCoordinates([{
+                                latitude: parseFloat(routes.lat),
+                                longitude: parseFloat(routes.lng)
+                            }, {
+                                latitude: parseFloat(order.driver.lat),
+                                longitude: parseFloat(order.driver.lng)
+                            }], {
                                 edgePadding: {
                                     top: 20,
                                     right: 20,

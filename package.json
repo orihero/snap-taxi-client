@@ -40,6 +40,7 @@
     "react-native-reanimated": "1.8.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "2.4.0",
+    "react-native-sound": "0.11.0",
     "react-native-svg": "12.1.0",
     "react-native-system-setting": "1.7.4",
     "react-navigation-transitions": "1.0.12",

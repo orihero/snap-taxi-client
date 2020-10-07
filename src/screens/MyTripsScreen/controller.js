@@ -11,9 +11,11 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}) => {
         useEffect(() => {
             StatusBar.setBarStyle('light-content');
             StatusBar.setBackgroundColor(Colors.blue);
-            setIsLoading(true);
-            GetOrderList({}, () => setIsLoading(false), () => setIsLoading(false))
-        }, [navigation]);
+            navigation.addListener('focus', () => {
+                setIsLoading(true);
+                GetOrderList({}, () => setIsLoading(false), () => setIsLoading(false))
+            })
+        }, []);
 
         return (
             <MyTripsScreenView

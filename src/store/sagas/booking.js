@@ -3,6 +3,8 @@ import api from "../../services/api";
 import io from "socket.io-client"
 import Echo from "laravel-echo";
 
+var Sound = require('react-native-sound');
+
 import * as Booking from "../constants/booking";
 
 let echo: any;
@@ -23,7 +25,19 @@ function* BookCar(action) {
             .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
                 action.cb.socketCb({...booking, ...rest, channel});
                 if (booking.status === 'accepted') {
+                    const canceledSound = new Sound('find_car.mp3', Sound.MAIN_BUNDLE, () => {
+                        if (canceledSound) {
+                            canceledSound.play()
+                        }
+                    });
                     action.cb.actionCb();
+                }
+                if (booking.status === 'arrived') {
+                    const canceledSound = new Sound('find_car.mp3', Sound.MAIN_BUNDLE, () => {
+                        if (canceledSound) {
+                            canceledSound.play()
+                        }
+                    });
                 }
             });
 
@@ -104,7 +118,7 @@ function* CancelOrder(action: any) {
 
 function* GetOrderList(action: any) {
     try {
-        const {data} = yield call(api.request.get, '/car-booking', action.payload);
+        const {data} = yield call(api.request.get, '/car-booking/client', action.payload);
 
         yield put({
             type: Booking.GetOrderList.SUCCESS,

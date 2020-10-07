@@ -20,6 +20,7 @@ const TripItem = ({from, to, id, date, driverName, car}) => {
                     car={car}
                     finished
                     activeExclaim
+                    noIcons
                     name={driverName}
                 />
                 <View style={styles.shadow}>
@@ -44,7 +45,7 @@ const TripItem = ({from, to, id, date, driverName, car}) => {
                                 <Bold style={{fontSize: 16}}>Цена:</Bold>
                                 <Bold style={{fontSize: 16, color: Colors.blue}}>12 500 сум</Bold>
                             </View>
-                            <Button title={'Пожаловаться'} containerStyle={{marginBottom: 20.4, marginTop: 10}}/>
+                            {/*<Button title={'Пожаловаться'} containerStyle={{marginBottom: 20.4, marginTop: 10}}/>*/}
                         </View>
                     </View>
                 </View>

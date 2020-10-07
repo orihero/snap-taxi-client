@@ -5,10 +5,11 @@ import {SendPush} from "../../store/constants/booking";
 import Booking from '../../store/actions/booking';
 import {bindActionCreators} from "redux";
 
-const mapStateToProps = ({map: {marker}, booking: {order}, user: {language}}) => ({
+const mapStateToProps = ({map: {marker}, booking: {order, drivers}, user: {language}}) => ({
     marker,
     order: order.data,
-    language
+    language,
+    drivers
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

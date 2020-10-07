@@ -68,7 +68,7 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
             price={order.price}
             driver={order.driver}
             cancelOrder={cancelOrder}
-            routes={order.routes}
+            routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes }
         />
     );
 };

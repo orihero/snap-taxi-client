@@ -8,9 +8,8 @@ const PushNotification = require("react-native-push-notification");
 import MainScreenView from "./view";
 import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
-import {localization} from "../../services/Localization";
 
-const MainScreenController = ({navigation, order, language, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
+const MainScreenController = ({navigation, order, language, drivers, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
 
     const [mapRef, setMapRef] = useState();
     const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
@@ -20,7 +19,12 @@ const MainScreenController = ({navigation, order, language, GetOrderInfo, Change
 
 
     useEffect(() => {
-        if (order.id) {
+        navigation.addListener('focus', () => {
+            SetDestination();
+            GetDriversAround({latitude, longitude});
+        });
+
+        if (order.id && order.status !== 'new') {
             GetOrderInfo(order.id, () => {
                 return {
                     cb: (data) => {
@@ -34,13 +38,12 @@ const MainScreenController = ({navigation, order, language, GetOrderInfo, Change
             })
         }
 
-        localization.setLanguage(language);
     }, []);
 
     useEffect(() => {
         AppState.addEventListener("change", state => {
             if (state === 'active') {
-                if (order.id) {
+                if (order.id && order.status !== 'new') {
                     GetOrderInfo(order.id, () => {
                         return {
                             cb: (data) => {
@@ -65,10 +68,7 @@ const MainScreenController = ({navigation, order, language, GetOrderInfo, Change
 
 
     useEffect(() => {
-        navigation.addListener('focus', () => {
-            SetDestination();
-            GetDriversAround({latitude, longitude});
-        });
+
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
@@ -167,6 +167,7 @@ const MainScreenController = ({navigation, order, language, GetOrderInfo, Change
 
     return (
         <MainScreenView
+            drivers={drivers}
             currentLocationText={currentLocationText}
             navigation={navigation}
             setMapRef={setMapRef}

@@ -87,6 +87,8 @@ target 'snapTaxi' do
 
   pod 'RNYamap', :path => '../node_modules/react-native-yamap'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'snapTaxiTests' do
     inherit! :complete
     # Pods for testing

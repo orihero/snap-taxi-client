@@ -4,8 +4,9 @@ import {bindActionCreators} from "redux";
 import MapScreenController from "./controller";
 import {SetDestinationDetails, SetMarkerPosition} from "../../store/constants/map";
 
-const mapStateToProps = ({map}) => ({
+const mapStateToProps = ({map, booking: {order}}) => ({
     map,
+    order
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

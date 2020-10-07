@@ -1,5 +1,5 @@
-import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking, Alert} from "react-native"
 import React from "react";
+import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking, Alert} from "react-native"
 import routes from "../navigation/DrawerNavigation/routes";
 import UserInfo from "./UserInfo/UserInfo";
 import Colors from "../assets/styles/Colors";
@@ -7,6 +7,7 @@ import {Regular} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";
 import LogoutIcon from "../assets/images/LogoutIcon";
 import {connect} from "react-redux";
+import {localization} from "../services/Localization";
 
 const DrawerContent = (props) => {
     const logout = () => {
@@ -32,7 +33,7 @@ const DrawerContent = (props) => {
                                 route.label &&
                                 <DrawerItem
                                     key={route.label}
-                                    label={route.label}
+                                    label={localization.getString(route.label, props.user.language)}
                                     name={route.name}
                                     url={route.url}
                                     {...props}
@@ -49,7 +50,7 @@ const DrawerContent = (props) => {
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>
-            <Regular style={{position: 'absolute', fontSize: 15, bottom: 10, left: 35}}>Версия 2.0</Regular>
+            {/*<Regular style={{position: 'absolute', fontSize: 15, bottom: 10, left: 35}}>Версия 2.0</Regular>*/}
         </View>
     );
 };

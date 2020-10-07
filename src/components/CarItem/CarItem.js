@@ -4,6 +4,7 @@ import {View, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-nat
 import styles from "./styles";
 import InfoIcon from "../../assets/images/InfoIcon";
 import {Bold, Light} from "../Layout/AppText";
+import Lightning from "../../assets/images/Lightning";
 
 const CarItem = (
     {
@@ -13,7 +14,8 @@ const CarItem = (
         price,
         onInfoPress,
         onPress,
-        index
+        index,
+        inflated
     }) => {
     const plan = [
         {title: 'Старт', img: require('../../assets/images/plan/start.png')},
@@ -27,9 +29,12 @@ const CarItem = (
         <TouchableOpacity onPress={active ? onInfoPress : onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
-                    <Bold style={[styles.text, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
-                    <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>
+                    <Bold
+                        style={[styles.text, {fontSize: 12}, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
+                    <Bold
+                        style={[styles.text, active && styles.activeText]}>от {price}</Bold>
                     {/*<Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>*/}
+                    {inflated && <Lightning/>}
                 </View>
                 {active && <InfoIcon style={styles.info}/>}
                 <Image style={styles.img} source={plan[index].img}/>

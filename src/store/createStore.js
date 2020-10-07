@@ -11,7 +11,7 @@ export default (initialState = {}) => {
     const persistConfig = {
         key: 'root',
         storage,
-        whitelist: ['user', 'booking'],
+        whitelist: ['user', 'booking', 'map'],
     };
 
     const sagaMonitor = ReactotronConfig.createSagaMonitor();

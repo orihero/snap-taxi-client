@@ -62,6 +62,12 @@ let strings = new LocalizedStrings({
         writeSMS: 'Напишите сообщение...',
         changeAddress: 'Изменить адрес',
         next: 'Далее',
+        discounts: "Скидки",
+        support: "Служба поддержки",
+        beDriver: "Стать водителем",
+        user: 'Пользователь',
+        yourName: 'Ваше имя',
+        noTrips: 'Нет поездок',
     },
     'en': {
         goodMorning: 'Good morning',
@@ -123,6 +129,12 @@ let strings = new LocalizedStrings({
         writeSMS: 'Write a message...',
         changeAddress: 'Change address',
         next: 'Next',
+        discounts: 'Discounts',
+        support: "Support",
+        beDriver: "Be Driver",
+        user: 'User',
+        yourName: 'Your name',
+        noTrips: 'No tripsd'
     }
 });
 export {strings as localization}

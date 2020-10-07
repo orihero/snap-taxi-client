@@ -7,7 +7,7 @@ import GetCurrentLocationButton from "../../components/GetCurrentLocationButton"
 import {localization} from "../../services/Localization";
 
 
-const MainScreenView = ({navigation, setMapRef, mapRef, currentLocationText}) => {
+const MainScreenView = ({navigation, setMapRef, mapRef, currentLocationText, drivers}) => {
     return (
         <View style={{flex: 1}}>
             <Header
@@ -17,6 +17,7 @@ const MainScreenView = ({navigation, setMapRef, mapRef, currentLocationText}) =>
                 setMapRef={setMapRef}
                 mapRef={mapRef}
                 circle
+                drivers={drivers}
             />
             <View style={{marginTop: 'auto', marginHorizontal: 10}}>
                 <GetCurrentLocationButton mapRef={mapRef}/>

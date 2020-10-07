@@ -15,7 +15,8 @@ const MapScreenController = (
         drivers = [],
         circle = true,
         zoom,
-        markerPosition = false
+        markerPosition = false,
+        order,
     }) => {
     const [isBlinking, setIsBlinking] = useState(true);
     const [mapHeight, setMapHeight] = useState(0);
@@ -78,6 +79,8 @@ const MapScreenController = (
             mapStyles={mapStyles}
             SetDestinationDetails={SetDestinationDetails}
             circle={(circle && isBlinking)}
+            order={order.data}
+            routes={order.data.driver ? (typeof order.data.routes === "string" ? JSON.parse(order.data.routes)[0] : order.data.routes[0]) : null}
             initialRegion={{
                 ...(markerPosition ? map.marker : map.currentLocation.coords),
                 ...mapZoom,

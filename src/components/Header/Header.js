@@ -55,7 +55,7 @@ const Header = ({goBack, user, subText, ...rest}) => {
                         <SemiBold style={styles.goodMorning}>
                             {renderTime()}
                         </SemiBold>
-                        <Bold style={{color: Colors.blue, fontSize: 16}}>{user.name ? user.name : 'Пользователь'}</Bold>
+                        <Bold style={{color: Colors.blue, fontSize: 16}}>{user.name ? user.name : localization.user}</Bold>
                     </View>
                     <Bold style={styles.where}>{subText}</Bold>
                 </View>

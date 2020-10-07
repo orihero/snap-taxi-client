@@ -2,6 +2,8 @@ import React from 'react';
 import {FlatList, ActivityIndicator, View} from "react-native"
 import styles from "./styles";
 import TripItem from "../../components/TripItem/TripItem";
+import {SemiBold} from "../../components/Layout/AppText";
+import {localization} from "../../services/Localization";
 
 
 const MyTripsScreenView = ({orderList, isLoading}) => {
@@ -10,17 +12,20 @@ const MyTripsScreenView = ({orderList, isLoading}) => {
             style={styles.container}
             data={orderList}
             ListEmptyComponent={() => (
-                isLoading && <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <View>
-                        <ActivityIndicator
-                            size={"large"}
-                            color={'#fff'}
-                        />
+                isLoading ? <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <View>
+                            <ActivityIndicator
+                                size={"large"}
+                                color={'#fff'}
+                            />
+                        </View>
                     </View>
-                </View>
+                    : <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <SemiBold style={{color: '#fff', fontSize: 18}}>{localization.noTrips}</SemiBold>
+                    </View>
             )}
             renderItem={({item}) => (
-                <TripItem
+                item.driver && <TripItem
                     car={item.car}
                     driverName={item.driver.name}
                     id={item.id}

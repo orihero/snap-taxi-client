@@ -18,13 +18,13 @@ const routes = [
         name: 'RegistrationStack',
         component: RegistrationStack
     },
+    // {
+    //     label: "Способ оплаты",
+    //     name: 'PaymentMethodsStack',
+    //     component: PaymentMethodsStack
+    // },
     {
-        label: "Способ оплаты",
-        name: 'PaymentMethodsStack',
-        component: PaymentMethodsStack
-    },
-    {
-        label: "Скидки",
+        label: 'discounts',
         name: 'DiscountsStack',
         component: DiscountsStack
     },
@@ -34,23 +34,23 @@ const routes = [
     //     component: MyAddressesStack
     // },
     {
-        label: "Мои поездки",
+        label: 'myTrips',
         name: 'MyTrips',
         component: MyTripsStack
     },
     {
-        label: "Настройки",
+        label: 'settings',
         name: 'SettingsStack',
         component: SettingsStack
     },
     {
-        label: "Стать водителем",
+        label: 'beDriver',
         name: 'BeDriverStack',
         url: 'https://taxi.yandex.ru/rabota/',
         component: null
     },
     {
-        label: "Служба поддержки",
+        label: 'support',
         name: 'SupportStack',
         component: SupportStack
     }
