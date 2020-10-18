@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, TouchableWithoutFeedback} from "react-native"
+import {View, TextInput, TouchableWithoutFeedback, TouchableOpacity} from "react-native"
 
 import styles from "./styles";
 import ProfileSettingsIcon from "../../assets/images/ProfileSettingsIcon";
@@ -8,11 +8,11 @@ import AcceptCallIcon from "../../assets/images/AcceptCallIcon";
 import SaleIcon from "../../assets/images/SaleIcon";
 import Button from "../../components/Button";
 import SettingsArrowIcon from "../../assets/images/SettingsArrowIcon";
-import {Bold} from "../../components/Layout/AppText";
+import {Bold, SemiBold} from "../../components/Layout/AppText";
 import {localization} from "../../services/Localization";
 import SwitchWithText from "../../components/SwitchWithText";
 
-const SettingsScreenView = ({setters, values, routeTo, save}) => {
+const SettingsScreenView = ({setters, values, logout, routeTo, save}) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -50,6 +50,9 @@ const SettingsScreenView = ({setters, values, routeTo, save}) => {
                     text={localization.dontNotifySale}
                 />
             </View>
+            <TouchableOpacity onPress={logout} style={{margin: 25}}>
+                <SemiBold style={{fontSize: 16}}>Выйти из аккаунта</SemiBold>
+            </TouchableOpacity>
             <View style={{marginHorizontal: 15, marginTop: 'auto'}}>
                 <Button
                     onPress={save}

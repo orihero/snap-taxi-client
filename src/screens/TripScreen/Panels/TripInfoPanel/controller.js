@@ -17,10 +17,6 @@ const TripInfoPanelController = ({order, CancelOrder}) => {
         })
     };
 
-    const coming = () => {
-
-    };
-
     return (
         <TripInfoPanelView
             routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes}

@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, PermissionsAndroid, AppState} from "react-native";
+import {PermissionsAndroid, AppState} from "react-native";
 import Geocode from "react-geocode";
-import SystemSetting from "react-native-system-setting";
+import SmsRetriever from 'react-native-sms-retriever';
 
 const PushNotification = require("react-native-push-notification");
 
 import MainScreenView from "./view";
 import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
+import api from "../../services/api";
 
 const MainScreenController = ({navigation, order, language, drivers, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
 
@@ -15,13 +16,21 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
     const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
 
     const {latitude, longitude} = marker;
-    Geocode.setLanguage(language);
+
+    useEffect(() => {
+        if (mapRef) {
+            getCurrentLocation()
+        }
+    }, [mapRef]);
 
 
     useEffect(() => {
         navigation.addListener('focus', () => {
             SetDestination();
             GetDriversAround({latitude, longitude});
+            if (mapRef) {
+                getCurrentLocation()
+            }
         });
 
         if (order.id && order.status !== 'new') {
@@ -37,7 +46,6 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
                 }
             })
         }
-
     }, []);
 
     useEffect(() => {
@@ -48,7 +56,10 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
                         return {
                             cb: (data) => {
                                 ChangeOrderStatus(data);
-                                navigation.navigate('Trip')
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [{name: 'Trip'}]
+                                })
                             },
                             socketCb: (data) => {
                                 ChangeOrderStatus(data)
@@ -59,16 +70,16 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
             } else if (state === 'background') {
 
             }
-        })
+        });
     }, []);
 
     useEffect(() => {
-        GetDriversAround({latitude, longitude})
+        GetDriversAround({latitude, longitude});
+        geocode();
     }, [marker]);
 
 
     useEffect(() => {
-
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
@@ -94,38 +105,31 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
         });
     }, []);
 
-    useEffect(() => {
-        geocode();
-    }, [marker]);
-
-    useEffect(() => {
-        if (mapRef) {
-            getCurrentLocation()
-        }
-    }, [mapRef]);
 
     const geocode = () => {
-        Geocode.setApiKey(API_KEY);
-        Geocode.fromLatLng(latitude, longitude)
-            .then(response => {
-                SetCurrentLocationDetails(response);
+        // Geocode.setApiKey(API_KEY);
+        // Geocode
+        //     .fromLatLng(latitude, longitude)
+        //     .then(response => {
+        //         SetCurrentLocationDetails(response);
+        //         setCurrentLocationText(
+        //             response.results[0].address_components[1].long_name
+        //         )
+        //     });
+
+        api.request
+            .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`)
+            .then(res => {
+                SetCurrentLocationDetails(res.data.response);
                 setCurrentLocationText(
-                    response.results[0].address_components[1].long_name
-                )
-            });
+                    res.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
+                );
+                // setOriginResult(res.data.response.GeoObjectCollection.featureMember);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
-
-
-    const checkGPSStatus = () => {
-        SystemSetting
-            .isLocationEnabled()
-            .then((enable) => {
-                if (!enable) {
-                    errorHandler()
-                }
-            });
-    };
-
 
     const requestPermission = async () => {
         let hasPermission;
@@ -152,16 +156,6 @@ const MainScreenController = ({navigation, order, language, drivers, GetOrderInf
         }, error => {
             getCurrentLocation()
         });
-    };
-
-    const errorHandler = () => {
-        Alert.alert('Ошибка', 'Чтобы продолжить, включите на устройстве геолокацию Google.', [
-            {
-                text: 'OK', onPress: () => SystemSetting
-                    .switchLocation(() => {
-                    })
-            }
-        ])
     };
 
 

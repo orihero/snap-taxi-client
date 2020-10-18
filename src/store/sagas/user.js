@@ -41,10 +41,31 @@ function* UpdateProfile(action) {
     }
 }
 
+function* GetNotifications(action: any) {
+    try {
+        const {data} = yield call(api.request.get, '/profile/notifications', action.payload);
+
+        yield put({
+            type: User.GetNotifications.SUCCESS,
+            payload: data.data,
+        });
+
+        yield call(action.cb, data);
+
+    } catch (error) {
+        yield put({
+            type: User.GetNotifications.FAILURE,
+            payload: error
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
 
 export default function* root() {
     yield all([
         takeLatest(User.GetProfile.REQUEST, GetProfile),
         takeLatest(User.UpdateProfile.REQUEST, UpdateProfile),
+        takeLatest(User.GetNotifications.REQUEST, GetNotifications),
     ]);
 }

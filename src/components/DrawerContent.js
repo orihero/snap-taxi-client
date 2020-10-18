@@ -1,26 +1,24 @@
 import React from "react";
-import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking, Alert} from "react-native"
+import {View, StyleSheet, TouchableWithoutFeedback, ScrollView, Linking} from "react-native"
 import routes from "../navigation/DrawerNavigation/routes";
 import UserInfo from "./UserInfo/UserInfo";
 import Colors from "../assets/styles/Colors";
 import {Regular} from "./Layout/AppText";
 import Screen from "../helpers/Dimensions";
-import LogoutIcon from "../assets/images/LogoutIcon";
 import {connect} from "react-redux";
 import {localization} from "../services/Localization";
+import {bindActionCreators} from "redux";
+import user from "../store/actions/user";
 
 const DrawerContent = (props) => {
-    const logout = () => {
-        Alert.alert('Выйти из аккаунта', 'Вы уверены что хотите выйти из аакунта?', [
-            {text: 'Отмена'},
-            {text: 'Выйти', onPress: () => props.dispatch({type: 'LOGOUT'})}
-        ])
-    };
+
     return (
         <View style={styles.container}>
             <UserInfo
                 name={props.user.data.name}
                 phoneNumber={props.user.data.phone}
+                avatarImage={props.user.data.avatar}
+                UpdateProfile={props.UpdateProfile}
             />
             <ScrollView
                 style={{marginBottom: 20}}
@@ -42,13 +40,13 @@ const DrawerContent = (props) => {
                         })
                     }
                 </View>
-                <TouchableWithoutFeedback onPress={logout}>
-                    <View style={{alignItems: 'center', marginVertical: 20}}>
-                        <View style={styles.icon}>
-                            <LogoutIcon/>
-                        </View>
-                    </View>
-                </TouchableWithoutFeedback>
+                {/*<TouchableWithoutFeedback onPress={logout}>*/}
+                {/*    <View style={{alignItems: 'center', marginVertical: 20}}>*/}
+                {/*        <View style={styles.icon}>*/}
+                {/*            <LogoutIcon/>*/}
+                {/*        </View>*/}
+                {/*    </View>*/}
+                {/*</TouchableWithoutFeedback>*/}
             </ScrollView>
             {/*<Regular style={{position: 'absolute', fontSize: 15, bottom: 10, left: 35}}>Версия 2.0</Regular>*/}
         </View>
@@ -100,4 +98,11 @@ const mapStateToProps = ({user}) => ({
     user
 });
 
-export default connect(mapStateToProps)(DrawerContent)
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    UpdateProfile: user.UpdateProfile
+}, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(DrawerContent)

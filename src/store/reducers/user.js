@@ -1,5 +1,5 @@
 import {VerifyCode} from "../constants/auth";
-import {GetProfile, SetPaymentMethod, UpdateProfile, SetLanguage} from "../constants/user";
+import {GetProfile, SetPaymentMethod, UpdateProfile, SetLanguage, GetNotifications} from "../constants/user";
 
 const initialState = {
     token: null,
@@ -7,6 +7,10 @@ const initialState = {
     paymentMethod: 'cash',
     language: 'ru',
     data: [],
+    notifications: {
+        unread: 0,
+        data: [],
+    }
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +43,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 language: action.payload
+            };
+        case  GetNotifications.SUCCESS:
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    data: action.payload
+                }
             };
         default:
             return state

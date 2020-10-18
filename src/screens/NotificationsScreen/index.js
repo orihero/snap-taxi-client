@@ -1,3 +1,3 @@
-import NotificationsScreen from "./NotificationsScreen";
+import NotificationsScreen from "./connect";
 
 export default NotificationsScreen;

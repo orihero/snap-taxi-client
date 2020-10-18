@@ -5,10 +5,12 @@ const GetProfile = createAction(User.GetProfile.REQUEST);
 const UpdateProfile = createAction(User.UpdateProfile.REQUEST);
 const SetPaymentMethod = createAction(User.SetPaymentMethod.SUCCESS);
 const SetLanguage = createAction(User.SetLanguage.SUCCESS);
+const GetNotifications = createAction(User.GetNotifications.REQUEST);
 
 export default {
     GetProfile,
     UpdateProfile,
     SetPaymentMethod,
     SetLanguage,
+    GetNotifications,
 }

@@ -95,12 +95,12 @@ const SelectCarScreenView = (
                 </MapScreen>
             </View>
             <View>
-                <DestinationModal
+                {visibleDestinationModal && <DestinationModal
                     to={destination}
                     from={currentLocation}
                     visible={visibleDestinationModal}
                     closeModal={() => setVisibleDestinationModal(false)}
-                />
+                />}
                 <PlanItemInfoModal
                     rateInfo={rateInfo}
                     visible={visiblePlanModal}
@@ -210,7 +210,7 @@ const SelectCarScreenView = (
                         }
                         <SelectedDestination
                             containerStyle={styles.selectDest}
-                            to={destination}
+                            to={destination || 'Куда едем ?'}
                             from={currentLocation}
                             selectDestination={() => setVisibleDestinationModal(true)}
                         />

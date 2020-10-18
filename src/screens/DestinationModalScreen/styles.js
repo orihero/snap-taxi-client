@@ -31,7 +31,7 @@ export default StyleSheet.create({
     },
     input: {
         padding: 10,
-        width: '100%',
+        width: '90%',
         backgroundColor: Colors.background
     },
     circle: {
@@ -51,6 +51,42 @@ export default StyleSheet.create({
         height: 3,
         backgroundColor: '#B6C5EE',
         borderRadius: 100
+    },
+    flatList: {
+        paddingHorizontal: 15,
+    },
+    address: {
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.border,
+        paddingBottom: 10,
+        marginBottom: 10
+    },
+    addressName: {
+        fontSize: 18,
+    },
+    addressDescription: {
+        fontSize: 14,
+    },
+    addressCircle: {
+        width: 15,
+        height: 15,
+        backgroundColor: Colors.blue,
+        borderRadius: 100,
+        marginRight: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    innerCircle: {
+        width: 8,
+        height: 8,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 10
     }
 });
 

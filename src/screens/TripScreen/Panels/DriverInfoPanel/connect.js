@@ -10,6 +10,7 @@ const mapStateToProps = ({booking: {order}}) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     CancelOrder: booking.CancelOrder,
+    SendPush: booking.SendPush
 }, dispatch);
 
 export default connect(

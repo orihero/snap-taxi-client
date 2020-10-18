@@ -5,12 +5,12 @@ import {useNavigation} from "@react-navigation/native";
 import DriverInfoPanelView from "./view";
 
 
-const DriverInfoPanelController = ({order, CancelOrder}) => {
+const DriverInfoPanelController = ({order, CancelOrder, SendPush}) => {
     const navigation = useNavigation();
 
     const [airCondition, setAirCondition] = useState(true);
     const height = useRef(new Animated.Value(0)).current;
-
+    const [isPressed, setIsPressed] = useState(false);
     const panResPonder = useRef(PanResponder.create({
         onMoveShouldSetPanResponder: (evt, gestureState) => {
             return !(gestureState.dy === 0 || (gestureState.dy < 1 && gestureState.dy > -2))
@@ -56,19 +56,31 @@ const DriverInfoPanelController = ({order, CancelOrder}) => {
         });
     };
 
+    const coming = () => {
+        SendPush({
+            user_id: order.driver_id,
+            title: 'Выхожу',
+            message: 'Клиент выходить'
+        }, () => {
+            setIsPressed(true);
+        });
+    };
+
     return (
         <DriverInfoPanelView
+            isPressed={isPressed}
             backgroundColor={backgroundColor}
             panResPonder={panResPonder}
             airCondition={airCondition}
             setAirCondition={setAirCondition}
             car={order.car}
+            coming={coming}
             phone={order.phone}
             collapse={collapse}
             price={order.price}
             driver={order.driver}
             cancelOrder={cancelOrder}
-            routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes }
+            routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes}
         />
     );
 };

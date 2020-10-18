@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Alert} from "react-native";
+import {useDispatch} from "react-redux";
 import SettingsScreenView from "./view";
 
 const Controller = ({user, navigation, UpdateProfile}) => {
-
+    const dispatch = useDispatch();
     const profile = user.data;
 
     const [showTrafficJams, setShowTrafficJams] = useState(false);
@@ -15,6 +16,13 @@ const Controller = ({user, navigation, UpdateProfile}) => {
 
     const routeTo = (routeName) => () => {
         navigation.navigate(routeName)
+    };
+
+    const logout = () => {
+        Alert.alert('Выйти из аккаунта', 'Вы уверены что хотите выйти из аакунта?', [
+            {text: 'Отмена'},
+            {text: 'Выйти', onPress: () => dispatch({type: 'LOGOUT'})}
+        ])
     };
 
     const save = () => {
@@ -45,6 +53,7 @@ const Controller = ({user, navigation, UpdateProfile}) => {
                 name,
                 isLoading
             }}
+            logout={logout}
             save={save}
             routeTo={routeTo}
         />

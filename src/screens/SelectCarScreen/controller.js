@@ -4,6 +4,7 @@ import SelectCarScreenView from "./view";
 import Geocode from "react-geocode";
 import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
+import api from "../../services/api";
 
 const SelectCarScreenController = (
     {
@@ -50,10 +51,7 @@ const SelectCarScreenController = (
                 GetRates(destination.details, (data) => {
                     setRate(data.data[0])
                 });
-                setDestinationText(
-                    destination.data.terms[0].value + ', ' +
-                    destination.data.terms[1].value
-                )
+                setDestinationText(destination.data.name);
             } else {
                 GetRates({distance: 0}, (data) => {
                     setRate(data.data[0])
@@ -62,17 +60,30 @@ const SelectCarScreenController = (
         }, [destination]);
 
         const geocode = () => {
-            Geocode.setApiKey(API_KEY);
-            Geocode.setLanguage(language);
             GetCarsAround({latitude, longitude});
-            Geocode.fromLatLng(latitude, longitude)
-                .then(response => {
-                    SetCurrentLocationDetails(response);
-                    setCurrentLocationText(
-                        response.results[0].address_components[1].long_name + ', ' +
-                        response.results[0].address_components[0].long_name
-                    )
-                });
+            api.request
+                .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
+                .then(res => {
+                    const obj = res.data.response.GeoObjectCollection.featureMember[0].GeoObject;
+                    SetCurrentLocationDetails(obj);
+                    setCurrentLocationText(obj.name);
+                    // setOriginResult(res.data.response.GeoObjectCollection.featureMember);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+
+            // Geocode.setApiKey(API_KEY);
+            // Geocode.setLanguage('ru_Ru');
+            // Geocode.fromLatLng(latitude, longitude)
+            //     .then(response => {
+            //         SetCurrentLocationDetails(response);
+            //         setCurrentLocationText(
+            //             response.results[0].address_components[1].long_name + ', ' +
+            //             response.results[0].address_components[0].long_name
+            //         )
+            //     });
+
         };
 
         const findCar = () => {
@@ -117,7 +128,10 @@ const SelectCarScreenController = (
                     setIsOrderSuccess(false);
                     clearInterval(timeoutId);
                 },
-                actionCb: () => navigation.navigate('Trip'),
+                actionCb: () => navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Trip'}]
+                }),
                 successCb: (data) => {
                     setIsOrderSuccess(true);
                     // setTimeoutId(() => setTimeout(() => {
@@ -172,7 +186,7 @@ const SelectCarScreenController = (
                 duration={destination.data && destination.details ? Math.floor(destination.details.duration) : 0}
                 findCar={findCar}
                 currentLocation={currentLocationText}
-                destination={destinationText || 'Куда едем ?'}
+                destination={destinationText}
                 paymentMethod={paymentMethod}
                 cancelOrder={cancelOrder}
                 getCurrentLocation={getCurrentLocation}

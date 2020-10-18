@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Animated} from "react-native";
 import MapScreenView from "./view";
+import api from "../../services/api";
 
 const MapScreenController = (
     {
@@ -22,6 +23,7 @@ const MapScreenController = (
     const [mapHeight, setMapHeight] = useState(0);
     const [minutes, setMinutes] = useState(2);
     const [timeoutId, setTimeoutId] = useState(null);
+    const [driver, setDriverLocation] = useState(null);
     const opacity = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
@@ -38,6 +40,19 @@ const MapScreenController = (
             blink()
         }
     }, [map.marker]);
+
+    // useEffect(() => {
+    //     if (order.data.status && order.data.status !== 'new') {
+    //         const id = setInterval(() => {
+    //             api.request
+    //                 .get(`/car-booking/location/${order.data.driver.id}`)
+    //                 .then(res => {
+    //                     console.log(res);
+    //                 })
+    //         }, 10000);
+    //         return () => clearInterval(id);
+    //     }
+    // }, [order.data.status]);
 
     const onRegionChange = region => {
         if (!map.destination.details) {

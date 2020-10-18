@@ -41,7 +41,7 @@ const MapScreenView = (
                 showsBuildings
                 rotateEnabled={false}
                 pitchEnabled={false}
-                showsIndoors
+                // showsIndoors
                 showsMyLocationButton={false}
                 onRegionChangeComplete={onRegionChange}
                 style={mapStyles ? mapStyles : styles.map}
@@ -49,14 +49,28 @@ const MapScreenView = (
                 initialRegion={initialRegion}
             >
                 {
-                    drivers.map(item => (
+                    (!order.status || order.status === 'new') && drivers.map(item => (
                         <Marker coordinate={{longitude: Number(item.lng), latitude: Number(item.lat)}}>
                             <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
                         </Marker>
                     ))
                 }
+                {/*{*/}
+                {/*    map.destination && <>*/}
+                {/*        <Circle*/}
+                {/*            radius={20}*/}
+                {/*            fillColor={'#000'}*/}
+                {/*            center={{...map.marker}}*/}
+                {/*        />*/}
+                {/*        <Circle*/}
+                {/*            radius={20}*/}
+                {/*            fillColor={'#000'}*/}
+                {/*            center={{...map.destination.coords}}*/}
+                {/*        />*/}
+                {/*    </>*/}
+                {/*}*/}
                 {
-                    map.destination && <MapViewDirections
+                    map.destination && order.status !== 'accepted' && <MapViewDirections
                         origin={map.marker}
                         mode={"DRIVING"}
                         destination={map.destination.coords}
@@ -80,7 +94,7 @@ const MapScreenView = (
                     />
                 }
                 {
-                    order.driver && !showMarker && <MapViewDirections
+                    order.driver && order.status === 'accepted' && !showMarker && <MapViewDirections
                         origin={{latitude: routes.lat, longitude: routes.lng}}
                         mode={"DRIVING"}
                         destination={{latitude: order.driver.lat, longitude: order.driver.lng}}

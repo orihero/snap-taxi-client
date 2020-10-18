@@ -36,7 +36,7 @@ const CarItem = (
                     {/*<Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>*/}
                     {inflated && <Lightning/>}
                 </View>
-                {active && <InfoIcon style={styles.info}/>}
+                {/*{active && <InfoIcon style={styles.info}/>}*/}
                 <Image style={styles.img} source={plan[index].img}/>
             </View>
         </TouchableOpacity>

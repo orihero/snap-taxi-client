@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions, Animated, StatusBar} from "react-native"
+import {View, Dimensions, Animated, TouchableOpacity, StatusBar} from "react-native"
 
 import styles from "./styles";
 import Button from "../../../../components/Button";
@@ -13,6 +13,7 @@ import {Bold, Regular} from "../../../../components/Layout/AppText";
 import {localization} from "../../../../services/Localization";
 import SwitchWithText from "../../../../components/SwitchWithText";
 import AirConditionIcon from "../../../../assets/images/AirConditionIcon";
+import Colors from "../../../../assets/styles/Colors";
 
 const DriverInfoPanelView = (
     {
@@ -23,9 +24,11 @@ const DriverInfoPanelView = (
         collapse,
         routes,
         cancelOrder,
+        isPressed,
         driver,
         price,
         car,
+        coming,
         phone
     }) => {
     return (
@@ -43,9 +46,11 @@ const DriverInfoPanelView = (
                     <View style={styles.container}>
                         <View style={styles.draggable}/>
                         <View style={styles.actionButtons}>
-                            <View style={styles.icon}>
-                                <ComingIcon/>
-                            </View>
+                            <TouchableOpacity onPress={coming}>
+                                <View style={[styles.icon, isPressed && {backgroundColor: '#bdbdbd'}]}>
+                                    <ComingIcon/>
+                                </View>
+                            </TouchableOpacity>
                             {/*<View style={[styles.icon, {marginHorizontal: 38}]}>*/}
                             {/*    <CancelTripIcon/>*/}
                             {/*</View>*/}

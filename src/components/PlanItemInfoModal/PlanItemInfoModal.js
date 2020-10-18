@@ -20,7 +20,7 @@ const PlanItemInfoModal = ({visible, closeModal, rateInfo}) => {
         <CustomModal visible={visible} closeModal={closeModal}>
             <CarModalIcon style={styles.icon}/>
             <Bold style={styles.heading}>{localization.planInfo}</Bold>
-            <Description leftText={localization.car} rightText={'Белая Лассети'}/>
+            {/*<Description leftText={localization.car} rightText={'Белая Лассети'}/>*/}
             <Description leftText={localization.plan} rightText={rateInfo.title}/>
             <Description leftText={localization.costPerKm} rightText={`${rateInfo.price_per_km} сум`}/>
             <Description leftText={localization.costForWait} rightText={`${rateInfo.price_per_min} сум`}/>

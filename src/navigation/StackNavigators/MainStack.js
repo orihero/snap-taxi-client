@@ -7,7 +7,7 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import {localization} from "../../services/Localization";
 import Colors from "../../assets/styles/Colors";
 import EnterPhoneNumberScreen from "../../screens/EnterPhoneNumberScreen/EnterPhoneNumberScreen";
-import NotificationsScreen from "../../screens/NotificationsScreen/NotificationsScreen";
+import NotificationsScreen from "../../screens/NotificationsScreen";
 import TripScreen from "../../screens/TripScreen";
 
 const {Navigator, Screen} = createStackNavigator();
