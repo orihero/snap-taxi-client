@@ -1,16 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, AppState} from "react-native";
-import Geocode from "react-geocode";
+import {PermissionsAndroid, AppState, AppRegistry} from "react-native";
 import SmsRetriever from 'react-native-sms-retriever';
 
 const PushNotification = require("react-native-push-notification");
 
 import MainScreenView from "./view";
-import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
 import api from "../../services/api";
+import {SetNotificationsUnreadCount} from "../../store/constants/user";
+import {store} from "../../../App";
 
-const MainScreenController = ({navigation, order, language, drivers, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
+AppRegistry.registerHeadlessTask('ReactNativeFirebaseMessagingHeadlessTask', () => {
+    console.log('fucking');
+    store.dispatch({
+        type: SetNotificationsUnreadCount.SUCCESS
+    });
+});
+
+const MainScreenController = ({navigation, order, drivers, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
 
     const [mapRef, setMapRef] = useState();
     const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');

@@ -1,5 +1,12 @@
 import {VerifyCode} from "../constants/auth";
-import {GetProfile, SetPaymentMethod, UpdateProfile, SetLanguage, GetNotifications} from "../constants/user";
+import {
+    GetProfile,
+    SetPaymentMethod,
+    UpdateProfile,
+    SetLanguage,
+    GetNotifications,
+    SetNotificationsUnreadCount
+} from "../constants/user";
 
 const initialState = {
     token: null,
@@ -50,6 +57,15 @@ export default (state = initialState, action) => {
                 notifications: {
                     ...state.notifications,
                     data: action.payload
+                }
+            };
+        case SetNotificationsUnreadCount.SUCCESS:
+            console.log('xaxax')
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    unread: action.payload ? action.payload : (state.notifications.unread + 1)
                 }
             };
         default:

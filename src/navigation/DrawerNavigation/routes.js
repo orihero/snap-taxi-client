@@ -6,6 +6,7 @@ import RegistrationStack from "../StackNavigators/RegistrationStack";
 import MainStack from "../StackNavigators/MainStack";
 import MyTripsStack from "../StackNavigators/MyTripsStack";
 import SupportStack from "../StackNavigators/SupportStack";
+import NotificationsScreen from "../../screens/NotificationsScreen";
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         label: 'settings',
         name: 'SettingsStack',
         component: SettingsStack
+    },
+    {
+        label: 'notifications',
+        name: 'Notifications',
+        component: null,
     },
     {
         label: 'beDriver',

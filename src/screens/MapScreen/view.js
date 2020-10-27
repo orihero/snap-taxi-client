@@ -94,6 +94,12 @@ const MapScreenView = (
                     />
                 }
                 {
+                    order.driver &&
+                    <Marker coordinate={{longitude: Number(order.driver.lng), latitude: Number(order.driver.lat)}}>
+                        <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
+                    </Marker>
+                }
+                {
                     order.driver && order.status === 'accepted' && !showMarker && <MapViewDirections
                         origin={{latitude: routes.lat, longitude: routes.lng}}
                         mode={"DRIVING"}

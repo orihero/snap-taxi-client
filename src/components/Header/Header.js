@@ -60,11 +60,11 @@ const Header = ({goBack, user, subText, ...rest}) => {
                     <Bold style={styles.where}>{subText}</Bold>
                 </View>
                 <View style={{borderRadius: 100, overflow: 'hidden', elevation: 5}}>
-                    <TouchablePlatformSpecific onPress={() => navigation.navigate('Notifications')}>
-                        <View style={styles.watcher}>
-                            <NotificationsIcon style={{left: 14}}/>
-                        </View>
-                    </TouchablePlatformSpecific>
+                    {/*<TouchablePlatformSpecific onPress={() => navigation.navigate('Notifications')}>*/}
+                    {/*    <View style={styles.watcher}>*/}
+                    {/*        <NotificationsIcon style={{left: 14}}/>*/}
+                    {/*    </View>*/}
+                    {/*</TouchablePlatformSpecific>*/}
                 </View>
             </View>
         </>

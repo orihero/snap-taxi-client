@@ -71,7 +71,7 @@ const ChatScreen = ({SendPush, messages, order}) => {
             </View>
         </View>
     );
-}
+};
 
 const mapStateToProps = ({booking: {messages, order}}) => ({
     messages: messages.data,

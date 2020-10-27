@@ -212,6 +212,7 @@ const SelectCarScreenView = (
                             containerStyle={styles.selectDest}
                             to={destination || 'Куда едем ?'}
                             from={currentLocation}
+                            disabled={isOrderSuccess}
                             selectDestination={() => setVisibleDestinationModal(true)}
                         />
                         <View style={styles.buttonWrapper}>

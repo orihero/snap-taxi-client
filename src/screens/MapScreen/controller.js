@@ -61,7 +61,7 @@ const MapScreenController = (
     };
 
     const mapZoom = zoom ? zoom : {
-        latitudeDelta: 0.005,
+        latitudeDelta: 0.0065,
         longitudeDelta: 0.001,
     };
 

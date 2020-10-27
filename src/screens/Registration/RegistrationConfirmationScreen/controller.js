@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-var PushNotification = require('react-native-push-notification');
+import PushNotification from 'react-native-push-notification';
 import RegistrationConfirmationScreenView from "./view";
 import SmsRetriever from "react-native-sms-retriever";
 
@@ -31,6 +31,7 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
                     SendPush({
                         id: notification.data.notification_id,
                         message: notification.message,
+                        read: false,
                         type: 'driver',
                     })
                 }

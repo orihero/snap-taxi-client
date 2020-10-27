@@ -10,6 +10,7 @@ import {localization} from "./src/services/Localization";
 
 const {store, persistor} = createStore();
 
+export {store};
 
 const App = () => {
 

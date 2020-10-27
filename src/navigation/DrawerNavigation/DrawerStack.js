@@ -1,6 +1,6 @@
 import React from 'react'
 import DrawerContent from "../../components/DrawerContent";
-import {createDrawerNavigator, useIsDrawerOpen} from "@react-navigation/drawer";
+import {createDrawerNavigator} from "@react-navigation/drawer";
 import routes from "./routes";
 import Colors from "../../assets/styles/Colors";
 

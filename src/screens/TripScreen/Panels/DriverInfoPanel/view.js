@@ -23,7 +23,7 @@ const DriverInfoPanelView = (
         setAirCondition,
         collapse,
         routes,
-        cancelOrder,
+        status,
         isPressed,
         driver,
         price,
@@ -45,7 +45,7 @@ const DriverInfoPanelView = (
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                     <View style={styles.container}>
                         <View style={styles.draggable}/>
-                        <View style={styles.actionButtons}>
+                        {status !== 'processing' && <View style={styles.actionButtons}>
                             <TouchableOpacity onPress={coming}>
                                 <View style={[styles.icon, isPressed && {backgroundColor: '#bdbdbd'}]}>
                                     <ComingIcon/>
@@ -57,7 +57,7 @@ const DriverInfoPanelView = (
                             {/*<View style={styles.icon}>*/}
                             {/*    <WaitIcon/>*/}
                             {/*</View>*/}
-                        </View>
+                        </View>}
                         <Animated.View style={{height: collapse, overflow: 'hidden'}}>
                             <View style={styles.fee}>
                                 <Bold style={{fontSize: 17}}>{localization.fee}</Bold>

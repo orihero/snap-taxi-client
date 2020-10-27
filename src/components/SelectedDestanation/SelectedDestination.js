@@ -6,7 +6,7 @@ import LocationIcon from "../../assets/images/LocationIcon";
 import {Bold, Light} from "../Layout/AppText";
 import {localization} from "../../services/Localization";
 
-export const SelectedDestination = ({containerStyle, to, from, selectDestination}) => (
+export const SelectedDestination = ({containerStyle, to, from, disabled, selectDestination}) => (
     <View style={[styles.container, containerStyle]}>
         {/*<View style={styles.icons}>*/}
         {/*    <LocationIcon/>*/}
@@ -16,7 +16,7 @@ export const SelectedDestination = ({containerStyle, to, from, selectDestination
         {/*    <View style={styles.smallCircle}/>*/}
         {/*    <View style={styles.circle}/>*/}
         {/*</View>*/}
-        <TouchableWithoutFeedback onPress={selectDestination}>
+        <TouchableWithoutFeedback onPress={selectDestination} disabled={disabled}>
             <View style={{marginLeft: 5, flex: 1}}>
                 <View>
                     <View style={styles.row}>

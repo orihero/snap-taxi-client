@@ -13,6 +13,7 @@ let strings = new LocalizedStrings({
         map: 'Карта',
         from: 'Едем из',
         to: 'Едем в',
+        notifications: 'Уведомление',
         findTaxi: 'Найти такси',
         forFriend: 'Для друга',
         additional: 'Дополнительно',
@@ -134,7 +135,9 @@ let strings = new LocalizedStrings({
         beDriver: "Be Driver",
         user: 'User',
         yourName: 'Your name',
-        noTrips: 'No tripsd'
+        noTrips: 'No trips',
+        notifications: 'Notifications',
+
     }
 });
 export {strings as localization}

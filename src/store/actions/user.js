@@ -6,6 +6,7 @@ const UpdateProfile = createAction(User.UpdateProfile.REQUEST);
 const SetPaymentMethod = createAction(User.SetPaymentMethod.SUCCESS);
 const SetLanguage = createAction(User.SetLanguage.SUCCESS);
 const GetNotifications = createAction(User.GetNotifications.REQUEST);
+const SetNotificationsUnreadCount = createAction(User.SetNotificationsUnreadCount.SUCCESS);
 
 export default {
     GetProfile,
@@ -13,4 +14,5 @@ export default {
     SetPaymentMethod,
     SetLanguage,
     GetNotifications,
+    SetNotificationsUnreadCount,
 }
