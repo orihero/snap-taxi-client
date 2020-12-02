@@ -5,6 +5,7 @@ const SetDestination = createActionTypes('SET_DESTINATION');
 const SetDestinationDetails = createActionTypes('SET_DESTINATION_DETAILS');
 const SetCurrentLocationDetails = createActionTypes('SET_CURRENT_LOCATION_DETAILS');
 const SetMarkerPosition = createActionTypes('SET_MARKER_POSITION');
+const SetGoogleMarkerPosition = createActionTypes('SET_GOOGLE_MARKER_POSITION');
 
 export {
     GetCurrentLocation,
@@ -12,4 +13,5 @@ export {
     SetDestinationDetails,
     SetMarkerPosition,
     SetCurrentLocationDetails,
+    SetGoogleMarkerPosition,
 }

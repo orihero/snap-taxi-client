@@ -49,10 +49,14 @@ const DriverInfoPanelController = ({order, CancelOrder, SendPush}) => {
     });
 
     const cancelOrder = () => {
-        navigation.navigate('Home');
         CancelOrder({
             orderId: order.id,
             driver_id: 28
+        }, () => {
+            navigation.reset({
+                routes: [{name: 'MainStack'}],
+                index: 0
+            });
         });
     };
 

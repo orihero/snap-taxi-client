@@ -5,7 +5,7 @@ import Geolocation from "@react-native-community/geolocation";
 const GetCurrentLocationButtonController = ({GetCurrentLocation, mapRef, zoom}) => {
 
         const mapZoom = zoom ? zoom : {
-            latitudeDelta: 0.0065,
+            latitudeDelta: 0.005,
             longitudeDelta: 0.001,
         };
 

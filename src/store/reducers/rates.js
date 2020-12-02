@@ -22,6 +22,8 @@ export default (state = initialState, action) => {
                 isFetched: true,
                 data: []
             };
+        case 'LOGOUT':
+            return initialState;
         default:
             return state
     }

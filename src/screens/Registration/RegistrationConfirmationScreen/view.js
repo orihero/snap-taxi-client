@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, TextInput, KeyboardAvoidingView, StatusBar, ScrollView, TouchableOpacity} from "react-native";
+import {View, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
 
 import Colors from "../../../assets/styles/Colors";
 import Button from "../../../components/Button";
@@ -15,7 +15,6 @@ const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setC
                 style={{flex: 1}}
                 behavior={'padding'}
             >
-                <StatusBar backgroundColor={Colors.blue}/>
                 <RegistrationTop/>
                 <View style={styles.registrationContainer}>
                     <View>

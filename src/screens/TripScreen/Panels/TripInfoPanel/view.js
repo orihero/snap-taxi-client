@@ -30,7 +30,7 @@ const TripInfoPanelView = ({routes, cancelOrder, driver, price, car, phone}) => 
                         </View>
                         <SelectedDestination
                             containerStyle={{paddingBottom: 17, paddingTop: 11}}
-                            from={routes[0].address}
+                            from={routes[0] ? routes[0].address : ''}
                             to={routes[1] ? routes[1].address : 'Не указано'}
                         />
                         <Button title={localization.cancelTrip} onPress={cancelOrder}/>

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {Alert} from 'react-native'
 import SelectCarScreenView from "./view";
-import Geocode from "react-geocode";
-import API_KEY from "../../const/apiKey";
 import Geolocation from "@react-native-community/geolocation";
 import api from "../../services/api";
+import BackgroundTimer from 'react-native-background-timer';
 
 const SelectCarScreenController = (
     {
@@ -16,19 +15,20 @@ const SelectCarScreenController = (
         SetCurrentLocationDetails,
         ChangeOrderStatus,
         navigation,
-        paymentMethod,
         GetCurrentLocation,
         CancelOrder,
         order,
         GetCarsAround,
         drivers,
-        language
     }) => {
+        const [zoom, setZoom] = useState({
+            latitudeDelta,
+            longitudeDelta
+        })
         const [timeoutId, setTimeoutId] = useState(null);
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
         const [visibleDestinationModal, setVisibleDestinationModal] = useState(false);
         const [visibleAdditionalModal, setVisibleAdditionalModal] = useState(false);
-        const [visibleDeliveryModal, setVisibleDeliveryModal] = useState(false);
         const [rate, setRate] = useState({});
         const [rateInfo, setRateInfo] = useState({0: true});
         const [destinationText, setDestinationText] = useState('');
@@ -39,7 +39,15 @@ const SelectCarScreenController = (
         const [airCondition, setAirCondition] = useState(false);
         const [mapRef, setMapRef] = useState();
 
-        const {latitude, longitude} = marker;
+        const {latitude, longitude, latitudeDelta, longitudeDelta} = marker;
+
+        useEffect(() => {
+            setZoom({
+                latitudeDelta,
+                longitudeDelta
+            })
+        }, [latitudeDelta, longitudeDelta])
+
 
         useEffect(() => {
             geocode()
@@ -59,7 +67,7 @@ const SelectCarScreenController = (
             }
         }, [destination]);
 
-        const geocode = () => {
+        const geocode = useCallback(() => {
             GetCarsAround({latitude, longitude});
             api.request
                 .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
@@ -72,19 +80,7 @@ const SelectCarScreenController = (
                 .catch(err => {
                     console.log(err);
                 })
-
-            // Geocode.setApiKey(API_KEY);
-            // Geocode.setLanguage('ru_Ru');
-            // Geocode.fromLatLng(latitude, longitude)
-            //     .then(response => {
-            //         SetCurrentLocationDetails(response);
-            //         setCurrentLocationText(
-            //             response.results[0].address_components[1].long_name + ', ' +
-            //             response.results[0].address_components[0].long_name
-            //         )
-            //     });
-
-        };
+        }, [latitude, longitude]);
 
         const findCar = () => {
             const routes = [];
@@ -92,7 +88,6 @@ const SelectCarScreenController = (
             if (airCondition) {
                 option_ids.push(1)
             }
-
 
             if (destination.data) {
                 routes.push({
@@ -115,6 +110,7 @@ const SelectCarScreenController = (
                     order: 0,
                 })
             }
+
             BookCar({
                 routes,
                 option_ids,
@@ -123,30 +119,43 @@ const SelectCarScreenController = (
                 comment
             }, {
                 socketCb: (data) => {
+                    // BackgroundTimer.clearTimeout(timeoutId);
                     ChangeOrderStatus(data);
                     setIsLoading(false);
                     setIsOrderSuccess(false);
-                    clearInterval(timeoutId);
                 },
-                actionCb: () => navigation.reset({
-                    index: 0,
-                    routes: [{name: 'Trip'}]
-                }),
+                actionCb: () => {
+                    // BackgroundTimer.clearTimeout(timeoutId);
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'Trip'}]
+                    })
+                },
                 successCb: (data) => {
+                    // const tID = BackgroundTimer.setTimeout(absoluteCancel, 120000)
+                    // setTimeoutId(tID);
+                    setTimeout(() => {
+                        mapRef.animateToRegion({
+                            latitude,
+                            longitude,
+                            latitudeDelta: zoom.latitudeDelta * 10,
+                            longitudeDelta: zoom.longitudeDelta * 10,
+                        }, 35000)
+                    }, 2000);
                     setIsOrderSuccess(true);
-                    // setTimeoutId(() => setTimeout(() => {
-                    //         absoluteCancel(data.data.id);
-                    //     }, 120000)
-                    // );
                 }
             })
         };
 
-        const absoluteCancel = (id) => {
+        const absoluteCancel = () => {
+            Alert.alert(
+                'Внимание',
+                'Уважаемый клиент в ближайшие время нет машин попробуйте по позже'
+            )
             CancelOrder({
-                orderId: id
+                orderId: order.id,
             }, () => {
-                clearInterval(timeoutId);
+                // clearInterval(timeoutId);
                 setIsLoading(false);
                 setIsOrderSuccess(false);
             })
@@ -161,9 +170,9 @@ const SelectCarScreenController = (
                     onPress: () => CancelOrder({
                         orderId: order.id
                     }, () => {
+                        BackgroundTimer.clearTimeout(timeoutId);
                         setIsLoading(false);
                         setIsOrderSuccess(false);
-                        clearInterval(timeoutId);
                     })
                 }, {
                     text: 'Нет',
@@ -183,18 +192,15 @@ const SelectCarScreenController = (
             <SelectCarScreenView
                 isLoading={isLoading}
                 rates={rates}
-                duration={destination.data && destination.details ? Math.floor(destination.details.duration) : 0}
                 findCar={findCar}
                 currentLocation={currentLocationText}
                 destination={destinationText}
-                paymentMethod={paymentMethod}
                 cancelOrder={cancelOrder}
                 getCurrentLocation={getCurrentLocation}
                 drivers={drivers}
                 setters={{
                     setVisiblePlanModal,
                     setVisibleAdditionalModal,
-                    setVisibleDeliveryModal,
                     setRate,
                     setRateInfo,
                     setComment,
@@ -206,7 +212,6 @@ const SelectCarScreenController = (
                     mapRef,
                     visiblePlanModal,
                     visibleAdditionalModal,
-                    visibleDeliveryModal,
                     rate,
                     rateInfo,
                     comment,

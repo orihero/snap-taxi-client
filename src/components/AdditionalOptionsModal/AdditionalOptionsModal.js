@@ -30,13 +30,13 @@ const AdditionalOptionsModal = ({visible, closeModal, comment, setComment, airCo
                             setValue={setAirCondition}
                             value={airCondition}
                         />
-                        <SwitchWithText
-                            disabled
-                            Icon={DiscountIcon}
-                            text={'Использовать купон'}
-                            setValue={setCoupon}
-                            value={coupon}
-                        />
+                        {/*<SwitchWithText*/}
+                        {/*    disabled*/}
+                        {/*    Icon={DiscountIcon}*/}
+                        {/*    text={'Использовать купон'}*/}
+                        {/*    setValue={setCoupon}*/}
+                        {/*    value={coupon}*/}
+                        {/*/>*/}
                     </View>
                     <View style={styles.textarea}>
                         <TextInput

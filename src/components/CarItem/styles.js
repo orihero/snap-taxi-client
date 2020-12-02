@@ -19,7 +19,7 @@ export default StyleSheet.create({
     img: {
         position: 'absolute',
         right: -20,
-        bottom: 0,
+        bottom: -5,
         transform: [{scale: 0.5}]
     },
     activeContainerStyle: {
@@ -32,5 +32,10 @@ export default StyleSheet.create({
         position: 'absolute',
         right: 4.4,
         top: 3.4
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     }
 });

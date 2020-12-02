@@ -18,8 +18,9 @@ const NotificationsScreenView = ({notifications}) => {
             }
             renderItem={({item}) => (
                 <View style={styles.messageItem}>
-                    <Regular style={styles.messageTitle}>{item.title}</Regular>
-                    <Bold style={styles.messageText}>{item.message}</Bold>
+                    <Bold style={styles.messageText}>{item.title}</Bold>
+                    <Regular style={styles.messageTitle}>{item.message}</Regular>
+                    <Regular style={{textAlign: 'right', fontSize: 10}}>{item.created_at}</Regular>
                 </View>
             )}
         />

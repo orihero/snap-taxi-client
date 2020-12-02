@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import PushNotification from 'react-native-push-notification';
 import RegistrationConfirmationScreenView from "./view";
-import SmsRetriever from "react-native-sms-retriever";
+// import SmsRetriever from "react-native-sms-retriever";
 
 const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile, SendPush}) => {
 
@@ -50,17 +50,17 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
     }, []);
 
     _onSmsListenerPressed = async () => {
-        try {
-            const registered = await SmsRetriever.startSmsRetriever();
-            if (registered) {
-                SmsRetriever.addSmsListener(event => {
-                    console.log(event.message);
-                    SmsRetriever.removeSmsListener();
-                });
-            }
-        } catch (error) {
-            console.log(JSON.stringify(error));
-        }
+        // try {
+        //     const registered = await SmsRetriever.startSmsRetriever();
+        //     if (registered) {
+        //         SmsRetriever.addSmsListener(event => {
+        //             console.log(event.message);
+        //             SmsRetriever.removeSmsListener();
+        //         });
+        //     }
+        // } catch (error) {
+        //     console.log(JSON.stringify(error));
+        // }
     };
 
     const handleSubmit = () => {

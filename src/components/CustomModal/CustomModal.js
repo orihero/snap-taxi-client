@@ -2,15 +2,14 @@ import React from 'react';
 import {
     Modal,
     View,
-    Platform,
-    TouchableHighlight,
+    TouchableOpacity,
     TouchableNativeFeedback,
 } from "react-native";
 import styles from "./styles";
 import AddIcon from "../../assets/images/AddIcon";
 
 const CustomModal = ({visible = false, closeModal, children, contentStyle}) => {
-    const TouchableComponent = Platform.OS === 'ios' ? TouchableHighlight : TouchableNativeFeedback;
+
     return (
         <Modal
             visible={visible}
@@ -22,12 +21,17 @@ const CustomModal = ({visible = false, closeModal, children, contentStyle}) => {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.icon}>
-                        <TouchableComponent
+                        <TouchableOpacity
                             onPress={closeModal}
-                            background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.2)', true)}
+                            style={{
+                                width: 40,
+                                height: 40,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                         >
                             <AddIcon/>
-                        </TouchableComponent>
+                        </TouchableOpacity>
                     </View>
                     <View style={{flex: 1, marginHorizontal: 14, ...contentStyle}}>
                         {children}

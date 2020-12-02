@@ -25,12 +25,12 @@ const SettingsScreenView = ({setters, values, logout, routeTo, save}) => {
                 />
             </View>
             <View style={{paddingHorizontal: 21}}>
-                <SwitchWithText
-                    Icon={TrafficJamsIcon}
-                    value={values.showTrafficJams}
-                    setValue={setters.setShowTrafficJams}
-                    text={localization.showTrafficJams}
-                />
+                {/*<SwitchWithText*/}
+                {/*    Icon={TrafficJamsIcon}*/}
+                {/*    value={values.showTrafficJams}*/}
+                {/*    setValue={setters.setShowTrafficJams}*/}
+                {/*    text={localization.showTrafficJams}*/}
+                {/*/>*/}
                 <TouchableWithoutFeedback onPress={routeTo('SelectLanguage')}>
                     <View style={[styles.option, {justifyContent: 'space-between'}]}>
                         <Bold style={{fontSize: 15}}>{localization.appLanguage}</Bold>

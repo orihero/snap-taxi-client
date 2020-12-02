@@ -29,9 +29,11 @@ const MyTripsScreenView = ({orderList, isLoading}) => {
                     car={item.car}
                     driverName={item.driver.name}
                     id={item.id}
+                    distance={item.distance}
                     from={item.routes[0].address}
                     to={item.routes[1] ? item.routes[1].address : 'Не указано'}
                     date={item.created_at}
+                    waitingTime={item.waiting_time}
                 />
             )}
         />

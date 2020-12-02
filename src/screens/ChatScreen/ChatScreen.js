@@ -37,7 +37,7 @@ const ChatScreen = ({SendPush, messages, order}) => {
     function sendMsg() {
         SendPush({
             user_id: order.driver_id,
-            title: 'message',
+            title: 'Сообщение',
             message
         }, () => {
         });

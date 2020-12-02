@@ -4,6 +4,7 @@ import {GetCurrentLocation, SetCurrentLocationDetails, SetDestination} from "../
 import {SendPush} from "../../store/constants/booking";
 import Booking from '../../store/actions/booking';
 import {bindActionCreators} from "redux";
+import user from "../../store/actions/user";
 
 const mapStateToProps = ({map: {marker}, booking: {order, drivers}, user: {language}}) => ({
     marker,
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     GetDriversAround: Booking.GetDriversAround,
     ChangeOrderStatus: Booking.ChangeOrderStatus,
     GetOrderInfo: Booking.GetOrderInfo,
+    GetNotifications: user.GetNotifications,
     SetDestination: () => ({
         type: SetDestination.SUCCESS,
         payload: {}

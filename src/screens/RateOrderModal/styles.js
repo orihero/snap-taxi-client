@@ -4,9 +4,9 @@ import Colors from "../../assets/styles/Colors";
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,.2)',
         paddingHorizontal: 16,
-        paddingTop: 20
+        paddingTop: 20,
+        backgroundColor: Colors.background,
     },
     shadow: {
         alignSelf: 'center',
@@ -14,13 +14,7 @@ export default StyleSheet.create({
         overflow: 'hidden',
     },
     content: {
-        backgroundColor: Colors.background,
         paddingHorizontal: 15,
-        borderWidth: 2,
-        borderBottomStartRadius: 15,
-        borderBottomEndRadius: 15,
-        borderColor: '#fff',
-        borderTopWidth: 0,
         paddingBottom: 30,
     },
     heading: {

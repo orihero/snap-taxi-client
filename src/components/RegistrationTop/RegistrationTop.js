@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StatusBar, View} from "react-native";
+import {View} from "react-native";
 import {useNavigation} from "@react-navigation/native"
 
 import styles from "./styles";
@@ -19,15 +19,6 @@ const CloudIcons = () => (
 
 const RegistrationTop = () => {
     const navigation = useNavigation();
-    useEffect(() => {
-        const navListener = navigation.addListener('focus', () => {
-            StatusBar.setBarStyle('light-content');
-            StatusBar.setBackgroundColor(Colors.blue);
-        });
-        return () => {
-            navigation.removeListener()
-        }
-    }, [navigation]);
     return (
         <View style={styles.top}>
             {Screen.height > 700 && <CloudIcons/>}

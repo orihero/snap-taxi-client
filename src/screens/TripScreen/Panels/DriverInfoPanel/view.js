@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions, Animated, TouchableOpacity, StatusBar} from "react-native"
+import {View, Dimensions, Animated, TouchableOpacity} from "react-native"
 
 import styles from "./styles";
 import Button from "../../../../components/Button";
@@ -35,7 +35,6 @@ const DriverInfoPanelView = (
         <>
             <Animated.View style={[{backgroundColor}, styles.overlay]} pointerEvents={'none'}/>
             <View style={{marginTop: 'auto'}}>
-                <StatusBar setBarStyle={{backgroundColor}}/>
                 <DriverInfo
                     name={driver && driver.name}
                     phone={phone}
@@ -67,7 +66,7 @@ const DriverInfoPanelView = (
                             <View style={styles.destinationWrapper}>
                                 <SelectedDestination
                                     containerStyle={{marginBottom: 10, paddingTop: 11}}
-                                    from={routes[0].address}
+                                    from={routes[0] ? routes[0].address : ''}
                                     to={routes[1] ? routes[1].address : 'Не указано'}
                                 />
                             </View>

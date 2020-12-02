@@ -11,7 +11,7 @@ import StarIcon from "../../assets/images/StarIcon";
 import Button from "../Button";
 import Screen from "../../helpers/Dimensions";
 
-const TripItem = ({from, to, id, date, driverName, car}) => {
+const TripItem = ({from, to, id, date, driverName, car, distance, waitingTime}) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     return (
         <TouchableWithoutFeedback onPress={() => setIsCollapsed(!isCollapsed)}>
@@ -42,10 +42,17 @@ const TripItem = ({from, to, id, date, driverName, car}) => {
                                 <Bold style={{fontSize: 16}}>4 <StarIcon active width={17.19} height={16.48}/></Bold>
                             </View>
                             <View style={styles.textWrapper}>
+                                <Bold style={{fontSize: 16}}>Дистанция</Bold>
+                                <Bold style={{fontSize: 16}}>{distance}</Bold>
+                            </View>
+                            <View style={styles.textWrapper}>
+                                <Bold style={{fontSize: 16}}>Время ожидание</Bold>
+                                <Bold style={{fontSize: 16}}>{waitingTime} сек</Bold>
+                            </View>
+                            <View style={styles.textWrapper}>
                                 <Bold style={{fontSize: 16}}>Цена:</Bold>
                                 <Bold style={{fontSize: 16, color: Colors.blue}}>12 500 сум</Bold>
                             </View>
-                            {/*<Button title={'Пожаловаться'} containerStyle={{marginBottom: 20.4, marginTop: 10}}/>*/}
                         </View>
                     </View>
                 </View>

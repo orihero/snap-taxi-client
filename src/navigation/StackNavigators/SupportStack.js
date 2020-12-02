@@ -19,7 +19,7 @@ const SupportStack = () => (
             options={{
                 header: (props) => <PageHeader
                     right
-                    title={"Поддержка"}
+                    title={"CALL- CENTR"}
                     {...props}
                 />,
                 cardStyle: {backgroundColor: Colors.background}

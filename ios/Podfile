@@ -91,6 +91,10 @@ target 'snapTaxi' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
+  pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
+
   target 'snapTaxiTests' do
     inherit! :complete
     # Pods for testing

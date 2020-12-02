@@ -5,7 +5,6 @@ import {
     UpdateProfile,
     SetLanguage,
     GetNotifications,
-    SetNotificationsUnreadCount
 } from "../constants/user";
 
 const initialState = {
@@ -56,18 +55,12 @@ export default (state = initialState, action) => {
                 ...state,
                 notifications: {
                     ...state.notifications,
+                    unread: action.payload.filter(item => !item.read).length,
                     data: action.payload
                 }
             };
-        case SetNotificationsUnreadCount.SUCCESS:
-            console.log('xaxax')
-            return {
-                ...state,
-                notifications: {
-                    ...state.notifications,
-                    unread: action.payload ? action.payload : (state.notifications.unread + 1)
-                }
-            };
+        case 'LOGOUT':
+            return initialState;
         default:
             return state
     }

@@ -6,8 +6,9 @@ import Echo from "laravel-echo";
 var Sound = require('react-native-sound');
 
 import * as Booking from "../constants/booking";
+import classPrivateFieldGet from "@babel/runtime/helpers/esm/classPrivateFieldGet";
 
-let echo: any;
+let echo: any = null;
 
 function* BookCar(action) {
     try {
@@ -100,7 +101,6 @@ function* CancelOrder(action: any) {
 
         yield put({
             type: Booking.CancelOrder.SUCCESS,
-            payload: data.data
         });
 
         yield call(action.cb);
@@ -152,9 +152,6 @@ function* GetOrderInfo(action: any) {
             .channel(`snaptaxi_database_car_order.${data.data.id}`)
             .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
                 action.cb().socketCb({...booking, ...rest, channel});
-                if (booking.status === 'accepted') {
-                    action.cb().actionCb();
-                }
             });
 
         yield put({
@@ -162,7 +159,11 @@ function* GetOrderInfo(action: any) {
             payload: data.data,
         });
 
-        yield call(action.cb().cb, data);
+        if (data.data.status !== 'canceled' && data.data.status !== 'new') {
+            action.cb().actionCb();
+        }
+
+        yield call(action.cb().cb, data.data);
 
     } catch (error) {
         yield put({

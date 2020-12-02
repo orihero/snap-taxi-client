@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, TouchableNativeFeedback, Linking, StatusBar} from "react-native"
+import {View, TouchableNativeFeedback, Linking} from "react-native"
 import styles from "./styles";
 
 import BackButtonIcon from "../../assets/images/BackButtonIcon";
@@ -9,16 +9,8 @@ import DriverPhoneIcon from "../../assets/images/DriverPhoneIcon";
 
 
 const PageHeader = ({title, navigation, right, style}) => {
-    useEffect(() => {
-        const navListener = navigation.addListener('focus', () => {
-            StatusBar.setBarStyle('light-content');
-            StatusBar.setBackgroundColor(Colors.blue);
-        });
-        return navListener
-    }, [navigation]);
     return (
         <View style={[styles.container, style]}>
-            <StatusBar barStyle={'light-content'} backgroundColor={Colors.blue} animated={true}/>
             <View style={styles.header}>
                 <TouchableNativeFeedback
                     onPress={() => navigation.goBack()}
