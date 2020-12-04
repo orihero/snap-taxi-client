@@ -5,7 +5,6 @@ export default StyleSheet.create({
     form: {
         borderWidth: 2,
         flexDirection: 'row',
-        marginTop: 'auto',
         marginBottom: 27,
         borderColor: '#fff',
         alignItems: 'center',
@@ -13,9 +12,6 @@ export default StyleSheet.create({
         elevation: 10,
         backgroundColor: Colors.background,
         borderRadius: 15
-    },
-    chatArea: {
-        marginTop: 20
     },
     driver: {
         width: '60%',

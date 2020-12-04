@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Image, Animated} from "react-native"
-import MapView, {Circle, Marker} from 'react-native-maps';
+import MapView, { Marker} from 'react-native-maps';
 import styles from "./styles";
 import MapViewDirections from "react-native-maps-directions";
 import Colors from "../../assets/styles/Colors";
@@ -45,8 +45,6 @@ const MapScreenView = (
                 onUserLocationChange={event => {
                     SetGoogleMarkerPosition(event.nativeEvent.coordinate)
                 }}
-                // region={initialRegion}
-                // showsBuildings
                 rotateEnabled={false}
                 pitchEnabled={false}
                 showsMyLocationButton={false}

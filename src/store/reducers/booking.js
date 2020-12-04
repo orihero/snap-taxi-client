@@ -33,21 +33,12 @@ export default (state = initialState, action) => {
                 },
             };
         case  ChangeOrderStatus.SUCCESS:
-            if (action.payload.status === 'canceled') {
-                return {
-                    ...state,
-                    order: {
-                        data: {}
-                    },
-                };
-            } else {
-                return {
-                    ...state,
-                    order: {
-                        data: action.payload
-                    },
-                };
-            }
+            return {
+                ...state,
+                order: {
+                    data: action.payload
+                },
+            };
         case  RateOrder.SUCCESS:
             return {
                 ...state,

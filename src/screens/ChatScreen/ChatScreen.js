@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, TextInput, TouchableOpacity, FlatList} from 'react-native'
+import {View, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView} from 'react-native'
 import {connect} from "react-redux";
 
 import styles from "./styles";
@@ -9,6 +9,7 @@ import {localization} from "../../services/Localization";
 import {Regular} from "../../components/Layout/AppText";
 import {bindActionCreators} from "redux";
 import booking from "../../store/actions/booking";
+import PageHeader from "../../components/PageHeader";
 
 const ChatMessage = ({item}) => (
     item.type === 'driver'
@@ -36,8 +37,9 @@ const ChatScreen = ({SendPush, messages, order}) => {
 
     function sendMsg() {
         SendPush({
-            user_id: order.driver_id,
+            user_id: order.driver.id,
             title: 'Сообщение',
+            type: 'driver',
             message
         }, () => {
         });
@@ -51,24 +53,23 @@ const ChatScreen = ({SendPush, messages, order}) => {
                 onContentSizeChange={() =>
                     flatList.current.scrollToEnd({animated: true})
                 }
+                style={{flex: 1, marginTop: 20}}
                 onLayout={() => flatList.current.scrollToEnd({animated: true})}
-                contentContainerStyle={styles.chatArea}
                 data={messages}
                 renderItem={({item}) => <ChatMessage item={item}/>}
             />
-
-            <View style={styles.form}>
-                <SmileIcon/>
-                <TextInput
-                    onChangeText={setMessage}
-                    value={message}
-                    style={{flex: 1, marginHorizontal: 12}}
-                    placeholder={localization.writeSMS}
-                />
-                <TouchableOpacity onPress={sendMsg}>
-                    <SendSMSIcon/>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.form}>
+                    <SmileIcon/>
+                    <TextInput
+                        onChangeText={setMessage}
+                        value={message}
+                        style={{flex: 1, marginHorizontal: 12}}
+                        placeholder={localization.writeSMS}
+                    />
+                    <TouchableOpacity onPress={sendMsg}>
+                        <SendSMSIcon/>
+                    </TouchableOpacity>
+                </View>
         </View>
     );
 };

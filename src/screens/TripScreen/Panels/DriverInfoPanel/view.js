@@ -44,7 +44,7 @@ const DriverInfoPanelView = (
                     <BottomMenuCurve width={Dimensions.get('window').width - 32}/>
                     <View style={styles.container}>
                         <View style={styles.draggable}/>
-                        {status !== 'processing' && <View style={styles.actionButtons}>
+                        {status !== 'processing' && status !== 'waiting' && <View style={styles.actionButtons}>
                             <TouchableOpacity onPress={coming}>
                                 <View style={[styles.icon, isPressed && {backgroundColor: '#bdbdbd'}]}>
                                     <ComingIcon/>

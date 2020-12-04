@@ -117,6 +117,7 @@ const SelectCarScreenView = (
                                             />
                                         ))
                                     }}
+                                    keyExtractor={(item) => item.id.toString()}
                                     contentContainerStyle={styles.plan}
                                     style={{width: '100%'}}
                                     horizontal

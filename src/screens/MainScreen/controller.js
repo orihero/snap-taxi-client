@@ -7,7 +7,6 @@ import Geolocation from "@react-native-community/geolocation";
 import MainScreenView from "./view";
 import api from "../../services/api";
 
-
 const MainScreenController = (
     {
         navigation,
@@ -24,10 +23,23 @@ const MainScreenController = (
         GetNotifications,
     }) => {
 
+
         const [mapRef, setMapRef] = useState();
         const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
 
         const {latitude, longitude} = marker;
+
+        useEffect(() => {
+            AppState.addEventListener("change", state => {
+                if (state === 'active') {
+                    establishProcess();
+                } else if (state === 'background') {
+
+                }
+            });
+
+            return () => AppState.removeAllListeners('change');
+        }, []);
 
         const notificationHandler = (notification: any) => {
 
@@ -42,16 +54,8 @@ const MainScreenController = (
         }
 
 
-        AppState.addEventListener("change", state => {
-            if (state === 'active') {
-                establishProcess();
-            } else if (state === 'background') {
-
-            }
-        });
-
         const establishProcess = () => {
-            if (order.id) {
+            if (order.id && order.status !== 'canceled') {
                 GetOrderInfo(order.id, () => {
                     return {
                         cb: (data) => {
@@ -108,7 +112,7 @@ const MainScreenController = (
                 notificationHandler(msg.notification)
             });
 
-            return () => navigation.removeEventListener(event);
+            // return () => navigation.removeEventListener(event);
 
         }, []);
 

@@ -11,7 +11,8 @@ const RegistrationScreenController = ({navigation, Login}) => {
         setIsLoading(true);
         const normalizedPhone = '998' + phoneNumber.split(' ').join('');
         Login({
-            phone: normalizedPhone
+            phone: normalizedPhone,
+            role: 'client'
         }, ({data}) => {
             setIsLoading(false);
             navigation.navigate('RegistrationConfirmation', {

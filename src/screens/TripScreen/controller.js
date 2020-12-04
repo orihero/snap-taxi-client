@@ -7,7 +7,7 @@ import TripScreenView from "./view";
 const TripScreenController = ({order, navigation}) => {
 
     useEffect(() => {
-        if (order.status === undefined) {
+        if (order.status === 'canceled') {
             Alert.alert(
                 'Внимание',
                 'Ваш заказ был отменён'

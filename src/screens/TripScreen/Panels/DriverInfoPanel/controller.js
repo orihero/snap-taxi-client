@@ -64,7 +64,8 @@ const DriverInfoPanelController = ({order, CancelOrder, SendPush}) => {
         SendPush({
             user_id: order.driver_id,
             title: 'Выхожу',
-            message: 'Клиент выходить'
+            message: 'Клиент выходить',
+            type: 'drivers',
         }, () => {
             setIsPressed(true);
         });

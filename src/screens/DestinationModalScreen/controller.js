@@ -24,7 +24,6 @@ const DestinationModalScreenController = ({visible, GetOrderList, SetDestination
                         setResult(res.data.response.GeoObjectCollection.featureMember);
                     })
                     .catch(err => {
-                        console.log(err);
                     })
             }, 400)()
         }
@@ -39,7 +38,6 @@ const DestinationModalScreenController = ({visible, GetOrderList, SetDestination
                         setOriginResult(res.data.response.GeoObjectCollection.featureMember);
                     })
                     .catch(err => {
-                        console.log(err);
                     })
             }, 400)()
         }

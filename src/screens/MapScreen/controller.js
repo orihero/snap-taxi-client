@@ -20,6 +20,7 @@ const MapScreenController = (
         order,
         SetGoogleMarkerPosition,
     }) => {
+
     const [mapZoom, setMapZoom] = useState(zoom ? zoom : {
         latitudeDelta: 0.005,
         longitudeDelta: 0.001,
