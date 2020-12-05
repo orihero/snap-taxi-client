@@ -1,6 +1,11 @@
 import React from 'react';
 import {View, Image, TouchableOpacity} from "react-native"
-
+import {
+    Placeholder,
+    PlaceholderMedia,
+    PlaceholderLine,
+    Fade
+} from "rn-placeholder";
 import styles from "./styles";
 import {Bold} from "../Layout/AppText";
 import Lightning from "../../assets/images/Lightning";
@@ -27,8 +32,16 @@ const CarItem = (
         <TouchableOpacity onPress={active ? onInfoPress : onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
-                    <Bold
-                        style={[styles.text, {fontSize: 12}, active && styles.activeText]}>{title}</Bold>
+                    {
+                        title
+                            ? <Bold style={[styles.text, {fontSize: 12}, active && styles.activeText]}>{title}</Bold>
+                            : <Placeholder
+                                Animation={Fade}
+                                style={{width: 50}}
+                            >
+                                <PlaceholderLine/>
+                            </Placeholder>
+                    }
                     <View style={styles.row}>
                         {
                             inflated &&
@@ -36,7 +49,16 @@ const CarItem = (
                                 <Lightning/>
                             </View>
                         }
-                        {price && <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>}
+                        {
+                            price
+                                ? <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>
+                                : <Placeholder
+                                    Animation={Fade}
+                                    style={{width: 30}}
+                                >
+                                    <PlaceholderLine/>
+                                </Placeholder>
+                        }
                     </View>
                 </View>
                 <Image style={styles.img} source={plan[index] ? plan[index].img : ''}/>

@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
 
-import Colors from "../../../assets/styles/Colors";
 import Button from "../../../components/Button";
 import ConfirmationIcon from "../../../assets/images/ConfirmationIcon";
 import RegistrationTop from "../../../components/RegistrationTop/RegistrationTop";
@@ -13,7 +12,7 @@ const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setC
         <View style={{flex: 1}}>
             <KeyboardAvoidingView
                 style={{flex: 1}}
-                behavior={'padding'}
+                behavior={'position'}
             >
                 <RegistrationTop/>
                 <View style={styles.registrationContainer}>

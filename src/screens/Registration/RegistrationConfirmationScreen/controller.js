@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import {Alert} from "react-native";
 import PushNotification from 'react-native-push-notification';
 import RegistrationConfirmationScreenView from "./view";
 // import SmsRetriever from "react-native-sms-retriever";
@@ -65,6 +65,7 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
                 setIsLoading(false);
             });
         }, () => {
+            Alert.alert('Ошибка', 'Неправильный код подверждение');
             setIsLoading(false);
         });
     };

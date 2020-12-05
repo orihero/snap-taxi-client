@@ -15,17 +15,28 @@ export default (initialState = {}) => {
         whitelist: ['user', 'booking', 'map'],
     };
 
-    const sagaMonitor = ReactotronConfig.createSagaMonitor();
-    const sagaMiddleware = createSagaMiddleware({sagaMonitor});
-    const persistedReducer = persistReducer(persistConfig, rootReducer);
+    let sagaMiddleware, store;
 
-    let store;
+    if (__DEV__) {
+        const sagaMonitor = ReactotronConfig.createSagaMonitor();
+        sagaMiddleware = createSagaMiddleware({sagaMonitor});
+        const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
-    store = createStore(
-        persistedReducer,
-        compose(applyMiddleware(sagaMiddleware), ReactotronConfig.createEnhancer())
-    );
+        store = createStore(
+            persistedReducer,
+            compose(applyMiddleware(sagaMiddleware), ReactotronConfig.createEnhancer())
+        );
+    } else {
+        sagaMiddleware = createSagaMiddleware();
+        const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+        store = createStore(
+            persistedReducer,
+            compose(applyMiddleware(sagaMiddleware))
+        );
+    }
+
 
     sagaMiddleware.run(rootSaga);
     const persistor = persistStore(store);

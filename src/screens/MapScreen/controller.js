@@ -66,7 +66,7 @@ const MapScreenController = (
         }
     }, [order.data.status]);
 
-    const onRegionChange = region => {
+    const onRegionChange = (region) => {
         if (!map.destination.details) {
             SetMarkerPosition(region)
         }

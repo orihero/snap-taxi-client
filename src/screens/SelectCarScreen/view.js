@@ -28,7 +28,8 @@ const SelectCarScreenView = (
         findCar,
         isLoading,
         cancelOrder,
-        drivers
+        drivers,
+        isCanceling
     }) => {
 
 
@@ -74,12 +75,15 @@ const SelectCarScreenView = (
                 </MapScreen>
             </View>
             <View>
-                {visibleDestinationModal && <DestinationModal
-                    to={destination}
-                    from={currentLocation}
-                    visible={visibleDestinationModal}
-                    closeModal={() => setVisibleDestinationModal(false)}
-                />}
+                {
+                    visibleDestinationModal &&
+                    <DestinationModal
+                        to={destination}
+                        from={currentLocation}
+                        visible={visibleDestinationModal}
+                        closeModal={() => setVisibleDestinationModal(false)}
+                    />
+                }
                 <PlanItemInfoModal
                     rateInfo={rateInfo}
                     visible={visiblePlanModal}
@@ -113,6 +117,7 @@ const SelectCarScreenView = (
                                     ListEmptyComponent={() => {
                                         return [...new Array(6)].map((item, index) => (
                                             <CarItem
+                                                key={index}
                                                 index={index}
                                             />
                                         ))
@@ -153,18 +158,6 @@ const SelectCarScreenView = (
                                 />
                                 <View style={styles.optionsWrapper}>
                                     <View style={styles.column}>
-                                        {/*paymentMethod === 'card'*/}
-                                        {/*    ? <View style={styles.findCar}>*/}
-                                        {/*        <UzcardIcon style={{marginRight: 16.6}}/>*/}
-                                        {/*        <View style={styles.cardNumber}>*/}
-                                        {/*            <Dots/>*/}
-                                        {/*            <Dots/>*/}
-                                        {/*            <Dots/>*/}
-                                        {/*            <Regular style={styles.text}>8797</Regular>*/}
-                                        {/*        </View>*/}
-                                        {/*        <ArrowIcon style={{marginLeft: 'auto'}}/>*/}
-                                        {/*    </View>*/}
-                                        {/*    : */}
                                         <View style={styles.findCar}>
                                             <WalletIcon style={{marginRight: 16.6, top: -3}}/>
                                             <Regular style={styles.text}>{localization.byCash}</Regular>
@@ -193,11 +186,13 @@ const SelectCarScreenView = (
                             {
                                 !isOrderSuccess
                                     ? <Button
+
                                         isLoading={isLoading}
                                         title={localization.findTaxi}
                                         onPress={findCar}
                                     />
                                     : <Button
+                                        isLoading={isCanceling}
                                         title={localization.cancel}
                                         onPress={cancelOrder}
                                     />

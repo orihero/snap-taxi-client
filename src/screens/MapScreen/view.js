@@ -1,12 +1,13 @@
-import React from 'react'
-import {View, Image, Animated} from "react-native"
-import MapView, { Marker} from 'react-native-maps';
+import React from 'react';
+import {View, Image, Animated} from "react-native";
+import MapView, {Marker} from 'react-native-maps';
 import styles from "./styles";
 import MapViewDirections from "react-native-maps-directions";
 import Colors from "../../assets/styles/Colors";
 import API_KEY from "../../const/apiKey";
 import {Regular} from "../../components/Layout/AppText";
 import Screen from "../../helpers/Dimensions";
+import {debounce} from "lodash";
 
 
 const MapScreenView = (
@@ -32,7 +33,6 @@ const MapScreenView = (
         driverLocation,
     }) => {
 
-
     return (
         <View
             style={mapStyles ? mapStyles : styles.container}
@@ -43,14 +43,14 @@ const MapScreenView = (
                 showsUserLocation
                 followsUserLocation
                 onUserLocationChange={event => {
-                    SetGoogleMarkerPosition(event.nativeEvent.coordinate)
+                    debounce(() => SetGoogleMarkerPosition(event.nativeEvent.coordinate), 1000);
                 }}
                 rotateEnabled={false}
                 pitchEnabled={false}
                 showsMyLocationButton={false}
                 onRegionChangeComplete={onRegionChange}
                 style={mapStyles ? mapStyles : styles.map}
-                provider={"google"}
+                // provider={"google"}
                 initialRegion={initialRegion.longitude ? initialRegion : {
                     latitude: 41.3139328,
                     longitude: 69.2755859,
@@ -58,8 +58,13 @@ const MapScreenView = (
                 }}
             >
                 {
-                    (!order.status || order.status === 'new') && drivers.map(item => (
-                        <Marker coordinate={{longitude: +item.lng, latitude: +item.lat}}>
+                    (!order.status || order.status === 'new') && drivers.map((item, index) => (
+                        <Marker
+                            key={item.user_id}
+                            coordinate={{longitude: +item.lng, latitude: +item.lat}}
+                            tracksInfoWindowChanges={false}
+                            tracksViewChanges={false}
+                        >
                             <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
                         </Marker>
                     ))
@@ -90,22 +95,26 @@ const MapScreenView = (
                 }
                 {
                     order.driver &&
-                    <Marker coordinate={
-                        Object.keys(driverLocation).length
-                            ? driverLocation
-                            : {longitude: +order.driver.lng, latitude: +order.driver.lat}
-                    }>
-                        <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
-                    </Marker>
+                        <Marker
+                            tracksInfoWindowChanges={false}
+                            tracksViewChanges={false}
+                            coordinate={
+                                Object.keys(driverLocation).length
+                                    ? driverLocation
+                                    : {longitude: +order.driver.lng, latitude: +order.driver.lat}
+                            }
+                        >
+                            <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
+                        </Marker>
+
                 }
                 {
-                    order.driver && order.status === 'accepted' && !showMarker && <MapViewDirections
+                    routes && order.driver && order.status === 'accepted' && !showMarker && <MapViewDirections
                         origin={{latitude: routes.lat, longitude: routes.lng}}
                         mode={"DRIVING"}
                         destination={{latitude: +order.driver.lat, longitude: +order.driver.lng}}
                         apikey={API_KEY}
                         strokeWidth={6}
-
                         strokeColor={Colors.blue}
                         onReady={(direction) => {
                             mapRef.fitToCoordinates([{

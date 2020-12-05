@@ -1,3 +1,4 @@
+import {memo} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MapScreenController)
+)(MapScreenController);

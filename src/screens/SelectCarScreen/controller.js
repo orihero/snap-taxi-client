@@ -1,5 +1,6 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native'
+import {debounce} from "lodash";
 import SelectCarScreenView from "./view";
 import Geolocation from "@react-native-community/geolocation";
 import api from "../../services/api";
@@ -35,6 +36,7 @@ const SelectCarScreenController = (
         const [currentLocationText, setCurrentLocationText] = useState('');
         const [comment, setComment] = useState(null);
         const [isLoading, setIsLoading] = useState(false);
+        const [isCanceling, setIsCanceling] = useState(false);
         const [isOrderSuccess, setIsOrderSuccess] = useState(false);
         const [airCondition, setAirCondition] = useState(false);
         const [mapRef, setMapRef] = useState();
@@ -49,9 +51,7 @@ const SelectCarScreenController = (
         }, [latitudeDelta, longitudeDelta])
 
 
-        useEffect(() => {
-            geocode()
-        }, [marker]);
+        useEffect(() => debounce(geocode, 500), [latitude, longitude]);
 
 
         useEffect(() => {
@@ -67,7 +67,7 @@ const SelectCarScreenController = (
             }
         }, [destination]);
 
-        const geocode = useCallback(() => {
+        const geocode = () => {
             GetCarsAround({latitude, longitude});
             api.request
                 .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
@@ -80,7 +80,7 @@ const SelectCarScreenController = (
                 .catch(err => {
                     console.log(err);
                 })
-        }, [latitude, longitude]);
+        };
 
         const findCar = () => {
             const routes = [];
@@ -88,6 +88,8 @@ const SelectCarScreenController = (
             if (airCondition) {
                 option_ids.push(1)
             }
+
+            setIsLoading(true);
 
             if (destination.data) {
                 routes.push({
@@ -138,12 +140,14 @@ const SelectCarScreenController = (
                         mapRef.animateToRegion({
                             latitude,
                             longitude,
-                            latitudeDelta: zoom.latitudeDelta * 10,
-                            longitudeDelta: zoom.longitudeDelta * 10,
-                        }, 35000)
-                    }, 2000);
+                            latitudeDelta: zoom.latitudeDelta * 2,
+                            longitudeDelta: zoom.longitudeDelta * 2,
+                        }, 10000)
+                    }, 10000);
                     setIsOrderSuccess(true);
                 }
+            }, () => {
+                setIsLoading(false);
             })
         };
 
@@ -162,18 +166,24 @@ const SelectCarScreenController = (
         };
 
         const cancelOrder = () => {
-            Alert.alert(
+            return Alert.alert(
                 'Отмена заказа',
                 'Вы действительно хотите отменить заказ ?',
                 [{
                     text: 'Да',
-                    onPress: () => CancelOrder({
-                        orderId: order.id
-                    }, () => {
-                        BackgroundTimer.clearTimeout(timeoutId);
-                        setIsLoading(false);
-                        setIsOrderSuccess(false);
-                    })
+                    onPress: () => {
+                        setIsCanceling(true);
+                        CancelOrder({
+                            orderId: order.id
+                        }, () => {
+                            setIsCanceling(false);
+                            BackgroundTimer.clearTimeout(timeoutId);
+                            setIsLoading(false);
+                            setIsOrderSuccess(false);
+                        }, () => {
+                            setIsCanceling(false);
+                        })
+                    }
                 }, {
                     text: 'Нет',
                 }]
@@ -190,6 +200,7 @@ const SelectCarScreenController = (
 
         return (
             <SelectCarScreenView
+                isCanceling={isCanceling}
                 isLoading={isLoading}
                 rates={rates}
                 findCar={findCar}

@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PermissionsAndroid, AppState, Platform} from "react-native";
+import {useRoute} from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
 import firebase from "@react-native-firebase/messaging";
 import Geolocation from "@react-native-community/geolocation";
-
+import {debounce} from "lodash";
 import MainScreenView from "./view";
 import api from "../../services/api";
 
@@ -29,6 +30,8 @@ const MainScreenController = (
 
         const {latitude, longitude} = marker;
 
+        const route = useRoute();
+
         useEffect(() => {
             AppState.addEventListener("change", state => {
                 if (state === 'active') {
@@ -38,7 +41,37 @@ const MainScreenController = (
                 }
             });
 
-            return () => AppState.removeAllListeners('change');
+            if (Platform.OS === 'android') {
+                // noinspection JSIgnoredPromiseFromCall
+                requestPermission();
+            }
+
+            NetInfo.addEventListener((state) => {
+                establishProcess();
+            });
+
+            GetNotifications();
+
+            const messaging = firebase();
+
+            messaging.setBackgroundMessageHandler(async (msg) => {
+                notificationHandler(msg.notification)
+
+            });
+            messaging.onMessage((msg) => {
+                notificationHandler(msg.notification)
+            });
+
+            return () => {
+                AppState.removeAllListeners('change');
+                navigation.addListener('focus', () => {
+                    SetDestination();
+                    GetDriversAround({latitude, longitude});
+                    if (mapRef) {
+                        getCurrentLocation()
+                    }
+                });
+            };
         }, []);
 
         const notificationHandler = (notification: any) => {
@@ -62,10 +95,12 @@ const MainScreenController = (
                             ChangeOrderStatus(data);
                         },
                         actionCb: () => {
-                            navigation.reset({
-                                index: 0,
-                                routes: [{name: 'Trip'}]
-                            })
+                            if (route.name !== 'Home') {
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [{name: 'Trip'}]
+                                })
+                            }
                         },
                         socketCb: (data) => {
                             ChangeOrderStatus(data)
@@ -81,47 +116,10 @@ const MainScreenController = (
             }
         }, [mapRef]);
 
+        useEffect(() => debounce(geocode, 1000)(), [latitude, longitude]);
 
-        useEffect(() => {
-            if (Platform.OS === 'android') {
-                // noinspection JSIgnoredPromiseFromCall
-                requestPermission();
-            }
-
-            NetInfo.addEventListener((state) => {
-                establishProcess();
-            });
-
-            const event = navigation.addListener('focus', () => {
-                SetDestination();
-                GetDriversAround({latitude, longitude});
-                if (mapRef) {
-                    getCurrentLocation()
-                }
-            });
-
-            GetNotifications();
-
-            const messaging = firebase();
-
-            messaging.setBackgroundMessageHandler(async (msg) => {
-                notificationHandler(msg.notification)
-
-            });
-            messaging.onMessage((msg) => {
-                notificationHandler(msg.notification)
-            });
-
-            // return () => navigation.removeEventListener(event);
-
-        }, []);
-
-        useEffect(() => {
+        const geocode = () => {
             GetDriversAround({latitude, longitude});
-            geocode();
-        }, [marker]);
-
-        const geocode = useCallback(() => {
             api.request
                 .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`)
                 .then(res => {
@@ -133,7 +131,7 @@ const MainScreenController = (
                 .catch(err => {
                     console.log(err);
                 })
-        }, [latitude, longitude]);
+        };
 
         const requestPermission = async () => {
             let hasPermission;
@@ -158,7 +156,7 @@ const MainScreenController = (
                     longitudeDelta: 0.001,
                 });
             }, error => {
-                console.log(error)
+                getCurrentLocation();
             });
         };
 
