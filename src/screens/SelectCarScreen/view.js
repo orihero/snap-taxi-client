@@ -1,15 +1,12 @@
 import React from 'react';
 import {View, TouchableWithoutFeedback, FlatList, Alert} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
 
 import MapScreen from "../MapScreen";
 import Header from "../../components/Header/Header";
 import PlanItemInfoModal from "../../components/PlanItemInfoModal";
 import AdditionalOptionsModal from "../../components/AdditionalOptionsModal";
-import DeliveryInfoModal from "../../components/DeliveryInfoModal";
 import styles from "./styles";
 import CarItem from "../../components/CarItem";
-import UzcardIcon from "../../assets/images/UzcardIcon";
 import {Bold, Regular} from "../../components/Layout/AppText";
 import ArrowIcon from "../../assets/images/ArrowIcon";
 import {localization} from "../../services/Localization";
@@ -21,37 +18,23 @@ import PulseAnimation from "../../components/PulseAnimation/view";
 import GetCurrentLocationButton from "../../components/GetCurrentLocationButton";
 import DestinationModal from "../DestinationModalScreen";
 
-const Dots = () => {
-    return (
-        <View style={styles.dots}>{
-            [...new Array(4)].map((item, index) => (
-                <View style={styles.dot} key={index}/>
-            ))}
-        </View>
-    )
-};
-
-
 const SelectCarScreenView = (
     {
         rates,
         setters,
         values,
-        duration,
         destination,
         currentLocation,
         findCar,
         isLoading,
-        paymentMethod,
         cancelOrder,
         drivers
     }) => {
-    const navigation = useNavigation();
+
 
     const {
         setVisiblePlanModal,
         setVisibleAdditionalModal,
-        setVisibleDeliveryModal,
         setRate,
         setRateInfo,
         setComment,
@@ -63,7 +46,6 @@ const SelectCarScreenView = (
     const {
         visiblePlanModal,
         visibleAdditionalModal,
-        visibleDeliveryModal,
         rate,
         rateInfo,
         comment,
@@ -72,6 +54,7 @@ const SelectCarScreenView = (
         isOrderSuccess,
         visibleDestinationModal
     } = values;
+
 
     return (
         <View style={{flex: 1}}>
@@ -86,10 +69,6 @@ const SelectCarScreenView = (
                     showMarker={!isOrderSuccess}
                     markerPosition
                     setMapRef={setMapRef}
-                    zoom={{
-                        latitudeDelta: 0.002,
-                        longitudeDelta: 0.001
-                    }}
                 >
                     {isOrderSuccess && <PulseAnimation/>}
                 </MapScreen>
@@ -113,11 +92,6 @@ const SelectCarScreenView = (
                     comment={comment}
                     setComment={setComment}
                     closeModal={() => setVisibleAdditionalModal(false)}
-                />
-                <DeliveryInfoModal
-                    visible={visibleDeliveryModal}
-                    closeModal={() => setVisibleDeliveryModal(false)}
-                    openModal={() => setVisibleDeliveryModal(true)}
                 />
                 <View style={{marginTop: 'auto'}}>
                     {
@@ -143,6 +117,7 @@ const SelectCarScreenView = (
                                             />
                                         ))
                                     }}
+                                    keyExtractor={(item) => item.id.toString()}
                                     contentContainerStyle={styles.plan}
                                     style={{width: '100%'}}
                                     horizontal
@@ -157,7 +132,6 @@ const SelectCarScreenView = (
                                             key={index}
                                             price={item.price}
                                             onPress={() => {
-                                                index === 4 && setVisibleDeliveryModal(true);
                                                 index === 5 && Alert.alert(
                                                     'Внимание',
                                                     'При вызове тарифа "Перегон" пожалуйста убудитесь, что ваш полис обязательного страхования на неограниченное количество лиц. SnapTaxi не несет ответственности за наружение ПДД.',

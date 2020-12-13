@@ -18,19 +18,24 @@ const MapScreenController = (
         zoom,
         markerPosition = false,
         order,
+        SetGoogleMarkerPosition,
     }) => {
+
+    const [mapZoom, setMapZoom] = useState(zoom ? zoom : {
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.001,
+    })
+
     const [isBlinking, setIsBlinking] = useState(true);
     const [mapHeight, setMapHeight] = useState(0);
     const [minutes, setMinutes] = useState(2);
     const [timeoutId, setTimeoutId] = useState(null);
-    const [driver, setDriverLocation] = useState(null);
+    const [driverLocation, setDriverLocation] = useState({});
     const opacity = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        // if (circle && showMarker) {
         setMinutes([2, 3, 4][Math.floor(Math.random() * 3)]);
         blink();
-        // }
     }, []);
 
     useEffect(() => {
@@ -41,18 +46,25 @@ const MapScreenController = (
         }
     }, [map.marker]);
 
-    // useEffect(() => {
-    //     if (order.data.status && order.data.status !== 'new') {
-    //         const id = setInterval(() => {
-    //             api.request
-    //                 .get(`/car-booking/location/${order.data.driver.id}`)
-    //                 .then(res => {
-    //                     console.log(res);
-    //                 })
-    //         }, 10000);
-    //         return () => clearInterval(id);
-    //     }
-    // }, [order.data.status]);
+
+    useEffect(() => {
+        if (order.data.status && order.data.status !== 'new' && order.data.status !== 'canceled') {
+            const id = setInterval(() => {
+                api.request
+                    .get(`/car-booking/location/${order.data.id}`)
+                    .then(res => {
+                        const {lat, lng} = res.data;
+                        if (lat && lng) {
+                            setDriverLocation({
+                                latitude: +lat,
+                                longitude: +lng
+                            })
+                        }
+                    })
+            }, 10000);
+            return () => clearInterval(id);
+        }
+    }, [order.data.status]);
 
     const onRegionChange = region => {
         if (!map.destination.details) {
@@ -60,10 +72,6 @@ const MapScreenController = (
         }
     };
 
-    const mapZoom = zoom ? zoom : {
-        latitudeDelta: 0.0065,
-        longitudeDelta: 0.001,
-    };
 
     const blink = () => {
         opacity.setValue(1);
@@ -90,10 +98,12 @@ const MapScreenController = (
             drivers={drivers}
             setMapRef={setMapRef}
             mapRef={mapRef}
+            driverLocation={driverLocation}
             showMarker={showMarker}
             mapStyles={mapStyles}
             SetDestinationDetails={SetDestinationDetails}
             circle={(circle && isBlinking)}
+            SetGoogleMarkerPosition={SetGoogleMarkerPosition}
             order={order.data}
             routes={order.data.driver ? (typeof order.data.routes === "string" ? JSON.parse(order.data.routes)[0] : order.data.routes[0]) : null}
             initialRegion={{

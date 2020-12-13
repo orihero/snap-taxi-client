@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 
 import PushNotification from 'react-native-push-notification';
 import RegistrationConfirmationScreenView from "./view";
-import SmsRetriever from "react-native-sms-retriever";
+// import SmsRetriever from "react-native-sms-retriever";
 
-const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile, SendPush}) => {
+const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile}) => {
 
     const [code, setCode] = useState();
     const [counter, setCounter] = useState(60);
@@ -26,16 +26,6 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
             onRegister: (data: any) => {
                 setFcmToken(data.token)
             },
-            onNotification: (notification: any) => {
-                if (notification.title === "message") {
-                    SendPush({
-                        id: notification.data.notification_id,
-                        message: notification.message,
-                        read: false,
-                        type: 'driver',
-                    })
-                }
-            },
             permissions: {
                 alert: true,
                 badge: true,
@@ -45,23 +35,23 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
             requestPermissions: true,
         });
 
-        _onSmsListenerPressed();
+        // _onSmsListenerPressed();
 
     }, []);
 
-    _onSmsListenerPressed = async () => {
-        try {
-            const registered = await SmsRetriever.startSmsRetriever();
-            if (registered) {
-                SmsRetriever.addSmsListener(event => {
-                    console.log(event.message);
-                    SmsRetriever.removeSmsListener();
-                });
-            }
-        } catch (error) {
-            console.log(JSON.stringify(error));
-        }
-    };
+    // _onSmsListenerPressed = async () => {
+    //     try {
+    //         const registered = await SmsRetriever.startSmsRetriever();
+    //         if (registered) {
+    //             SmsRetriever.addSmsListener(event => {
+    //                 console.log(event);
+    //                 SmsRetriever.removeSmsListener();
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.log(JSON.stringify(error));
+    //     }
+    // };
 
     const handleSubmit = () => {
         setIsLoading(true);

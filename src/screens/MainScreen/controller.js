@@ -1,180 +1,178 @@
-import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, AppState, AppRegistry} from "react-native";
-import SmsRetriever from 'react-native-sms-retriever';
-
-const PushNotification = require("react-native-push-notification");
+import React, {useEffect, useState, useCallback} from 'react';
+import {PermissionsAndroid, AppState, Platform} from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import firebase from "@react-native-firebase/messaging";
+import Geolocation from "@react-native-community/geolocation";
 
 import MainScreenView from "./view";
-import Geolocation from "@react-native-community/geolocation";
 import api from "../../services/api";
-import {SetNotificationsUnreadCount} from "../../store/constants/user";
-import {store} from "../../../App";
 
-AppRegistry.registerHeadlessTask('ReactNativeFirebaseMessagingHeadlessTask', () => {
-    console.log('fucking');
-    store.dispatch({
-        type: SetNotificationsUnreadCount.SUCCESS
-    });
-});
+const MainScreenController = (
+    {
+        navigation,
+        order,
+        drivers,
+        GetOrderInfo,
+        ChangeOrderStatus,
+        GetDriversAround,
+        SetDestination,
+        SetCurrentLocationDetails,
+        GetCurrentLocation,
+        SendPush,
+        marker,
+        GetNotifications,
+    }) => {
 
-const MainScreenController = ({navigation, order, drivers, GetOrderInfo, ChangeOrderStatus, GetDriversAround, SetDestination, SetCurrentLocationDetails, GetCurrentLocation, SendPush, marker}) => {
 
-    const [mapRef, setMapRef] = useState();
-    const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
+        const [mapRef, setMapRef] = useState();
+        const [currentLocationText, setCurrentLocationText] = useState('Куда мы едем?');
 
-    const {latitude, longitude} = marker;
+        const {latitude, longitude} = marker;
 
-    useEffect(() => {
-        if (mapRef) {
-            getCurrentLocation()
+        useEffect(() => {
+            AppState.addEventListener("change", state => {
+                if (state === 'active') {
+                    establishProcess();
+                } else if (state === 'background') {
+
+                }
+            });
+
+            return () => AppState.removeAllListeners('change');
+        }, []);
+
+        const notificationHandler = (notification: any) => {
+
+            GetNotifications();
+
+            if (notification.title === 'Сообщение') {
+                SendPush({
+                    id: Math.random(),
+                    message: notification.body,
+                });
+            }
         }
-    }, [mapRef]);
 
 
-    useEffect(() => {
-        navigation.addListener('focus', () => {
-            SetDestination();
-            GetDriversAround({latitude, longitude});
+        const establishProcess = () => {
+            if (order.id && order.status !== 'canceled') {
+                GetOrderInfo(order.id, () => {
+                    return {
+                        cb: (data) => {
+                            ChangeOrderStatus(data);
+                        },
+                        actionCb: () => {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{name: 'Trip'}]
+                            })
+                        },
+                        socketCb: (data) => {
+                            ChangeOrderStatus(data)
+                        }
+                    }
+                })
+            }
+        };
+
+        useEffect(() => {
             if (mapRef) {
                 getCurrentLocation()
             }
-        });
+        }, [mapRef]);
 
-        if (order.id && order.status !== 'new') {
-            GetOrderInfo(order.id, () => {
-                return {
-                    cb: (data) => {
-                        ChangeOrderStatus(data);
-                        navigation.navigate('Trip')
-                    },
-                    socketCb: (data) => {
-                        ChangeOrderStatus(data)
-                    }
-                }
-            })
-        }
-    }, []);
 
-    useEffect(() => {
-        AppState.addEventListener("change", state => {
-            if (state === 'active') {
-                if (order.id && order.status !== 'new') {
-                    GetOrderInfo(order.id, () => {
-                        return {
-                            cb: (data) => {
-                                ChangeOrderStatus(data);
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{name: 'Trip'}]
-                                })
-                            },
-                            socketCb: (data) => {
-                                ChangeOrderStatus(data)
-                            }
-                        }
-                    })
-                }
-            } else if (state === 'background') {
-
+        useEffect(() => {
+            if (Platform.OS === 'android') {
+                // noinspection JSIgnoredPromiseFromCall
+                requestPermission();
             }
-        });
-    }, []);
 
-    useEffect(() => {
-        GetDriversAround({latitude, longitude});
-        geocode();
-    }, [marker]);
+            NetInfo.addEventListener((state) => {
+                establishProcess();
+            });
 
-
-    useEffect(() => {
-
-        // noinspection JSIgnoredPromiseFromCall
-        requestPermission();
-
-        PushNotification.configure({
-            onNotification: (notification: any) => {
-
-                if (notification.title === "message") {
-                    SendPush({
-                        id: notification.data.notification_id,
-                        message: notification.message,
-                        type: 'driver',
-                    })
+            const event = navigation.addListener('focus', () => {
+                SetDestination();
+                GetDriversAround({latitude, longitude});
+                if (mapRef) {
+                    getCurrentLocation()
                 }
-            },
-            permissions: {
-                alert: true,
-                badge: true,
-                sound: true,
-            },
-            popInitialNotification: true,
-            requestPermissions: true,
-        });
-    }, []);
+            });
 
+            GetNotifications();
 
-    const geocode = () => {
-        // Geocode.setApiKey(API_KEY);
-        // Geocode
-        //     .fromLatLng(latitude, longitude)
-        //     .then(response => {
-        //         SetCurrentLocationDetails(response);
-        //         setCurrentLocationText(
-        //             response.results[0].address_components[1].long_name
-        //         )
-        //     });
+            const messaging = firebase();
 
-        api.request
-            .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`)
-            .then(res => {
-                SetCurrentLocationDetails(res.data.response);
-                setCurrentLocationText(
-                    res.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
-                );
-                // setOriginResult(res.data.response.GeoObjectCollection.featureMember);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
+            messaging.setBackgroundMessageHandler(async (msg) => {
+                notificationHandler(msg.notification)
 
-    const requestPermission = async () => {
-        let hasPermission;
-        if (Platform.OS === 'android') {
-            hasPermission = await PermissionsAndroid.check(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-            );
-            if (!hasPermission) {
-                const status = await PermissionsAndroid.request(
+            });
+            messaging.onMessage((msg) => {
+                notificationHandler(msg.notification)
+            });
+
+            // return () => navigation.removeEventListener(event);
+
+        }, []);
+
+        useEffect(() => {
+            GetDriversAround({latitude, longitude});
+            geocode();
+        }, [marker]);
+
+        const geocode = useCallback(() => {
+            api.request
+                .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`)
+                .then(res => {
+                    SetCurrentLocationDetails(res.data.response);
+                    setCurrentLocationText(
+                        res.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
+                    );
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }, [latitude, longitude]);
+
+        const requestPermission = async () => {
+            let hasPermission;
+            if (Platform.OS === 'android') {
+                hasPermission = await PermissionsAndroid.check(
                     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
                 );
+                if (!hasPermission) {
+                    const status = await PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+                    );
+                }
             }
-        }
-    };
+        };
 
-    const getCurrentLocation = () => {
-        Geolocation.getCurrentPosition((data) => {
-            GetCurrentLocation(data.coords);
-            mapRef.animateToRegion({
-                ...data.coords,
-                latitudeDelta: 0.005,
-                longitudeDelta: 0.001,
+        const getCurrentLocation = () => {
+            Geolocation.getCurrentPosition((data) => {
+                GetCurrentLocation(data.coords);
+                mapRef.animateToRegion({
+                    ...data.coords,
+                    latitudeDelta: 0.005,
+                    longitudeDelta: 0.001,
+                });
+            }, error => {
+                console.log(error)
             });
-        }, error => {
-            getCurrentLocation()
-        });
-    };
+        };
 
 
-    return (
-        <MainScreenView
-            drivers={drivers}
-            currentLocationText={currentLocationText}
-            navigation={navigation}
-            setMapRef={setMapRef}
-            mapRef={mapRef}
-        />
-    );
-};
+        return (
+            <MainScreenView
+                drivers={drivers}
+                currentLocationText={currentLocationText}
+                navigation={navigation}
+                setMapRef={setMapRef}
+                mapRef={mapRef}
+            />
+        );
+    }
+;
 
 export default MainScreenController;

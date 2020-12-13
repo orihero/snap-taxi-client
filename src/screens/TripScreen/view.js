@@ -16,7 +16,7 @@ const TripScreenView = ({navigation, orderStatus, order}) => {
     const renderPanel = () => {
         if (orderStatus === 'accepted') {
             return <TripInfoPanel/>
-        } else {
+        } else if(orderStatus !== 'canceled') {
             return <DriverInfoPanel/>
         }
     };

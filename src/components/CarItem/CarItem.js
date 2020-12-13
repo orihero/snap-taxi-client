@@ -1,16 +1,14 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-native"
+import {View, Image, TouchableOpacity} from "react-native"
 
 import styles from "./styles";
-import InfoIcon from "../../assets/images/InfoIcon";
-import {Bold, Light} from "../Layout/AppText";
+import {Bold} from "../Layout/AppText";
 import Lightning from "../../assets/images/Lightning";
 
 const CarItem = (
     {
         active,
         title,
-        duration,
         price,
         onInfoPress,
         onPress,
@@ -30,14 +28,18 @@ const CarItem = (
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>
                 <View style={{marginTop: 6}}>
                     <Bold
-                        style={[styles.text, {fontSize: 12}, active && styles.activeText]}>{title ? title : plan[index].title}</Bold>
-                    <Bold
-                        style={[styles.text, active && styles.activeText]}>от {price}</Bold>
-                    {/*<Light style={[{fontSize: 11}, active && {color: '#fff'}]}>{duration} мин</Light>*/}
-                    {inflated && <Lightning/>}
+                        style={[styles.text, {fontSize: 12}, active && styles.activeText]}>{title}</Bold>
+                    <View style={styles.row}>
+                        {
+                            inflated &&
+                            <View style={{marginLeft: -5, marginRight: 1}}>
+                                <Lightning/>
+                            </View>
+                        }
+                        {price && <Bold style={[styles.text, active && styles.activeText]}>от {price}</Bold>}
+                    </View>
                 </View>
-                {/*{active && <InfoIcon style={styles.info}/>}*/}
-                <Image style={styles.img} source={plan[index].img}/>
+                <Image style={styles.img} source={plan[index] ? plan[index].img : ''}/>
             </View>
         </TouchableOpacity>
     );

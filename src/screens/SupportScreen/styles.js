@@ -15,15 +15,14 @@ export default StyleSheet.create({
         borderColor: Colors.border
     },
     chatIcon: {
-        position: 'absolute',
         width: 60,
         height: 60,
         backgroundColor: '#fff',
-        bottom: 30,
         borderRadius: 100,
+        marginBottom: 20,
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        right: 30,
         elevation: 5
     }
 });

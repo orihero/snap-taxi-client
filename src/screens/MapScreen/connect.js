@@ -3,6 +3,7 @@ import {bindActionCreators} from "redux";
 
 import MapScreenController from "./controller";
 import {SetDestinationDetails, SetMarkerPosition} from "../../store/constants/map";
+import map from "../../store/actions/map";
 
 const mapStateToProps = ({map, booking: {order}}) => ({
     map,
@@ -18,6 +19,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
         type: SetMarkerPosition.SUCCESS,
         payload
     }),
+    SetGoogleMarkerPosition: map.SetGoogleMarkerPosition
 }, dispatch);
 
 export default connect(

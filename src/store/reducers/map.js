@@ -3,8 +3,10 @@ import {
     SetDestination,
     SetDestinationDetails,
     SetMarkerPosition,
-    SetCurrentLocationDetails
+    SetCurrentLocationDetails,
+    SetGoogleMarkerPosition
 } from "../constants/map";
+import {VerifyCode} from "../constants/auth";
 
 const initialState = {
     currentLocation: {
@@ -14,18 +16,30 @@ const initialState = {
             longitude: 69.2755859
         },
     },
+    googleMarker: {},
     destination: {},
     marker: {}
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case  VerifyCode.SUCCESS:
+            return {
+                ...state,
+                currentLocation: {
+                    details: {},
+                    coords: {
+                        latitude: 41.3139328,
+                        longitude: 69.2755859
+                    },
+                },
+            };
         case  GetCurrentLocation.SUCCESS:
             return {
                 ...state,
                 currentLocation: {
                     ...state.currentLocation,
-                    coords: action.payload,
+                    coords: state.googleMarker,
                 },
                 marker: action.payload
             };
@@ -54,6 +68,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 marker: action.payload
+            };
+        case SetGoogleMarkerPosition.SUCCESS:
+            return {
+                ...state,
+                googleMarker: action.payload
             };
         default:
             return state

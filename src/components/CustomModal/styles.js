@@ -24,7 +24,7 @@ export default StyleSheet.create({
         position: 'absolute',
         zIndex: 999,
         right: 15.7,
-        top: 26.7,
+        top: 16.7,
         borderRadius: 100,
     }
 });

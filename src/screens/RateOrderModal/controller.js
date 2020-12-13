@@ -17,7 +17,10 @@ const RateOrderModalController = ({order, RateOrder}) => {
             comment: review,
             rating: rate
         }, () => {
-            navigation.navigate('Home');
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'MainStack'}]
+            });
         })
     };
 
@@ -26,6 +29,7 @@ const RateOrderModalController = ({order, RateOrder}) => {
             order={order}
             visible={order.status === 'done'}
             review={review}
+            waitingTime={order.waiting_time}
             setReview={setReview}
             rateOrder={rateOrder}
             rate={rate}

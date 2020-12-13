@@ -1,6 +1,5 @@
 import React from 'react';
 import {useNavigation} from "@react-navigation/native";
-
 import TripInfoPanelView from "./view";
 import DriverInfoPanelView from "../DriverInfoPanel/view";
 
@@ -10,11 +9,15 @@ const TripInfoPanelController = ({order, CancelOrder}) => {
     const navigation = useNavigation();
 
     const cancelOrder = () => {
-        navigation.navigate('Home');
         CancelOrder({
             orderId: order.id,
-            driver_id: 28
-        })
+            driver_id: order.driver.user_id
+        }, () => {
+            navigation.reset({
+                routes: [{name: 'MainStack'}],
+                index: 0
+            });
+        });
     };
 
     return (
