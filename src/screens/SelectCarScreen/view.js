@@ -7,7 +7,7 @@ import PlanItemInfoModal from "../../components/PlanItemInfoModal";
 import AdditionalOptionsModal from "../../components/AdditionalOptionsModal";
 import styles from "./styles";
 import CarItem from "../../components/CarItem";
-import {Bold, Regular} from "../../components/Layout/AppText";
+import {Bold, Regular, SemiBold} from "../../components/Layout/AppText";
 import ArrowIcon from "../../assets/images/ArrowIcon";
 import {localization} from "../../services/Localization";
 import AddIcon from "../../assets/images/AddIcon";
@@ -29,7 +29,9 @@ const SelectCarScreenView = (
         isLoading,
         cancelOrder,
         drivers,
-        isCanceling
+        isCanceling,
+        destinationText,
+        destinationName
     }) => {
 
 
@@ -41,7 +43,8 @@ const SelectCarScreenView = (
         setComment,
         setAirCondition,
         setMapRef,
-        setVisibleDestinationModal
+        setVisibleDestinationModal,
+        setIsDestSelecting
     } = setters;
 
     const {
@@ -53,7 +56,8 @@ const SelectCarScreenView = (
         airCondition,
         mapRef,
         isOrderSuccess,
-        visibleDestinationModal
+        visibleDestinationModal,
+        isDestSelecting,
     } = values;
 
 
@@ -70,6 +74,7 @@ const SelectCarScreenView = (
                     showMarker={!isOrderSuccess}
                     markerPosition
                     setMapRef={setMapRef}
+                    isDestSelecting={isDestSelecting}
                 >
                     {isOrderSuccess && <PulseAnimation/>}
                 </MapScreen>
@@ -82,6 +87,7 @@ const SelectCarScreenView = (
                         from={currentLocation}
                         visible={visibleDestinationModal}
                         closeModal={() => setVisibleDestinationModal(false)}
+                        setIsDestSelecting={setIsDestSelecting}
                     />
                 }
                 <PlanItemInfoModal
@@ -109,96 +115,113 @@ const SelectCarScreenView = (
                             />
                         </View>
                     }
-                    <View style={styles.container}>
-                        {
-                            !isOrderSuccess &&
-                            <>
-                                <FlatList
-                                    ListEmptyComponent={() => {
-                                        return [...new Array(6)].map((item, index) => (
-                                            <CarItem
-                                                key={index}
-                                                index={index}
-                                            />
-                                        ))
-                                    }}
-                                    keyExtractor={(item) => item.id.toString()}
-                                    contentContainerStyle={styles.plan}
-                                    style={{width: '100%'}}
-                                    horizontal
-                                    decelerationRate={10}
-                                    snapToInterval={186}
-                                    data={rates.data}
-                                    renderItem={({item, index}) => {
-                                        return <CarItem
-                                            index={index}
-                                            inflated={item.inflated}
-                                            title={item.title}
-                                            key={index}
-                                            price={item.price}
-                                            onPress={() => {
-                                                index === 5 && Alert.alert(
-                                                    'Внимание',
-                                                    'При вызове тарифа "Перегон" пожалуйста убудитесь, что ваш полис обязательного страхования на неограниченное количество лиц. SnapTaxi не несет ответственности за наружение ПДД.',
-                                                    [{
-                                                        text: 'Понятно'
-                                                    }]
-                                                );
-                                                setRate(item)
-                                            }}
-                                            active={rate.id === item.id}
-                                            onInfoPress={() => {
-                                                setRateInfo(item);
-                                                setVisiblePlanModal(true)
-                                            }}
-                                        />
-                                    }}
-                                    snapToAlignment={"start"}
-                                    showsHorizontalScrollIndicator={false}
-                                />
-                                <View style={styles.optionsWrapper}>
-                                    <View style={styles.column}>
-                                        <View style={styles.findCar}>
-                                            <WalletIcon style={{marginRight: 16.6, top: -3}}/>
-                                            <Regular style={styles.text}>{localization.byCash}</Regular>
-                                            <ArrowIcon style={{marginLeft: 'auto'}}/>
-                                        </View>
+                    {
+                        isDestSelecting
+                            ? <View style={styles.container}>
+                                <View style={styles.destWrapper}>
+                                    <View style={[styles.addressCircle]}>
+                                        <View style={styles.innerCircle}/>
                                     </View>
-                                    <View style={styles.column}>
-                                        <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>
-                                            <View style={styles.additional}>
-                                                <Bold style={styles.text}>{localization.additional}</Bold>
-                                                <AddIcon color={'#575f6b'}/>
-                                            </View>
-                                        </TouchableWithoutFeedback>
-                                    </View>
+                                    <SemiBold style={{fontSize: 18}}>{destinationName}</SemiBold>
                                 </View>
-                            </>
-                        }
-                        <SelectedDestination
-                            containerStyle={styles.selectDest}
-                            to={destination || 'Куда едем ?'}
-                            from={currentLocation}
-                            disabled={isOrderSuccess}
-                            selectDestination={() => setVisibleDestinationModal(true)}
-                        />
-                        <View style={styles.buttonWrapper}>
-                            {
-                                !isOrderSuccess
-                                    ? <Button
+                                <View style={styles.buttonWrapper}>
+                                    <Button
+                                        title={localization.done}
+                                        onPress={() => setIsDestSelecting(false)}
+                                    />
+                                </View>
+                            </View>
+                            : <View style={styles.container}>
+                                {
+                                    !isOrderSuccess &&
+                                    <>
+                                        <FlatList
+                                            ListEmptyComponent={() => {
+                                                return [...new Array(6)].map((item, index) => (
+                                                    <CarItem
+                                                        key={index}
+                                                        index={index}
+                                                    />
+                                                ))
+                                            }}
+                                            keyExtractor={(item) => item.id.toString()}
+                                            contentContainerStyle={styles.plan}
+                                            style={{width: '100%'}}
+                                            horizontal
+                                            decelerationRate={10}
+                                            snapToInterval={186}
+                                            data={rates.data}
+                                            renderItem={({item, index}) => {
+                                                return <CarItem
+                                                    index={index}
+                                                    inflated={item.inflated}
+                                                    title={item.title}
+                                                    key={index}
+                                                    price={item.price}
+                                                    onPress={() => {
+                                                        index === 5 && Alert.alert(
+                                                            'Внимание',
+                                                            'При вызове тарифа "Перегон" пожалуйста убудитесь, что ваш полис обязательного страхования на неограниченное количество лиц. SnapTaxi не несет ответственности за наружение ПДД.',
+                                                            [{
+                                                                text: 'Понятно'
+                                                            }]
+                                                        );
+                                                        setRate(item)
+                                                    }}
+                                                    active={rate.id === item.id}
+                                                    onInfoPress={() => {
+                                                        setRateInfo(item);
+                                                        setVisiblePlanModal(true)
+                                                    }}
+                                                />
+                                            }}
+                                            snapToAlignment={"start"}
+                                            showsHorizontalScrollIndicator={false}
+                                        />
+                                        <View style={styles.optionsWrapper}>
+                                            <View style={styles.column}>
+                                                <View style={styles.findCar}>
+                                                    <WalletIcon style={{marginRight: 16.6, top: -3}}/>
+                                                    <Regular style={styles.text}>{localization.byCash}</Regular>
+                                                    <ArrowIcon style={{marginLeft: 'auto'}}/>
+                                                </View>
+                                            </View>
+                                            <View style={styles.column}>
+                                                <TouchableWithoutFeedback onPress={() => setVisibleAdditionalModal(true)}>
+                                                    <View style={styles.additional}>
+                                                        <Bold style={styles.text}>{localization.additional}</Bold>
+                                                        <AddIcon color={'#575f6b'}/>
+                                                    </View>
+                                                </TouchableWithoutFeedback>
+                                            </View>
+                                        </View>
+                                    </>
+                                }
+                                <SelectedDestination
+                                    containerStyle={styles.selectDest}
+                                    to={destination || 'Куда едем ?'}
+                                    from={currentLocation}
+                                    disabled={isOrderSuccess}
+                                    selectDestination={() => setVisibleDestinationModal(true)}
+                                />
+                                <View style={styles.buttonWrapper}>
+                                    {
+                                        !isOrderSuccess
+                                            ? <Button
 
-                                        isLoading={isLoading}
-                                        title={localization.findTaxi}
-                                        onPress={findCar}
-                                    />
-                                    : <Button
-                                        isLoading={isCanceling}
-                                        title={localization.cancel}
-                                        onPress={cancelOrder}
-                                    />
-                            }
-                        </View>
-                    </View>
+                                                isLoading={isLoading}
+                                                title={localization.findTaxi}
+                                                onPress={findCar}
+                                            />
+                                            : <Button
+                                                isLoading={isCanceling}
+                                                title={localization.cancel}
+                                                onPress={cancelOrder}
+                                            />
+                                    }
+                                </View>
+                            </View>
+                    }
                 </View>
             </View>
         </View>

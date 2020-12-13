@@ -7,7 +7,7 @@ import RegistrationTop from "../../../components/RegistrationTop/RegistrationTop
 import {Bold, SemiBold} from "../../../components/Layout/AppText";
 import styles from "./styles";
 
-const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setCode, isLoading}) => {
+const RegistrationConfirmationScreenView = ({handleSubmit,code, resend, counter, setCode, isLoading}) => {
     return (
         <View style={{flex: 1}}>
             <KeyboardAvoidingView
@@ -23,6 +23,7 @@ const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setC
                     <View style={styles.registrationForm}>
                         <ConfirmationIcon style={styles.icon}/>
                         <TextInput
+                            value={code}
                             onChangeText={text => setCode(text)}
                             style={styles.input}
                             placeholder={'Введите код'}

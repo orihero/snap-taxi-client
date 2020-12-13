@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {View, Image, Animated} from "react-native";
 import MapView, {Marker} from 'react-native-maps';
 import styles from "./styles";
@@ -7,7 +7,6 @@ import Colors from "../../assets/styles/Colors";
 import API_KEY from "../../const/apiKey";
 import {Regular} from "../../components/Layout/AppText";
 import Screen from "../../helpers/Dimensions";
-import {debounce} from "lodash";
 
 
 const MapScreenView = (
@@ -31,7 +30,21 @@ const MapScreenView = (
         routes,
         SetGoogleMarkerPosition,
         driverLocation,
+        isDestSelecting
     }) => {
+
+
+    const renderMarkers = () => {
+        return (!order.status || order.status === 'new') && drivers.map((item, index) => (
+            <Marker
+                key={item.user_id}
+                // tracksViewChanges={false}
+                coordinate={{longitude: +item.lng, latitude: +item.lat}}
+            >
+                <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
+            </Marker>
+        ))
+    }
 
     return (
         <View
@@ -43,34 +56,22 @@ const MapScreenView = (
                 showsUserLocation
                 followsUserLocation
                 onUserLocationChange={event => {
-                    debounce(() => SetGoogleMarkerPosition(event.nativeEvent.coordinate), 1000);
+                    SetGoogleMarkerPosition(event.nativeEvent.coordinate);
                 }}
                 rotateEnabled={false}
                 pitchEnabled={false}
                 showsMyLocationButton={false}
                 onRegionChangeComplete={onRegionChange}
                 style={mapStyles ? mapStyles : styles.map}
-                // provider={"google"}
                 initialRegion={initialRegion.longitude ? initialRegion : {
                     latitude: 41.3139328,
                     longitude: 69.2755859,
                     ...initialRegion
                 }}
             >
+                {renderMarkers()}
                 {
-                    (!order.status || order.status === 'new') && drivers.map((item, index) => (
-                        <Marker
-                            key={item.user_id}
-                            coordinate={{longitude: +item.lng, latitude: +item.lat}}
-                            tracksInfoWindowChanges={false}
-                            tracksViewChanges={false}
-                        >
-                            <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
-                        </Marker>
-                    ))
-                }
-                {
-                    map.destination && order.status !== 'accepted' && <MapViewDirections
+                    map.destination && !isDestSelecting && order.status !== 'accepted' && <MapViewDirections
                         origin={map.marker}
                         mode={"DRIVING"}
                         destination={map.destination.coords}
@@ -82,30 +83,28 @@ const MapScreenView = (
                                 distance: direction.distance,
                                 duration: direction.duration
                             });
-                            mapRef.fitToCoordinates([map.marker, map.destination.coords], {
-                                edgePadding: {
-                                    top: 20,
-                                    right: 20,
-                                    bottom: 50,
-                                    left: 20,
-                                },
-                            });
+                            // mapRef.fitToCoordinates([map.marker, map.destination.coords], {
+                            //     edgePadding: {
+                            //         top: 20,
+                            //         right: 20,
+                            //         bottom: 50,
+                            //         left: 20,
+                            //     },
+                            // });
                         }}
                     />
                 }
                 {
                     order.driver &&
-                        <Marker
-                            tracksInfoWindowChanges={false}
-                            tracksViewChanges={false}
-                            coordinate={
-                                Object.keys(driverLocation).length
-                                    ? driverLocation
-                                    : {longitude: +order.driver.lng, latitude: +order.driver.lat}
-                            }
-                        >
-                            <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
-                        </Marker>
+                    <Marker
+                        coordinate={
+                            Object.keys(driverLocation).length
+                                ? driverLocation
+                                : {longitude: +order.driver.lng, latitude: +order.driver.lat}
+                        }
+                    >
+                        <Image style={styles.marker} source={require('../../assets/images/car.png')}/>
+                    </Marker>
 
                 }
                 {
@@ -136,7 +135,7 @@ const MapScreenView = (
                 }
             </MapView>
             {
-                Object.keys(map.destination).length === 0 && showMarker &&
+                showMarker &&
                 <View style={[styles.overlay, {top: mapHeight / 2 - 90}]}>
                     <View style={styles.circle}>
                         {

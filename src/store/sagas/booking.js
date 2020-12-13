@@ -6,7 +6,6 @@ import Echo from "laravel-echo";
 var Sound = require('react-native-sound');
 
 import * as Booking from "../constants/booking";
-import classPrivateFieldGet from "@babel/runtime/helpers/esm/classPrivateFieldGet";
 
 let echo: any = null;
 

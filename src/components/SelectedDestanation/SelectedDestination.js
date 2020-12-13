@@ -11,7 +11,6 @@ export const SelectedDestination = ({containerStyle, to, from, disabled, selectD
                 <View>
                     <View style={styles.row}>
                         <View style={[styles.addressCircle]}>
-                            <View style={styles.innerCircle}/>
                         </View>
                         {
                             from
@@ -27,8 +26,7 @@ export const SelectedDestination = ({containerStyle, to, from, disabled, selectD
                 </View>
                 <View>
                     <View style={styles.row}>
-                        <View style={[styles.addressCircle, {backgroundColor: 'red'}]}>
-                            <View style={styles.innerCircle}/>
+                        <View style={[styles.addressCircle, styles.redColor]}>
                         </View>
                         <Bold style={styles.directionText}>{to}</Bold>
                     </View>

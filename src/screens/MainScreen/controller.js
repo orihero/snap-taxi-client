@@ -62,28 +62,27 @@ const MainScreenController = (
                 notificationHandler(msg.notification)
             });
 
-            return () => {
-                AppState.removeAllListeners('change');
-                navigation.addListener('focus', () => {
-                    SetDestination();
-                    GetDriversAround({latitude, longitude});
-                    if (mapRef) {
-                        getCurrentLocation()
-                    }
-                });
-            };
+            AppState.removeAllListeners('change');
+
+            navigation.addListener('focus', () => {
+                SetDestination();
+                GetDriversAround({latitude, longitude});
+                if (mapRef) {
+                    getCurrentLocation()
+                }
+            });
         }, []);
 
         const notificationHandler = (notification: any) => {
 
             GetNotifications();
 
-            if (notification.title === 'Сообщение') {
-                SendPush({
-                    id: Math.random(),
-                    message: notification.body,
-                });
-            }
+            // if (notification.title === 'Сообщение') {
+            //     SendPush({
+            //         id: Math.random(),
+            //         message: notification.body,
+            //     });
+            // }
         }
 
 

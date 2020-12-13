@@ -3,7 +3,7 @@ import {View, Modal, TouchableOpacity, TouchableWithoutFeedback, TextInput, Flat
 
 import styles from "./styles";
 import BackButtonIcon from "../../assets/images/BackButtonIcon";
-import { Regular, SemiBold} from "../../components/Layout/AppText";
+import {Regular, SemiBold} from "../../components/Layout/AppText";
 import {localization} from "../../services/Localization";
 
 const DestinationModalScreenView = (
@@ -19,7 +19,8 @@ const DestinationModalScreenView = (
         setText,
         searchDestination,
         originResult,
-        bookings
+        bookings,
+        setIsDestSelecting,
     }) => {
 
     const [isFocused, setIsFocused] = useState(false);
@@ -67,6 +68,12 @@ const DestinationModalScreenView = (
                                         value={text}
                                         placeholder={localization.whereAreWeGoing}
                                     />
+                                    <TouchableOpacity style={styles.map} onPress={() => {
+                                        setIsDestSelecting(true);
+                                        closeModal()
+                                    }}>
+                                        <Regular>Карта</Regular>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>

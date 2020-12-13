@@ -19,12 +19,14 @@ const MapScreenController = (
         markerPosition = false,
         order,
         SetGoogleMarkerPosition,
+        SetDestination,
+        isDestSelecting
     }) => {
 
     const [mapZoom, setMapZoom] = useState(zoom ? zoom : {
         latitudeDelta: 0.005,
         longitudeDelta: 0.001,
-    })
+    });
 
     const [isBlinking, setIsBlinking] = useState(true);
     const [mapHeight, setMapHeight] = useState(0);
@@ -67,9 +69,32 @@ const MapScreenController = (
     }, [order.data.status]);
 
     const onRegionChange = (region) => {
-        if (!map.destination.details) {
+        if (!map.destination.details && !isDestSelecting) {
             SetMarkerPosition(region)
+        } else if (isDestSelecting) {
+            geocode(region);
         }
+    };
+
+    const geocode = (region) => {
+        const {latitude, longitude} = region;
+        api.request
+            .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
+            .then(res => {
+                const obj = res.data.response.GeoObjectCollection.featureMember[0].GeoObject;
+                SetDestination({
+                    data: {
+                        name: obj.name
+                    },
+                    coords: {
+                        latitude,
+                        longitude
+                    }
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
 
 
@@ -88,6 +113,7 @@ const MapScreenController = (
 
     return (
         <MapScreenView
+            isDestSelecting={isDestSelecting}
             opacity={opacity}
             children={children}
             minutes={minutes}
@@ -108,6 +134,7 @@ const MapScreenController = (
             routes={order.data.driver ? (typeof order.data.routes === "string" ? JSON.parse(order.data.routes)[0] : order.data.routes[0]) : null}
             initialRegion={{
                 ...(markerPosition ? map.marker : map.currentLocation.coords),
+                ...(isDestSelecting ? map.destination.coords : {}),
                 ...mapZoom,
             }}
         />

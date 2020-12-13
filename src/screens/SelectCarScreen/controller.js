@@ -25,7 +25,10 @@ const SelectCarScreenController = (
         const [zoom, setZoom] = useState({
             latitudeDelta,
             longitudeDelta
-        })
+        });
+
+        const [dest, selectDest] = useState(null);
+        const [isDestSelecting, setIsDestSelecting] = useState(false);
         const [timeoutId, setTimeoutId] = useState(null);
         const [visiblePlanModal, setVisiblePlanModal] = useState(false);
         const [visibleDestinationModal, setVisibleDestinationModal] = useState(false);
@@ -42,6 +45,10 @@ const SelectCarScreenController = (
         const [mapRef, setMapRef] = useState();
 
         const {latitude, longitude, latitudeDelta, longitudeDelta} = marker;
+
+        useEffect(() => {
+            geocode()
+        }, [])
 
         useEffect(() => {
             setZoom({
@@ -68,18 +75,20 @@ const SelectCarScreenController = (
         }, [destination]);
 
         const geocode = () => {
-            GetCarsAround({latitude, longitude});
-            api.request
-                .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
-                .then(res => {
-                    const obj = res.data.response.GeoObjectCollection.featureMember[0].GeoObject;
-                    SetCurrentLocationDetails(obj);
-                    setCurrentLocationText(obj.name);
-                    // setOriginResult(res.data.response.GeoObjectCollection.featureMember);
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            if (!isDestSelecting) {
+                GetCarsAround({latitude, longitude});
+                api.request
+                    .get(`https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`)
+                    .then(res => {
+                        const obj = res.data.response.GeoObjectCollection.featureMember[0].GeoObject;
+                        SetCurrentLocationDetails(obj);
+                        setCurrentLocationText(obj.name);
+                        // setOriginResult(res.data.response.GeoObjectCollection.featureMember);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
         };
 
         const findCar = () => {
@@ -201,6 +210,7 @@ const SelectCarScreenController = (
         return (
             <SelectCarScreenView
                 isCanceling={isCanceling}
+                destinationName={destination.data && destination.data.name}
                 isLoading={isLoading}
                 rates={rates}
                 findCar={findCar}
@@ -217,7 +227,9 @@ const SelectCarScreenController = (
                     setComment,
                     setAirCondition,
                     setMapRef,
-                    setVisibleDestinationModal
+                    setVisibleDestinationModal,
+                    setIsDestSelecting,
+                    selectDest
                 }}
                 values={{
                     mapRef,
@@ -228,7 +240,9 @@ const SelectCarScreenController = (
                     comment,
                     airCondition,
                     isOrderSuccess,
-                    visibleDestinationModal
+                    visibleDestinationModal,
+                    isDestSelecting,
+                    dest
                 }}
             />
         );

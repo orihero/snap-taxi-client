@@ -70,4 +70,25 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 13
     },
+    destWrapper: {
+        padding: 15,
+        flexDirection: 'row',
+        alignItems: 'center'
+
+    },
+    addressCircle: {
+        width: 15,
+        height: 15,
+        backgroundColor: Colors.blue,
+        borderRadius: 100,
+        marginRight: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    innerCircle: {
+        width: 8,
+        height: 8,
+        backgroundColor: '#fff',
+        borderRadius: 100,
+    },
 });
