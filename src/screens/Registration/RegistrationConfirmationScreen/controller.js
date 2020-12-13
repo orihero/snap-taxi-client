@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-
+import {Alert} from "react-native";
 import PushNotification from 'react-native-push-notification';
 import RegistrationConfirmationScreenView from "./view";
-// import SmsRetriever from "react-native-sms-retriever";
+import SmsRetriever from "react-native-sms-retriever";
 
 const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode, GetProfile}) => {
 
@@ -22,6 +22,12 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
     }, [counter]);
 
     useEffect(() => {
+        if (code && code.length === 5) {
+            handleSubmit();
+        }
+    }, [code])
+
+    useEffect(() => {
         PushNotification.configure({
             onRegister: (data: any) => {
                 setFcmToken(data.token)
@@ -35,23 +41,27 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
             requestPermissions: true,
         });
 
-        // _onSmsListenerPressed();
+        _onSmsListenerPressed();
 
     }, []);
 
-    // _onSmsListenerPressed = async () => {
-    //     try {
-    //         const registered = await SmsRetriever.startSmsRetriever();
-    //         if (registered) {
-    //             SmsRetriever.addSmsListener(event => {
-    //                 console.log(event);
-    //                 SmsRetriever.removeSmsListener();
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(JSON.stringify(error));
-    //     }
-    // };
+    _onSmsListenerPressed = async () => {
+        try {
+            const registered = await SmsRetriever.startSmsRetriever();
+            if (registered) {
+                await SmsRetriever.addSmsListener(event => {
+                    console.log(event.message);
+                    if (event.message) {
+                        setCode(event.message.split(':')[1].slice(1, 6));
+                        return SmsRetriever.removeSmsListener();
+
+                    }
+                })
+            }
+        } catch (error) {
+
+        }
+    };
 
     const handleSubmit = () => {
         setIsLoading(true);
@@ -65,6 +75,7 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
                 setIsLoading(false);
             });
         }, () => {
+            Alert.alert('Ошибка', 'Неправильный код подверждение');
             setIsLoading(false);
         });
     };
@@ -83,6 +94,7 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
         <RegistrationConfirmationScreenView
             handleSubmit={handleSubmit}
             resend={resend}
+            code={code}
             counter={counter}
             setCode={setCode}
             isLoading={isLoading}

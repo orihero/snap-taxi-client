@@ -21,8 +21,8 @@ export default StyleSheet.create({
         borderRadius: 100
     },
     addressCircle: {
-        width: 15,
-        height: 15,
+        width: 13,
+        height: 13,
         backgroundColor: Colors.blue,
         borderRadius: 100,
         marginRight: 10,
@@ -52,5 +52,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         marginTop: 10
+    },
+    redColor: {
+        backgroundColor: '#ff4444'
     }
 });

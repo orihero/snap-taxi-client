@@ -2,7 +2,11 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
 import MapScreenController from "./controller";
-import {SetDestinationDetails, SetMarkerPosition} from "../../store/constants/map";
+import {
+    SetDestinationDetails,
+    SetMarkerPosition,
+    SetDestination
+} from "../../store/constants/map";
 import map from "../../store/actions/map";
 
 const mapStateToProps = ({map, booking: {order}}) => ({
@@ -15,6 +19,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
         type: SetDestinationDetails.SUCCESS,
         payload
     }),
+    SetDestination: (payload) => ({
+        type: SetDestination.SUCCESS,
+        payload
+    }),
     SetMarkerPosition: (payload) => ({
         type: SetMarkerPosition.SUCCESS,
         payload
@@ -25,4 +33,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MapScreenController)
+)(MapScreenController);

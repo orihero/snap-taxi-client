@@ -1,6 +1,7 @@
 import React from 'react';
 import GetCurrentLocationButtonView from "./view";
 import Geolocation from "@react-native-community/geolocation";
+import {debounce} from "lodash";
 
 const GetCurrentLocationButtonController = ({GetCurrentLocation, mapRef, zoom}) => {
 
@@ -23,7 +24,7 @@ const GetCurrentLocationButtonController = ({GetCurrentLocation, mapRef, zoom}) 
 
         return (
             <GetCurrentLocationButtonView
-                getCurrentLocation={getCurrentLocation}
+                getCurrentLocation={debounce(getCurrentLocation, 500)}
             />
         );
     }

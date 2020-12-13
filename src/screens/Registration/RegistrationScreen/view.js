@@ -10,35 +10,33 @@ import {TextInputMask} from "react-native-masked-text";
 
 const RegistrationScreenView = ({handleSubmit, setPhoneNumber, isLoading, phoneNumber}) => {
     return (
-        <View style={{flex: 1}}>
-            <KeyboardAvoidingView style={{flex: 1}} behavior={"padding"}>
-                <RegistrationTop/>
-                <View style={styles.registrationContainer}>
-                    <View style={{alignItems: 'center'}}>
-                        <SemiBold>Здраствуйте, мы рады что Вы выбрали нас</SemiBold>
-                        <Bold style={styles.heading}>Давайте зарегистрируем Вас</Bold>
-                    </View>
-                    <View style={styles.registrationForm}>
-                        <PhoneIcon style={styles.phoneIcon}/>
-                        <Regular style={styles.prefix}>+998</Regular>
-                        <TextInputMask
-                            keyboardType={'number-pad'}
-                            placeholder={'Введите Ваш номер'}
-                            style={styles.mask}
-                            type={'custom'}
-                            options={{
-                                mask: '99 999 99 99'
-                            }}
-                            value={phoneNumber}
-                            onChangeText={text => setPhoneNumber(text)}
-                        />
-                    </View>
-                    <View style={{alignItems: 'center'}}>
-                        <Regular style={styles.auth}>Авторизуйтесь, вы полностью соглашаетесь с нашими</Regular>
-                        <Bold style={styles.privacy}>правилами сервиса и Публичной афертой</Bold>
-                    </View>
+        <KeyboardAvoidingView style={{flex: 1}} behavior={"position"}>
+            <RegistrationTop/>
+            <View style={styles.registrationContainer}>
+                <View style={{alignItems: 'center'}}>
+                    <SemiBold>Здраствуйте, мы рады что Вы выбрали нас</SemiBold>
+                    <Bold style={styles.heading}>Давайте зарегистрируем Вас</Bold>
                 </View>
-            </KeyboardAvoidingView>
+                <View style={styles.registrationForm}>
+                    <PhoneIcon style={styles.phoneIcon}/>
+                    <Regular style={styles.prefix}>+998</Regular>
+                    <TextInputMask
+                        keyboardType={'number-pad'}
+                        placeholder={'Введите Ваш номер'}
+                        style={styles.mask}
+                        type={'custom'}
+                        options={{
+                            mask: '99 999 99 99'
+                        }}
+                        value={phoneNumber}
+                        onChangeText={text => setPhoneNumber(text)}
+                    />
+                </View>
+                <View style={{alignItems: 'center'}}>
+                    <Regular style={styles.auth}>Авторизуйтесь, вы полностью соглашаетесь с нашими</Regular>
+                    <Bold style={styles.privacy}>правилами сервиса и Публичной афертой</Bold>
+                </View>
+            </View>
             <View style={{marginHorizontal: 15}}>
                 <Button
                     isLoading={isLoading}
@@ -47,7 +45,7 @@ const RegistrationScreenView = ({handleSubmit, setPhoneNumber, isLoading, phoneN
                     onPress={handleSubmit}
                 />
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 

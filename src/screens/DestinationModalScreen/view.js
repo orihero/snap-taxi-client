@@ -3,11 +3,8 @@ import {View, Modal, TouchableOpacity, TouchableWithoutFeedback, TextInput, Flat
 
 import styles from "./styles";
 import BackButtonIcon from "../../assets/images/BackButtonIcon";
-import {Bold, Light, Regular, SemiBold} from "../../components/Layout/AppText";
-import LocationIcon from "../../assets/images/LocationIcon";
+import {Regular, SemiBold} from "../../components/Layout/AppText";
 import {localization} from "../../services/Localization";
-import booking from "../../store/actions/booking";
-
 
 const DestinationModalScreenView = (
     {
@@ -22,7 +19,8 @@ const DestinationModalScreenView = (
         setText,
         searchDestination,
         originResult,
-        bookings
+        bookings,
+        setIsDestSelecting,
     }) => {
 
     const [isFocused, setIsFocused] = useState(false);
@@ -31,13 +29,9 @@ const DestinationModalScreenView = (
         <Modal visible={visible} onRequestClose={closeModal}>
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <View style={styles.btn}>
-                        <View>
-                            <TouchableWithoutFeedback onPress={closeModal}>
-                                <BackButtonIcon/>
-                            </TouchableWithoutFeedback>
-                        </View>
-                    </View>
+                    <TouchableOpacity style={styles.btn} onPress={closeModal}>
+                        <BackButtonIcon/>
+                    </TouchableOpacity>
                     <SemiBold style={styles.title}>Пункт назначение</SemiBold>
                 </View>
                 <View style={[styles.selected]}>
@@ -74,6 +68,12 @@ const DestinationModalScreenView = (
                                         value={text}
                                         placeholder={localization.whereAreWeGoing}
                                     />
+                                    <TouchableOpacity style={styles.map} onPress={() => {
+                                        setIsDestSelecting(true);
+                                        closeModal()
+                                    }}>
+                                        <Regular>Карта</Regular>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </TouchableWithoutFeedback>

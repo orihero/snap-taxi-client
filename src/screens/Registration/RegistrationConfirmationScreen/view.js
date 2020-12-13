@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, TextInput, KeyboardAvoidingView, TouchableOpacity} from "react-native";
 
-import Colors from "../../../assets/styles/Colors";
 import Button from "../../../components/Button";
 import ConfirmationIcon from "../../../assets/images/ConfirmationIcon";
 import RegistrationTop from "../../../components/RegistrationTop/RegistrationTop";
 import {Bold, SemiBold} from "../../../components/Layout/AppText";
 import styles from "./styles";
 
-const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setCode, isLoading}) => {
+const RegistrationConfirmationScreenView = ({handleSubmit,code, resend, counter, setCode, isLoading}) => {
     return (
         <View style={{flex: 1}}>
             <KeyboardAvoidingView
                 style={{flex: 1}}
-                behavior={'padding'}
+                behavior={'position'}
             >
                 <RegistrationTop/>
                 <View style={styles.registrationContainer}>
@@ -24,6 +23,7 @@ const RegistrationConfirmationScreenView = ({handleSubmit, resend, counter, setC
                     <View style={styles.registrationForm}>
                         <ConfirmationIcon style={styles.icon}/>
                         <TextInput
+                            value={code}
                             onChangeText={text => setCode(text)}
                             style={styles.input}
                             placeholder={'Введите код'}

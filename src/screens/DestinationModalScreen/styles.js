@@ -87,6 +87,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         marginTop: 10
+    },
+    map: {
+        position: 'absolute',
+        right: 25
     }
 });
 

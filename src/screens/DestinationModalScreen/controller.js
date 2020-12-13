@@ -3,7 +3,7 @@ import api from "../../services/api";
 import DestinationModalScreenView from "./view";
 import debounce from 'lodash/debounce'
 
-const DestinationModalScreenController = ({visible, GetOrderList, SetDestination, SetMarkerPosition, bookings, closeModal, from, to}) => {
+const DestinationModalScreenController = ({visible, GetOrderList, setIsDestSelecting, SetDestination, SetMarkerPosition, bookings, closeModal, from, to}) => {
 
     const [text, setText] = useState(to);
     const [origin, setOrigin] = useState(from);
@@ -88,6 +88,7 @@ const DestinationModalScreenController = ({visible, GetOrderList, SetDestination
 
     return (
         <DestinationModalScreenView
+            setIsDestSelecting={setIsDestSelecting}
             visible={visible}
             closeModal={closeModal}
             to={to}
