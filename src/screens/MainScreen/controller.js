@@ -1,57 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {PermissionsAndroid, AppState, Platform} from 'react-native';
-import {useRoute} from '@react-navigation/native';
+import React, { PureComponent } from 'react';
+import { PermissionsAndroid, AppState, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import firebase from '@react-native-firebase/messaging';
 import Geolocation from '@react-native-community/geolocation';
-import {debounce} from 'lodash';
 import MainScreenView from './view';
 import api from '../../services/api';
 
-const MainScreenController = ({
-  navigation,
-  order,
-  drivers,
-  GetOrderInfo,
-  ChangeOrderStatus,
-  GetDriversAround,
-  SetDestination,
-  SetCurrentLocationDetails,
-  GetCurrentLocation,
-  SendPush,
-  marker,
-  GetNotifications,
-}) => {
-  const [mapRef, setMapRef] = useState();
-  const [currentLocationText, setCurrentLocationText] = useState(
-    'Куда мы едем?',
-  );
+class MainScreenController extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mapRef: null,
+      currentLocationText: '',
+    };
+    this.getCurrentLocation();
+  }
 
-  const {latitude, longitude} = marker;
-
-  const route = useRoute();
-
-  const requestUserPermission = async () => {
-    const authStatus = await firebase().requestPermission();
-    console.log('Authorization status:', authStatus);
-  };
-
-  let effect = async () => {
-    await requestUserPermission();
+  componentDidMount() {
+    let { navigation, SetDestination, GetNotifications } = this.props;
     AppState.addEventListener('change', (state) => {
       if (state === 'active') {
-        establishProcess();
+        this.establishProcess();
       } else if (state === 'background') {
       }
     });
 
     if (Platform.OS === 'android') {
       // noinspection JSIgnoredPromiseFromCall
-      requestPermission();
+      this.requestPermission();
     }
 
     NetInfo.addEventListener((state) => {
-      establishProcess();
+      this.establishProcess();
     });
 
     GetNotifications();
@@ -59,29 +39,33 @@ const MainScreenController = ({
     const messaging = firebase();
 
     messaging.setBackgroundMessageHandler(async (msg) => {
-      notificationHandler(msg.notification);
+      this.notificationHandler(msg.notification);
     });
     messaging.onMessage((msg) => {
-      notificationHandler(msg.notification);
+      this.notificationHandler(msg.notification);
     });
 
     AppState.removeAllListeners('change');
 
     navigation.addListener('focus', () => {
       SetDestination();
-      GetDriversAround({latitude, longitude});
-      if (mapRef) {
-        getCurrentLocation();
-      }
+      this.getCurrentLocation();
     });
-  };
+  }
 
-  useEffect(() => {
-    effect();
-  }, []);
+  componentDidUpdate(prevProps, prevState) {
+    const marker = this.props.marker;
+    const prevMarker = prevProps.marker;
+    if (
+      prevMarker.latitude !== marker.latitude ||
+      prevMarker.longitude !== marker.longitude
+    ) {
+      this.geocode();
+    }
+  }
 
-  const notificationHandler = (notification: any) => {
-    GetNotifications();
+  notificationHandler = (notification: any) => {
+    this.props.GetNotifications();
 
     // if (notification.title === 'Сообщение') {
     //     SendPush({
@@ -91,55 +75,47 @@ const MainScreenController = ({
     // }
   };
 
-  const establishProcess = () => {
+  establishProcess = () => {
+    const order = this.props.order;
     if (order.id && order.status !== 'canceled') {
-      GetOrderInfo(order.id, () => {
+      this.props.GetOrderInfo(order.id, () => {
         return {
           cb: (data) => {
-            ChangeOrderStatus(data);
+            this.props.ChangeOrderStatus(data);
           },
           actionCb: () => {
-            if (route.name !== 'Home') {
-              navigation.reset({
-                index: 0,
-                routes: [{name: 'Trip'}],
-              });
-            }
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Trip' }],
+            });
           },
           socketCb: (data) => {
-            ChangeOrderStatus(data);
+            this.props.ChangeOrderStatus(data);
           },
         };
       });
     }
   };
 
-  useEffect(() => {
-    if (mapRef) {
-      getCurrentLocation();
-    }
-  }, [mapRef]);
-
-  useEffect(() => debounce(geocode, 1000)(), [latitude, longitude]);
-
-  const geocode = () => {
-    GetDriversAround({latitude, longitude});
+  geocode = () => {
+    const { latitude, longitude } = this.props.marker;
+    this.props.GetDriversAround({ latitude, longitude });
     api.request
       .get(
         `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`,
       )
       .then((res) => {
-        SetCurrentLocationDetails(res.data.response);
-        setCurrentLocationText(
-          res.data.response.GeoObjectCollection.featureMember[0].GeoObject.name,
-        );
+        this.props.SetCurrentLocationDetails(res.data.response);
+        this.setState({
+          currentLocationText:
+            res.data.response.GeoObjectCollection.featureMember[0].GeoObject
+              .name,
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
-  const requestPermission = async () => {
+  requestPermission = async () => {
     let hasPermission;
     if (Platform.OS === 'android') {
       hasPermission = await PermissionsAndroid.check(
@@ -153,30 +129,36 @@ const MainScreenController = ({
     }
   };
 
-  const getCurrentLocation = () => {
+  getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       (data) => {
-        GetCurrentLocation(data.coords);
-        mapRef.animateToRegion({
-          ...data.coords,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.001,
-        });
+        this.props.GetCurrentLocation(data.coords);
       },
       (error) => {
-        getCurrentLocation();
+        this.getCurrentLocation();
       },
     );
   };
 
-  return (
-    <MainScreenView
-      drivers={drivers}
-      currentLocationText={currentLocationText}
-      navigation={navigation}
-      setMapRef={setMapRef}
-      mapRef={mapRef}
-    />
-  );
-};
+  setMapRef = (mapRef) => {
+    this.setState({
+      mapRef,
+    });
+  };
+
+  render() {
+    let { navigation, drivers } = this.props;
+
+    return (
+      <MainScreenView
+        drivers={drivers}
+        currentLocationText={this.state.currentLocationText}
+        navigation={navigation}
+        setMapRef={this.setMapRef}
+        mapRef={this.state.mapRef}
+      />
+    );
+  }
+}
+
 export default MainScreenController;
