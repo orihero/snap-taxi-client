@@ -133,8 +133,8 @@ android {
         applicationId "com.snaptaxi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "1.9.1"
+        versionCode 15
+        versionName "1.9.2"
         multiDexEnabled true
     }
     splits {
@@ -163,7 +163,7 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
         release {
             // Caution! In production, you need to generate your own keystore file.

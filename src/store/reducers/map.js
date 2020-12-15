@@ -39,9 +39,8 @@ export default (state = initialState, action) => {
                 ...state,
                 currentLocation: {
                     ...state.currentLocation,
-                    coords: state.googleMarker,
+                    coords: action.payload,
                 },
-                marker: action.payload
             };
         case SetDestination.SUCCESS:
             return {

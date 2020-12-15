@@ -96,7 +96,8 @@ function* CancelOrder(action: any) {
             driver_id: driverId,
         });
 
-        echo.disconnect();
+        echo && echo.disconnect();
+        echo = null;
 
         yield put({
             type: Booking.CancelOrder.SUCCESS,
@@ -138,7 +139,8 @@ function* GetOrderList(action: any) {
 
 function* GetOrderInfo(action: any) {
     try {
-
+        echo && echo.disconnect();
+        eche = null;
         echo = new Echo({
             host: 'https://snaptaxi.uz:6060',
             broadcaster: 'socket.io',
