@@ -27,7 +27,8 @@ const CarItem = (
         {title: 'Бизнес', img: require('../../assets/images/plan/bussiness.png')},
         {title: 'Доставка', img: require('../../assets/images/plan/delivery.png')},
         {title: 'Перегон', img: require('../../assets/images/plan/help.png')},
-    ];
+	];
+	console.log(title);
     return (
         <TouchableOpacity onPress={active ? onInfoPress : onPress}>
             <View style={[styles.planItem, active && styles.activeContainerStyle]}>

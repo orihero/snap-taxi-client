@@ -60,7 +60,8 @@ const MapScreenView = (
                 }}
                 rotateEnabled={false}
                 pitchEnabled={false}
-                showsMyLocationButton={false}
+				showsMyLocationButton={false}
+				// provider={'google'}
                 onRegionChangeComplete={onRegionChange}
                 style={mapStyles ? mapStyles : styles.map}
                 initialRegion={initialRegion.longitude ? initialRegion : {
