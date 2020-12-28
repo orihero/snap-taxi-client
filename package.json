@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.9.0",
-    "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "0.1.9",
     "@react-native-community/netinfo": "^5.9.7",
     "@react-native-firebase/app": "8.4.2",
@@ -32,6 +31,7 @@
     "react-native-android-location-enabler": "1.2.1",
     "react-native-background-timer": "^2.4.1",
     "react-native-confirmation-code-field": "6.5.0",
+    "react-native-geolocation-service": "^5.1.1",
     "react-native-gesture-handler": "1.6.1",
     "react-native-google-places-autocomplete": "1.8.0",
     "react-native-image-picker": "2.3.4",
@@ -46,6 +46,7 @@
     "react-native-screens": "2.4.0",
     "react-native-sms-retriever": "^1.1.1",
     "react-native-sound": "0.11.0",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "12.1.0",
     "react-native-system-setting": "1.7.4",
     "react-navigation-transitions": "1.0.12",

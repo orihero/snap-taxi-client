@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Alert } from 'react-native';
 import { debounce } from 'lodash';
 import SelectCarScreenView from './view';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import api from '../../services/api';
 import BackgroundTimer from 'react-native-background-timer';
 
@@ -46,10 +46,6 @@ class SelectCarScreenController extends PureComponent {
     });
   }
 
-  componentWillUnmount() {
-    this.clearCancelTimeout();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     const marker = this.props.marker;
     const prevMarker = prevProps.marker;
@@ -57,7 +53,16 @@ class SelectCarScreenController extends PureComponent {
       prevMarker.latitude !== marker.latitude ||
       prevMarker.longitude !== marker.longitude
     ) {
-      this.geocode();
+      debounce(this.geocode, 300)();
+    }
+
+    if (this.props.marker.latitudeDelta !== prevProps.marker.latitudeDelta) {
+      this.setState({
+        zoom: {
+          latitudeDelta: this.props.marker.latitudeDelta,
+          longitudeDelta: this.props.marker.longitudeDelta,
+        },
+      });
     }
 
     if (prevProps.destination !== this.props.destination) {
@@ -74,8 +79,15 @@ class SelectCarScreenController extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    // this.clearCancelTimeout();
+  }
+
   clearCancelTimeout = () => {
-    BackgroundTimer.clearTimeout(this.state.timeoutId);
+    // BackgroundTimer.clearTimeout(this.state.timeoutId);
+    // this.setState({
+    //   timeoutId: null
+    // })
   };
 
   geocode = () => {
@@ -119,11 +131,10 @@ class SelectCarScreenController extends PureComponent {
     const routes = [];
     const option_ids = [];
     if (airCondition) {
-      option_ids.push(1);
+      option_ids.push(4);
     }
 
     this.updateState('isLoading', true);
-
     if (destination.data) {
       routes.push(
         {
@@ -165,24 +176,24 @@ class SelectCarScreenController extends PureComponent {
           this.updateState('isOrderSuccess', false);
         },
         actionCb: () => {
-          navigation.reset({
+          this.props.navigation.reset({
             index: 0,
             routes: [{ name: 'Trip' }],
           });
         },
         successCb: (data) => {
-          const tID = BackgroundTimer.setTimeout(this.absoluteCancel, 120000);
-          this.updateState('timeoutId', tID);
+          // const tID = BackgroundTimer.setTimeout(this.absoluteCancel, 120000);
+          // this.updateState('timeoutId', tID);
           mapRef.animateToRegion(
             {
               latitude,
               longitude,
-              latitudeDelta: zoom.latitudeDelta * 1.1,
-              longitudeDelta: zoom.longitudeDelta * 1.1,
+              latitudeDelta: zoom.latitudeDelta * 1.3,
+              longitudeDelta: zoom.longitudeDelta * 1.3,
             },
-            10000,
+            5000,
           );
-
+          this.setState();
           this.updateState('isOrderSuccess', true);
         },
       },
@@ -193,23 +204,29 @@ class SelectCarScreenController extends PureComponent {
   };
 
   absoluteCancel = () => {
-    Alert.alert(
-      'Внимание',
-      'Уважаемый клиент в ближайшие время нет машин попробуйте по позже',
-    );
-    this.props.CancelOrder(
-      {
-        orderId: this.props.order.id,
-      },
-      () => {
-        this.updateState('isLoading', false);
-        this.updateState('isOrderSuccess', false);
-      },
-    );
+    // Alert.alert(
+    //   'Внимание',
+    //   'Уважаемый клиент в ближайшие время нет свободных машин, попробуйте  заказать по другому тарифу.',
+    // );
+    // this.props.CancelOrder(
+    //   {
+    //     orderId: this.props.order.id,
+    //   },
+    //   () => {
+    //     this.updateState('isLoading', false);
+    //     this.updateState('isOrderSuccess', false);
+    //   },
+    // );
   };
 
   cancelOrder = () => {
-    this.clearCancelTimeout();
+    // this.clearCancelTimeout();
+    const {
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
+    } = this.props.marker;
     return Alert.alert(
       'Отмена заказа',
       'Вы действительно хотите отменить заказ ?',
@@ -217,6 +234,15 @@ class SelectCarScreenController extends PureComponent {
         {
           text: 'Да',
           onPress: () => {
+            this.state.mapRef.animateToRegion(
+              {
+                latitude,
+                longitude,
+                latitudeDelta,
+                longitudeDelta,
+              },
+              300,
+            );
             this.updateState('isCanceling', true);
             this.props.CancelOrder(
               {
@@ -246,8 +272,9 @@ class SelectCarScreenController extends PureComponent {
         this.props.GetCurrentLocation(data.coords);
       },
       (error) => {
-        this.getCurrentLocation();
+        console.log(error.code, error.message);
       },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
 

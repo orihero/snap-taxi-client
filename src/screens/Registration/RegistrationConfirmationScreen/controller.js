@@ -50,7 +50,6 @@ const RegistrationConfirmationScreenController = ({route, VerifyCode, ResendCode
             const registered = await SmsRetriever.startSmsRetriever();
             if (registered) {
                 await SmsRetriever.addSmsListener(event => {
-                    console.log(event.message);
                     if (event.message) {
                         setCode(event.message.split(':')[1].slice(1, 6));
                         return SmsRetriever.removeSmsListener();

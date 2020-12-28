@@ -6,6 +6,7 @@ import Echo from "laravel-echo";
 var Sound = require('react-native-sound');
 
 import * as Booking from "../constants/booking";
+import reactotron from "reactotron-react-native";
 
 let echo: any = null;
 
@@ -139,8 +140,7 @@ function* GetOrderList(action: any) {
 
 function* GetOrderInfo(action: any) {
     try {
-        echo && echo.disconnect();
-        eche = null;
+
         echo = new Echo({
             host: 'https://snaptaxi.uz:6060',
             broadcaster: 'socket.io',
@@ -150,9 +150,9 @@ function* GetOrderInfo(action: any) {
         const {data} = yield call(api.request.get, `/car-booking/details/${action.payload}`,);
 
         echo
-            .channel(`snaptaxi_database_car_order.${data.data.id}`)
+            .channel(`snaptaxi_database_car_order.${action.payload}`)
             .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
-                action.cb().socketCb({...booking, ...rest, channel});
+                action.cb({...booking, ...rest, channel});
             });
 
         yield put({
@@ -160,11 +160,7 @@ function* GetOrderInfo(action: any) {
             payload: data.data,
         });
 
-        if (data.data.status !== 'canceled' && data.data.status !== 'new') {
-            action.cb().actionCb();
-        }
-
-        yield call(action.cb().cb, data.data);
+        yield call(action.cb, data.data);
 
     } catch (error) {
         yield put({

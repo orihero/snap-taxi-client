@@ -86,7 +86,7 @@ const DriverInfoPanelController = ({order, CancelOrder, SendPush}) => {
             status={order.status}
             driver={order.driver}
             cancelOrder={cancelOrder}
-            routes={typeof order.routes === "string" ? JSON.parse(order.routes) : order.routes}
+            routes={order.routes}
         />
     );
 };
