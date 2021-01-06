@@ -27,6 +27,7 @@ const MyTripsScreenView = ({orderList, isLoading}) => {
             renderItem={({item}) => (
                 item.driver && <TripItem
                     car={item.car}
+                    price={item.price}
                     driverName={item.driver.name}
                     id={item.id}
                     distance={item.distance}

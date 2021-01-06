@@ -55,7 +55,7 @@ const SelectCarScreenView = ({
           markerPosition
           setMapRef={(ref) => updateState('mapRef', ref)}
           isDestSelecting={isDestSelecting}>
-          {isOrderSuccess && <PulseAnimation />}
+          {/*{isOrderSuccess && <PulseAnimation />}*/}
         </MapScreen>
       </View>
       <View>
@@ -132,9 +132,10 @@ const SelectCarScreenView = ({
                           inflated={item.inflated}
                           title={item.title}
                           key={index}
+                          image={item.icon}
                           price={item.price}
                           onPress={() => {
-                            index === 5 &&
+                            item.title === 'Перегон' &&
                               Alert.alert(
                                 'Внимание',
                                 'При вызове тарифа "Перегон" пожалуйста убудитесь, что ваш полис обязательного страхования на неограниченное количество лиц. SnapTaxi не несет ответственности за наружение ПДД.',

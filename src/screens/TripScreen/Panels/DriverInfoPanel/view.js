@@ -37,7 +37,7 @@ const DriverInfoPanelView = (
             <View style={{marginTop: 'auto'}}>
                 <DriverInfo
                     name={driver && driver.name}
-                    phone={phone}
+                    phone={driver?.phone}
                     car={car}
                 />
                 <View style={[styles.shadow]}  {...panResPonder.panHandlers}>

@@ -104,6 +104,8 @@ const MapScreenView = ({
             </Marker>
           )}
           {routes &&
+            routes.lat &&
+            routes.lng &&
             order.driver &&
             order.status === 'accepted' &&
             !showMarker && (

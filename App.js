@@ -1,57 +1,68 @@
-import React, {useEffect} from 'react';
-import {Platform, SafeAreaView} from 'react-native';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/lib/integration/react';
+import React, { useEffect } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
-import * as Sentry from '@sentry/react-native';
 import AppNavigator from './src/navigation/AppNavigator';
-import createStore from './src/store/createStore';
 import api from './src/services/api';
+import Geolocation from 'react-native-geolocation-service';
+import { bindActionCreators } from 'redux';
+import { GetCurrentLocation } from './src/store/constants/map';
+import { connect } from 'react-redux';
 
-const {store, persistor} = createStore();
-
-export {store};
-
-const App = () => {
-  useEffect(() => {
-    if (!__DEV__) {
-      Sentry.init({
-        dsn:
-          'https://2c979dc347884b10af1ff84f2b3b50d2@o477461.ingest.sentry.io/5518444',
-      });
+const requestPermission = async () => {
+  let hasPermission;
+  if (Platform.OS === 'android') {
+    hasPermission = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+    if (!hasPermission) {
+      const status = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
     }
+  }
+};
+
+const App = ({ store, GetCurrentLocation }) => {
+  useEffect(() => {
     api.setToken(store);
     if (Platform.OS === 'android') {
+      requestPermission().then(() => {
+        setTimeout(() => {
+          Geolocation.getCurrentPosition(
+            (data) => {
+              GetCurrentLocation(data.coords);
+            },
+            (error) => {
+              console.log(error.code, error.message);
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+          );
+        }, 0);
+      });
+
       RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
         interval: 10000,
         fastInterval: 5000,
       })
-        .then((data) => {
-          // The user has accepted to enable the location services
-          // data can be :
-          //  - "already-enabled" if the location services has been already enabled
-          //  - "enabled" if user has clicked on OK button in the popup
-        })
-        .catch((err) => {
-          // The user has not accepted to enable the location services or something went wrong during the process
-          // "err" : { "code" : "ERR00|ERR01|ERR02", "message" : "message"}
-          // codes :
-          //  - ERR00 : The user has clicked on Cancel button in the popup
-          //  - ERR01 : If the Settings change are unavailable
-          //  - ERR02 : If the popup has failed to open
-        });
+        .then((data) => {})
+        .catch((err) => {});
     }
+
+
   }, []);
 
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaView style={{flex: 1}}>
-          <AppNavigator />
-        </SafeAreaView>
-      </PersistGate>
-    </Provider>
-  );
+  return <AppNavigator />;
 };
 
-export default App;
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      GetCurrentLocation: (payload) => ({
+        type: GetCurrentLocation.SUCCESS,
+        payload,
+      }),
+    },
+    dispatch,
+  );
+
+export default connect(null, mapDispatchToProps)(App);

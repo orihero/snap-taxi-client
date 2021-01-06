@@ -11,10 +11,7 @@ import {VerifyCode} from "../constants/auth";
 const initialState = {
     currentLocation: {
         details: {},
-        coords: {
-            latitude: 41.3139328,
-            longitude: 69.2755859
-        },
+        coords: {},
     },
     googleMarker: {},
     destination: {},
@@ -28,10 +25,7 @@ export default (state = initialState, action) => {
                 ...state,
                 currentLocation: {
                     details: {},
-                    coords: {
-                        latitude: 41.3139328,
-                        longitude: 69.2755859
-                    },
+                    coords: {},
                 },
             };
         case  GetCurrentLocation.SUCCESS:

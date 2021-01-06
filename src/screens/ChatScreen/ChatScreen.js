@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView} from 'react-native'
+import {View, TextInput, TouchableOpacity, FlatList} from 'react-native'
 import {connect} from "react-redux";
 
 import styles from "./styles";
@@ -37,7 +37,7 @@ const ChatScreen = ({SendPush, messages, order}) => {
 
     function sendMsg() {
         SendPush({
-            user_id: order.driver.id,
+            user_id: order.driver.user_id,
             title: 'Сообщение',
             type: 'driver',
             message
