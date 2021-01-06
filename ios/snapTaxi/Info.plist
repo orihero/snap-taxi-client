@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app needs access to your location to enable you ordering taxi</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The app needs access to your location to enable you ordering taxi</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>The app needs access to your location to enable you ordering taxi</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Snap Taxi needs acces to photo library to upload user's avatar photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFUIDisplay-Bold.ttf</string>

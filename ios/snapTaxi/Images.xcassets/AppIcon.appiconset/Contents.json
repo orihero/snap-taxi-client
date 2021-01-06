@@ -1,38 +1,68 @@
 {
   "images" : [
     {
+      "filename" : "2020-12-20 15.56.57-20@2x.png",
       "idiom" : "iphone",
-      "size" : "29x29",
-      "scale" : "2x"
+      "scale" : "2x",
+      "size" : "20x20"
     },
     {
+      "filename" : "2020-12-20 15.56.57-20@3x.png",
       "idiom" : "iphone",
-      "size" : "29x29",
-      "scale" : "3x"
+      "scale" : "3x",
+      "size" : "20x20"
     },
     {
+      "filename" : "2020-12-20 15.56.57-29.png",
       "idiom" : "iphone",
-      "size" : "40x40",
-      "scale" : "2x"
+      "scale" : "1x",
+      "size" : "29x29"
     },
     {
+      "filename" : "2020-12-20 15.56.57-29@2x.png",
       "idiom" : "iphone",
-      "size" : "40x40",
-      "scale" : "3x"
+      "scale" : "2x",
+      "size" : "29x29"
     },
     {
+      "filename" : "2020-12-20 15.56.57-29@3x.png",
       "idiom" : "iphone",
-      "size" : "60x60",
-      "scale" : "2x"
+      "scale" : "3x",
+      "size" : "29x29"
     },
     {
+      "filename" : "2020-12-20 15.56.57-40@2x.png",
       "idiom" : "iphone",
-      "size" : "60x60",
-      "scale" : "3x"
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "2020-12-20 15.56.57-40@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "2020-12-20 15.56.57-60@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "2020-12-20 15.56.57-60@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "2020-12-20 15.56.57-1024.png",
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
