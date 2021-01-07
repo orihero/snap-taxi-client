@@ -27,7 +27,7 @@ const GetCurrentLocationButtonController = ({
         }
       },
       (error) => {
-        console.log(error);
+		console.log({error});
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );

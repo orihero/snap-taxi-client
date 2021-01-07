@@ -19,6 +19,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* snapTaxiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* snapTaxiTests.m */; };
 		452B1A3720E64BDA89BC8EF7 /* SFUIDisplay-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 120DD58495884FCDB0354C79 /* SFUIDisplay-Thin.ttf */; };
 		6EB929AF2587AB7B008A2809 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EB929AE2587AB7B008A2809 /* GoogleService-Info.plist */; };
+		6ED6D5E425A60C3A0014EB8C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6D5E325A60C3A0014EB8C /* File.swift */; };
+		6ED6D5E525A60C3A0014EB8C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED6D5E325A60C3A0014EB8C /* File.swift */; };
 		759D0B43038E42B685FFDBFC /* SFUIDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D169DCE72F32418FB3F9CD02 /* SFUIDisplay-Bold.ttf */; };
 		90CB4288BCD1C218AD2FEE67 /* libPods-snapTaxi-snapTaxiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8938B2FCCC7C3AC6DF86CD19 /* libPods-snapTaxi-snapTaxiTests.a */; };
 		96CEB4623AF144EC8E5D12D5 /* SFUIDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7D9B76733DF4C66B602C631 /* SFUIDisplay-Light.ttf */; };
@@ -42,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "snapTaxi-tvOS";
+		};
+		6ED6D63625A613D00014EB8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6ED6D63225A613D00014EB8C /* RNFusedLocation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFusedLocation;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -70,6 +79,10 @@
 		6D17BD03441487E8314F32AD /* libPods-snapTaxi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snapTaxi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB9299D2587A6BD008A2809 /* snapTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = snapTaxi.entitlements; path = snapTaxi/snapTaxi.entitlements; sourceTree = "<group>"; };
 		6EB929AE2587AB7B008A2809 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6ED6D5E125A60C3A0014EB8C /* snapTaxi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "snapTaxi-Bridging-Header.h"; sourceTree = "<group>"; };
+		6ED6D5E225A60C3A0014EB8C /* snapTaxi-tvOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "snapTaxi-tvOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		6ED6D5E325A60C3A0014EB8C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		6ED6D63225A613D00014EB8C /* RNFusedLocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFusedLocation.xcodeproj; path = "../node_modules/react-native-geolocation-service/ios/RNFusedLocation.xcodeproj"; sourceTree = "<group>"; };
 		857442C647AE3F96B141921D /* libPods-snapTaxi-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snapTaxi-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8938B2FCCC7C3AC6DF86CD19 /* libPods-snapTaxi-snapTaxiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snapTaxi-snapTaxiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A296B1A7F248BB95859127 /* RNContactsPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNContactsPicker.xcodeproj; path = "../node_modules/react-native-contacts-picker/ios/RNContactsPicker.xcodeproj"; sourceTree = "<group>"; };
@@ -148,6 +161,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6ED6D5E325A60C3A0014EB8C /* File.swift */,
+				6ED6D5E125A60C3A0014EB8C /* snapTaxi-Bridging-Header.h */,
+				6ED6D5E225A60C3A0014EB8C /* snapTaxi-tvOS-Bridging-Header.h */,
 			);
 			name = snapTaxi;
 			sourceTree = "<group>";
@@ -200,9 +216,18 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		6ED6D63325A613D00014EB8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6ED6D63725A613D00014EB8C /* libRNFusedLocation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6ED6D63225A613D00014EB8C /* RNFusedLocation.xcodeproj */,
 				A2A296B1A7F248BB95859127 /* RNContactsPicker.xcodeproj */,
 			);
 			name = Libraries;
@@ -336,10 +361,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = HPB6QQ52WT;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1200;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
@@ -360,6 +386,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6ED6D63325A613D00014EB8C /* Products */;
+					ProjectRef = 6ED6D63225A613D00014EB8C /* RNFusedLocation.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* snapTaxi */,
@@ -369,6 +401,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		6ED6D63725A613D00014EB8C /* libRNFusedLocation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFusedLocation.a;
+			remoteRef = 6ED6D63625A613D00014EB8C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
@@ -512,10 +554,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-snapTaxi-snapTaxiTests/Pods-snapTaxi-snapTaxiTests-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,10 +620,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-snapTaxi/Pods-snapTaxi-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -641,6 +687,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				6ED6D5E425A60C3A0014EB8C /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +697,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
+				6ED6D5E525A60C3A0014EB8C /* File.swift in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -694,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5CB99F5371FE23344171510E /* Pods-snapTaxi-snapTaxiTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -725,6 +774,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 011204A0E20B3D74208F8FB9 /* Pods-snapTaxi-snapTaxiTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				HEADER_SEARCH_PATHS = (
@@ -779,6 +829,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uz.snap.app;
 				PRODUCT_NAME = snapTaxi;
+				SWIFT_OBJC_BRIDGING_HEADER = "snapTaxi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -810,6 +861,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = uz.snap.app;
 				PRODUCT_NAME = snapTaxi;
+				SWIFT_OBJC_BRIDGING_HEADER = "snapTaxi-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -822,6 +874,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -846,6 +899,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.snapTaxi-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "snapTaxi-tvOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
@@ -858,6 +914,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -882,6 +939,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.snapTaxi-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "snapTaxi-tvOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
@@ -891,6 +950,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 545D0B799513F17A61933CD0 /* Pods-snapTaxi-tvOSTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -926,6 +986,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35FC4849F4D423B29A5D05F3 /* Pods-snapTaxi-tvOSTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;

@@ -53,14 +53,15 @@ const MapScreenView = ({
       onLayout={({ nativeEvent: { layout } }) => setMapHeight(layout.height)}>
       {initialRegion.longitude && (
         <MapView
-          ref={(ref) => setMapRef(ref)}
+		  ref={(ref) => setMapRef(ref)}
           showsUserLocation
           followsUserLocation
           rotateEnabled={false}
           pitchEnabled={false}
-          showsMyLocationButton={false}
+		  showsMyLocationButton={false}
+		//   provider={'google'}
           onRegionChangeComplete={onRegionChange}
-          style={mapStyles ? mapStyles : styles.map}
+          style={styles.map}
           initialRegion={initialRegion}>
           {renderMarkers()}
           {map.destination && !isDestSelecting && order.status !== 'accepted' && (

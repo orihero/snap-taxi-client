@@ -12,9 +12,9 @@ export default StyleSheet.create({
         width: '100%',
     },
     wrapper: {
-        flex: 1,
+		flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 });

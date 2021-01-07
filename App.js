@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { PermissionsAndroid, Platform } from 'react-native';
+import { PermissionsAndroid, Platform, SafeAreaView } from 'react-native';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import AppNavigator from './src/navigation/AppNavigator';
 import api from './src/services/api';
@@ -46,12 +46,16 @@ const App = ({ store, GetCurrentLocation }) => {
       })
         .then((data) => {})
         .catch((err) => {});
-    }
-
-
+    } else {
+		Geolocation.requestAuthorization('always').then(res => {
+			console.log(res);
+		})
+	}
   }, []);
 
-  return <AppNavigator />;
+  return <SafeAreaView style={{flex: 1}}>
+	  <AppNavigator />
+  </SafeAreaView>;
 };
 
 const mapDispatchToProps = (dispatch) =>
