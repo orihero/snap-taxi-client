@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { View, Image, Animated } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import styles from './styles';
 import MapViewDirections from 'react-native-maps-directions';
 import Colors from '../../assets/styles/Colors';
@@ -59,7 +59,7 @@ const MapScreenView = ({
           rotateEnabled={false}
           pitchEnabled={false}
 		  showsMyLocationButton={false}
-		//   provider={'google'}
+		  provider={PROVIDER_GOOGLE}
           onRegionChangeComplete={onRegionChange}
           style={styles.map}
           initialRegion={initialRegion}>

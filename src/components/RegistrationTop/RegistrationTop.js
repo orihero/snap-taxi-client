@@ -26,7 +26,10 @@ const RegistrationTop = () => {
   return (
     <View style={styles.top}>
       {Screen.height > 700 && <CloudIcons />}
-        {/* <Image source={require('../../assets/images/logo.png')} style={styles.logo}/> */}
+      <Image
+        source={require('../../assets/images/logo.png')}
+        style={styles.logo}
+      />
     </View>
   );
 };
