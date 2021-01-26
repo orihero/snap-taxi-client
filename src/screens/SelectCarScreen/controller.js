@@ -41,9 +41,12 @@ class SelectCarScreenController extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.GetRates({ distance: 0 }, (data) => {
-      this.updateState('rate', data.data[0]);
-    });
+    this.props.GetRates(
+      { distance: 0, region_id: this.props.regionId, ac_rate: this.state.airCondition ? 1 : 0 },
+      (data) => {
+        this.updateState('rate', data.data[0]);
+      },
+    );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -72,27 +75,56 @@ class SelectCarScreenController extends PureComponent {
         });
         this.updateState('destinationText', this.props.destination.data.name);
       } else {
-        this.props.GetRates({ distance: 0 }, (data) => {
-          this.updateState('rate', data.data[0]);
-        });
+        this.props.GetRates(
+          {
+            distance: 0,
+            region_id: this.props.regionId,
+            ac_rate: this.state.airCondition ? 1 : 0,
+          },
+          (data) => {
+            this.updateState('rate', data.data[0]);
+          },
+        );
       }
+    }
+
+    if (prevState.airCondition !== this.state.airCondition) {
+      this.props.GetRates(
+        {
+          distance: 0,
+          region_id: this.props.regionId,
+          ac_rate: this.state.airCondition ? 1 : 0,
+        },
+        (data) => {
+          this.updateState('rate', data.data[0]);
+        },
+      );
     }
   }
 
   componentWillUnmount() {
-    // this.clearCancelTimeout();
+    this.clearCancelTimeout();
   }
 
   clearCancelTimeout = () => {
-    // BackgroundTimer.clearTimeout(this.state.timeoutId);
-    // this.setState({
-    //   timeoutId: null
-    // })
+    BackgroundTimer.clearTimeout(this.state.timeoutId);
+    this.setState({
+      timeoutId: null
+    })
   };
 
   geocode = () => {
     const { latitude, longitude } = this.props.marker;
     if (!this.state.isDestSelecting) {
+      this.props.GetRates(
+        {
+          region_id: this.props.regionId,
+          ac_rate: this.state.airCondition ? 1 : 0,
+        },
+        (data) => {
+          this.updateState('rate', data.data[0]);
+        },
+      );
       this.props.GetCarsAround({ latitude, longitude });
       api.request
         .get(
@@ -168,6 +200,8 @@ class SelectCarScreenController extends PureComponent {
           : '0',
         rate_id: rate.id,
         comment,
+        region_id: this.props.regionId,
+        ac_rate: this.state.airCondition ? 1 : 0
       },
       {
         socketCb: (data) => {
@@ -182,14 +216,14 @@ class SelectCarScreenController extends PureComponent {
           });
         },
         successCb: (data) => {
-          // const tID = BackgroundTimer.setTimeout(this.absoluteCancel, 120000);
-          // this.updateState('timeoutId', tID);
+          const tID = BackgroundTimer.setTimeout(this.absoluteCancel, 120000);
+          this.updateState('timeoutId', tID);
           mapRef.animateToRegion(
             {
               latitude,
               longitude,
-              latitudeDelta: zoom.latitudeDelta * 1.3,
-              longitudeDelta: zoom.longitudeDelta * 1.3,
+              latitudeDelta: zoom.latitudeDelta * 1.5,
+              longitudeDelta: zoom.longitudeDelta * 1.5,
             },
             5000,
           );
@@ -204,23 +238,23 @@ class SelectCarScreenController extends PureComponent {
   };
 
   absoluteCancel = () => {
-    // Alert.alert(
-    //   'Внимание',
-    //   'Уважаемый клиент в ближайшие время нет свободных машин, попробуйте  заказать по другому тарифу.',
-    // );
-    // this.props.CancelOrder(
-    //   {
-    //     orderId: this.props.order.id,
-    //   },
-    //   () => {
-    //     this.updateState('isLoading', false);
-    //     this.updateState('isOrderSuccess', false);
-    //   },
-    // );
+    Alert.alert(
+      'Внимание',
+      'Уважаемый клиент в ближайшие время нет свободных машин, попробуйте  заказать по другому тарифу.',
+    );
+    this.props.CancelOrder(
+      {
+        orderId: this.props.order.id,
+      },
+      () => {
+        this.updateState('isLoading', false);
+        this.updateState('isOrderSuccess', false);
+      },
+    );
   };
 
   cancelOrder = () => {
-    // this.clearCancelTimeout();
+    this.clearCancelTimeout();
     const {
       latitude,
       longitude,

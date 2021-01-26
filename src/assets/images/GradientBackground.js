@@ -12,7 +12,7 @@ import {View} from "react-native";
 function GradientBackground(props) {
     return (
         <View pointerEvents={'none'}>
-            <Svg width={985} height={344} viewBox="0 0 985 344" {...props}>
+            <Svg width={985} height={200} viewBox="0 0 985 344" {...props}>
                 <Defs>
                     <LinearGradient
                         id="prefix__b"

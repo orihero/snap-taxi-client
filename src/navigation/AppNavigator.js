@@ -47,8 +47,6 @@ const AppNavigator = ({ user }) => {
 
   localization.setLanguage(user.language);
 
-
-
   return (
     <NavigationContainer
       initialState={initialState}

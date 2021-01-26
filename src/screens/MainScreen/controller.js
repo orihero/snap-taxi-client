@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { PermissionsAndroid, Platform } from 'react-native';
 import firebase from '@react-native-firebase/messaging';
 import Geolocation from 'react-native-geolocation-service';
 import MainScreenView from './view';

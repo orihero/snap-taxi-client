@@ -55,7 +55,7 @@ const SelectCarScreenView = ({
           markerPosition
           setMapRef={(ref) => updateState('mapRef', ref)}
           isDestSelecting={isDestSelecting}>
-          {/*{isOrderSuccess && <PulseAnimation />}*/}
+          {isOrderSuccess && <PulseAnimation />}
         </MapScreen>
       </View>
       <View>

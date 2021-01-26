@@ -36,7 +36,7 @@ const DriverInfo = ({finished, activeExclaim, noIcons, name, phone, car}) => {
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
                                     <Regular style={{marginRight: 4, fontSize: 12,}}>{car && car.number}</Regular>
-                                    <SemiBold style={{fontSize: 12}}>{car && car.model}</SemiBold>
+                                    <SemiBold style={{fontSize: 12}}>{car && car.color_name} {car && car.model}</SemiBold>
                                 </View>
                             </View>
                         </View>

@@ -1,46 +1,44 @@
 import storage from '@react-native-community/async-storage';
-import {createStore, compose, applyMiddleware} from "redux";
-import createSagaMiddleware from 'redux-saga'
-import {persistStore, persistReducer} from 'redux-persist'
-import ReactotronConfig from './ReactotronConfig'
+import { createStore, compose, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
+import ReactotronConfig from './ReactotronConfig';
 import rootReducer from './reducers';
-import rootSaga from "./sagas";
+import rootSaga from './sagas';
 
 export default (initialState = {}) => {
+  const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['user', 'booking', 'map'],
+  };
 
-    const persistConfig = {
-        key: 'root',
-        storage,
+  let sagaMiddleware, store;
 
-        whitelist: ['user', 'booking', 'map'],
-    };
+  if (__DEV__) {
+    const sagaMonitor = ReactotronConfig.createSagaMonitor();
+    sagaMiddleware = createSagaMiddleware({ sagaMonitor });
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-    let sagaMiddleware, store;
+    store = createStore(
+      persistedReducer,
+      compose(
+        applyMiddleware(sagaMiddleware),
+        ReactotronConfig.createEnhancer(),
+      ),
+    );
+  } else {
+    sagaMiddleware = createSagaMiddleware();
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-    if (__DEV__) {
-        const sagaMonitor = ReactotronConfig.createSagaMonitor();
-        sagaMiddleware = createSagaMiddleware({sagaMonitor});
-        const persistedReducer = persistReducer(persistConfig, rootReducer);
+    store = createStore(
+      persistedReducer,
+      compose(applyMiddleware(sagaMiddleware)),
+    );
+  }
 
+  sagaMiddleware.run(rootSaga);
+  const persistor = persistStore(store);
 
-        store = createStore(
-            persistedReducer,
-            compose(applyMiddleware(sagaMiddleware), ReactotronConfig.createEnhancer())
-        );
-    } else {
-        sagaMiddleware = createSagaMiddleware();
-        const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-        store = createStore(
-            persistedReducer,
-            compose(applyMiddleware(sagaMiddleware))
-        );
-    }
-
-
-    sagaMiddleware.run(rootSaga);
-    const persistor = persistStore(store);
-
-    return {store, persistor};
-
+  return { store, persistor };
 };

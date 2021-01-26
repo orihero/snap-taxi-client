@@ -24,11 +24,11 @@ const DestinationModalScreenController = ({
   }, []);
 
   const searchDestination = () => {
-    if (text.length > 2) {
+    if (text.length) {
       debounce(() => {
         api.request
           .get(
-            `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${text}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`,
+            `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${text}&format=json&ll=69.279737,41.311151&rspn=1&spn=0.3028106689453125,0.14159780811129963`,
           )
           .then((res) => {
             setResult(res.data.response.GeoObjectCollection.featureMember);
@@ -39,11 +39,11 @@ const DestinationModalScreenController = ({
   };
 
   const searchOrigin = () => {
-    if (origin.length > 2) {
+    if (origin.length) {
       debounce(() => {
         api.request
           .get(
-            `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${origin}&format=json&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`,
+            `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${origin}&format=json&rspn=1&ll=69.279737,41.311151&spn=0.3028106689453125,0.14159780811129963`,
           )
           .then((res) => {
             setOriginResult(

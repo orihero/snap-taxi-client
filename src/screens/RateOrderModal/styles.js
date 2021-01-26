@@ -67,9 +67,27 @@ export default StyleSheet.create({
         marginBottom: 25
     },
     detailsWrapper: {
+        marginBottom: 46
+    },
+    row: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 46
+        flex: 1,
+        marginVertical: 2
+    },
+    price: {
+        alignItems: 'center',
+    },
+    priceText: {
+        fontSize: 30
+    },
+    priceHeading: {
+        fontSize: 20
+    },
+    collapsable: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 20
     }
 });

@@ -4,6 +4,7 @@ import auth from "./auth";
 import user from "./user";
 import booking from "./booking";
 import rates from "./rates";
+import regions from "./regions";
 
 export default function* rootSaga() {
     yield all([
@@ -11,5 +12,6 @@ export default function* rootSaga() {
         fork(user),
         fork(booking),
         fork(rates),
+        fork(regions),
     ])
 }

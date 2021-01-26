@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import MapScreenView from './view';
 import api from '../../services/api';
+import { isPointInPolygon } from 'geolib';
+import reactotron from "reactotron-react-native";
 
 const MapScreenController = ({
+  SetRegionId,
   SetMarkerPosition,
   SetDestinationDetails,
   mapStyles,
@@ -20,6 +23,7 @@ const MapScreenController = ({
   SetGoogleMarkerPosition,
   SetDestination,
   isDestSelecting,
+  regions,
 }) => {
   const [mapZoom, setMapZoom] = useState(
     zoom
@@ -74,6 +78,20 @@ const MapScreenController = ({
   }, [order.data.status]);
 
   const onRegionChange = (region) => {
+    const { latitude, longitude } = region;
+    for (let i = 0; i < regions.length; i++) {
+      if(!!regions[i].polygon[0]) {
+        let result = isPointInPolygon(
+            { latitude, longitude },
+            regions[i].polygon[0],
+        );
+        if (result) {
+          SetRegionId(regions[i].id)
+          break;
+        }
+      }
+    }
+
     if (!map.destination.details && !isDestSelecting) {
       SetMarkerPosition(region);
     } else if (isDestSelecting) {
@@ -82,7 +100,6 @@ const MapScreenController = ({
   };
 
   const geocode = (region) => {
-    const { latitude, longitude } = region;
     api.request
       .get(
         `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`,

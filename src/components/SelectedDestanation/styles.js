@@ -12,7 +12,7 @@ export default StyleSheet.create({
         color: '#aaaeb7',
     },
     directionText: {
-        fontSize: Screen.width > 400 ? 16 : 13,
+        fontSize: 15.5 ,
     },
     circle: {
         width: 8,
@@ -50,8 +50,7 @@ export default StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
-        marginTop: 10
+        paddingVertical: 15,
     },
     redColor: {
         backgroundColor: '#ff4444'

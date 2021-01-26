@@ -9,9 +9,8 @@ export const SelectedDestination = ({containerStyle, to, from, disabled, selectD
         <TouchableWithoutFeedback onPress={selectDestination} disabled={disabled}>
             <View style={{marginLeft: 5, flex: 1}}>
                 <View>
-                    <View style={styles.row}>
-                        <View style={[styles.addressCircle]}>
-                        </View>
+                    <View style={[styles.row, {borderBottomWidth: 1, borderBottomColor: '#dddddd'}]}>
+                        <View style={[styles.addressCircle]}/>
                         {
                             from
                                 ? <Bold style={styles.directionText}>{from}</Bold>
@@ -26,8 +25,7 @@ export const SelectedDestination = ({containerStyle, to, from, disabled, selectD
                 </View>
                 <View>
                     <View style={styles.row}>
-                        <View style={[styles.addressCircle, styles.redColor]}>
-                        </View>
+                        <View style={[styles.addressCircle, styles.redColor]}/>
                         <Bold style={styles.directionText}>{to}</Bold>
                     </View>
                 </View>

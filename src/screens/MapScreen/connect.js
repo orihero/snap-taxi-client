@@ -8,10 +8,12 @@ import {
     SetDestination
 } from "../../store/constants/map";
 import map from "../../store/actions/map";
+import regions from "../../store/actions/regions";
 
-const mapStateToProps = ({map, booking: {order}}) => ({
+const mapStateToProps = ({map, booking: {order}, regions}) => ({
     map,
-    order
+    order,
+    regions: regions.data
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -19,6 +21,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
         type: SetDestinationDetails.SUCCESS,
         payload
     }),
+    SetRegionId: regions.SetRegionId,
     SetDestination: (payload) => ({
         type: SetDestination.SUCCESS,
         payload

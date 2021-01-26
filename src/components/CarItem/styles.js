@@ -26,7 +26,7 @@ export default StyleSheet.create({
     transform: [{ scale: 0.5 }],
   },
   activeContainerStyle: {
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.planItem,
   },
   activeText: {
     color: '#fff',

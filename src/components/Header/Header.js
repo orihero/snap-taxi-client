@@ -3,7 +3,7 @@ import { TouchableNativeFeedback, TouchableOpacity, View} from 'react-native'
 import styles from "./styles";
 import {connect} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
-
+import GradientBackground from "../../assets/images/GradientBackground";
 import {localization} from "../../services/Localization";
 import MenuIcon from "../../assets/images/MenuIcon";
 import Colors from "../../assets/styles/Colors";
@@ -29,7 +29,7 @@ const Header = ({goBack, user, subText, ...rest}) => {
 
     return (
         <>
-            {/*<GradientBackground style={styles.gradient}/>*/}
+            <GradientBackground style={styles.gradient}/>
             <View style={styles.container} {...rest}>
                 {
                     !goBack

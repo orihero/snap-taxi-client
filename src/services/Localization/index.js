@@ -69,6 +69,7 @@ let strings = new LocalizedStrings({
         user: 'Пользователь',
         yourName: 'Ваше имя',
         noTrips: 'Нет поездок',
+        rateTitle: 'Тариф'
     },
     'en': {
         goodMorning: 'Good morning',
