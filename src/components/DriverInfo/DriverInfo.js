@@ -9,7 +9,7 @@ import StarIcon from "../../assets/images/StarIcon";
 import ChatIcon from "../../assets/images/ChatIcon";
 import DriverPhoneIcon from "../../assets/images/DriverPhoneIcon";
 import DriverInfoBlockBottomFragment from "../../assets/images/DriverInfoBlockBottomFragment";
-import ExclamationMarkIcon from "../../assets/images/ ExclamationMarkIcon";
+import ExclamationMarkIcon from "../../assets/images/ExclamationMarkIcon";
 
 const DriverInfo = ({finished, activeExclaim, noIcons, name, phone, car}) => {
     const navigation = useNavigation();

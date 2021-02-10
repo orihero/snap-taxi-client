@@ -6,6 +6,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #if RCT_DEV
 #import <React/RCTDevLoadingView.h>
@@ -35,6 +36,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+[GMSServices provideAPIKey:@"AIzaSyAg85fttaNZA_wmaZgvpFfzrUs8ohWrVBc"];
 #if DEBUG
 //  InitializeFlipper(application);
 #endif
