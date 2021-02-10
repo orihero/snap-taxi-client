@@ -8,25 +8,27 @@ import RegistrationStack from './StackNavigators/RegistrationStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import { localization } from '../services/Localization';
 
-const AppNavigator = ({ user }) => {
+const AppNavigator = ({ user, order }) => {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
 
   useEffect(() => {
     const restoreState = async () => {
       try {
-        const initialUrl = await Linking.getInitialURL();
+        if (order.status && order.status !== 'canceled') {
+          const initialUrl = await Linking.getInitialURL();
 
-        if (initialUrl == null) {
-          // Only restore state if there's no deep link and we're not on web
-          const savedStateString = await AsyncStorage.getItem('router');
+          if (initialUrl == null) {
+            // Only restore state if there's no deep link and we're not on web
+            const savedStateString = await AsyncStorage.getItem('router');
 
-          const state = savedStateString
-            ? JSON.parse(savedStateString)
-            : undefined;
+            const state = savedStateString
+              ? JSON.parse(savedStateString)
+              : undefined;
 
-          if (state !== undefined) {
-            setInitialState(state);
+            if (state !== undefined) {
+              setInitialState(state);
+            }
           }
         }
       } finally {
@@ -39,7 +41,6 @@ const AppNavigator = ({ user }) => {
       restoreState();
     }
   }, [isReady]);
-
 
   if (!isReady) {
     return null;
@@ -62,8 +63,9 @@ const AppNavigator = ({ user }) => {
   );
 };
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, booking: { order } }) => ({
   user,
+  order: order.data,
 });
 
 export default connect(mapStateToProps)(AppNavigator);

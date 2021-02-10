@@ -7,8 +7,10 @@ import rates from '../../store/actions/rates';
 import {
   GetCurrentLocation,
   SetCurrentLocationDetails,
+  SetMarkerPosition,
 } from '../../store/constants/map';
 import { ChangeOrderStatus } from '../../store/constants/booking';
+import map from '../../store/actions/map';
 
 const mapStateToProps = ({
   rates,
@@ -31,15 +33,19 @@ const mapDispatchToProps = (dispatch) =>
       GetRates: rates.GetRates,
       CancelOrder: booking.CancelOrder,
       GetCarsAround: booking.GetDriversAround,
-      GetCurrentLocation: (payload) =>
-        dispatch({
-          type: GetCurrentLocation.SUCCESS,
-          payload,
-        }),
+      GetCurrentLocation: (payload) => ({
+        type: GetCurrentLocation.SUCCESS,
+        payload,
+      }),
       ChangeOrderStatus: (payload) => ({
         type: ChangeOrderStatus.SUCCESS,
         payload,
       }),
+      SetMarkerPosition: (payload) => ({
+        type: SetMarkerPosition.SUCCESS,
+        payload,
+      }),
+      GetOrderInfo: booking.GetOrderInfo,
       SetCurrentLocationDetails: (payload) => ({
         type: SetCurrentLocationDetails.SUCCESS,
         payload,

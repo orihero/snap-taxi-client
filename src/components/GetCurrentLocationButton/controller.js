@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GetCurrentLocationButtonView from './view';
 import Geolocation from 'react-native-geolocation-service';
 import { debounce } from 'lodash';
+import { AppState } from 'react-native';
 
 const GetCurrentLocationButtonController = ({
   GetCurrentLocation,
@@ -15,6 +16,7 @@ const GetCurrentLocationButtonController = ({
         longitudeDelta: 0.001,
       };
 
+
   const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       (data) => {
@@ -27,7 +29,7 @@ const GetCurrentLocationButtonController = ({
         }
       },
       (error) => {
-		console.log({error});
+        console.log({ error });
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );

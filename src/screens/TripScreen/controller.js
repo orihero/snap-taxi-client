@@ -15,6 +15,7 @@ const TripScreenController = ({
       if (state === 'active') {
         establishProcess();
       } else if (state === 'background') {
+
       }
     });
 
