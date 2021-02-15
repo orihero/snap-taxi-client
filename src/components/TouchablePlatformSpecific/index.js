@@ -1,28 +1,12 @@
-import React from "react";
-import {
-    TouchableNativeFeedback,
-	TouchableOpacity,
-	TouchableWithoutFeedback,
-    Platform
-} from "react-native";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
-const TouchablePlatformSpecific = ({onPress, children, ...restProps}) => {
-    if (Platform.OS === 'android') {
-        return (
-            <TouchableNativeFeedback
-                {...restProps}
-                onPress={onPress}
-            >
-                {children}
-            </TouchableNativeFeedback>
-        )
-    } else {
-        return (
-            <TouchableWithoutFeedback onPress={onPress}>
-                {children}
-            </TouchableWithoutFeedback>
-        )
-    }
+const TouchablePlatformSpecific = ({ onPress, children, ...restProps }) => {
+  return (
+    <TouchableOpacity activeOpacity={0.6} onPress={onPress} {...restProps}>
+      {children}
+    </TouchableOpacity>
+  );
 };
 
-export default TouchablePlatformSpecific
+export default TouchablePlatformSpecific;

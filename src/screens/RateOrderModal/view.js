@@ -118,7 +118,7 @@ const RateOrderModalView = ({
                           <Bold style={{ fontSize: 17 }}>
                             {Math.floor(waitingTime / 60) *
                               order.rate.price_per_min}{' '}
-                            мин
+                            сум
                           </Bold>
                         </View>
                       )}

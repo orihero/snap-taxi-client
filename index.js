@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/react-native';
 import App from './App';
 import { name as appName } from './app.json';
 import createStore from './src/store/createStore';
+import SplashScreen from './src/screens/SplashScreen';
 
 const { store, persistor } = createStore();
 
@@ -20,7 +21,7 @@ const MainApp = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<SplashScreen />} persistor={persistor}>
         <App store={store} />
       </PersistGate>
     </Provider>

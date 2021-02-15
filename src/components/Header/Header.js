@@ -37,9 +37,7 @@ const Header = ({ goBack, user, subText, gradient = true, ...rest }) => {
           <TouchablePlatformSpecific
             onPress={() => navigation.goBack()}
             background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.1)', true)}>
-            <View>
-              <BackButtonIcon style={{ elevation: 10 }} />
-            </View>
+            <BackButtonIcon style={{ elevation: 10 }} />
           </TouchablePlatformSpecific>
         )}
         <View style={{ alignItems: 'center' }}>
@@ -55,13 +53,12 @@ const Header = ({ goBack, user, subText, gradient = true, ...rest }) => {
           </View>
           <Bold style={styles.where}>{subText}</Bold>
         </View>
-        <View style={{ borderRadius: 100, overflow: 'hidden', elevation: 5 }}>
-          {/*<TouchablePlatformSpecific onPress={() => navigation.navigate('Notifications')}>*/}
-          {/*    <View style={styles.watcher}>*/}
-          {/*        <NotificationsIcon style={{left: 14}}/>*/}
-          {/*    </View>*/}
-          {/*</TouchablePlatformSpecific>*/}
-        </View>
+        <View
+          style={{
+            borderRadius: 100,
+            overflow: 'hidden',
+            elevation: 5,
+          }}></View>
       </View>
     </>
   );

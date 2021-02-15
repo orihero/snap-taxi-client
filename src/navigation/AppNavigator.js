@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { Linking } from 'react-native';
 import DrawerStack from './DrawerNavigation/DrawerStack';
 import RegistrationStack from './StackNavigators/RegistrationStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import { localization } from '../services/Localization';
+import SplashScreen from '../screens/SplashScreen';
 
 const AppNavigator = ({ user, order }) => {
   const [isReady, setIsReady] = useState(false);
@@ -33,7 +33,6 @@ const AppNavigator = ({ user, order }) => {
         }
       } finally {
         setIsReady(true);
-        SplashScreen.hide();
       }
     };
 
@@ -43,7 +42,7 @@ const AppNavigator = ({ user, order }) => {
   }, [isReady]);
 
   if (!isReady) {
-    return null;
+    return <SplashScreen />;
   }
 
   localization.setLanguage(user.language);

@@ -1,5 +1,5 @@
-import React, { PureComponent, useEffect } from 'react';
-import { Alert, AppState } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Alert } from 'react-native';
 import { debounce } from 'lodash';
 import SelectCarScreenView from './view';
 import Geolocation from 'react-native-geolocation-service';
@@ -41,7 +41,6 @@ class SelectCarScreenController extends PureComponent {
   };
 
   componentDidMount() {
-
     this.props.GetRates(
       {
         distance: 0,
@@ -67,7 +66,6 @@ class SelectCarScreenController extends PureComponent {
         }
       });
     }
-
   }
 
   componentDidUpdate(prevProps, prevState) {
