@@ -6,7 +6,7 @@ import { Alert, Animated, PanResponder } from 'react-native';
 const TripInfoPanelController = ({ order, CancelOrder }) => {
   const navigation = useNavigation();
 
-  const height = useRef(new Animated.Value(0)).current;
+  const height = useRef(new Animated.Value(280)).current;
 
   const panResPonder = useRef(
     PanResponder.create({
@@ -41,7 +41,7 @@ const TripInfoPanelController = ({ order, CancelOrder }) => {
 
   const collapse = height.interpolate({
     inputRange: [-1, 280],
-    outputRange: [20, 280],
+    outputRange: [20, 290],
     extrapolate: 'clamp',
   });
 
