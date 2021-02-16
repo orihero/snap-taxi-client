@@ -7,7 +7,6 @@ import Geolocation from 'react-native-geolocation-service';
 import { bindActionCreators } from 'redux';
 import { GetCurrentLocation } from './src/store/constants/map';
 import { connect } from 'react-redux';
-import SplashScreen from './src/screens/SplashScreen';
 
 const requestPermission = async () => {
   let hasPermission;
@@ -23,7 +22,7 @@ const requestPermission = async () => {
   }
 };
 
-const App = ({ store, GetCurrentLocation, coords }) => {
+const App = ({ store, GetCurrentLocation }) => {
   useEffect(() => {
     api.setToken(store);
     if (Platform.OS === 'android') {
@@ -56,18 +55,11 @@ const App = ({ store, GetCurrentLocation, coords }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {coords.longitude ? <AppNavigator /> : <SplashScreen />}
+      <AppNavigator />
     </SafeAreaView>
   );
 };
 
-const mapState = ({
-  map: {
-    currentLocation: { coords },
-  },
-}) => ({
-  coords,
-});
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
@@ -80,4 +72,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch,
   );
 
-export default connect(mapState, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

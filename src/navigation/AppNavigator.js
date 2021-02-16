@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { localization } from '../services/Localization';
 import SplashScreen from '../screens/SplashScreen';
 
-const AppNavigator = ({ user, order }) => {
+const AppNavigator = ({ user, order, coords }) => {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
 
@@ -41,7 +41,7 @@ const AppNavigator = ({ user, order }) => {
     }
   }, [isReady]);
 
-  if (!isReady) {
+  if (!isReady || !coords.longitude) {
     return <SplashScreen />;
   }
 
@@ -62,9 +62,16 @@ const AppNavigator = ({ user, order }) => {
   );
 };
 
-const mapStateToProps = ({ user, booking: { order } }) => ({
+const mapStateToProps = ({
+  user,
+  booking: { order },
+  map: {
+    currentLocation: { coords },
+  },
+}) => ({
   user,
   order: order.data,
+  coords,
 });
 
 export default connect(mapStateToProps)(AppNavigator);

@@ -90,13 +90,21 @@ const RateOrderModalView = ({
                     <SemiBold style={styles.priceHeading}>
                       Сумма поездки
                     </SemiBold>
-                    <Bold style={styles.priceText}>{order.price} сум</Bold>
+                    <Bold style={styles.priceText}>
+                      {Math.ceil(order.price / 100) * 100}
+                      сум
+                    </Bold>
                   </View>
                   <TouchableOpacity
                     onPress={() => setIsCollapsed(!isCollapsed)}
                     style={styles.collapsable}>
                     <SemiBold>Подробнее</SemiBold>
-                    <View style={{ transform: [{ rotate: isCollapsed ? '90deg' : '-90deg' }] }}>
+                    <View
+                      style={{
+                        transform: [
+                          { rotate: isCollapsed ? '90deg' : '-90deg' },
+                        ],
+                      }}>
                       <ArrowIcon />
                     </View>
                   </TouchableOpacity>
