@@ -25,7 +25,6 @@ function* BookCar(action) {
         echo
             .channel(`snaptaxi_database_car_order.${data.data.id}`)
             .listen('.OrderStatusEvent', ({booking, channel, ...rest}) => {
-                console.log('shettaman')
                 action.cb.socketCb({...booking, ...rest, channel});
                 if (booking.status === 'accepted') {
                     const canceledSound = new Sound('find_car.mp3', Sound.MAIN_BUNDLE, () => {

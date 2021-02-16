@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { Alert } from 'react-native';
+import React, { PureComponent, useEffect } from 'react';
+import { Alert, AppState } from 'react-native';
 import { debounce } from 'lodash';
 import SelectCarScreenView from './view';
 import Geolocation from 'react-native-geolocation-service';
@@ -41,12 +41,33 @@ class SelectCarScreenController extends PureComponent {
   };
 
   componentDidMount() {
+
     this.props.GetRates(
-      { distance: 0, region_id: this.props.regionId, ac_rate: this.state.airCondition ? 1 : 0 },
+      {
+        distance: 0,
+        region_id: this.props.regionId,
+        ac_rate: this.state.airCondition ? 1 : 0,
+      },
       (data) => {
         this.updateState('rate', data.data[0]);
       },
     );
+    const { order } = this.props;
+    if (order.id && order.status !== 'canceled') {
+      this.setState({
+        isOrderSuccess: true,
+      });
+      this.props.GetOrderInfo(order.id, (data) => {
+        this.props.ChangeOrderStatus(data);
+        if (data.status !== 'new') {
+          this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'Trip' }],
+          });
+        }
+      });
+    }
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,6 +109,13 @@ class SelectCarScreenController extends PureComponent {
       }
     }
 
+    if (this.props.order.status === 'accepted') {
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'Trip' }],
+      });
+    }
+
     if (prevState.airCondition !== this.state.airCondition) {
       this.props.GetRates(
         {
@@ -109,8 +137,8 @@ class SelectCarScreenController extends PureComponent {
   clearCancelTimeout = () => {
     BackgroundTimer.clearTimeout(this.state.timeoutId);
     this.setState({
-      timeoutId: null
-    })
+      timeoutId: null,
+    });
   };
 
   geocode = () => {
@@ -201,7 +229,7 @@ class SelectCarScreenController extends PureComponent {
         rate_id: rate.id,
         comment,
         region_id: this.props.regionId,
-        ac_rate: this.state.airCondition ? 1 : 0
+        ac_rate: this.state.airCondition ? 1 : 0,
       },
       {
         socketCb: (data) => {
@@ -304,6 +332,12 @@ class SelectCarScreenController extends PureComponent {
     Geolocation.getCurrentPosition(
       (data) => {
         this.props.GetCurrentLocation(data.coords);
+        if (this.state.mapRef) {
+          this.state.mapRef.animateToRegion({
+            ...data.coords,
+            ...this.state.mapZoom,
+          });
+        }
       },
       (error) => {
         console.log(error.code, error.message);

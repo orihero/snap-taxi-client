@@ -133,8 +133,8 @@ android {
         applicationId "com.snaptaxi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 22
-        versionName "1.9.81"
+        versionCode 29
+        versionName "1.9.95"
         multiDexEnabled true
     }
     splits {

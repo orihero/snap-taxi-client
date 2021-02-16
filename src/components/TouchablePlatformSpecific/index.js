@@ -3,6 +3,7 @@ import {
     TouchableNativeFeedback,
 	TouchableOpacity,
 	TouchableWithoutFeedback,
+	TouchableHighlight,
     Platform
 } from "react-native";
 
@@ -18,9 +19,9 @@ const TouchablePlatformSpecific = ({onPress, children, ...restProps}) => {
         )
     } else {
         return (
-            <TouchableWithoutFeedback onPress={onPress}>
+            <TouchableOpacity onPress={onPress}>
                 {children}
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         )
     }
 };

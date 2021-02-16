@@ -3,7 +3,7 @@ import { Animated } from 'react-native';
 import MapScreenView from './view';
 import api from '../../services/api';
 import { isPointInPolygon } from 'geolib';
-import reactotron from "reactotron-react-native";
+import reactotron from 'reactotron-react-native';
 
 const MapScreenController = ({
   SetRegionId,
@@ -35,6 +35,7 @@ const MapScreenController = ({
   );
 
   const [isBlinking, setIsBlinking] = useState(true);
+  const [driverMarkerRef, setDriverMarkerRef] = useState(null);
   const [mapHeight, setMapHeight] = useState(0);
   const [minutes, setMinutes] = useState(2);
   const [timeoutId, setTimeoutId] = useState(null);
@@ -80,13 +81,13 @@ const MapScreenController = ({
   const onRegionChange = (region) => {
     const { latitude, longitude } = region;
     for (let i = 0; i < regions.length; i++) {
-      if(!!regions[i].polygon[0]) {
+      if (!!regions[i].polygon[0]) {
         let result = isPointInPolygon(
-            { latitude, longitude },
-            regions[i].polygon[0],
+          { latitude, longitude },
+          regions[i].polygon[0],
         );
         if (result) {
-          SetRegionId(regions[i].id)
+          SetRegionId(regions[i].id);
           break;
         }
       }
@@ -100,6 +101,7 @@ const MapScreenController = ({
   };
 
   const geocode = (region) => {
+    const { longitude, latitude } = region;
     api.request
       .get(
         `https://geocode-maps.yandex.ru/1.x?apikey=aeed4c01-79da-458a-8b02-93e6b30ed33c&geocode=${longitude},${latitude}&format=json`,
@@ -137,6 +139,7 @@ const MapScreenController = ({
 
   return (
     <MapScreenView
+      setDriverMarkerRef={setDriverMarkerRef}
       isDestSelecting={isDestSelecting}
       opacity={opacity}
       children={children}

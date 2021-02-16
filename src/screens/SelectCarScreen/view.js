@@ -47,14 +47,15 @@ const SelectCarScreenView = ({
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flexGrow: 1 }}>
-        <Header goBack={!isOrderSuccess} subText={'Детали заказа'} />
+        <Header goBack={!isOrderSuccess} gradient={false} subText={'Детали заказа'} />
         <MapScreen
           drivers={drivers}
           mapRef={mapRef}
           showMarker={!isOrderSuccess}
           markerPosition
           setMapRef={(ref) => updateState('mapRef', ref)}
-          isDestSelecting={isDestSelecting}>
+          isDestSelecting={isDestSelecting}
+        >
           {isOrderSuccess && <PulseAnimation />}
         </MapScreen>
       </View>
@@ -186,6 +187,7 @@ const SelectCarScreenView = ({
               )}
               <SelectedDestination
                 containerStyle={styles.selectDest}
+                isOrderSuccess={!isOrderSuccess}
                 to={destinationText || 'Куда едем ?'}
                 from={currentLocationText}
                 disabled={isOrderSuccess}
