@@ -10,7 +10,8 @@ export default StyleSheet.create({
     header: {
         flexDirection: "row",
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+		marginTop: 30
     },
     btn: {},
     title: {
@@ -30,9 +31,11 @@ export default StyleSheet.create({
         fontSize: Screen.width > 400 ? 15 : 13,
     },
     input: {
-        padding: 10,
+        padding: 0,
         width: '90%',
-        backgroundColor: Colors.background
+        backgroundColor: Colors.background,
+		height: 50,
+		paddingLeft: 15
     },
     circle: {
         width: 8,

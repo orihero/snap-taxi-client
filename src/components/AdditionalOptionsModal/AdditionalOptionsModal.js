@@ -38,7 +38,7 @@ const AdditionalOptionsModal = ({visible, closeModal, comment, setComment, airCo
                         {/*    value={coupon}*/}
                         {/*/>*/}
                     </View>
-                    <View style={styles.textarea}>
+                    <View style={[styles.textarea, styles.shadow]}>
                         <TextInput
                             value={comment}
                             onChangeText={text => setComment(text)}

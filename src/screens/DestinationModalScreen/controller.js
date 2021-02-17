@@ -24,7 +24,7 @@ const DestinationModalScreenController = ({
   }, []);
 
   const searchDestination = () => {
-    if (text.length) {
+    if (text.length > 0) {
       debounce(() => {
         api.request
           .get(
@@ -34,12 +34,12 @@ const DestinationModalScreenController = ({
             setResult(res.data.response.GeoObjectCollection.featureMember);
           })
           .catch((err) => {});
-      }, 400)();
+      }, 100)();
     }
   };
 
   const searchOrigin = () => {
-    if (origin.length) {
+    if (origin.length > 0) {
       debounce(() => {
         api.request
           .get(
@@ -51,7 +51,7 @@ const DestinationModalScreenController = ({
             );
           })
           .catch((err) => {});
-      }, 400)();
+      }, 100)();
     }
   };
 

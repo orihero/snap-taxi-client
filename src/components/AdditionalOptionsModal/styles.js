@@ -25,6 +25,15 @@ export default StyleSheet.create({
         minHeight: 80,
         marginHorizontal: 10,
         marginTop: 13,
-        marginBottom: 40
-    }
+        marginBottom: 40,
+    },
+	shadow: {
+		shadowColor: '#000',
+		shadowOffset: {
+			height: 5,
+			width: 5
+		},
+		shadowRadius: 10,
+		shadowOpacity: 0.2
+	}
 });

@@ -9,7 +9,7 @@ import {localization} from "../../services/Localization";
 const MyTripsScreenView = ({orderList, isLoading}) => {
     return (
         <FlatList
-		contentContainerStyle={{zIndex: 9999}}
+		    contentContainerStyle={{zIndex: 9999}}
             style={styles.container}
             data={orderList}
             ListEmptyComponent={() => (

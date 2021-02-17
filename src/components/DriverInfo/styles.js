@@ -37,7 +37,13 @@ export default StyleSheet.create({
         justifyContent: 'center',
         elevation: 5,
         backgroundColor: '#fff',
-        overflow: 'hidden'
+		shadowColor: '#000',
+		shadowOffset: {
+			height: 44,
+			width: 44
+		},
+		shadowRadius: 100,
+		shadowOpacity: 0.3
     },
     func: {
         flexDirection: 'row',

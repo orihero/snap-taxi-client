@@ -47,16 +47,30 @@ const App = ({ store, GetCurrentLocation }) => {
         .then((data) => {})
         .catch((err) => {});
     } else {
-		Geolocation.requestAuthorization('always').then(res => {
-			console.log(res);
-		})
-	}
+      Geolocation.requestAuthorization('always').then((res) => {
+        console.log(res);
+      });
+    }
+
+	Geolocation.getCurrentPosition(
+		(data) => {
+		  GetCurrentLocation(data.coords);
+		},
+		(error) => {
+		  console.log(error.code, error.message);
+		},
+		{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+	  );
+
   }, []);
 
-  return <SafeAreaView style={{flex: 1}}>
-	  <AppNavigator />
-  </SafeAreaView>;
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <AppNavigator />
+    </SafeAreaView>
+  );
 };
+
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(

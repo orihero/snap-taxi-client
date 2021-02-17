@@ -19,6 +19,15 @@ export default StyleSheet.create({
         borderColor: '#fff',
         borderTopWidth: 0,
     },
+    draggable: {
+        width: 40,
+        height: 4,
+        alignSelf: 'center',
+        backgroundColor: '#2A2E43',
+        opacity: .23,
+        borderRadius: 100,
+        marginTop: 15
+    },
     fee: {
         flexDirection: 'row',
         justifyContent: 'space-between',

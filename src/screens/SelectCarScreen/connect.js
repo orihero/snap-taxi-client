@@ -10,7 +10,6 @@ import {
   SetMarkerPosition,
 } from '../../store/constants/map';
 import { ChangeOrderStatus } from '../../store/constants/booking';
-import map from '../../store/actions/map';
 
 const mapStateToProps = ({
   rates,

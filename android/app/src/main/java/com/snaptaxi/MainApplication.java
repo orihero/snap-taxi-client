@@ -4,7 +4,7 @@ import androidx.multidex.MultiDexApplication;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import io.sentry.react.RNSentryPackage;
 import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import io.sentry.react.RNSentryPackage;

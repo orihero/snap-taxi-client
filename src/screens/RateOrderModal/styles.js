@@ -5,7 +5,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 16,
-        paddingTop: 20,
+        paddingTop: 30,
         backgroundColor: Colors.background,
     },
     shadow: {
@@ -44,7 +44,14 @@ export default StyleSheet.create({
         elevation: 10,
         backgroundColor: Colors.background,
         height: 126,
-        marginBottom: 46
+        marginBottom: 46,
+		shadowColor: '#000',
+		shadowOffset: {
+			height: 5,
+			width: 5
+		},
+		shadowRadius: 10,
+		shadowOpacity: 0.2
     },
     topNavigation: {
         flexDirection: 'row',

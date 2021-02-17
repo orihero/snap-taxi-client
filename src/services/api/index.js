@@ -7,6 +7,7 @@ const request = axios.create({
 request.defaults.params = {};
 request.defaults.params['_f'] = 'json';
 request.defaults.headers.common['Accept'] = 'application/json';
+request.defaults.headers.common['Accept-Language'] = 'ru';
 request.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
 

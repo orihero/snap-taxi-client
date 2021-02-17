@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, FlatList, Alert } from 'react-native';
+import { View, FlatList, Alert } from 'react-native';
 
 import MapScreen from '../MapScreen';
 import Header from '../../components/Header/Header';
@@ -17,6 +17,7 @@ import WalletIcon from '../../assets/images/WalletIcon';
 import PulseAnimation from '../../components/PulseAnimation/view';
 import GetCurrentLocationButton from '../../components/GetCurrentLocationButton';
 import DestinationModal from '../DestinationModalScreen';
+import TouchablePlatformSpecific from '../../components/TouchablePlatformSpecific';
 
 const SelectCarScreenView = ({
   rates,
@@ -47,15 +48,18 @@ const SelectCarScreenView = ({
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flexGrow: 1 }}>
-        <Header goBack={!isOrderSuccess} gradient={false} subText={'Детали заказа'} />
+        <Header
+          goBack={!isOrderSuccess}
+          gradient={false}
+          subText={'Детали заказа'}
+        />
         <MapScreen
           drivers={drivers}
           mapRef={mapRef}
           showMarker={!isOrderSuccess}
           markerPosition
           setMapRef={(ref) => updateState('mapRef', ref)}
-          isDestSelecting={isDestSelecting}
-        >
+          isDestSelecting={isDestSelecting}>
           {isOrderSuccess && <PulseAnimation />}
         </MapScreen>
       </View>
@@ -169,19 +173,18 @@ const SelectCarScreenView = ({
                         <ArrowIcon style={{ marginLeft: 'auto' }} />
                       </View>
                     </View>
-                    <View style={styles.column}>
-                      <TouchableWithoutFeedback
-                        onPress={() =>
-                          updateState('visibleAdditionalModal', true)
-                        }>
-                        <View style={styles.additional}>
-                          <Bold style={styles.text}>
-                            {localization.additional}
-                          </Bold>
-                          <AddIcon color={'#575f6b'} />
-                        </View>
-                      </TouchableWithoutFeedback>
-                    </View>
+                    <TouchablePlatformSpecific
+                      style={styles.column}
+                      onPress={() =>
+                        updateState('visibleAdditionalModal', true)
+                      }>
+                      <View style={styles.additional}>
+                        <Bold style={styles.text}>
+                          {localization.additional}
+                        </Bold>
+                        <AddIcon color={'#575f6b'} />
+                      </View>
+                    </TouchablePlatformSpecific>
                   </View>
                 </>
               )}

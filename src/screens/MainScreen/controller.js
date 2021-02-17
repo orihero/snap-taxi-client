@@ -20,15 +20,7 @@ class MainScreenController extends PureComponent {
             navigation,
             SetDestination,
             GetNotifications,
-            order,
         } = this.props;
-
-        // if (order.id && order.status !== 'new') {
-        //   this.props.navigation.reset({
-        //     index: 0,
-        //     routes: [{ name: 'Trip' }],
-        //   });
-        // }
 
         GetNotifications();
 
