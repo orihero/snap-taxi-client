@@ -8,7 +8,7 @@ import {Bold, Light} from "../Layout/AppText";
 import GooglePlacesAutocomplete from "react-native-google-places-autocomplete";
 import ResultIcon from "../../assets/images/ResultIcon";
 import {SetDestination} from "../../store/constants/map";
-import API_KEY from "../../const/apiKey";
+import API_KEY from "../../constants/apiKey";
 
 const Search = ({SetDestination, navigation}) => {
 
