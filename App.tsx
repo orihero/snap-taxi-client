@@ -10,18 +10,21 @@ import Colors from '@assets/styles/Colors';
 
 const App = ({
   initApp,
+  appState,
   setAppState,
   isAppLoading,
   setChatMessage,
   isRouterLoaded,
-  languageChanging,
   getNotifications,
+  languageChanging,
+  getCurrentBooking,
+  isNetworkConnected,
   setNetworkConnection,
 }: Props) => {
   useEffect(() => {
     initApp();
     NetInfo.addEventListener((state) => {
-      setNetworkConnection(state.isConnected);
+      setNetworkConnection(!!(state.isConnected && state.isInternetReachable));
     });
     AppState.addEventListener('change', (state) => {
       setAppState(state);
@@ -39,10 +42,16 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if (!isAppLoading && isRouterLoaded) {
+    if (AppState.currentState === 'active' || isNetworkConnected) {
+      getCurrentBooking();
+    }
+  }, [appState, isNetworkConnected]);
+
+  useEffect(() => {
+    if (isRouterLoaded) {
       SplashScreen.hide();
     }
-  }, [isAppLoading, isRouterLoaded]);
+  }, [isRouterLoaded]);
 
   const notificationHandler = (notification: any) => {
     if (notification && notification.title === 'Сообщение') {
@@ -78,21 +87,27 @@ const App = ({
   );
 };
 
-const mapState = ({ loading, app: { isRouterLoaded } }: RootState) => ({
+const mapState = ({
+  loading,
+  app: { isRouterLoaded, isNetworkConnected, appState },
+}: RootState) => ({
+  appState,
   isRouterLoaded,
+  isNetworkConnected,
   isAppLoading: loading.effects.app.initApp,
   languageChanging: loading.effects.app.changeAppLanguage,
 });
 
 const mapDispatch = ({
   user: { getNotifications },
-  booking: { setChatMessage },
+  booking: { setChatMessage, getCurrentBooking },
   app: { initApp, setNetworkConnection, setAppState },
 }: Dispatch) => ({
   initApp,
   setAppState,
   setChatMessage,
   getNotifications,
+  getCurrentBooking,
   setNetworkConnection,
 });
 

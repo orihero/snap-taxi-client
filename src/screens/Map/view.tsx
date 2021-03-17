@@ -80,8 +80,8 @@ const MapScreenView = ({
       onLayout={({ nativeEvent: { layout } }) => setMapHeight(layout.height)}>
       {!!currentLocation && (
         <MapView
-          minZoomLevel={12} // default => 0
-          maxZoomLevel={18} // default => 20
+          // minZoomLevel={12} // default => 0
+          // maxZoomLevel={18} // default => 20
           onMapReady={() => setIsMapReady(true)}
           initialRegion={initialRegion}
           onRegionChangeComplete={(region) => {

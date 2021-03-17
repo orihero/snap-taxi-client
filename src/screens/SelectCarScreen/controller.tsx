@@ -13,13 +13,13 @@ const SelectCarScreenController = ({
   setDistance,
   cancelBooking,
   currentBooking,
-  setBookingStatus,
+  currentLocation,
   isSelectingOnMap,
   setDestinationInfo,
   setIsSelectingOnMap,
 }: Props) => {
   const [mapRef, setMapRef] = useState();
-  const [timeoutId, setTimeoutId] = useState<number>();
+  const [timeoutId, setTimeoutId] = useState<number | undefined>(undefined);
   useBackHandler(() => {
     if (isSelectingOnMap) {
       setIsSelectingOnMap(false);
@@ -38,7 +38,16 @@ const SelectCarScreenController = ({
   }, []);
 
   useEffect(() => {
-    if (currentBooking?.status === OrderStatus.NEW && !timeoutId) {
+    if (currentBooking?.status === OrderStatus.NEW && timeoutId === undefined) {
+      mapRef?.animateToRegion(
+        {
+          latitude: currentLocation?.latitude,
+          longitude: currentLocation?.longitude,
+          latitudeDelta: 0.003 * 3,
+          longitudeDelta: 0.003 * 3,
+        },
+        15000,
+      );
       const id = BackgroundTimer.setTimeout(() => {
         cancelBooking({
           payload: null,
@@ -47,6 +56,7 @@ const SelectCarScreenController = ({
           'Внимание',
           'Уважаемый клиент в ближайшие время нет свободных машин, попробуйте  заказать по другому тарифу.',
         );
+        setTimeoutId(undefined);
       }, 120000);
       setTimeoutId(id as number);
     }
@@ -59,6 +69,8 @@ const SelectCarScreenController = ({
     }
 
     if (currentBooking?.status === OrderStatus.CANCELED) {
+      BackgroundTimer.clearInterval(timeoutId as number);
+      setTimeoutId(undefined);
       setCurrent(null);
     }
   }, [currentBooking?.status]);

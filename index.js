@@ -11,7 +11,6 @@ import { requestPermission, turnOnLocation } from './src/helpers';
 const MainApp = () => {
   useEffect(() => {
     if (Platform.OS === 'android') {
-      // noinspection JSIgnoredPromiseFromCall
       requestPermission();
       turnOnLocation();
     } else {

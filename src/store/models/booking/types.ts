@@ -72,5 +72,4 @@ export type InitialState = {
   current: Booking | null;
   chat: Message[];
   rates: Rate[];
-  socket: Echo | null;
 };

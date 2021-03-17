@@ -5,8 +5,10 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 const mapState = ({
   booking: { current },
+  user: { currentLocation },
   map: { isSelectingOnMap },
 }: RootState) => ({
+  currentLocation,
   isSelectingOnMap,
   currentBooking: current,
 });

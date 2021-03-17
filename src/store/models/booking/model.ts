@@ -36,9 +36,6 @@ export const booking = createModel<RootModel>()({
     setRates(state, rates: Rate[]) {
       return { ...state, rates };
     },
-    setSocket(state, socket: Echo | null) {
-      return { ...state, socket };
-    },
     setChatMessage(state, message: Message) {
       return { ...state, chat: [...state.chat, message] };
     },
@@ -102,22 +99,10 @@ export const booking = createModel<RootModel>()({
         dispatch.map.setDestinationInfo(null);
         dispatch.map.setDriverLocation(null);
         dispatch.booking.setCurrent(null);
-        dispatch.booking.setSocket(null);
         dispatch.booking.clearChat();
+        echo = null;
       } catch (e) {
         console.log(e);
-      }
-    },
-    async connectSocket() {
-      try {
-        const echo = new Echo({
-          host: 'https://snaptaxi.uz:6060',
-          broadcaster: 'socket.io',
-          client: io,
-        });
-        dispatch.booking.setSocket(echo);
-      } catch (e) {
-        throw new Error(e);
       }
     },
     async bookCar(
@@ -156,26 +141,35 @@ export const booking = createModel<RootModel>()({
         });
         await echo
           .channel(`snaptaxi_database_car_order.${data.data.id}`)
-          .listen('.OrderStatusEvent', ({ booking, channel, ...rest }: any) => {
-            dispatch.booking.setCurrent({
-              ...booking,
-              ...rest,
-              channel,
-              routes: JSON.parse(booking.routes),
-            });
-            const canceledSound = new Sound(
-              'find_car.mp3',
-              Sound.MAIN_BUNDLE,
-              () => {
-                if (canceledSound) {
-                  canceledSound.play();
-                }
-              },
-            );
+          .listen('.OrderStatusEvent', (booking: any) => {
+            this.socketEventHandler(booking);
           });
         dispatch.booking.setCurrent(data.data);
         AsyncStorage.setItem('current', JSON.stringify(data.data));
         successCb?.();
+      } catch (e) {
+        throw new Error(e);
+      }
+    },
+    async socketEventHandler({ booking, channel, ...rest }: any) {
+      try {
+        dispatch.booking.setCurrent({
+          ...booking,
+          ...rest,
+          channel,
+          routes: JSON.parse(booking.routes),
+        });
+        if (booking.status !== OrderStatus.CANCELED) {
+          const canceledSound = new Sound(
+            'find_car.mp3',
+            Sound.MAIN_BUNDLE,
+            () => {
+              if (canceledSound) {
+                canceledSound.play();
+              }
+            },
+          );
+        }
       } catch (e) {
         throw new Error(e);
       }
@@ -194,26 +188,9 @@ export const booking = createModel<RootModel>()({
             });
             await echo
               .channel(`snaptaxi_database_car_order.${parsedBooking.id}`)
-              .listen(
-                '.OrderStatusEvent',
-                ({ booking, channel, ...rest }: any) => {
-                  dispatch.booking.setCurrent({
-                    ...booking,
-                    ...rest,
-                    channel,
-                    routes: JSON.parse(booking.routes),
-                  });
-                  const canceledSound = new Sound(
-                    'find_car.mp3',
-                    Sound.MAIN_BUNDLE,
-                    () => {
-                      if (canceledSound) {
-                        canceledSound.play();
-                      }
-                    },
-                  );
-                },
-              );
+              .listen('.OrderStatusEvent', (booking: any) => {
+                this.socketEventHandler(booking);
+              });
           }
         }
       } catch (e) {
@@ -267,7 +244,6 @@ export const booking = createModel<RootModel>()({
           driver_id: booking.current?.driver_id,
           status: OrderStatus.CANCELED,
         });
-
         successCb?.();
         dispatch.booking.removeBooking();
       } catch (e) {

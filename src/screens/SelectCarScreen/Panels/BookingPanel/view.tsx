@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   FlatList,
+  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -16,6 +17,8 @@ import Button from '@components/Button';
 import { localization } from '../../../../services/Localization';
 import { Rate } from '@store/models/user/types';
 import { Fade, Placeholder, PlaceholderLine } from 'rn-placeholder';
+import CancelTripIcon from '@assets/images/CancelTripIcon';
+import CancelIcon from '@assets/images/CancelIcon';
 
 interface IProps {
   rates: Rate[];
@@ -24,6 +27,7 @@ interface IProps {
   isLoading: boolean;
   findCar: () => void;
   selectedRateIndex: number;
+  cancelDestination: () => void;
   openAdditionalModal: () => void;
   openDestinationModal: () => void;
   setSelectedRateIndex: (index: number) => void;
@@ -36,6 +40,7 @@ const BookingPanelView = ({
   rates,
   findCar,
   isLoading,
+  cancelDestination,
   selectedRateIndex,
   setVisiblePlanModal,
   openAdditionalModal,
@@ -118,12 +123,25 @@ const BookingPanelView = ({
                 )}
               </View>
             </View>
-            <TouchableOpacity onPress={openDestinationModal}>
-              <View style={styles.row}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <TouchableOpacity
+                onPress={openDestinationModal}
+                style={styles.row}>
                 <View style={[styles.addressCircle, styles.redColor]} />
                 <Bold style={styles.directionText}>{to ?? 'Куда едем ?'}</Bold>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              {to && (
+                <TouchableOpacity
+                  style={{ marginLeft: 20 }}
+                  onPress={cancelDestination}>
+                  <CancelIcon />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </View>

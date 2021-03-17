@@ -5,5 +5,4 @@ export const initialState: InitialState = {
   current: null,
   chat: [],
   rates: [],
-  socket: null,
 };

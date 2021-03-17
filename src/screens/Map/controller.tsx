@@ -43,7 +43,6 @@ export const MapController = ({
     } else {
       setInitialDriverLocation(null);
     }
-    console.log(initialDriverLocation);
   }, [driverLocation]);
 
   const onRegionChange = (region: Region) => {
@@ -65,18 +64,18 @@ export const MapController = ({
       });
     } else {
       if (!destinationInfo) {
-        // for (let i = 0; i < regions.length; i++) {
-        //   if (!!regions[i].polygon[0]) {
-        //     let result = isPointInPolygon(
-        //       { latitude, longitude },
-        //       regions[i].polygon[0],
-        //     );
-        //     if (result) {
-        //       setRegionId(regions[i].id);
-        //       break;
-        //     }
-        //   }
-        // }
+        for (let i = 0; i < regions.length; i++) {
+          if (!!regions.reverse()[i].polygon[0]) {
+            let result = isPointInPolygon(
+              { latitude, longitude },
+              regions[i].polygon[0],
+            );
+            if (result) {
+              setRegionId(regions[i].id);
+              break;
+            }
+          }
+        }
         getFullCurrentLocation(region);
       }
     }
@@ -103,8 +102,8 @@ export const MapController = ({
       initialRegion={{
         longitude: currentLocation?.longitude,
         latitude: currentLocation?.latitude,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.01,
+        latitudeDelta: 0.003,
+        longitudeDelta: 0.003,
       }}
     />
   );

@@ -5,13 +5,10 @@ import { Props } from './connect';
 import OrderStatus from '@constants/orderStatus';
 
 const TripScreenController = ({
-  appState,
   navigation,
   removeBooking,
   currentBooking,
-  getCurrentBooking,
   getDriverLocation,
-  isNetworkConnected,
 }: Props) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -21,10 +18,6 @@ const TripScreenController = ({
       clearTimeout(intervalId);
     };
   }, []);
-
-  useEffect(() => {
-    getCurrentBooking();
-  }, [appState, isNetworkConnected]);
 
   useEffect(() => {
     if (currentBooking?.status === OrderStatus.CANCELED) {

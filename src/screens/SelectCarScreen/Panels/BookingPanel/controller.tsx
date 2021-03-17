@@ -10,8 +10,10 @@ const BookingPanelController = ({
   bookCar,
   getRates,
   distance,
+  regionId,
   isLoading,
   destinationInfo,
+  cancelDestination,
   currentLocationInfo,
 }: Props) => {
   const [selectedRateIndex, setSelectedRateIndex] = useState<number>(0);
@@ -27,7 +29,7 @@ const BookingPanelController = ({
 
   useEffect(() => {
     getRates({ ac_rate: airCondition ? 1 : 0, distance: Math.ceil(distance) });
-  }, [airCondition, distance]);
+  }, [airCondition, distance, regionId]);
 
   const findCar = () => {
     bookCar({
@@ -64,10 +66,11 @@ const BookingPanelController = ({
         rates={rates}
         findCar={findCar}
         isLoading={isLoading}
-        from={currentLocationInfo?.name as string}
         to={destinationInfo?.name as string}
+        cancelDestination={cancelDestination}
         selectedRateIndex={selectedRateIndex}
         setVisiblePlanModal={setVisiblePlanModal}
+        from={currentLocationInfo?.name as string}
         setSelectedRateIndex={setSelectedRateIndex}
         openAdditionalModal={() => setVisibleAdditionalModal(true)}
         openDestinationModal={() => setVisibleDestinationModal(true)}

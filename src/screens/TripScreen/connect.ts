@@ -3,22 +3,16 @@ import { Dispatch, RootState } from '@store/models';
 import TripScreenController from './controller';
 import { StackScreenProps } from '@react-navigation/stack';
 
-const mapState = ({
-  booking: { current },
-  app: { appState, isNetworkConnected },
-}: RootState) => ({
-  appState,
-  isNetworkConnected,
+const mapState = ({ booking: { current } }: RootState) => ({
   currentBooking: current,
 });
 
 const mapDispatch = ({
   map: { getDriverLocation },
-  booking: { removeBooking, getCurrentBooking },
+  booking: { removeBooking },
 }: Dispatch) => ({
   removeBooking,
   getDriverLocation,
-  getCurrentBooking,
 });
 
 type StateProps = ReturnType<typeof mapState>;

@@ -4,10 +4,11 @@ import { Dispatch, RootState } from '@store/models';
 const mapState = ({
   loading,
   booking: { rates },
-  map: { currentLocationInfo, destinationInfo, distance },
+  map: { currentLocationInfo, destinationInfo, distance, regionId },
 }: RootState) => ({
   rates,
   distance,
+  regionId,
   destinationInfo,
   currentLocationInfo,
   isLoading: loading.effects.booking.bookCar,
@@ -15,9 +16,16 @@ const mapState = ({
 
 import BookingPanelController from './controller';
 
-const mapDispatch = ({ booking: { bookCar, getRates } }: Dispatch) => ({
+const mapDispatch = ({
+  booking: { bookCar, getRates },
+  map: { setDestinationInfo, setDistance },
+}: Dispatch) => ({
   bookCar,
   getRates,
+  cancelDestination: () => {
+    setDestinationInfo(null);
+    setDistance(0);
+  },
 });
 
 type StateProps = ReturnType<typeof mapState>;
