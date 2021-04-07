@@ -4,7 +4,9 @@ import { Props } from './connect';
 import { Alert } from 'react-native';
 
 const CancelBookingController = ({
+  mapRef,
   isLoading,
+  currentLocation,
   cancelBooking,
   destinationInfo,
   currentLocationInfo,
@@ -16,7 +18,22 @@ const CancelBookingController = ({
       [
         {
           text: 'Да',
-          onPress: () => cancelBooking({ payload: null }),
+          onPress: () => {
+            cancelBooking({
+              payload: null,
+              successCb: () => {
+                mapRef.animateToRegion(
+                  {
+                    latitude: currentLocation?.latitude,
+                    longitude: currentLocation?.longitude,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
+                  },
+                  150,
+                );
+              },
+            });
+          },
         },
         {
           text: 'Нет',

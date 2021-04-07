@@ -130,7 +130,7 @@ const BookingPanelView = ({
               }}>
               <TouchableOpacity
                 onPress={openDestinationModal}
-                style={styles.row}>
+                style={[styles.row, !to && {flex: 1}]}>
                 <View style={[styles.addressCircle, styles.redColor]} />
                 <Bold style={styles.directionText}>{to ?? 'Куда едем ?'}</Bold>
               </TouchableOpacity>

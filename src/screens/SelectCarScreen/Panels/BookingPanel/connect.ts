@@ -3,11 +3,12 @@ import { Dispatch, RootState } from '@store/models';
 
 const mapState = ({
   loading,
-  booking: { rates },
+  booking: { rates, quickComments },
   map: { currentLocationInfo, destinationInfo, distance, regionId },
 }: RootState) => ({
   rates,
   distance,
+  quickComments,
   regionId,
   destinationInfo,
   currentLocationInfo,

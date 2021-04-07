@@ -44,14 +44,29 @@ export type Notification = {
   created_at: string;
 };
 
-export type UpdateLocationPayload = {
-  lat: number;
-  lng: number;
-  heading: number;
+export type Address = {
+  id: number;
+  user_id: number;
+  title: string;
+  lat: string;
+  lng: string;
+};
+
+export type EditAddressPayload = {
+  id: number;
+  data: AddressPayload;
+};
+
+export type AddressPayload = {
+  address: string;
+  title: string;
+  lat: string;
+  lng: string;
 };
 
 export type InitialState = {
   profile: User | null;
   notifications: Notification[];
   currentLocation: GeoCoordinates | Region | null;
+  savedAddresses: Address[];
 };

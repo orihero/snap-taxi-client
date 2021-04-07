@@ -3,12 +3,14 @@ import NotificationsScreenController from './controller';
 import { Dispatch, RootState } from '@store/models';
 import { StackScreenProps } from '@react-navigation/stack';
 
-const mapState = ({ user: { profile } }: RootState) => ({
+const mapState = ({ user: { profile }, loading }: RootState) => ({
   profile,
+  isLoading: loading.effects.user.updateProfile
 });
 
-const mapDispatch = ({ app: { logout } }: Dispatch) => ({
+const mapDispatch = ({ app: { logout }, user:{updateProfile} }: Dispatch) => ({
   logout,
+  updateProfile
 });
 
 type StateProps = ReturnType<typeof mapState>;

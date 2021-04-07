@@ -9,7 +9,8 @@
     "reverse": "adb reverse tcp:8081 tcp:8081",
     "debug": "adb reverse tcp:9090 tcp:9090",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build-android": "cd ./android &&./gradlew assembleRelease&&open ./app/build/outputs/apk/release"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.12.1",
@@ -36,6 +37,7 @@
     "react-native-background-timer": "^2.4.1",
     "react-native-confirmation-code-field": "6.5.0",
     "react-native-geolocation-service": "^5.1.1",
+    "react-native-gesture-bottom-sheet": "^1.0.2",
     "react-native-gesture-handler": "1.6.1",
     "react-native-google-places-autocomplete": "1.8.0",
     "react-native-image-picker": "2.3.4",
@@ -54,8 +56,10 @@
     "react-native-svg": "12.1.0",
     "react-navigation-transitions": "1.0.12",
     "react-redux": "7.2.0",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "redux": "4.0.5",
     "rn-placeholder": "^3.0.3",
+    "rn-sliding-up-panel": "^2.4.5",
     "socket.io-client": "2.3.0",
     "yarn": "^1.22.10"
   },

@@ -6,6 +6,7 @@ import MyTripsStack from '../StackNavigators/MyTripsStack';
 import SupportStack from '../StackNavigators/SupportStack';
 import NotificationsScreen from '../../screens/NotificationsScreen';
 import { ROUTES } from '@constants/ROUTES';
+import MyAddressesStack from '../StackNavigators/MyAddressesStack';
 
 const routes = [
   {
@@ -28,11 +29,11 @@ const routes = [
     name: 'DiscountsStack',
     component: DiscountsStack,
   },
-  // {
-  //     label: "Мои адреса",
-  //     name: 'MyAddresses',
-  //     component: MyAddressesStack
-  // },
+  {
+    label: 'myAddresses',
+    name: 'MyAddresses',
+    component: MyAddressesStack,
+  },
   {
     label: 'myTrips',
     name: 'MyTrips',

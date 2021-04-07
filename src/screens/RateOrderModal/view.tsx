@@ -21,7 +21,7 @@ import OrderStatus from '@constants/orderStatus';
 
 interface IProps {
   comment: string;
-  setComment: (comment: number) => void;
+  setComment: (comment: string) => void;
   currentBooking: Booking | null;
   rateBooking: () => void;
   rate: number;
@@ -100,7 +100,7 @@ const RateOrderModalView = ({
                       Сумма поездки
                     </SemiBold>
                     <Bold style={styles.priceText}>
-                      {Math.floor(currentBooking!.price / 100) * 100}
+                      {Math.ceil(currentBooking!.price / 100) * 100}
                       сум
                     </Bold>
                   </View>

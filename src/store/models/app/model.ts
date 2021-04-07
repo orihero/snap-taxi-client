@@ -43,6 +43,8 @@ export const app = createModel<RootModel>()({
           await dispatch.user.getProfile({ payload: null });
           await dispatch.booking.getCurrentBooking();
           await dispatch.user.getNotifications();
+          await dispatch.booking.getQuickComments();
+          await dispatch.user.getSavedAddresses();
         }
       } catch (e) {
         throw new Error(e);

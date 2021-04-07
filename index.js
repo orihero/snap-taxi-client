@@ -11,7 +11,9 @@ import { requestPermission, turnOnLocation } from './src/helpers';
 const MainApp = () => {
   useEffect(() => {
     if (Platform.OS === 'android') {
-      requestPermission();
+      requestPermission(() => {
+        store.dispatch.user.getCurrentLocation({});
+      });
       turnOnLocation();
     } else {
       Geolocation.requestAuthorization('always').then((res) => {
@@ -28,7 +30,7 @@ const MainApp = () => {
 
   return (
     <Provider store={store}>
-      <App store={store} />
+      <App />
     </Provider>
   );
 };

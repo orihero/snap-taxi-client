@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import firebase from '@react-native-firebase/messaging';
 import MapView from 'react-native-maps';
 import MainScreenView from './view';
 import { Props } from './connect';
 import { ROUTES } from '@constants/ROUTES';
 import OrderStatus from '@constants/orderStatus';
+import { DestinationInfo } from '@store/models/map/types';
 
 class MainScreenController extends PureComponent<Props, any> {
   constructor(props: any) {
@@ -12,6 +12,10 @@ class MainScreenController extends PureComponent<Props, any> {
     this.state = {
       mapRef: null,
     };
+  }
+
+  componentDidMount() {
+    this.props.getList();
   }
 
   componentDidUpdate() {
@@ -30,12 +34,20 @@ class MainScreenController extends PureComponent<Props, any> {
     this.props.navigation.navigate(ROUTES.SELECT_CAR);
   };
 
+  selectDest = (info: DestinationInfo) => {
+    this.props.setDestinationInfo(info);
+    this.goToSelectCar();
+  };
+
   render() {
     return (
       <MainScreenView
+        latestBookings={this.props.latestBookings}
+        savedAddresses={this.props.savedAddresses}
         goToSelectCar={this.goToSelectCar}
         setMapRef={this.setMapRef}
         mapRef={this.state.mapRef}
+        selectDest={this.selectDest}
         addressText={this.props.currentLocationInfo?.name}
       />
     );

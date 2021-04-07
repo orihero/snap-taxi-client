@@ -10,6 +10,7 @@ import RateOrderModal from '../RateOrderModal';
 import { Booking } from '@store/models/booking/types';
 import OrderStatus from '@constants/orderStatus';
 import MapView from 'react-native-maps';
+import {localization} from "../../services/Localization";
 
 interface IProps {
   currentBooking: Booking | null;
@@ -27,11 +28,26 @@ const TripScreenView = ({ currentBooking }: IProps) => {
     }
   };
 
+  const subText = () => {
+    switch (currentBooking?.status) {
+      case OrderStatus.ACCEPTED:
+        return localization.accepted;
+      case OrderStatus.PROCESSING:
+        return localization.onWay;
+      case OrderStatus.WAITING:
+        return localization.carWaiting;
+      case OrderStatus.ARRIVED:
+        return localization.carArrived;
+      default:
+        return ''
+    }
+  }
+
   return (
     <>
       <RateOrderModal />
       <View style={styles.container}>
-        <Header gradient={false} />
+        <Header gradient={false} subText={subText()} />
         {renderPanel()}
         {useIsFocused() && <Map mapRef={mapRef} setMapRef={setMapRef} />}
       </View>

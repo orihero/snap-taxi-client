@@ -23,7 +23,7 @@ const TripScreenController = ({
     if (currentBooking?.status === OrderStatus.CANCELED) {
       Alert.alert(
         'Внимание',
-        'Уважаемый клиент в ближайшие время нет свободных машин. По пробуйте заказать по другому тарифу.',
+        'Ваш заказ сорван сожалеем.\nПопробуйте найти другую машину.',
       );
       navigation.reset({
         index: 0,

@@ -79,4 +79,18 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 100,
   },
+  header: {
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  commentItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+  },
+  commentsWrapper: {
+    marginHorizontal: 20,
+  },
 });

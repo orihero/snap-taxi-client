@@ -13,7 +13,7 @@ import { SelectLocationPanel } from './Panels/SelectLocationPanel';
 
 interface IProps {
   mapRef: any;
-  setMapRef: () => void;
+  setMapRef: (arg: any) => void;
   isSelectingOnMap: boolean;
   currentBooking: Booking | null;
 }
@@ -27,7 +27,7 @@ const SelectCarScreenView = ({
   const renderPanel = () => {
     switch (currentBooking?.status) {
       case OrderStatus.NEW:
-        return <CancelBookingPanel />;
+        return <CancelBookingPanel mapRef={mapRef} />;
       default:
         return <BookingPanel />;
     }
@@ -35,7 +35,11 @@ const SelectCarScreenView = ({
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flexGrow: 1 }}>
-        <Header gradient={false} subText={'Детали заказа'} />
+        <Header
+          goBack={!currentBooking}
+          gradient={false}
+          subText={'Детали заказа'}
+        />
         {useIsFocused() && (
           <Map mapRef={mapRef} markerPosition setMapRef={setMapRef} />
         )}

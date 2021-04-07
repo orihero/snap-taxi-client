@@ -3,7 +3,13 @@ import Geolocation, { GeoCoordinates } from 'react-native-geolocation-service';
 import { RootModel } from '../models';
 import { request } from '../utils/request';
 import { API } from '@constants/API';
-import { User, Notification } from './types';
+import {
+  User,
+  Notification,
+  Address,
+  AddressPayload,
+  EditAddressPayload,
+} from './types';
 import { initialState } from './state';
 import { EffectPayload } from '@store/models/types';
 import { Region } from 'react-native-maps';
@@ -17,6 +23,9 @@ export const user = createModel<RootModel>()({
     },
     setNotifications(state, notifications: Notification[]) {
       return { ...state, notifications };
+    },
+    setSavedAddresses(state, savedAddresses: Address[]) {
+      return { ...state, savedAddresses };
     },
     markRead(state) {
       return {
@@ -81,7 +90,9 @@ export const user = createModel<RootModel>()({
         (data) => {
           const coords = data.coords;
           const { latitude, longitude } = coords;
-          successCb?.({ latitude, longitude });
+          if (successCb) {
+            successCb({ latitude, longitude });
+          }
           dispatch.user.setCurrentLocation(data.coords);
           dispatch.map.getLocationData({
             payload: { longitude, latitude },
@@ -92,12 +103,68 @@ export const user = createModel<RootModel>()({
           console.log(error.code, error.message);
         },
         {
-          enableHighAccuracy: false,
+          enableHighAccuracy: true,
           timeout: 15000,
           maximumAge: 10000,
           forceRequestLocation: true,
         },
       );
+    },
+    async getSavedAddresses() {
+      try {
+        const { data } = await request.get(API.GET_SAVED_ADDRESSES);
+        const normalized = data.data.map((address: Address) => ({
+          ...address,
+          lat: +address.lat,
+          lng: +address.lng,
+        }));
+        dispatch.user.setSavedAddresses(normalized);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async saveAddress({
+      successCb,
+      errorCb,
+      payload,
+    }: EffectPayload<AddressPayload, any>) {
+      try {
+        await request.post(API.GET_SAVED_ADDRESSES, payload);
+        await dispatch.user.getSavedAddresses();
+
+        successCb?.();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async editSavedAddress({
+      successCb,
+      errorCb,
+      payload,
+    }: EffectPayload<EditAddressPayload, any>) {
+      try {
+        await request.put(
+          API.GET_SAVED_ADDRESSES + `/${payload.id}`,
+          payload.data,
+        );
+        await dispatch.user.getSavedAddresses();
+        successCb?.();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteAddress({
+      successCb,
+      errorCb,
+      payload,
+    }: EffectPayload<any, any>) {
+      try {
+        await request.delete(API.GET_SAVED_ADDRESSES + `/${payload}`);
+        await dispatch.user.getSavedAddresses();
+        successCb?.();
+      } catch (e) {
+        console.log(e);
+      }
     },
   }),
 });

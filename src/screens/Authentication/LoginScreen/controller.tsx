@@ -16,7 +16,7 @@ export const LoginScreenController = ({
     login({
       payload: {
         phone: normalizedPhone,
-        role: Roles.DRIVER,
+        role: Roles.CLIENT,
       },
       successCb: () => navigation.navigate(ROUTES.ENTER_CODE),
       errorCb: () => {},

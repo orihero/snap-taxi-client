@@ -40,6 +40,12 @@ export const MapController = ({
         },
         500,
       );
+      mapRef?.animateToRegion({
+        latitude: +driverLocation.lat,
+        longitude: +driverLocation.lng,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
+      });
     } else {
       setInitialDriverLocation(null);
     }
@@ -102,8 +108,8 @@ export const MapController = ({
       initialRegion={{
         longitude: currentLocation?.longitude,
         latitude: currentLocation?.latitude,
-        latitudeDelta: 0.003,
-        longitudeDelta: 0.003,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002,
       }}
     />
   );

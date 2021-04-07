@@ -19,15 +19,19 @@ export const onSmsListener = async (setCode: (code: string) => void) => {
   }
 };
 
-export const requestPermission = async () => {
-  let hasPermission;
-  if (Platform.OS === 'android') {
-    hasPermission = await PermissionsAndroid.check(
+export const requestPermission = async (cb?: () => void) => {
+  try {
+    const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );
-    const status = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('Location permission granted');
+      cb?.();
+    } else {
+      console.log('Location permission denied');
+    }
+  } catch (err) {
+    console.warn(err);
   }
 };
 

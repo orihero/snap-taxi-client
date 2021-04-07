@@ -22,6 +22,12 @@ const SelectLanguageScreen = ({ language, changeAppLanguage }: Props) => {
           <RadioButton selected={language === 'en'} />
         </View>
       </TouchableOpacity>
+        <TouchableOpacity onPress={() => changeAppLanguage('uz')}>
+            <View style={styles.row}>
+                <Bold style={styles.text}>Uzbek</Bold>
+                <RadioButton selected={language === 'uz'} />
+            </View>
+        </TouchableOpacity>
     </View>
   );
 };

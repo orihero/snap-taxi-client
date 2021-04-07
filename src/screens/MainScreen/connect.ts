@@ -5,14 +5,22 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 const mapState = ({
   map: { currentLocationInfo },
-  booking: { current },
+  booking: { current, list },
+  user: { savedAddresses },
 }: RootState) => ({
+  savedAddresses,
   currentLocationInfo,
+  latestBookings: list.slice(0, 5),
   currentBooking: current,
 });
 
-const mapDispatch = ({ booking: { removeBooking } }: Dispatch) => ({
+const mapDispatch = ({
+  booking: { removeBooking, getList },
+  map: { setDestinationInfo },
+}: Dispatch) => ({
+  getList,
   removeBooking,
+  setDestinationInfo,
 });
 
 type StateProps = ReturnType<typeof mapState>;

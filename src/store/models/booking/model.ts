@@ -10,6 +10,7 @@ import {
   Booking,
   CarBookPayload,
   ChangeBookingStatusPayload,
+  Comment,
   GetRatesPayload,
   Message,
   ReviewBookingPayload,
@@ -41,6 +42,9 @@ export const booking = createModel<RootModel>()({
     },
     clearChat(state) {
       return { ...state, chat: [] };
+    },
+    setQuickComments(state, quickComments: Comment[]) {
+      return { ...state, quickComments };
     },
     markRead(state) {
       return {
@@ -157,7 +161,7 @@ export const booking = createModel<RootModel>()({
           ...booking,
           ...rest,
           channel,
-          routes: JSON.parse(booking.routes),
+          routes: booking.routes,
         });
         if (booking.status !== OrderStatus.CANCELED) {
           const canceledSound = new Sound(
@@ -277,8 +281,17 @@ export const booking = createModel<RootModel>()({
         await request.put(API.RATE_BOOKING + current?.id, payload);
         await successCb?.();
         await dispatch.booking.removeBooking();
+        dispatch.user.getCurrentLocation({});
       } catch (e) {
         errorCb?.();
+        throw new Error(e);
+      }
+    },
+    async getQuickComments() {
+      try {
+        const { data } = await request.get(API.GET_QUICK_COMMENTS);
+        dispatch.booking.setQuickComments(data.data);
+      } catch (e) {
         throw new Error(e);
       }
     },

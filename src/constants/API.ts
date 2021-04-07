@@ -24,4 +24,6 @@ export enum API {
   CAR_BOOKING = 'car-booking/book',
   GET_DRIVER_LOCATION = 'car-booking/location/',
   GET_REGIONS = 'handbook/regions',
+  GET_QUICK_COMMENTS = 'handbook/quick-comments',
+  GET_SAVED_ADDRESSES = 'saved-addresses',
 }

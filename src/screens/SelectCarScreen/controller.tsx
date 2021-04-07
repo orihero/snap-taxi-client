@@ -18,13 +18,19 @@ const SelectCarScreenController = ({
   setDestinationInfo,
   setIsSelectingOnMap,
 }: Props) => {
-  const [mapRef, setMapRef] = useState();
+  const [mapRef, setMapRef] = useState<any>();
   const [timeoutId, setTimeoutId] = useState<number | undefined>(undefined);
   useBackHandler(() => {
     if (isSelectingOnMap) {
       setIsSelectingOnMap(false);
       return true;
     }
+
+    if(currentBooking){
+      cancel();
+      return true;
+    }
+
     setDestinationInfo(null);
     return false;
   });
@@ -74,6 +80,23 @@ const SelectCarScreenController = ({
       setCurrent(null);
     }
   }, [currentBooking?.status]);
+
+
+  const cancel = () => {
+    return Alert.alert(
+        'Отмена заказа',
+        'Вы действительно хотите отменить заказ ?',
+        [
+          {
+            text: 'Да',
+            onPress: () => cancelBooking({ payload: null }),
+          },
+          {
+            text: 'Нет',
+          },
+        ],
+    );
+  };
 
   return (
     <SelectCarScreenView

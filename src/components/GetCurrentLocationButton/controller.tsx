@@ -13,8 +13,8 @@ const GetCurrentLocationButtonController = ({ mapRef }: Props) => {
           mapRef.animateToRegion({
             latitude,
             longitude,
-            latitudeDelta: 0.003,
-            longitudeDelta: 0.003,
+            latitudeDelta: 0.002,
+            longitudeDelta: 0.002,
           });
         }
       },

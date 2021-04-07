@@ -5,4 +5,5 @@ export const initialState: InitialState = {
   current: null,
   chat: [],
   rates: [],
+  quickComments: [],
 };

@@ -1,3 +1,3 @@
-import MyAddressesScreen from "./MyAddressesScreen";
+import MyAddressesScreen from './connect';
 
 export default MyAddressesScreen;

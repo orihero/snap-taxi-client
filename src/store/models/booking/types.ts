@@ -1,6 +1,5 @@
 import { Rate, User } from '@store/models/user/types';
 import OrderStatus from '@constants/orderStatus';
-import Echo from 'laravel-echo';
 
 export type Route = {
   address: string;
@@ -46,18 +45,21 @@ export type GetRatesPayload = {
 };
 
 export type CarBookPayload = {
-  // routes: Route[];
   option_ids: number[];
   distance: string;
   ac_rate: number;
   rate_id: number;
   comment: string;
-  // region_id: number;
 };
 
 export type ReviewBookingPayload = {
   comment: string;
   rating: number;
+};
+
+export type Comment = {
+  id: number;
+  title: string;
 };
 
 export type Message = {
@@ -72,4 +74,5 @@ export type InitialState = {
   current: Booking | null;
   chat: Message[];
   rates: Rate[];
+  quickComments: Comment[];
 };
