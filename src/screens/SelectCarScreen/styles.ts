@@ -104,4 +104,22 @@ export default StyleSheet.create({
   redColor: {
     backgroundColor: '#ff4444',
   },
+  recent: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    borderColor: Colors.border,
+    borderWidth: 2,
+    marginHorizontal: 10,
+  },
+  scrollView: {
+    minHeight: 70,
+  },
+  recentBtn: {
+    minWidth: 100,
+    backgroundColor: Colors.background,
+  },
 });

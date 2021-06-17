@@ -15,12 +15,11 @@ class MainScreenController extends PureComponent<Props, any> {
   }
 
   componentDidMount() {
-    this.props.getList();
-  }
+    const { getList, currentBooking, removeBooking } = this.props;
+    getList();
 
-  componentDidUpdate() {
-    if (this.props.currentBooking?.status === OrderStatus.CANCELED) {
-      this.props.removeBooking();
+    if (currentBooking && currentBooking.status === OrderStatus.CANCELED) {
+      removeBooking();
     }
   }
 

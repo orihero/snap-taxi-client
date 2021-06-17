@@ -6,7 +6,7 @@ let strings = new LocalizedStrings({
     goodMorning: 'Доброе утро',
     goodDay: 'Добрый день',
     goodEvening: 'Добрый вечер',
-    whereAreWeGoing: 'Куда мы едем?',
+    whereAreWeGoing: 'Куда мы едем ?',
     send: 'Отправить',
     continue: 'Продолжить',
     where: 'Куда едем?',

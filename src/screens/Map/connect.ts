@@ -47,6 +47,7 @@ type DisPatchProps = ReturnType<typeof mapDispatch>;
 interface IProps {
   setMapRef: (ref: MapView) => void;
   mapRef: MapView | null;
+  secondPage?: boolean;
 }
 
 export type Props = StateProps & DisPatchProps & IProps;

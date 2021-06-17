@@ -24,17 +24,19 @@ const DriverInfo = ({
   noIcons,
   name,
   phone,
+  photo,
   car,
 }: any) => {
   const navigation = useNavigation();
+  console.log(photo);
   return (
     <>
       <View style={styles.topBlock}>
         <View style={styles.topBlockContent}>
           <View style={styles.wrapper}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={styles.img}>
-                <Image source={require('../../assets/images/me.png')} />
+              <View style={styles.imgWrapper}>
+                <Image source={{ uri: photo }} style={styles.img} />
               </View>
               <View style={{ marginRight: 18 }}>
                 <Bold>{name}</Bold>

@@ -44,7 +44,7 @@ export type DriverLocation = {
 
 export type InitialState = {
   distance: number;
-  regionId: number;
+  regionId: number | string;
   regions: Region[];
   driversAround: Drivers[];
   isSelectingOnMap: boolean;

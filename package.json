@@ -31,6 +31,7 @@
     "geolib": "^3.3.1",
     "laravel-echo": "1.8.1",
     "lodash": "4.17.20",
+    "point-in-polygon": "^1.1.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-android-location-enabler": "1.2.1",

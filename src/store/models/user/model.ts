@@ -110,7 +110,7 @@ export const user = createModel<RootModel>()({
         },
       );
     },
-    async getSavedAddresses() {
+    async getSavedAddresses(paylaod, state) {
       try {
         const { data } = await request.get(API.GET_SAVED_ADDRESSES);
         const normalized = data.data.map((address: Address) => ({
@@ -120,6 +120,9 @@ export const user = createModel<RootModel>()({
         }));
         dispatch.user.setSavedAddresses(normalized);
       } catch (e) {
+        if (state.app.isNetworkConnected) {
+          dispatch.user.getSavedAddresses();
+        }
         console.log(e);
       }
     },

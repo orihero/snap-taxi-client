@@ -100,7 +100,7 @@ const RateOrderModalView = ({
                       Сумма поездки
                     </SemiBold>
                     <Bold style={styles.priceText}>
-                      {Math.ceil(currentBooking!.price / 100) * 100}
+                      {Math.round(currentBooking?.price / 100) * 100}
                       сум
                     </Bold>
                   </View>

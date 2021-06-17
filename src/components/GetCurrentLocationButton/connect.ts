@@ -10,7 +10,8 @@ const mapDispatch = ({}: Dispatch) => ({});
 type StoreProps = ReturnType<typeof mapState>;
 type DispatchProps = ReturnType<typeof mapDispatch>;
 
-export type Props = StoreProps & DispatchProps & { mapRef: MapView };
+export type Props = StoreProps &
+  DispatchProps & { mapRef: MapView; secondPage?: boolean };
 
 export default connect(
   mapState,

@@ -4,6 +4,7 @@ import { user } from './user';
 import { app } from './app';
 import { booking } from './booking';
 import { map } from './map';
+import { handling } from './handling';
 
 export interface RootModel extends Models<RootModel> {
   app: typeof app;
@@ -11,6 +12,7 @@ export interface RootModel extends Models<RootModel> {
   auth: typeof auth;
   user: typeof user;
   booking: typeof booking;
+  handling: typeof handling;
 }
 
 export const models: RootModel = {
@@ -19,4 +21,5 @@ export const models: RootModel = {
   auth,
   user,
   booking,
+  handling,
 };

@@ -3,8 +3,10 @@ import DestinationModalScreenView from './view';
 import { Props } from './connect';
 import debounce from 'lodash/debounce';
 import { normalizeCoords } from '../../helpers';
+import { Region } from 'react-native-maps';
 
 const DestinationModalScreenController = ({
+  mapRef,
   visible,
   closeModal,
   searchLocation,
@@ -40,7 +42,7 @@ const DestinationModalScreenController = ({
 
   const searchOrigin = (text: string) => {
     setOriginLocationText(text);
-    if (destinationText.length > 3) {
+    if (originLocationText.length > 3) {
       return debounce(
         () =>
           searchLocation({
@@ -63,11 +65,17 @@ const DestinationModalScreenController = ({
         coords: normalizeCoords(item.GeoObject.Point.pos),
       });
     } else {
+      const coords = normalizeCoords(item.GeoObject.Point.pos);
+      mapRef?.animateToRegion({
+        ...coords,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.002,
+      });
       setCurrentLocationInfo({
         ...item.GeoObject,
-        coords: normalizeCoords(item.GeoObject.Point.pos),
+        coords,
       });
-      setCurrentLocation(normalizeCoords(item.GeoObject.Point.pos));
+      setCurrentLocation(coords as Region);
     }
     closeModal();
   };

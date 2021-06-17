@@ -6,20 +6,14 @@ import AuthenticationStack from './StackNavigators/AuthenticationStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Dispatch, RootState } from '@store/models';
 
-const AppNavigator = ({
-  current,
-  isAuthenticated,
-  setIsRouterLoaded,
-}: Props) => {
+const AppNavigator = ({ isAuthenticated }: Props) => {
   const [isReady, setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
 
   useEffect(() => {
     const restoreState = async () => {
       try {
-        const savedStateString = current
-          ? await AsyncStorage.getItem('router')
-          : undefined;
+        const savedStateString = await AsyncStorage.getItem('router');
         const state = savedStateString
           ? JSON.parse(savedStateString)
           : undefined;
@@ -27,7 +21,6 @@ const AppNavigator = ({
           setInitialState(state);
         }
       } finally {
-        setIsRouterLoaded(true);
         setIsReady(true);
       }
     };
@@ -40,8 +33,6 @@ const AppNavigator = ({
   if (!isReady) {
     return null;
   }
-
-  // localization.setLanguage(user.language);
 
   return (
     <NavigationContainer

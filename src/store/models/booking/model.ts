@@ -163,7 +163,13 @@ export const booking = createModel<RootModel>()({
           channel,
           routes: booking.routes,
         });
-        if (booking.status !== OrderStatus.CANCELED) {
+        if (booking.status === OrderStatus.CANCELED) {
+          echo = null;
+        }
+        if (
+          booking.status === OrderStatus.ACCEPTED ||
+          booking.status === OrderStatus.ARRIVED
+        ) {
           const canceledSound = new Sound(
             'find_car.mp3',
             Sound.MAIN_BUNDLE,

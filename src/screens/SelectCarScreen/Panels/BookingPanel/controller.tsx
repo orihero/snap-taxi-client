@@ -12,12 +12,15 @@ import { localization } from '../../../../services/Localization';
 import styles from './styles';
 const BookingPanelController = ({
   rates,
+  mapRef,
   bookCar,
   getRates,
   distance,
-  regionId,
   isLoading,
+  bookingList,
+  isRatesLoading,
   quickComments,
+  setDestinationInfo,
   destinationInfo,
   cancelDestination,
   currentLocationInfo,
@@ -51,7 +54,7 @@ const BookingPanelController = ({
   const [height, setHeight] = useState(500);
   useEffect(() => {
     getRates({ ac_rate: airCondition ? 1 : 0, distance: Math.ceil(distance) });
-  }, [airCondition, distance, regionId]);
+  }, [airCondition, distance, currentLocationInfo]);
 
   const findCar = () => {
     bookCar({
@@ -76,31 +79,36 @@ const BookingPanelController = ({
   };
   return (
     <>
-      <DestinationModal
-        visible={visibleDestinationModal}
-        closeModal={() => setVisibleDestinationModal(false)}
-      />
+      {visibleDestinationModal && (
+        <DestinationModal
+          mapRef={mapRef}
+          visible={visibleDestinationModal}
+          closeModal={() => setVisibleDestinationModal(false)}
+        />
+      )}
       <PlanItemInfoModal
         rateInfo={rates[selectedRateIndex] ?? {}}
         visible={visiblePlanModal}
         closeModal={() => setVisiblePlanModal(false)}
       />
+
       <AdditionalOptionsModal
         airCondition={airCondition}
         setAirCondition={(val: number) => setAirCondition(val)}
         visible={visibleAdditionalModal}
-        showBottomSheet={() => modalRef.current.show()}
+        showBottomSheet={() => modalRef.current?.show()}
         closeModal={() => setVisibleAdditionalModal(false)}
       />
       <BottomSheet
         hasDraggableIcon
+        // @ts-ignore
         ref={modalRef}
         height={!isKeyboardActive ? height + 100 : 100}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => modalRef.current.close()}>
+          <TouchableOpacity onPress={() => modalRef.current?.close()}>
             <CancelIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => modalRef.current.close()}>
+          <TouchableOpacity onPress={() => modalRef.current?.close()}>
             <SemiBold>{localization.done}</SemiBold>
           </TouchableOpacity>
         </View>
@@ -120,7 +128,10 @@ const BookingPanelController = ({
         </View>
       </BottomSheet>
       <BookingPanelView
+        isRatesLoading={isRatesLoading}
         rates={rates}
+        selectDest={setDestinationInfo}
+        bookingList={bookingList}
         findCar={findCar}
         isLoading={isLoading}
         to={destinationInfo?.name as string}

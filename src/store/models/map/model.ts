@@ -18,7 +18,7 @@ import { normalizeCoords } from '../../../helpers';
 export const map = createModel<RootModel>()({
   state: initialState,
   reducers: {
-    setRegionId(state, regionId: number) {
+    setRegionId(state, regionId: number | string) {
       return { ...state, regionId };
     },
     setCurrentLocationInfo(state, currentLocationInfo: DestinationInfo) {

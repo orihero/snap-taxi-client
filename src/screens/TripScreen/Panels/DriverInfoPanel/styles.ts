@@ -28,13 +28,14 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   icon: {
-    width: 56,
-    height: 56,
-    borderRadius: 100,
+    width: Screen.width / 3,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     elevation: 10,
     backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   column: {
     width: '48.5%',

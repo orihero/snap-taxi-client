@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   FlatList,
+  ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -9,25 +10,31 @@ import {
 import styles from '../../styles';
 import CarItem from '@components/CarItem';
 import WalletIcon from '@assets/images/WalletIcon';
-import { Bold, Regular } from '@components/Layout/AppText';
+import { Bold, Regular, SemiBold } from '@components/Layout/AppText';
 import ArrowIcon from '@assets/images/ArrowIcon';
 import TouchablePlatformSpecific from '@components/TouchablePlatformSpecific';
 import AddIcon from '@assets/images/AddIcon';
 import Button from '@components/Button';
 import { localization } from '../../../../services/Localization';
-import { Rate } from '@store/models/user/types';
+import { Address, Rate } from '@store/models/user/types';
 import { Fade, Placeholder, PlaceholderLine } from 'rn-placeholder';
 import CancelTripIcon from '@assets/images/CancelTripIcon';
 import CancelIcon from '@assets/images/CancelIcon';
+import Screen from '../../../../helpers/Dimensions';
+import Colors from '@assets/styles/Colors';
+import { Booking } from '@store/models/booking/types';
 
 interface IProps {
   rates: Rate[];
   from: string;
   to: string;
   isLoading: boolean;
+  bookingList: Address[];
+  isRatesLoading: boolean;
   findCar: () => void;
   selectedRateIndex: number;
   cancelDestination: () => void;
+  selectDest: any;
   openAdditionalModal: () => void;
   openDestinationModal: () => void;
   setSelectedRateIndex: (index: number) => void;
@@ -40,6 +47,9 @@ const BookingPanelView = ({
   rates,
   findCar,
   isLoading,
+  isRatesLoading,
+  bookingList,
+  selectDest,
   cancelDestination,
   selectedRateIndex,
   setVisiblePlanModal,
@@ -68,11 +78,12 @@ const BookingPanelView = ({
             const isActive = selectedRateIndex === index;
             return (
               <CarItem
+                isLoading={!isRatesLoading}
                 inflated={item.inflated}
                 title={item.title}
                 key={index}
                 image={item.icon}
-                price={item.price}
+                price={item?.price}
                 onPress={() => {
                   isActive && setVisiblePlanModal(true);
                   setSelectedRateIndex(index);
@@ -103,47 +114,84 @@ const BookingPanelView = ({
         </View>
       </>
       <View style={styles.selectDest}>
-        <TouchableWithoutFeedback>
-          <View style={{ marginLeft: 5, flex: 1 }}>
-            <View>
-              <View
-                style={[
-                  styles.row,
-                  { borderBottomWidth: 1, borderBottomColor: '#dddddd' },
-                ]}>
-                <View style={[styles.addressCircle]} />
-                {from ? (
-                  <Bold style={styles.directionText}>{from}</Bold>
-                ) : (
-                  <Placeholder
-                    Animation={Fade}
-                    style={{ width: 200, height: 12 }}>
-                    <PlaceholderLine />
-                  </Placeholder>
-                )}
-              </View>
-            </View>
-            <View
-              style={{
+        <View style={{ marginLeft: 5, flex: 1 }}>
+          <TouchableOpacity
+            onPress={openDestinationModal}
+            style={[
+              styles.row,
+              { borderBottomWidth: 1, borderBottomColor: Colors.border },
+            ]}>
+            <View style={[styles.addressCircle]} />
+            {from ? (
+              <Bold style={styles.directionText}>{from}</Bold>
+            ) : (
+              <Placeholder Animation={Fade} style={{ width: 200, height: 12 }}>
+                <PlaceholderLine />
+              </Placeholder>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={!to ? openDestinationModal : () => {}}
+            style={[
+              {
                 flexDirection: 'row',
                 alignItems: 'center',
-              }}>
-              <TouchableOpacity
-                onPress={openDestinationModal}
-                style={[styles.row, !to && {flex: 1}]}>
-                <View style={[styles.addressCircle, styles.redColor]} />
-                <Bold style={styles.directionText}>{to ?? 'Куда едем ?'}</Bold>
-              </TouchableOpacity>
-              {to && (
-                <TouchableOpacity
-                  style={{ marginLeft: 20 }}
-                  onPress={cancelDestination}>
-                  <CancelIcon />
-                </TouchableOpacity>
-              )}
+                position: 'relative',
+              },
+              styles.row,
+              styles.scrollView,
+            ]}>
+            <View
+              style={[
+                styles.row,
+                !to && { flex: 1, position: 'absolute' },
+                { paddingVertical: 0 },
+              ]}>
+              <View style={[styles.addressCircle, styles.redColor]} />
+              <Bold style={styles.directionText}>{to ?? 'Куда едем ?'}</Bold>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
+            {to && (
+              <TouchableOpacity
+                style={{ marginLeft: 20 }}
+                onPress={cancelDestination}>
+                <CancelIcon />
+              </TouchableOpacity>
+            )}
+            {!to && (
+              <ScrollView
+                style={{
+                  flex: 1,
+                }}
+                contentContainerStyle={{
+                  paddingLeft: '50%',
+                }}
+                horizontal
+                showsHorizontalScrollIndicator={false}>
+                {bookingList.map((item) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      selectDest({
+                        coords: {
+                          latitude: +item.lat,
+                          longitude: +item.lng,
+                        },
+                        name: item.address,
+                        Point: {
+                          pos: '',
+                        },
+                      });
+                    }}
+                    activeOpacity={0.9}
+                    style={styles.recentBtn}>
+                    <View style={styles.recent}>
+                      <SemiBold>{item.title ?? item.address}</SemiBold>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.buttonWrapper}>
         <Button

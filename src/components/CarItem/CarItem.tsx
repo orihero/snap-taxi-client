@@ -13,6 +13,7 @@ interface IProps {
   price?: number;
   onPress?: () => void;
   inflated?: boolean;
+  isLoading?: boolean;
   image?: string;
 }
 
@@ -22,13 +23,14 @@ const CarItem = ({
   price,
   onPress,
   inflated,
+  isLoading,
   image,
 }: IProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} disabled={!isLoading}>
       <View style={[styles.planItem, active && styles.activeContainerStyle]}>
         <View style={{ marginTop: 6 }}>
-          {title ? (
+          {isLoading ? (
             <Text
               numberOfLines={1}
               style={[
@@ -49,7 +51,7 @@ const CarItem = ({
                 <Lightning />
               </View>
             )}
-            {price ? (
+            {isLoading ? (
               <Bold style={[styles.text, active && styles.activeText]}>
                 от {price}
               </Bold>

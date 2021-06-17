@@ -3,7 +3,10 @@ import GetCurrentLocationButtonView from './view';
 import { Props } from './connect';
 import Geolocation from 'react-native-geolocation-service';
 
-const GetCurrentLocationButtonController = ({ mapRef }: Props) => {
+const GetCurrentLocationButtonController = ({
+  mapRef,
+  secondPage = false,
+}: Props) => {
   const locationHandler = () => {
     Geolocation.getCurrentPosition(
       (data) => {
@@ -13,8 +16,15 @@ const GetCurrentLocationButtonController = ({ mapRef }: Props) => {
           mapRef.animateToRegion({
             latitude,
             longitude,
-            latitudeDelta: 0.002,
-            longitudeDelta: 0.002,
+            ...(secondPage
+              ? {
+                  latitudeDelta: 0.002,
+                  longitudeDelta: 0.002,
+                }
+              : {
+                  latitudeDelta: 0.0046,
+                  longitudeDelta: 0.0046,
+                }),
           });
         }
       },

@@ -14,11 +14,12 @@ const mapState = ({
 });
 
 const mapDispatch = ({
-  booking: { setCurrent, cancelBooking, setBookingStatus },
+  booking: { setCurrent, cancelBooking, setBookingStatus, removeBooking },
   map: { setDestinationInfo, setIsSelectingOnMap, setDistance },
 }: Dispatch) => ({
   setCurrent,
   setDistance,
+  removeBooking,
   cancelBooking,
   setBookingStatus,
   setDestinationInfo,

@@ -37,6 +37,7 @@ const MapScreenView = ({
   mapRef,
   setMapRef,
   setDistance,
+  driverLocation,
   initialRegion,
   setIsMapReady,
   driversAround,
@@ -138,7 +139,9 @@ const MapScreenView = ({
                 style={[
                   styles.marker,
                   {
-                    transform: [{ rotate: `${0} deg` }],
+                    transform: [
+                      { rotate: `${driverLocation?.heading ?? 0} deg` },
+                    ],
                   },
                 ]}
                 source={require('../../assets/images/car.png')}

@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, AppState, View, ActivityIndicator } from 'react-native';
+import { SafeAreaView, AppState, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import NetInfo from '@react-native-community/netinfo';
 import AppNavigator from './src/navigation/AppNavigator';
 import { Dispatch, RootState } from '@store/models';
-import SplashScreen from 'react-native-splash-screen';
 import firebase from '@react-native-firebase/messaging';
-import Colors from '@assets/styles/Colors';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = ({
   initApp,
   appState,
-  setAppState,
   isAppLoading,
+  setAppState,
   setChatMessage,
-  isRouterLoaded,
   getNotifications,
   languageChanging,
   getCurrentBooking,
@@ -25,6 +23,12 @@ const App = ({
     initApp();
     NetInfo.addEventListener((state) => {
       setNetworkConnection(!!(state.isConnected && state.isInternetReachable));
+      if (!state.isConnected) {
+        Alert.alert(
+          'Ошибка',
+          'Для корректной работы приложение включите интернет!',
+        );
+      }
     });
     AppState.addEventListener('change', (state) => {
       setAppState(state);
@@ -47,12 +51,6 @@ const App = ({
     }
   }, [appState, isNetworkConnected]);
 
-  useEffect(() => {
-    if (isRouterLoaded) {
-      SplashScreen.hide();
-    }
-  }, [isRouterLoaded]);
-
   const notificationHandler = (notification: any) => {
     if (notification && notification.title === 'Сообщение') {
       return setChatMessage({
@@ -66,36 +64,22 @@ const App = ({
     getNotifications();
   };
 
-  if (isAppLoading || languageChanging) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: Colors.blue,
-        }}>
-        <ActivityIndicator color={'#fff'} size={'large'} />
-      </View>
-    );
-  }
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <AppNavigator />
+      <AppNavigator key={languageChanging} />
     </SafeAreaView>
   );
 };
 
 const mapState = ({
-  loading,
   app: { isRouterLoaded, isNetworkConnected, appState },
+  handling,
 }: RootState) => ({
   appState,
   isRouterLoaded,
   isNetworkConnected,
-  isAppLoading: loading.effects.app.initApp,
-  languageChanging: loading.effects.app.changeAppLanguage,
+  isAppLoading: handling.app.initApp,
+  languageChanging: handling.app.changeAppLanguage,
 });
 
 const mapDispatch = ({

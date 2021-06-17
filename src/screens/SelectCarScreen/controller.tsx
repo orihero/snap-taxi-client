@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import SelectCarScreenView from './view';
-import BackgroundTimer from 'react-native-background-timer';
 import { Props } from './connect';
 import OrderStatus from '@constants/orderStatus';
 import { ROUTES } from '@constants/ROUTES';
@@ -12,6 +11,7 @@ const SelectCarScreenController = ({
   setCurrent,
   setDistance,
   cancelBooking,
+  removeBooking,
   currentBooking,
   currentLocation,
   isSelectingOnMap,
@@ -19,14 +19,13 @@ const SelectCarScreenController = ({
   setIsSelectingOnMap,
 }: Props) => {
   const [mapRef, setMapRef] = useState<any>();
-  const [timeoutId, setTimeoutId] = useState<number | undefined>(undefined);
   useBackHandler(() => {
     if (isSelectingOnMap) {
       setIsSelectingOnMap(false);
       return true;
     }
 
-    if(currentBooking){
+    if (currentBooking) {
       cancel();
       return true;
     }
@@ -34,6 +33,8 @@ const SelectCarScreenController = ({
     setDestinationInfo(null);
     return false;
   });
+
+  const [isUserCanceled, setIsUserCanceled] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -44,7 +45,7 @@ const SelectCarScreenController = ({
   }, []);
 
   useEffect(() => {
-    if (currentBooking?.status === OrderStatus.NEW && timeoutId === undefined) {
+    if (currentBooking?.status === OrderStatus.NEW) {
       mapRef?.animateToRegion(
         {
           latitude: currentLocation?.latitude,
@@ -54,20 +55,8 @@ const SelectCarScreenController = ({
         },
         15000,
       );
-      const id = BackgroundTimer.setTimeout(() => {
-        cancelBooking({
-          payload: null,
-        });
-        Alert.alert(
-          'Внимание',
-          'Уважаемый клиент в ближайшие время нет свободных машин, попробуйте  заказать по другому тарифу.',
-        );
-        setTimeoutId(undefined);
-      }, 120000);
-      setTimeoutId(id as number);
     }
     if (currentBooking?.status === OrderStatus.ACCEPTED) {
-      BackgroundTimer.clearInterval(timeoutId as number);
       navigation.reset({
         index: 0,
         routes: [{ name: ROUTES.TRIP }],
@@ -75,32 +64,59 @@ const SelectCarScreenController = ({
     }
 
     if (currentBooking?.status === OrderStatus.CANCELED) {
-      BackgroundTimer.clearInterval(timeoutId as number);
-      setTimeoutId(undefined);
-      setCurrent(null);
+      if (!isUserCanceled) {
+        setIsUserCanceled(false);
+        Alert.alert(
+          'Внимание',
+          'Ваш заказ сорван сожалеем.\nПопробуйте найти другую машину.',
+          [
+            {
+              text: 'OK',
+            },
+          ],
+        );
+      }
+      removeBooking();
     }
   }, [currentBooking?.status]);
 
-
   const cancel = () => {
+    setIsUserCanceled(true);
     return Alert.alert(
-        'Отмена заказа',
-        'Вы действительно хотите отменить заказ ?',
-        [
-          {
-            text: 'Да',
-            onPress: () => cancelBooking({ payload: null }),
+      'Отмена заказа',
+      'Вы действительно хотите отменить заказ ?',
+      [
+        {
+          text: 'Да',
+          onPress: () => {
+            cancelBooking({
+              payload: null,
+              successCb: () => {
+                mapRef.animateToRegion(
+                  {
+                    latitude: currentLocation?.latitude,
+                    longitude: currentLocation?.longitude,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
+                  },
+                  150,
+                );
+              },
+            });
           },
-          {
-            text: 'Нет',
-          },
-        ],
+        },
+        {
+          text: 'Нет',
+          onPress: () => setIsUserCanceled(false),
+        },
+      ],
     );
   };
 
   return (
     <SelectCarScreenView
       mapRef={mapRef}
+      cancel={cancel}
       setMapRef={setMapRef}
       currentBooking={currentBooking}
       isSelectingOnMap={isSelectingOnMap}

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:152578879162:android:344ffa910bb8828947dc83",
+        "mobilesdk_app_id": "1:152578879162:android:a574eb1557c0a45747dc83",
         "android_client_info": {
-          "package_name": "com.snaptaxi"
+          "package_name": "uz.snaptaxi"
         }
       },
       "oauth_client": [
@@ -30,6 +30,13 @@
             {
               "client_id": "152578879162-ppabchnk74s1jurkcmm1jc5pqi6e9d45.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "152578879162-3e2ubjdfprmvel9b6ft7qs0fd8345bbs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uz.snap.app"
+              }
             }
           ]
         }

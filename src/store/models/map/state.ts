@@ -1,7 +1,7 @@
 import { InitialState } from './types';
 
 export const initialState: InitialState = {
-  regionId: 1,
+  regionId: '',
   regions: [],
   distance: 0,
   markerInfo: null,

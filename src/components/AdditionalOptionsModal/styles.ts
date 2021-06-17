@@ -1,12 +1,10 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Screen from '../../helpers/Dimensions';
-import Colors from '../../assets/styles/Colors';
 
 export default StyleSheet.create({
   icon: {
     alignSelf: 'center',
     marginBottom: 21.7,
-    // display: Screen.height > 700 ? 'flex' : 'none'
   },
   fz: {
     fontSize: Screen.width > 400 ? 14 : 13,

@@ -11,6 +11,7 @@ import styles from './styles';
 import BackButtonIcon from '../../assets/images/BackButtonIcon';
 import { Regular, SemiBold } from '@components/Layout/AppText';
 import { localization } from '../../services/Localization';
+import CancelIcon from '@assets/images/CancelIcon';
 
 interface IProps {
   visible: boolean;
@@ -55,9 +56,22 @@ const DestinationModalScreenView = ({
                 onChangeText={searchOrigin}
                 value={originLocationText}
                 onFocus={() => setIsFocused(false)}
-                placeholder={localization.whereAreWeGoing}
+                placeholder={'Введите место подачи'}
                 style={[styles.directionText, styles.input]}
               />
+              {!!originLocationText && (
+                <TouchableOpacity
+                  onPress={() => searchOrigin('')}
+                  style={{
+                    right: 50,
+                    width: 50,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <CancelIcon />
+                </TouchableOpacity>
+              )}
             </View>
             <View>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -65,13 +79,25 @@ const DestinationModalScreenView = ({
                   style={[styles.addressCircle, { backgroundColor: 'red' }]}
                 />
                 <TextInput
-                  autoFocus
                   value={destinationText}
                   onChangeText={searchDestination}
                   onFocus={() => setIsFocused(true)}
                   placeholder={localization.whereAreWeGoing}
                   style={[styles.directionText, styles.input]}
                 />
+                {!!destinationText && (
+                  <TouchableOpacity
+                    onPress={() => searchDestination('')}
+                    style={{
+                      right: 80,
+                      width: 50,
+                      height: 50,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <CancelIcon />
+                  </TouchableOpacity>
+                )}
                 <TouchableOpacity style={styles.map} onPress={selectOnMap}>
                   <Regular>Карта</Regular>
                 </TouchableOpacity>

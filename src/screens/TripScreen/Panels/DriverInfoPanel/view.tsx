@@ -46,6 +46,7 @@ const DriverInfoPanelView = ({
         <DriverInfo
           name={currentBooking?.driver?.name}
           phone={currentBooking?.driver?.phone}
+          photo={currentBooking?.driver?.avatar}
           car={currentBooking?.car}
         />
         <View style={[styles.shadow]} {...panResPonder.panHandlers}>
@@ -57,29 +58,27 @@ const DriverInfoPanelView = ({
                 <View style={styles.actionButtons}>
                   <TouchableOpacity
                     disabled={isPressed}
-                    style={{ alignItems: 'center' }}
+                    style={[
+                      styles.icon,
+                      isPressed && { backgroundColor: '#bdbdbd' },
+                    ]}
                     onPress={coming}>
-                    <View
-                      style={[
-                        styles.icon,
-                        isPressed && { backgroundColor: '#bdbdbd' },
-                      ]}>
+                    <View>
                       <ComingIcon />
                     </View>
-                    <SemiBold style={{ marginTop: 10 }}>Выхожу</SemiBold>
+                    <SemiBold style={{ marginLeft: 10 }}>Выхожу</SemiBold>
                   </TouchableOpacity>
                   <TouchableOpacity
                     disabled={isShow}
                     onPress={showMyLocation}
-                    style={{ alignItems: 'center' }}>
-                    <View
-                      style={[
-                        styles.icon,
-                        isShow && { backgroundColor: '#bdbdbd' },
-                      ]}>
+                    style={[
+                      styles.icon,
+                      isShow && { backgroundColor: '#bdbdbd' },
+                    ]}>
+                    <View>
                       <LocationIcon />
                     </View>
-                    <SemiBold style={{ marginTop: 10 }}>Где я</SemiBold>
+                    <SemiBold style={{ marginLeft: 10 }}>Где я</SemiBold>
                   </TouchableOpacity>
                 </View>
               )}

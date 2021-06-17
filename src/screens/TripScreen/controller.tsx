@@ -24,12 +24,17 @@ const TripScreenController = ({
       Alert.alert(
         'Внимание',
         'Ваш заказ сорван сожалеем.\nПопробуйте найти другую машину.',
+        [
+          {
+            text: 'OK',
+            onPress: () => removeBooking(),
+          },
+        ],
       );
       navigation.reset({
         index: 0,
         routes: [{ name: 'MainStack' }],
       });
-      removeBooking();
     }
   }, [currentBooking?.status]);
 

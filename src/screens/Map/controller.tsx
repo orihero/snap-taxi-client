@@ -8,6 +8,7 @@ export const MapController = ({
   mapRef,
   regions,
   setMapRef,
+  secondPage,
   setRegionId,
   setDistance,
   driversAround,
@@ -32,20 +33,23 @@ export const MapController = ({
           longitude: +driverLocation.lng,
         });
       }
-
+      const seconds = 5000;
       driverMarkerRef.current?.animateMarkerToCoordinate(
         {
           latitude: +driverLocation.lat,
           longitude: +driverLocation.lng,
         },
-        500,
+        seconds,
       );
-      mapRef?.animateToRegion({
-        latitude: +driverLocation.lat,
-        longitude: +driverLocation.lng,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      });
+      mapRef?.animateToRegion(
+        {
+          latitude: +driverLocation.lat,
+          longitude: +driverLocation.lng,
+          latitudeDelta: 0.0032,
+          longitudeDelta: 0.0032,
+        },
+        seconds,
+      );
     } else {
       setInitialDriverLocation(null);
     }
@@ -79,6 +83,8 @@ export const MapController = ({
             if (result) {
               setRegionId(regions[i].id);
               break;
+            } else {
+              setRegionId('');
             }
           }
         }
@@ -96,6 +102,7 @@ export const MapController = ({
       setIsMapReady={setIsMapReady}
       driversAround={driversAround}
       onRegionChange={onRegionChange}
+      driverLocation={driverLocation}
       driverMarkerRef={driverMarkerRef}
       initialDriverLocation={initialDriverLocation}
       isDriverAvailable={!!driverLocation}
@@ -108,8 +115,15 @@ export const MapController = ({
       initialRegion={{
         longitude: currentLocation?.longitude,
         latitude: currentLocation?.latitude,
-        latitudeDelta: 0.002,
-        longitudeDelta: 0.002,
+        ...(secondPage
+          ? {
+              latitudeDelta: 0.002,
+              longitudeDelta: 0.002,
+            }
+          : {
+              latitudeDelta: 0.0046,
+              longitudeDelta: 0.0046,
+            }),
       }}
     />
   );

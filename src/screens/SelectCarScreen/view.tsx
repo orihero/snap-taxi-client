@@ -13,6 +13,7 @@ import { SelectLocationPanel } from './Panels/SelectLocationPanel';
 
 interface IProps {
   mapRef: any;
+  cancel: any;
   setMapRef: (arg: any) => void;
   isSelectingOnMap: boolean;
   currentBooking: Booking | null;
@@ -20,6 +21,7 @@ interface IProps {
 
 const SelectCarScreenView = ({
   mapRef,
+  cancel,
   setMapRef,
   currentBooking,
   isSelectingOnMap,
@@ -27,9 +29,9 @@ const SelectCarScreenView = ({
   const renderPanel = () => {
     switch (currentBooking?.status) {
       case OrderStatus.NEW:
-        return <CancelBookingPanel mapRef={mapRef} />;
+        return <CancelBookingPanel cancel={cancel} />;
       default:
-        return <BookingPanel />;
+        return <BookingPanel mapRef={mapRef} />;
     }
   };
   return (
@@ -41,13 +43,18 @@ const SelectCarScreenView = ({
           subText={'Детали заказа'}
         />
         {useIsFocused() && (
-          <Map mapRef={mapRef} markerPosition setMapRef={setMapRef} />
+          <Map
+            secondPage={true}
+            mapRef={mapRef}
+            markerPosition
+            setMapRef={setMapRef}
+          />
         )}
       </View>
       <View>
         <View style={{ marginTop: 'auto' }}>
           <View style={{ marginRight: 10, top: 10 }}>
-            <GetCurrentLocationButton mapRef={mapRef} />
+            <GetCurrentLocationButton mapRef={mapRef} secondPage />
           </View>
           {isSelectingOnMap ? <SelectLocationPanel /> : renderPanel()}
         </View>

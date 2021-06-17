@@ -51,6 +51,7 @@ export const auth = createModel<RootModel>()({
         request.defaults.headers.common['Authorization'] = data.data.token;
         await dispatch.user.getProfile({ payload: null });
         await dispatch.app.setAuthenticated(true);
+        await dispatch.app.getHandBooks();
       } catch (e) {
         errorCb?.();
         throw new Error(e);

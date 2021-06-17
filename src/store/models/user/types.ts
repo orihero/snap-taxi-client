@@ -48,6 +48,7 @@ export type Address = {
   id: number;
   user_id: number;
   title: string;
+  address: string;
   lat: string;
   lng: string;
 };

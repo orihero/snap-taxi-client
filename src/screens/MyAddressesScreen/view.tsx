@@ -30,8 +30,8 @@ const MyAddressesScreenView = ({ savedAddresses, navigate }: IProps) => {
               onPress={navigate(ROUTES.ADD_ADDRESS, svAdd)}>
               <LocationIcon style={{ marginRight: 20 }} />
               <View>
-                <Light style={{ color: '#AAAEB7' }}>Дом</Light>
-                <Bold style={{ fontWeight: 'bold' }}>{svAdd.title}</Bold>
+                <Light style={{ color: '#AAAEB7' }}>{svAdd.title}</Light>
+                <Bold style={{ fontWeight: 'bold' }}>{svAdd.address}</Bold>
               </View>
               <ArrowIcon style={{ marginLeft: 'auto' }} />
             </TouchableOpacity>

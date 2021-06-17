@@ -78,7 +78,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+    enableHermes: false,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -130,11 +130,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.snaptaxi"
+        applicationId "uz.snaptaxi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 29
-        versionName "1.9.95"
+        versionCode 32
+        versionName "1.10.7"
         multiDexEnabled true
     }
     splits {
@@ -195,8 +195,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+    implementation "androidx.multidex:multidex:2.0.1"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

@@ -17,7 +17,7 @@ interface IProps {
   mapRef: MapView;
   setMapRef: (mapRef: MapView) => void;
   selectDest: (info: DestinationInfo) => void;
-  addressText: string;
+  addressText: any;
   latestBookings: Booking[];
   goToSelectCar: () => void;
   savedAddresses: Address[];
@@ -49,11 +49,6 @@ const MainScreenView = ({
       <View style={{ marginTop: 'auto' }}>
         <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
           <GetCurrentLocationButton mapRef={mapRef} />
-          <Button
-            title={localization.next}
-            onPress={goToSelectCar}
-            containerStyle={{ marginBottom: 10 }}
-          />
         </View>
         <ScrollView
           horizontal={true}
@@ -100,6 +95,13 @@ const MainScreenView = ({
             );
           })}
         </ScrollView>
+        <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
+          <Button
+            title={localization.next}
+            onPress={goToSelectCar}
+            containerStyle={{ marginBottom: 10 }}
+          />
+        </View>
       </View>
     </View>
   );

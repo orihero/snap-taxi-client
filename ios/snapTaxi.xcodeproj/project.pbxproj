@@ -25,6 +25,7 @@
 		96CEB4623AF144EC8E5D12D5 /* SFUIDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7D9B76733DF4C66B602C631 /* SFUIDisplay-Light.ttf */; };
 		983335DA579C808934C60EFB /* libPods-snapTaxi-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 857442C647AE3F96B141921D /* libPods-snapTaxi-tvOS.a */; };
 		9BAC61F24CE547528322898B /* SFUIDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18F8962C82AA4C4A9FF0F80C /* SFUIDisplay-Regular.ttf */; };
+		D2C9729526301E4B00F29527 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6EB929AE2587AB7B008A2809 /* GoogleService-Info.plist */; };
 		D5D172D62589BAA9EBBE1B84 /* libPods-snapTaxi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A772E71C715AC4A713DD96BE /* libPods-snapTaxi.a */; };
 		E9085AD0851227C9F49F8E36 /* libPods-snapTaxi-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D17BD03441487E8314F32AD /* libPods-snapTaxi-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -77,7 +78,7 @@
 		5CB99F5371FE23344171510E /* Pods-snapTaxi-snapTaxiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snapTaxi-snapTaxiTests.debug.xcconfig"; path = "Target Support Files/Pods-snapTaxi-snapTaxiTests/Pods-snapTaxi-snapTaxiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D17BD03441487E8314F32AD /* libPods-snapTaxi-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-snapTaxi-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EB9299D2587A6BD008A2809 /* snapTaxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = snapTaxi.entitlements; path = snapTaxi/snapTaxi.entitlements; sourceTree = "<group>"; };
-		6EB929AE2587AB7B008A2809 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6EB929AE2587AB7B008A2809 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6ED6D5E125A60C3A0014EB8C /* snapTaxi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "snapTaxi-Bridging-Header.h"; sourceTree = "<group>"; };
 		6ED6D5E225A60C3A0014EB8C /* snapTaxi-tvOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "snapTaxi-tvOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		6ED6D5E325A60C3A0014EB8C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		B21486626EFF462798323685 /* Pods-snapTaxi-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snapTaxi-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-snapTaxi-tvOS/Pods-snapTaxi-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B920A5E55185E521FCC1AAFC /* Pods-snapTaxi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snapTaxi.debug.xcconfig"; path = "Target Support Files/Pods-snapTaxi/Pods-snapTaxi.debug.xcconfig"; sourceTree = "<group>"; };
 		D169DCE72F32418FB3F9CD02 /* SFUIDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Bold.ttf"; path = "../src/assets/fonts/SFUIDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		D2C9728F26301CD300F29527 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D7D9B76733DF4C66B602C631 /* SFUIDisplay-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Light.ttf"; path = "../src/assets/fonts/SFUIDisplay-Light.ttf"; sourceTree = "<group>"; };
 		DC598E28F31D73145CF398BA /* Pods-snapTaxi-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snapTaxi-tvOS.release.xcconfig"; path = "Target Support Files/Pods-snapTaxi-tvOS/Pods-snapTaxi-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E2234F07D25DF2832ECAEBB7 /* Pods-snapTaxi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-snapTaxi.release.xcconfig"; path = "Target Support Files/Pods-snapTaxi/Pods-snapTaxi.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2C9728F26301CD300F29527 /* GoogleService-Info.plist */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				A772E71C715AC4A713DD96BE /* libPods-snapTaxi.a */,
@@ -424,6 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D2C9729526301E4B00F29527 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				759D0B43038E42B685FFDBFC /* SFUIDisplay-Bold.ttf in Resources */,
 				96CEB4623AF144EC8E5D12D5 /* SFUIDisplay-Light.ttf in Resources */,
@@ -804,7 +808,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = snapTaxi/snapTaxi.entitlements;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = HPB6QQ52WT;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -819,7 +823,7 @@
 				);
 				INFOPLIST_FILE = snapTaxi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -841,7 +845,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = snapTaxi/snapTaxi.entitlements;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = HPB6QQ52WT;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_PEDANTIC = YES;
@@ -851,7 +855,7 @@
 				);
 				INFOPLIST_FILE = snapTaxi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

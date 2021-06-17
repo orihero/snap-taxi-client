@@ -21,6 +21,6 @@ const mapDispatch = ({ booking: { cancelBooking } }: Dispatch) => ({
 type StateProps = ReturnType<typeof mapState>;
 type DisPatchProps = ReturnType<typeof mapDispatch>;
 
-export type Props = StateProps & DisPatchProps & { mapRef: MapView };
+export type Props = StateProps & DisPatchProps & { cancel: any };
 
 export default connect(mapState, mapDispatch)(CancelBookingController);
